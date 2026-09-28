@@ -743,6 +743,7 @@ dialog#menu .mtiles svg{width:22px;height:22px;color:var(--accent)}
 .adlogin{margin-inline:auto;justify-items:stretch;text-align:left}
 .adlogin .ic{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:var(--glow);color:var(--accent)}
 .adlogin .ic svg{width:22px;height:22px}
+.adlogin input[type=email],.adlogin input[type=password]{font:inherit;font-size:.95rem;border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--surface);color:var(--ink)}
 /* history */
 .hist{display:grid;gap:22px}
 .hist h3{font-size:1rem;display:flex;align-items:baseline;gap:10px;margin-bottom:10px}
@@ -1300,7 +1301,7 @@ dialog#menu .mtiles svg{width:22px;height:22px;color:var(--accent)}
       <div class="vhead">
         <p class="eyebrow">หลังบ้าน</p>
         <h2>สถิติการใช้งานเว็บ</h2>
-        <p class="muted" id="adSub">ดูได้เฉพาะเจ้าของเว็บ เข้าด้วยรหัสผ่านหลังบ้าน</p>
+        <p class="muted" id="adSub">ดูได้เฉพาะเจ้าของเว็บ เข้าด้วยบัญชีผู้ดูแล</p>
       </div>
       <div id="adOut" class="dash"></div>
     </section>
@@ -1649,7 +1650,7 @@ const RENDERED=new Set();
 function ensureRendered(id){if(RENDERED.has(id))return;RENDERED.add(id);const f={dex:()=>renderDex(),skills:()=>renderSkills(),sparkling:()=>renderSpark(),forms:()=>renderForms(),tier:()=>renderTiers(),team:()=>renderTeam(),collection:()=>renderCollection(),compare:()=>renderCompare(),bosses:()=>renderBosses(),regions:()=>renderRegions(),map:()=>renderMap(),events:()=>renderEvents(),items:()=>renderItems(),systems:()=>renderSystems(),planner:()=>renderPlanner(),history:()=>renderHistory(),admin:()=>renderAdmin()}[id];f&&f()}
 function go(id,push){
   if(!VIEWS.some(v=>v.id===id))id='home';
-  if(id!=='admin'){histAdd('views',id);track('/'+id)}if(id==='history'||id==='admin')RENDERED.delete(id);if(id==='home'&&typeof renderHomeRecent==='function')renderHomeRecent();
+  if(id!=='admin'){histAdd('views',id);track('view',id)}if(id==='history'||id==='admin')RENDERED.delete(id);if(id==='home'&&typeof renderHomeRecent==='function')renderHomeRecent();
   ensureRendered(id);
   current=id;
   document.querySelectorAll('.view').forEach(s=>s.hidden=s.dataset.view!==id);
@@ -1687,7 +1688,7 @@ function gsearch(){
   gres.innerHTML=mons.concat(sks).join('')||'<p class="small muted" style="padding:8px">ไม่พบผลลัพธ์</p>';gres.hidden=false;
 }
 gq.addEventListener('input',gsearch);gq.addEventListener('focus',gsearch);
-document.addEventListener('click',e=>{if(!e.target.closest('.gsearch'))gres.hidden=true;else if(e.target.closest('.gresults button')){if(gq.value.trim().length>1){histAdd('searches',gq.value.trim());track('/search/'+gq.value.trim().toLowerCase(),'ค้นหา: '+gq.value.trim().toLowerCase(),true)}gres.hidden=true;gq.value=''}});
+document.addEventListener('click',e=>{if(!e.target.closest('.gsearch'))gres.hidden=true;else if(e.target.closest('.gresults button')){if(gq.value.trim().length>1){histAdd('searches',gq.value.trim());track('search',gq.value.trim().toLowerCase())}gres.hidden=true;gq.value=''}});
 gq.addEventListener('keydown',e=>{if(e.key==='Escape'){gq.value='';gres.hidden=true}if(e.key==='Enter'){const f=gres.querySelector('button');f&&f.click()}});
 
 /* ===== dex ===== */
@@ -1721,7 +1722,7 @@ function skillCard(s){
 }
 function openMon(slug,formIdx,tab,spark){
   const a=BY[slug];if(!a)return;
-  if(dState.slug!==slug||!dlg.open){histAdd('mons',slug);track('/aniimo/'+slug)}
+  if(dState.slug!==slug||!dlg.open){histAdd('mons',slug);track('mon',slug)}
   dState={slug,form:formIdx==null||formIdx===''?null:+formIdx,tab:tab||(dState.slug===slug?dState.tab:'overview'),spark:spark||null};
   renderDetail();if(!dlg.open)dlg.showModal();
 }
@@ -2361,7 +2362,7 @@ function renderItems(focus){
 [iq,ic,iqq,document.getElementById('iall')].forEach(el=>el.addEventListener(el.type==='search'?'input':'change',()=>renderItems()));
 document.addEventListener('click',e=>{
   const b=e.target.closest('[data-item]');if(!b)return;
-  e.preventDefault();const name=b.dataset.item;if(dlg.open)dlg.close();histAdd('items',name);
+  e.preventDefault();const name=b.dataset.item;if(dlg.open)dlg.close();histAdd('items',name);track('item',name);
   go('items');iq.value='';ic.value='';iqq.value='';renderItems(ITEM_BY_NAME[name.toLowerCase()]?ITEM_BY_NAME[name.toLowerCase()].n:null);
 });
 
@@ -2556,147 +2557,140 @@ document.addEventListener('click',e=>{
   if(e.target.closest('#histClearYes')){HIST=null;try{localStorage.removeItem('aniimo-history')}catch(_){}renderHistory();renderHomeRecent();return}
 });
 
-/* Anonymous visit counting for the site owner (GoatCounter: no cookies, no personal data).
-   Off until GC_CODE is set; only runs on the public GitHub Pages site. */
-const GC_CODE='';
-const STATS_ON=!!GC_CODE&&/\.github\.io$/.test(location.hostname);
-if(STATS_ON){window.goatcounter={no_onload:true,allow_local:false};const sc=document.createElement('script');sc.async=true;sc.src='//gc.zgo.at/count.js';sc.dataset.goatcounter=`https://${GC_CODE}.goatcounter.com/count`;document.head.appendChild(sc)}
-let trackQ=[];
-function track(path,title,event){
-  if(!STATS_ON)return;const send=()=>window.goatcounter.count({path:event?path.replace(/^\//,''):path,title:title||document.title,event:!!event});
-  if(window.goatcounter&&window.goatcounter.count)send();else{trackQ.push(send);if(trackQ.length===1){const iv=setInterval(()=>{if(window.goatcounter&&window.goatcounter.count){clearInterval(iv);trackQ.splice(0).forEach(f=>f())}},500);setTimeout(()=>clearInterval(iv),15000)}}
+/* ===== anonymous usage records → the owner's Supabase database =====
+   Sends only: what was opened (page / Aniimo / item / search word), a random visitor id kept in
+   this browser, device type, browser language and time zone. No names, no cookies, no IP stored.
+   Runs only on the public site so local testing is not counted. */
+const SB={url:'',key:''}; // filled in after the owner creates the Supabase project (anon key is public by design)
+const SB_ON=!!SB.url&&/\.github\.io$/.test(location.hostname);
+let VISITOR='';try{VISITOR=localStorage.getItem('aniimo-visitor')||'';if(!VISITOR){VISITOR=(crypto.randomUUID?crypto.randomUUID():String(Math.random()).slice(2)).slice(0,36);localStorage.setItem('aniimo-visitor',VISITOR)}}catch(_){}
+const DEVICE=/iPad|Tablet/i.test(navigator.userAgent)||(navigator.maxTouchPoints>1&&innerWidth>=768&&innerWidth<1100)?'tablet':/Mobi|Android|iPhone/i.test(navigator.userAgent)?'phone':'desktop';
+let TZ='';try{TZ=Intl.DateTimeFormat().resolvedOptions().timeZone||''}catch(_){}
+function track(kind,key){
+  if(!SB_ON||!key)return;
+  try{fetch(SB.url+'/rest/v1/events',{method:'POST',keepalive:true,headers:{apikey:SB.key,Authorization:'Bearer '+SB.key,'Content-Type':'application/json',Prefer:'return=minimal'},
+    body:JSON.stringify({kind,key:String(key).slice(0,80),visitor:VISITOR||null,device:DEVICE,lang:(navigator.language||'').slice(0,12),tz:TZ.slice(0,40)})}).catch(()=>{})}catch(_){}
 }
+
 renderHomeRecent();
 
 /* ===== back office: site stats (owner only) =====
-   Reads the GoatCounter API with the owner's read-only token, kept in this browser only.
-   Nothing about the stats ships with the public site, so visitors cannot see them. */
-const AD={token:'',demo:false,range:7,busy:false,seal:undefined};
-try{AD.token=sessionStorage.getItem('aniimo-admin-token')||localStorage.getItem('aniimo-admin-token')||''}catch(_){}
-function adForget(){AD.token='';try{sessionStorage.removeItem('aniimo-admin-token');localStorage.removeItem('aniimo-admin-token')}catch(_){}}
-/* admin.json holds the GoatCounter token encrypted with the owner's password (PBKDF2-SHA256 → AES-GCM) */
-async function adSeal(){if(AD.seal!==undefined)return AD.seal;try{const r=await fetch('admin.json',{cache:'no-store'});AD.seal=r.ok?await r.json():null}catch(_){AD.seal=null}return AD.seal}
-const b64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
-async function adUnlock(pw){
-  const sl=await adSeal();if(!sl)throw new Error('noseal');
-  const base=await crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveKey']);
-  const key=await crypto.subtle.deriveKey({name:'PBKDF2',salt:b64(sl.salt),iterations:sl.iter,hash:'SHA-256'},base,{name:'AES-GCM',length:256},false,['decrypt']);
-  try{return new TextDecoder().decode(await crypto.subtle.decrypt({name:'AES-GCM',iv:b64(sl.iv)},key,b64(sl.ct)))}catch(_){throw new Error('badpw')}
-}
-const API=GC_CODE?`https://${GC_CODE}.goatcounter.com/api/v0/`:'';
+   The owner logs in with the Supabase account e-mail/password; the database only answers
+   stats_summary() for that account. Visitors never see any numbers. */
+const AD={s:null,demo:false,range:7,busy:false};
+try{AD.s=JSON.parse(sessionStorage.getItem('aniimo-admin')||localStorage.getItem('aniimo-admin')||'null')}catch(_){}
 const fmtN=n=>Number(n||0).toLocaleString('th-TH');
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
-async function gcApi(path,params){
-  const q=new URLSearchParams(params||{});
-  for(let attempt=0;attempt<3;attempt++){
-    const r=await fetch(API+path+(q.toString()?'?'+q:''),{headers:{Authorization:'Bearer '+AD.token,'Content-Type':'application/json'}});
-    if(r.status===429){await sleep(1200);continue}
-    if(r.status===401||r.status===403)throw new Error('auth');
-    if(!r.ok)throw new Error('http '+r.status);
-    return r.json();
-  }
-  throw new Error('busy');
+function adSave(s,remember){AD.s=s;try{sessionStorage.removeItem('aniimo-admin');localStorage.removeItem('aniimo-admin');if(s)(remember||s.remember?localStorage:sessionStorage).setItem('aniimo-admin',JSON.stringify(s))}catch(_){}}
+async function sbAuth(body,grant){
+  const r=await fetch(SB.url+'/auth/v1/token?grant_type='+grant,{method:'POST',headers:{apikey:SB.key,'Content-Type':'application/json'},body:JSON.stringify(body)});
+  const j=await r.json().catch(()=>({}));if(!r.ok)throw new Error(r.status===400?'badlogin':'net');
+  return {access:j.access_token,refresh:j.refresh_token,exp:Date.now()+(j.expires_in||3600)*1000-60000,email:(j.user||{}).email||''};
 }
-const hourIso=d=>{const x=new Date(d);x.setUTCMinutes(0,0,0);return x.toISOString().replace('.000Z','Z')};
-const SIZE_TH={Phone:'มือถือ',Phones:'มือถือ',Tablet:'แท็บเล็ต',Tablets:'แท็บเล็ต',Desktop:'คอมพิวเตอร์','Desktop HD':'คอมจอใหญ่',Larger:'คอมจอใหญ่','(unknown)':'ไม่ทราบ'};
+async function sbSession(){
+  if(!AD.s)throw new Error('nologin');
+  if(Date.now()>AD.s.exp){try{const n=await sbAuth({refresh_token:AD.s.refresh},'refresh_token');adSave({...n,remember:AD.s.remember})}catch(_){adSave(null);throw new Error('nologin')}}
+  return AD.s.access;
+}
+async function sbStats(days){
+  const tok=await sbSession();
+  const r=await fetch(SB.url+'/rest/v1/rpc/stats_summary',{method:'POST',headers:{apikey:SB.key,Authorization:'Bearer '+tok,'Content-Type':'application/json'},body:JSON.stringify({days})});
+  if(r.status===401){adSave(null);throw new Error('nologin')}
+  const j=await r.json().catch(()=>null);
+  if(!r.ok){if(j&&j.code==='42501')throw new Error('notowner');throw new Error('net')}
+  return j;
+}
+const DEV_TH={phone:'มือถือ',tablet:'แท็บเล็ต',desktop:'คอมพิวเตอร์',unknown:'ไม่ทราบ'};
+const LANG_TH={th:'ไทย',en:'อังกฤษ',ja:'ญี่ปุ่น',zh:'จีน',ko:'เกาหลี',lo:'ลาว',vi:'เวียดนาม',ms:'มาเลย์',id:'อินโดนีเซีย'};
 
-/* sample data in the same shape as the API, for previewing the layout */
+/* sample data in the same shape as stats_summary(), for previewing the layout */
 const seed=str=>{let h=2166136261;for(const c of str)h=Math.imul(h^c.charCodeAt(0),16777619);return ((h>>>0)%1000)/1000};
 function demoData(days){
-  const now=Date.now(),daily=[...Array(days)].map((_,i)=>{const d=new Date(now-(days-1-i)*86400000),wk=[1.25,.9,.85,.88,.95,1.15,1.35][d.getUTCDay()];return {day:d.toISOString().slice(0,10),daily:Math.round((330+i*(160/days))*wk*(.85+seed(d.toISOString().slice(0,10))*.3))}});
-  const total=daily.reduce((n,d)=>n+d.daily,0);
-  const VW={dex:1,map:.82,team:.55,events:.5,beginner:.46,items:.4,skills:.36,bosses:.3,tier:.28,codes:.26,collection:.22,regions:.2,growth:.18,planner:.15,sparkling:.14,forms:.12,compare:.1,systems:.09,elements:.08,guide:.06,history:.04};
-  const hits=Object.entries(VW).map(([k,w])=>({path:'/'+k,count:Math.round(total*.6*w*(.85+seed(k)*.3)),event:false}))
-   .concat(RELEASED.map(a=>({path:'/aniimo/'+a.slug,count:Math.round(total*.35*({S:1,A:.55,B:.3,C:.16,D:.1}[TIER[a.slug]]||.08)*(.4+seed(a.slug)*.9)/6),event:false})))
-   .concat(['stellarys','helion','night stone','lunara','sparkling cube','fulmintis','egg heist','capafruit','turbo','map'].map((q,i)=>({path:'search/'+q,title:'ค้นหา: '+q,count:Math.round(total*.05/(i+1.4)),event:true})));
-  const pick=(names,shares)=>names.map((n,i)=>({name:n,count:Math.round(total*shares[i])}));
-  return {daily,total,events:Math.round(total*.2),hits,
-    locations:pick(['Thailand','Laos','Malaysia','Singapore','United States','Japan'],[.82,.05,.04,.03,.03,.02]),
-    sizes:pick(['Phones','Desktop','Tablets','Desktop HD'],[.64,.22,.09,.05]),
-    browsers:pick(['Chrome','Safari','Samsung Internet','Edge','Firefox'],[.52,.3,.08,.06,.03]),
-    systems:pick(['Android','iOS','Windows','macOS'],[.46,.3,.18,.05])};
-}
-async function loadAdmin(days){
-  if(AD.demo)return demoData(days);
-  const end=hourIso(Date.now()+3600000),start=hourIso(Date.now()-days*86400000);
-  const tot=await gcApi('stats/total',{start,end});await sleep(300);
-  const hits=await gcApi('stats/hits',{start,end,limit:200});await sleep(300);
-  const side={};for(const k of ['locations','sizes','browsers','systems']){try{side[k]=(await gcApi('stats/'+k,{start,end,limit:6})).stats||[]}catch(e){if(e.message==='auth')throw e;side[k]=[]}await sleep(300)}
-  const byDay={};(tot.stats||[]).forEach(s=>{byDay[s.day]=(byDay[s.day]||0)+(s.daily||0)});
-  const daily=[...Array(days)].map((_,i)=>{const d=new Date(Date.now()-(days-1-i)*86400000).toISOString().slice(0,10);return {day:d,daily:byDay[d]||0}});
-  return {daily,total:tot.total||0,events:tot.total_events||0,hits:hits.hits||[],...side};
+  const now=Date.now(),daily=[...Array(days)].map((_,i)=>{const d=new Date(now-(days-1-i)*86400000),wk=[1.25,.9,.85,.88,.95,1.15,1.35][d.getUTCDay()],n=Math.round((330+i*(160/days))*wk*(.85+seed(d.toISOString().slice(0,10))*.3));return {day:d.toISOString().slice(0,10),n,u:Math.round(n*.4)}});
+  const views=daily.reduce((n,d)=>n+d.n,0);
+  const VW={dex:1,map:.82,team:.55,events:.5,beginner:.46,items:.4,skills:.36,bosses:.3,tier:.28,codes:.26,collection:.22,regions:.2};
+  const top=(o,f)=>Object.entries(o).map(([k,w])=>({key:k,n:Math.round(f*w*(.85+seed(k)*.3))})).sort((a,b)=>b.n-a.n);
+  const mons={};RELEASED.forEach(a=>{mons[a.slug]=({S:1,A:.55,B:.3,C:.16,D:.1}[TIER[a.slug]]||.08)*(.4+seed(a.slug)*.9)});
+  return {views,visitors:Math.round(views*.36),today:daily[days-1].n,today_visitors:daily[days-1].u,searches:Math.round(views*.2),mon_views:Math.round(views*.55),daily,
+    top_views:top(VW,views*.6),top_mons:top(mons,views*.12).slice(0,10),
+    top_items:top({'Night Stone':1,'Sparkling Cube':.8,'Capafruit':.7,'Aniipod Ultra':.6,'Star Dust':.45,'Prismatic Stone':.4},views*.03),
+    top_searches:top({stellarys:1,helion:.8,'night stone':.6,lunara:.55,fulmintis:.4,'egg heist':.35,turbo:.3},views*.04),
+    devices:[{key:'phone',n:Math.round(views*.24)},{key:'desktop',n:Math.round(views*.09)},{key:'tablet',n:Math.round(views*.03)}],
+    langs:[{key:'th-TH',n:Math.round(views*.31)},{key:'en-US',n:Math.round(views*.04)},{key:'lo-LA',n:Math.round(views*.01)}],
+    zones:[{key:'Asia/Bangkok',n:Math.round(views*.3)},{key:'Asia/Vientiane',n:Math.round(views*.02)},{key:'Asia/Singapore',n:Math.round(views*.015)}]};
 }
 function trendSvg(days){
-  const W=640,H=210,L=40,B=28,T=20,mx=Math.max(1,...days.map(d=>d.daily)),step=Math.pow(10,Math.floor(Math.log10(mx)));const top=Math.ceil(mx/step)*step||1;
+  const W=640,H=210,L=40,B=28,T=20,mx=Math.max(1,...days.map(d=>d.n)),step=Math.pow(10,Math.floor(Math.log10(mx)));const top=Math.ceil(mx/step)*step||1;
   const bw=(W-L-8)/days.length,y=v=>T+(H-T-B)*(1-v/top),every=days.length>16?Math.ceil(days.length/10):1,showVal=days.length<=14;
-  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="ผู้เข้าชมรายวัน">${[0,top/2,top].map(t=>`<line class="gl" x1="${L}" x2="${W-4}" y1="${y(t)}" y2="${y(t)}"/><text class="ax" x="${L-6}" y="${y(t)+4}" text-anchor="end">${fmtN(Math.round(t))}</text>`).join('')}
-   ${days.map((d,i)=>{const x=L+i*bw+bw*.16,w=bw*.68,h=Math.max(d.daily?2:0,(H-T-B)*d.daily/top),dt=new Date(d.day+'T00:00:00Z');
-     return `<rect class="bar${i===days.length-1?' today':''}" x="${x}" y="${y(d.daily)}" width="${w}" height="${h}" rx="3"><title>${dt.toLocaleDateString('th-TH',{weekday:'short',day:'numeric',month:'short'})}: ${fmtN(d.daily)}</title></rect>${showVal&&d.daily?`<text class="val" x="${x+w/2}" y="${y(d.daily)-4}" text-anchor="middle">${fmtN(d.daily)}</text>`:''}${(days.length-1-i)%every===0?`<text class="ax" x="${x+w/2}" y="${H-10}" text-anchor="middle">${dt.getUTCDate()}</text>`:''}`}).join('')}</svg>`;
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="การเข้าชมรายวัน">${[0,top/2,top].map(t=>`<line class="gl" x1="${L}" x2="${W-4}" y1="${y(t)}" y2="${y(t)}"/><text class="ax" x="${L-6}" y="${y(t)+4}" text-anchor="end">${fmtN(Math.round(t))}</text>`).join('')}
+   ${days.map((d,i)=>{const x=L+i*bw+bw*.16,w=bw*.68,h=Math.max(d.n?2:0,(H-T-B)*d.n/top),dt=new Date(d.day+'T00:00:00Z');
+     return `<rect class="bar${i===days.length-1?' today':''}" x="${x}" y="${y(d.n)}" width="${w}" height="${h}" rx="3"><title>${dt.toLocaleDateString('th-TH',{weekday:'short',day:'numeric',month:'short'})}: ${fmtN(d.n)} ครั้ง · ${fmtN(d.u)} คน</title></rect>${showVal&&d.n?`<text class="val" x="${x+w/2}" y="${y(d.n)-4}" text-anchor="middle">${fmtN(d.n)}</text>`:''}${(days.length-1-i)%every===0?`<text class="ax" x="${x+w/2}" y="${H-10}" text-anchor="middle">${dt.getUTCDate()}</text>`:''}`}).join('')}</svg>`;
 }
-function rankList(rows,render){const mx=Math.max(1,...rows.map(r=>r.count));return rows.map(r=>render(r,Math.round(r.count/mx*100))).join('')||'<p class="dnote">ยังไม่มีข้อมูลในช่วงนี้</p>'}
+function fillDays(list,days){const m={};(list||[]).forEach(d=>m[d.day]=d);const tz=7*3600000;return [...Array(days)].map((_,i)=>{const day=new Date(Date.now()+tz-(days-1-i)*86400000).toISOString().slice(0,10);return m[day]||{day,n:0,u:0}})}
+function rankList(rows,render){const mx=Math.max(1,...rows.map(r=>r.n));return rows.map(r=>render(r,Math.round(r.n/mx*100))).join('')||'<p class="dnote">ยังไม่มีข้อมูลในช่วงนี้</p>'}
 const bar=(pct,n)=>`<span class="t"><i style="width:${pct}%"></i></span><b>${fmtN(n)}</b>`;
-async function adminLogin(msg){
-  const out=document.getElementById('adOut'),sl=await adSeal();
-  if(!sl){out.innerHTML=`<div class="dpanel" style="max-width:560px"><h3>ยังไม่ได้ตั้งค่าหลังบ้าน</h3><p class="muted">เจ้าของเว็บต้องตั้งรหัสผ่านหลังบ้านครั้งแรกก่อน (รันสคริปต์ <code>tools/admin/setup.sh</code> ในเครื่องที่มีโค้ดเว็บ)</p><div><button type="button" class="btn" id="adDemo">ดูตัวอย่างด้วยข้อมูลสมมติ</button></div></div>`;return}
+const plainRow=(label,pct,n)=>`<div class="rrow" style="grid-template-columns:minmax(0,1fr) 110px 52px;cursor:default"><span class="nm">${esc(label)}</span>${bar(pct,n)}</div>`;
+function adminLogin(msg){
+  const out=document.getElementById('adOut');
+  if(!SB.url){out.innerHTML=`<div class="dpanel adlogin" style="max-width:460px"><span class="ic"><svg><use href="#i-lock"/></svg></span><h3>หลังบ้านยังไม่ได้เชื่อมฐานข้อมูล</h3><p class="muted">เจ้าของเว็บต้องสร้างฐานข้อมูล Supabase และใส่ค่าการเชื่อมต่อก่อน ระหว่างนี้ดูหน้าตาด้วยข้อมูลสมมติได้</p><button type="button" class="btn" id="adDemo">ดูตัวอย่างด้วยข้อมูลสมมติ</button></div>`;return}
   out.innerHTML=`<form class="dpanel adlogin" id="adForm" style="max-width:420px">
    <span class="ic"><svg><use href="#i-lock"/></svg></span><h3>เข้าสู่หลังบ้าน</h3>
    ${msg?`<p class="warnbox" style="margin:0">${msg}</p>`:''}
-   <label for="adPw">รหัสผ่าน<input type="password" id="adPw" autocomplete="current-password" required style="font:inherit;font-size:.95rem;border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--surface);color:var(--ink)"></label>
+   <label for="adEmail">อีเมล<input type="email" id="adEmail" autocomplete="username" required></label>
+   <label for="adPw">รหัสผ่าน<input type="password" id="adPw" autocomplete="current-password" required></label>
    <label for="adRemember" style="display:flex;flex-direction:row;gap:8px;align-items:center;color:var(--ink)"><input type="checkbox" id="adRemember"> จำการเข้าสู่ระบบในเครื่องนี้</label>
    <button type="submit" class="btn primary" id="adGo">เข้าสู่หลังบ้าน</button>
    <button type="button" class="btn" id="adDemo">ดูตัวอย่างด้วยข้อมูลสมมติ</button>
    <p class="dnote">ใช้เครื่องสาธารณะ ไม่ต้องติ๊กจำ และกดออกจากระบบทุกครั้ง</p></form>`;
-  setTimeout(()=>{const i=document.getElementById('adPw');i&&i.focus()},50);
+  setTimeout(()=>{const i=document.getElementById('adEmail');i&&i.focus()},50);
 }
 async function renderAdmin(){
   const out=document.getElementById('adOut');
-  if(!API){out.innerHTML='<div class="dpanel"><p class="muted">ยังไม่ได้ตั้งค่าการนับสถิติ</p></div>';return}
-  if(!AD.token&&!AD.demo){await adminLogin();return}
+  if(!AD.demo&&(!SB.url||!AD.s)){adminLogin();return}
   if(AD.busy)return;AD.busy=true;
   const sk='<div class="skel" style="width:60%"></div>';
   out.innerHTML=`<div class="kpis">${[1,2,3,4].map(()=>`<div class="kpi">${sk}${sk}</div>`).join('')}</div><div class="dpanel">${sk}</div>`;
   try{
-    const d=await loadAdmin(AD.range);
-    const today=d.daily[d.daily.length-1].daily,avg=Math.round(d.total/AD.range);
-    const views=d.hits.filter(h=>!h.event&&VIEWS.some(v=>'/'+v.id===h.path)&&h.path!=='/admin').map(h=>({k:h.path.slice(1),count:h.count})).sort((a,b)=>b.count-a.count).slice(0,10);
-    const mons=d.hits.filter(h=>!h.event&&/^\/aniimo\//.test(h.path)&&BY[h.path.slice(8)]).map(h=>({k:h.path.slice(8),count:h.count})).sort((a,b)=>b.count-a.count).slice(0,10);
-    const searches=d.hits.filter(h=>h.event&&/^\/?search\//.test(h.path)).map(h=>({q:h.path.replace(/^\/?search\//,''),count:h.count})).sort((a,b)=>b.count-a.count).slice(0,10);
-    const side=(title,list,map)=>`<div class="dpanel"><h3>${title}</h3><div class="rank">${rankList(list.map(x=>({name:map?map[x.name]||x.name:x.name,count:x.count})),(r,pct)=>`<div class="rrow" style="grid-template-columns:minmax(0,1fr) 110px 52px;cursor:default"><span class="nm">${esc(r.name||'ไม่ทราบ')}</span>${bar(pct,r.count)}</div>`)}</div></div>`;
+    const d=AD.demo?demoData(AD.range):await sbStats(AD.range);
+    const days=AD.demo?d.daily:fillDays(d.daily,AD.range);
     const rl={7:'7 วันล่าสุด',30:'30 วันล่าสุด',90:'90 วันล่าสุด'}[AD.range];
+    const views=(d.top_views||[]).filter(r=>VIEWS.some(v=>v.id===r.key)&&r.key!=='admin').slice(0,10);
+    const mons=(d.top_mons||[]).filter(r=>BY[r.key]);
     out.innerHTML=(AD.demo?'<div class="warnbox" style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between"><span><b>ข้อมูลตัวอย่าง</b> ตัวเลขในหน้านี้สร้างขึ้นเพื่อดูหน้าตา ไม่ใช่สถิติจริง</span><button type="button" class="btn" id="adExitDemo">ออกจากตัวอย่าง</button></div>':'')
      +`<div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between"><div class="seg" id="adRange" role="group" aria-label="ช่วงเวลา">${[7,30,90].map(n=>`<button type="button" data-r="${n}" aria-pressed="${AD.range===n}">${n} วัน</button>`).join('')}</div>
-       <div style="display:flex;gap:8px"><button type="button" class="btn" id="adRefresh">รีเฟรช</button>${AD.demo?'':`<a class="btn" href="https://${GC_CODE}.goatcounter.com" target="_blank" rel="noopener" style="text-decoration:none;color:inherit">เปิด GoatCounter ↗</a><button type="button" class="btn" id="adLogout">ออกจากระบบ</button>`}</div></div>
+       <div style="display:flex;gap:8px;align-items:center">${AD.demo?'':`<span class="dnote">${esc(AD.s.email||'')}</span>`}<button type="button" class="btn" id="adRefresh">รีเฟรช</button>${AD.demo?'':'<button type="button" class="btn" id="adLogout">ออกจากระบบ</button>'}</div></div>
      <div class="kpis">
-      <div class="kpi"><small>ผู้เข้าชม ${rl}</small><b>${fmtN(d.total)}</b><span>เฉลี่ยวันละ ${fmtN(avg)}</span></div>
-      <div class="kpi"><small>วันนี้</small><b>${fmtN(today)}</b><span>นับตามเวลา UTC</span></div>
-      <div class="kpi"><small>Aniimo ที่ถูกเปิดดู</small><b>${fmtN(mons.reduce((n,m)=>n+m.count,0))}</b><span>${mons.length?'อันดับ 1: '+esc(BY[mons[0].k].name):'—'}</span></div>
-      <div class="kpi"><small>การค้นหา</small><b>${fmtN(d.events)}</b><span>${searches.length?'คำยอดฮิต: '+esc(searches[0].q):'—'}</span></div></div>
-     <div class="dpanel trend"><h3>ผู้เข้าชมรายวัน<small>${rl} · แท่งสีอ่อนคือวันนี้</small></h3>${trendSvg(d.daily)}</div>
+      <div class="kpi"><small>ผู้ใช้ ${rl}</small><b>${fmtN(d.visitors)}</b><span>เปิดหน้าเว็บ ${fmtN(d.views)} ครั้ง</span></div>
+      <div class="kpi"><small>วันนี้ (เวลาไทย)</small><b>${fmtN(d.today_visitors)}</b><span>คน · ${fmtN(d.today)} ครั้ง</span></div>
+      <div class="kpi"><small>เปิดดู Aniimo</small><b>${fmtN(d.mon_views)}</b><span>${mons.length?'อันดับ 1: '+esc(BY[mons[0].key].name):'—'}</span></div>
+      <div class="kpi"><small>การค้นหา</small><b>${fmtN(d.searches)}</b><span>${(d.top_searches||[]).length?'คำยอดฮิต: '+esc(d.top_searches[0].key):'—'}</span></div></div>
+     <div class="dpanel trend"><h3>การเข้าชมรายวัน<small>${rl} · แท่งสีอ่อนคือวันนี้ · ชี้ที่แท่งเพื่อดูจำนวนคน</small></h3>${trendSvg(days)}</div>
      <div class="dgrid">
-      <div class="dpanel"><h3>หน้าที่เปิดมากที่สุด</h3><div class="rank">${rankList(views,(r,pct)=>{const v=VIEWS.find(x=>x.id===r.k);return `<button type="button" class="rrow" data-go="${r.k}"><span class="ico"><svg><use href="#i-${v.ic}"/></svg></span><span class="nm">${esc(v.th)}</span>${bar(pct,r.count)}</button>`})}</div></div>
-      <div class="dpanel"><h3>Aniimo ยอดฮิต</h3><div class="rank">${rankList(mons,(r,pct)=>`<button type="button" class="rrow" data-open="${r.k}"><img src="${TH(BY[r.k].i)}" alt=""><span class="nm">${esc(BY[r.k].name)}</span>${bar(pct,r.count)}</button>`)}</div></div>
-      <div class="dpanel"><h3>คำที่คนค้นหา</h3><div class="rank">${rankList(searches,(r,pct)=>`<div class="rrow" style="grid-template-columns:minmax(0,1fr) 110px 52px;cursor:default"><span class="nm">"${esc(r.q)}"</span>${bar(pct,r.count)}</div>`)}</div></div>
-      ${side('ประเทศ',d.locations||[])}
-      ${side('อุปกรณ์',d.sizes||[],SIZE_TH)}
-      ${side('เบราว์เซอร์',d.browsers||[])}
+      <div class="dpanel"><h3>หน้าที่เปิดมากที่สุด</h3><div class="rank">${rankList(views,(r,pct)=>{const v=VIEWS.find(x=>x.id===r.key);return `<button type="button" class="rrow" data-go="${r.key}"><span class="ico"><svg><use href="#i-${v.ic}"/></svg></span><span class="nm">${esc(v.th)}</span>${bar(pct,r.n)}</button>`})}</div></div>
+      <div class="dpanel"><h3>Aniimo ยอดฮิต</h3><div class="rank">${rankList(mons,(r,pct)=>`<button type="button" class="rrow" data-open="${r.key}"><img src="${TH(BY[r.key].i)}" alt=""><span class="nm">${esc(BY[r.key].name)}</span>${bar(pct,r.n)}</button>`)}</div></div>
+      <div class="dpanel"><h3>คำที่คนค้นหา</h3><div class="rank">${rankList(d.top_searches||[],(r,pct)=>plainRow('"'+r.key+'"',pct,r.n))}</div></div>
+      <div class="dpanel"><h3>ไอเท็มที่คนเปิดดู</h3><div class="rank">${rankList(d.top_items||[],(r,pct)=>plainRow(r.key,pct,r.n))}</div></div>
+      <div class="dpanel"><h3>อุปกรณ์<small>จำนวนคน</small></h3><div class="rank">${rankList(d.devices||[],(r,pct)=>plainRow(DEV_TH[r.key]||r.key,pct,r.n))}</div></div>
+      <div class="dpanel"><h3>ภาษาและเขตเวลา<small>จำนวนคน</small></h3><div class="rank">${rankList(d.langs||[],(r,pct)=>plainRow('ภาษา'+(LANG_TH[String(r.key).slice(0,2)]||' '+r.key),pct,r.n))}${rankList(d.zones||[],(r,pct)=>plainRow(String(r.key).replace('_',' '),pct,r.n))}</div></div>
      </div>
-     <p class="dnote">ข้อมูลจาก GoatCounter ไม่ใช้คุกกี้และไม่เก็บข้อมูลส่วนตัว · คำค้นหารายคำเริ่มนับตั้งแต่ 28 ก.ย. 2026</p>`;
+     <p class="dnote">เก็บในฐานข้อมูล Supabase ของเจ้าของเว็บ · ไม่เก็บชื่อ อีเมล IP หรือคุกกี้ของผู้ใช้</p>`;
   }catch(e){
-    if(e.message==='auth'){adForget();adminLogin('ข้อมูลเข้าระบบหมดอายุหรือถูกยกเลิก เจ้าของเว็บต้องตั้งค่าหลังบ้านใหม่')}
-    else out.innerHTML=`<div class="dpanel"><h3>โหลดสถิติไม่สำเร็จ</h3><p class="muted">เชื่อมต่อ GoatCounter ไม่ได้ ตรวจอินเทอร์เน็ตแล้วกดลองใหม่</p><div><button type="button" class="btn" id="adRefresh">ลองใหม่</button></div></div>`;
+    if(e.message==='nologin')adminLogin('เซสชันหมดอายุ เข้าสู่ระบบอีกครั้ง');
+    else if(e.message==='notowner'){adSave(null);adminLogin('บัญชีนี้ไม่มีสิทธิ์ดูหลังบ้าน')}
+    else out.innerHTML=`<div class="dpanel"><h3>โหลดสถิติไม่สำเร็จ</h3><p class="muted">เชื่อมต่อฐานข้อมูลไม่ได้ ตรวจอินเทอร์เน็ตแล้วกดลองใหม่</p><div><button type="button" class="btn" id="adRefresh">ลองใหม่</button></div></div>`;
   }finally{AD.busy=false}
 }
 let adTries=0;
 document.addEventListener('submit',async e=>{if(e.target.id!=='adForm')return;e.preventDefault();
-  const pw=document.getElementById('adPw').value,btn=document.getElementById('adGo');if(!pw)return;btn.disabled=true;btn.textContent='กำลังตรวจสอบ…';
-  if(adTries>=3)await sleep(Math.min(8000,1000*2**(adTries-3)));
-  try{const t=await adUnlock(pw);adTries=0;AD.token=t;AD.demo=false;try{(document.getElementById('adRemember').checked?localStorage:sessionStorage).setItem('aniimo-admin-token',t)}catch(_){}renderAdmin()}
-  catch(err){adTries++;adminLogin(err.message==='badpw'?'รหัสผ่านไม่ถูกต้อง':'เปิดข้อมูลเข้าระบบไม่ได้')}});
+  const email=document.getElementById('adEmail').value.trim(),pw=document.getElementById('adPw').value,btn=document.getElementById('adGo');if(!email||!pw)return;
+  btn.disabled=true;btn.textContent='กำลังเข้าสู่ระบบ…';if(adTries>=3)await sleep(Math.min(8000,1000*2**(adTries-3)));
+  try{const remember=document.getElementById('adRemember').checked;const s=await sbAuth({email,password:pw},'password');adTries=0;adSave({...s,remember},remember);AD.demo=false;renderAdmin()}
+  catch(err){adTries++;adminLogin(err.message==='badlogin'?'อีเมลหรือรหัสผ่านไม่ถูกต้อง':'เชื่อมต่อไม่ได้ ลองใหม่อีกครั้ง')}});
 document.addEventListener('click',e=>{
   if(e.target.closest('#adDemo')){AD.demo=true;renderAdmin();return}
   if(e.target.closest('#adExitDemo')){AD.demo=false;renderAdmin();return}
   if(e.target.closest('#adRefresh')){renderAdmin();return}
-  if(e.target.closest('#adLogout')){adForget();renderAdmin();return}
+  if(e.target.closest('#adLogout')){if(AD.s)fetch(SB.url+'/auth/v1/logout',{method:'POST',headers:{apikey:SB.key,Authorization:'Bearer '+AD.s.access}}).catch(()=>{});adSave(null);renderAdmin();return}
   const r=e.target.closest('#adRange [data-r]');if(r){AD.range=+r.dataset.r;renderAdmin()}
 });
 
