@@ -797,6 +797,16 @@ dialog#menu .mtiles svg{width:22px;height:22px;color:var(--accent)}
 .gloss dd{margin:4px 0 0;font-size:.88rem;color:var(--ink-2)}
 @media (max-width:560px){.road li{grid-template-columns:84px 18px 1fr}.road li::after{left:calc(84px + 12px + 6px)}.ncard{grid-template-columns:1fr}.ncard .dt{grid-auto-flow:column;gap:6px;justify-self:start;align-items:baseline}}
 
+/* community tier votes */
+.vote{display:grid;gap:8px;padding:12px 14px;border-radius:16px;background:color-mix(in srgb,var(--glow) 70%,transparent)}
+.vote .row{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.vote button{width:38px;height:34px;border-radius:10px;border:1px solid var(--line);background:var(--surface);font:700 .95rem var(--display);cursor:pointer;color:var(--ink)}
+.vote button[aria-pressed="true"]{color:#fff;border-color:transparent}
+.vote button[data-v="S"][aria-pressed="true"]{background:#E0493F}.vote button[data-v="A"][aria-pressed="true"]{background:#EE8A2B}.vote button[data-v="B"][aria-pressed="true"]{background:#2F9BD8}.vote button[data-v="C"][aria-pressed="true"]{background:#3C9F77}.vote button[data-v="D"][aria-pressed="true"]{background:#7A8CA3}
+.vote .dist{display:flex;height:8px;border-radius:99px;overflow:hidden;background:var(--sunk)}
+.vote .dist i{display:block;height:100%}
+.tn .vc{font-size:.68rem;color:var(--ink-2);margin-left:2px}
+
 /* feedback */
 .fbform{max-width:640px}
 .fbform textarea,.fbform input[type=text]{font:inherit;font-size:.95rem;border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--surface);color:var(--ink);resize:vertical}
@@ -1665,8 +1675,9 @@ h2{font-weight:600;letter-spacing:0}
       <div class="vhead">
         <p class="eyebrow">จัดอันดับ</p>
         <h2>Tier List</h2>
-        <p class="muted">อ้างอิงจาก Game8 (ก.ย. 2026) กดที่ชื่อเพื่อดูข้อมูล แต่ละเว็บจัดอันดับต่างกันเล็กน้อย</p>
+        <p class="muted" id="tierNote">อ้างอิงจาก Game8 (ก.ย. 2026) กดที่ชื่อเพื่อดูข้อมูล แต่ละเว็บจัดอันดับต่างกันเล็กน้อย</p>
       </div>
+      <div class="seg" id="tierSrc" role="group" aria-label="แหล่งจัดอันดับ"><button type="button" data-s="game8" aria-pressed="true">จัดโดย Game8</button><button type="button" data-s="vote" aria-pressed="false">ผู้เล่นโหวต</button></div>
       <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:end">
         <label for="q" style="flex:1 1 220px">ค้นหาชื่อ Aniimo<input type="search" id="q" placeholder="เช่น Stellarys"></label>
         <div class="seg" id="seg" role="group" aria-label="กรองตามระดับ">
@@ -1994,7 +2005,7 @@ function renderDetail(){
   const tabs=[['overview','ภาพรวม'],['skills',`สกิล (${sks.length})`],['forms',`ร่าง (${a.f.length+1})`]].concat(spAny?[['sparkling','✦ เปล่งประกาย']]:[]);
   let pane='';
   if(dState.tab==='overview'){
-    pane=`<p>${esc(tr(a.d))}</p>
+    pane=`${a.u?'':voteBox(a.slug)}<p>${esc(tr(a.d))}</p>
     <div class="small"><b>แพ้ทาง:</b> ${weak.map(badge).join(' ')||'—'}<br><b>ต้านได้:</b> ${resist.map(badge).join(' ')||'—'}</div>
     ${a.s&&a.s.HP?`<div><p class="eyebrow" style="margin-bottom:8px">ค่าสถานะพื้นฐาน</p><div class="stats">${STAT.map(k=>`<div class="stat"><span>${STAT_L[k]||k}</span><span class="bar"><i style="width:${Math.min(100,a.s[k]/130*100)}%"></i></span><b>${a.s[k]}</b></div>`).join('')}</div></div>`:''}
     ${line.length>1?`<div><p class="eyebrow" style="margin-bottom:8px">สายวิวัฒนาการ</p><div class="thumbs">${line.map(x=>`<button type="button" data-open="${x.slug}" aria-current="${x===a}"><img decoding="async" src="${TH(x.i)}" alt="" class="${x.cut?'cut':''}">${esc(x.name)}<small class="muted">${x.st}</small></button>`).join('')}</div></div>`:''}
@@ -2115,7 +2126,12 @@ function tierChip(n,term){
   let lab=esc(n);if(term){const i=n.toLowerCase().indexOf(term);lab=esc(n.slice(0,i))+'<mark>'+esc(n.slice(i,i+term.length))+'</mark>'+esc(n.slice(i+term.length))}
   return a?`<button type="button" class="tn${pr?' pr':''}" data-open="${a.slug}"${fi!==''?` data-form="${fi}"`:''}><img decoding="async" src="${TH(img)}" alt="" loading="lazy">${lab}</button>`:`<span class="tn" style="padding-left:10px">${lab}</span>`;
 }
-function renderTiers(){const term=q.value.trim().toLowerCase();let html='';for(const t of Object.keys(T)){if(tf!=='all'&&tf!==t)continue;const list=T[t].filter(n=>!term||n.toLowerCase().includes(term));if(term&&!list.length)continue;html+=`<div class="trow"><div class="t t-${t}">${t}</div><div class="names">${list.map(n=>tierChip(n,term)).join('')}</div></div>`}tiersEl.innerHTML=html||'<p class="muted">ไม่พบชื่อนี้ใน Tier List</p>'}
+function renderTiers(){const term=q.value.trim().toLowerCase();let html='';
+  if(TV.src==='vote'){const groups={S:[],A:[],B:[],C:[],D:[]},res=TV.res||{};A.filter(a=>!a.u).forEach(a=>{const t=tvTier(res[a.slug]);if(t)groups[t].push(a)});
+    for(const t of Object.keys(groups)){if(tf!=='all'&&tf!==t)continue;const list=groups[t].filter(a=>!term||a.name.toLowerCase().includes(term));if(!list.length)continue;
+      html+=`<div class="trow"><div class="t t-${t}">${t}</div><div class="names">${list.map(a=>`<button type="button" class="tn" data-open="${a.slug}"><img decoding="async" src="${TH(a.i)}" alt="" loading="lazy">${esc(a.name)}<span class="vc">${res[a.slug].n}</span></button>`).join('')}</div></div>`}
+    tiersEl.innerHTML=html||`<p class="muted">${TV.err?'โหลดผลโหวตไม่สำเร็จ':'ยังมีโหวตไม่พอ ช่วยกันโหวตได้ในหน้ารายละเอียดของแต่ละตัว'}</p>`;return}
+  for(const t of Object.keys(T)){if(tf!=='all'&&tf!==t)continue;const list=T[t].filter(n=>!term||n.toLowerCase().includes(term));if(term&&!list.length)continue;html+=`<div class="trow"><div class="t t-${t}">${t}</div><div class="names">${list.map(n=>tierChip(n,term)).join('')}</div></div>`}tiersEl.innerHTML=html||'<p class="muted">ไม่พบชื่อนี้ใน Tier List</p>'}
 q.addEventListener('input',renderTiers);
 document.getElementById('seg').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;tf=b.dataset.t;document.querySelectorAll('#seg button').forEach(x=>x.setAttribute('aria-pressed',x===b));renderTiers()});
 
@@ -3013,6 +3029,33 @@ function renderGloss(){
   document.getElementById('glList').innerHTML=GLOSS.filter(([t,d])=>!q||(t+' '+d).toLowerCase().includes(q)).map(([t,d])=>`<div><dt>${esc(t)}</dt><dd>${esc(d)}</dd></div>`).join('')||'<p class="muted">ไม่พบคำนี้</p>';
 }
 document.getElementById('glQ').addEventListener('input',renderGloss);
+
+/* ===== community tier-list votes (owner's Supabase; one vote per browser per Aniimo) ===== */
+const TV={src:'game8',res:null,mine:{},loading:false,err:''};
+try{TV.mine=JSON.parse(localStorage.getItem('aniimo-tier-votes')||'{}')}catch(_){}
+const TIER_SCORE={S:5,A:4,B:3,C:2,D:1},TIER_COL={S:'#E0493F',A:'#EE8A2B',B:'#2F9BD8',C:'#3C9F77',D:'#7A8CA3'};
+async function sbCall(fn,args){const r=await fetch(SB.url+'/rest/v1/rpc/'+fn,{method:'POST',headers:{apikey:SB.key,Authorization:'Bearer '+SB.key,'Content-Type':'application/json'},body:JSON.stringify(args||{})});if(!r.ok)throw new Error(r.status);return r.status===204?null:r.json()}
+async function tvLoad(force){if(!SB.url||(TV.res&&!force)||TV.loading)return;TV.loading=true;try{TV.res=await sbCall('tier_results');TV.err=''}catch(e){TV.err='x';TV.res=TV.res||{}}TV.loading=false}
+const tvTier=r=>{if(!r||r.n<3)return null;const avg=(r.S*5+r.A*4+r.B*3+r.C*2+r.D)/r.n;return avg>=4.5?'S':avg>=3.5?'A':avg>=2.5?'B':avg>=1.5?'C':'D'};
+function voteBox(slug){
+  const r=(TV.res||{})[slug],mine=TV.mine[slug],tier=tvTier(r);
+  const dist=r&&r.n?['S','A','B','C','D'].map(k=>`<i style="width:${r[k]/r.n*100}%;background:${TIER_COL[k]}" title="${k}: ${r[k]}"></i>`).join(''):'';
+  return `<div class="vote" id="voteBox" data-slug="${slug}"><div class="row"><b style="font-family:var(--display)">โหวต Tier ของคุณ</b>${['S','A','B','C','D'].map(k=>`<button type="button" data-v="${k}" aria-pressed="${mine===k}">${k}</button>`).join('')}</div>
+    <span class="small muted">${r&&r.n?`ผู้เล่นโหวต ${r.n} คน${tier?` · เฉลี่ยอยู่ Tier <b style="color:${TIER_COL[tier]}">${tier}</b>`:' · ต้องมีอย่างน้อย 3 โหวตถึงจะจัดอันดับ'}`:'ยังไม่มีใครโหวตตัวนี้ เป็นคนแรกเลย'}</span>${dist?`<div class="dist">${dist}</div>`:''}</div>`;
+}
+document.addEventListener('click',async e=>{
+  const b=e.target.closest('#voteBox [data-v]');if(!b)return;
+  const slug=b.closest('#voteBox').dataset.slug,v=b.dataset.v,prev=TV.mine[slug],next=prev===v?null:v;
+  if(!SB.url||!VISITOR)return;
+  TV.mine[slug]=next||undefined;if(!next)delete TV.mine[slug];try{localStorage.setItem('aniimo-tier-votes',JSON.stringify(TV.mine))}catch(_){}
+  const r=(TV.res=TV.res||{})[slug]||(TV.res[slug]={S:0,A:0,B:0,C:0,D:0,n:0});if(prev){r[prev]--;r.n--}if(next){r[next]++;r.n++}
+  document.getElementById('voteBox').outerHTML=voteBox(slug);
+  try{await sbCall('tier_vote',{p_visitor:VISITOR,p_slug:slug,p_tier:next});if(RENDERED.has('tier')&&TV.src==='vote')renderTiers()}catch(_){}
+});
+document.getElementById('tierSrc').addEventListener('click',async e=>{const b=e.target.closest('[data-s]');if(!b)return;TV.src=b.dataset.s;document.querySelectorAll('#tierSrc button').forEach(x=>x.setAttribute('aria-pressed',x===b));
+  document.getElementById('tierNote').innerHTML=TV.src==='vote'?'จัดอันดับจากโหวตของผู้เล่นเว็บนี้ (อย่างน้อย 3 โหวตต่อตัว) กดที่ Aniimo แล้วโหวตได้ในหน้ารายละเอียด':'อ้างอิงจาก Game8 (ก.ย. 2026) กดที่ชื่อเพื่อดูข้อมูล แต่ละเว็บจัดอันดับต่างกันเล็กน้อย';
+  if(TV.src==='vote')await tvLoad(true);renderTiers()});
+tvLoad().then(()=>{if(dlg.open&&document.getElementById('voteBox'))renderDetail()});
 
 /* ===== feedback from users → owner's Supabase (insert-only for visitors) ===== */
 const FB_TOPIC={idea:'แนะนำฟีเจอร์',data:'ข้อมูลผิด / ไม่ครบ',bug:'เว็บมีปัญหา',other:'อื่น ๆ'};
