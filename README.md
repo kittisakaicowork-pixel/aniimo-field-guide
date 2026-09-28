@@ -1,5 +1,7 @@
 # Aniimo Field Guide
 
+เว็บ: https://kittisakaicowork-pixel.github.io/aniimo-field-guide/
+
 เว็บแอปคู่มือเกม Aniimo ภาษาไทย (แฟนเมด ไม่เกี่ยวข้องกับ Pawprint Studio)
 
 - รายชื่อ Aniimo 100 ตัว พร้อมค่าสถานะ สายวิวัฒนาการ เงื่อนไขวิวัฒนาการ จุดเกิด งานใน Homeland และไอเท็มแนะนำ

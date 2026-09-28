@@ -2423,7 +2423,7 @@ plFrom.value=BY.helion?'helion':RELEASED[0].slug;syncTargets();
 let deferred=null;
 addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferred=e;document.getElementById('installBox').hidden=false});
 document.getElementById('installBtn').addEventListener('click',async()=>{if(!deferred)return;deferred.prompt();try{await deferred.userChoice}catch(_){}deferred=null;document.getElementById('installBox').hidden=true});
-try{if('serviceWorker' in navigator&&/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname))navigator.serviceWorker.register('sw.js').catch(()=>{})}catch(_){}
+try{if('serviceWorker' in navigator&&/^(localhost|127\.0\.0\.1|\[::1\])$|\.github\.io$/.test(location.hostname))navigator.serviceWorker.register('sw.js').catch(()=>{})}catch(_){}
 
 /* ===== home: today at a glance ===== */
 function renderHomeToday(){
