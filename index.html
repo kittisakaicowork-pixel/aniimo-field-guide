@@ -1660,6 +1660,7 @@ function route(){
   if(/^s-/.test(h)){go('systems',false);setTimeout(()=>{const el=document.getElementById(h);el&&el.scrollIntoView()},0);return}
   if(/^b-/.test(h)||/^g-(steps|personality|spend|road)$/.test(h)){go(h.startsWith('b-')?'beginner':'growth',false);setTimeout(()=>{const el=document.getElementById(h);el&&el.scrollIntoView()},0);return}
   if(h.startsWith('g-')){go('guide',false);setTimeout(()=>{const el=document.getElementById(h);el&&el.scrollIntoView()},0);return}
+  if(h==='stats-demo'){STAT_DEMO=true;RENDERED.delete('stats');go('stats',false);return}
   if(h.startsWith('team-')){loadTeamCode(h);go('team',false);return}
   if(h.startsWith('region-')){go('regions',false);setTimeout(()=>{const el=document.getElementById(h);el&&el.scrollIntoView()},0);return}
   if(BY[h]){go('dex',false);openMon(h);return}
@@ -2564,7 +2565,25 @@ renderHomeRecent();
 const STAT_BASE=GC_CODE?`https://${GC_CODE}.goatcounter.com/counter/`:'';
 let stRange='week';const stCache={};
 const ymd=d=>d.toISOString().slice(0,10);
+/* sample data for previewing the dashboard (#stats-demo); clearly labelled on screen */
+let STAT_DEMO=false;
+const seed=str=>{let h=2166136261;for(const c of str)h=Math.imul(h^c.charCodeAt(0),16777619);return ((h>>>0)%1000)/1000};
+const DEMO_VIEW_W={dex:1,map:.82,team:.55,events:.5,beginner:.46,items:.4,skills:.36,bosses:.3,tier:.28,codes:.26,collection:.22,regions:.2,growth:.18,planner:.15,sparkling:.14,forms:.12,compare:.1,systems:.09,elements:.08,guide:.06,history:.04};
+function demoDay(iso){const d=new Date(iso+'T00:00:00Z'),age=(Date.now()-d)/86400000,wk=[1.25,.9,.85,.88,.95,1.15,1.35][d.getUTCDay()];return Math.max(0,Math.round((520-age*9)*wk*(.85+seed(iso)*.3)))}
+function demoCount(path,start,end){
+  const today=new Date().toISOString().slice(0,10);
+  const days=start===undefined||start===''?90:start==='week'?7:start==='month'?30:start===end?1:start===today?1:7;
+  const one=start&&start===end?start:null;let total=0;
+  if(one)total=demoDay(one);else for(let i=0;i<days;i++)total+=demoDay(new Date(Date.now()-i*86400000).toISOString().slice(0,10));
+  let n=total;
+  if(path!=='TOTAL'){const k=path.replace(/^\//,'');
+    if(k.startsWith('aniimo/')){const sl=k.slice(7),t={S:1,A:.55,B:.3,C:.16,D:.1}[TIER[sl]]||.08;n=Math.round(total*.35*t*(.4+seed(sl)*.9)/6)}
+    else if(k==='search')n=Math.round(total*.22);
+    else n=Math.round(total*.6*(DEMO_VIEW_W[k]||.03)*(.85+seed(k)*.3))}
+  return {n,u:Math.round(n*.38)};
+}
 async function gcCount(path,start,end){
+  if(STAT_DEMO)return demoCount(path,start,end);
   const key=path+'|'+(start||'')+'|'+(end||'');if(key in stCache)return stCache[key];
   const q=new URLSearchParams();if(start)q.set('start',start);if(end)q.set('end',end);
   const url=STAT_BASE+(path==='TOTAL'?'TOTAL':encodeURIComponent(path))+'.json'+(q.toString()?'?'+q:'');
@@ -2595,6 +2614,7 @@ async function renderStats(){
   const sk='<div class="skel" style="width:60%"></div>';
   out.innerHTML=`<div class="kpis">${['วันนี้','7 วัน','30 วัน','ทั้งหมด'].map(l=>`<div class="kpi"><small>${l}</small>${sk}</div>`).join('')}</div><div class="dpanel"><h3>ผู้เข้าชมรายวัน<small>14 วันล่าสุด</small></h3>${sk}</div>`;
   const now=new Date(),today=ymd(now),start=stRange==='all'?'':stRange;
+  const demoBar=STAT_DEMO?'<div class="warnbox" style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between"><span><b>ข้อมูลตัวอย่าง</b> ตัวเลขในหน้านี้สร้างขึ้นเพื่อดูหน้าตา Dashboard ไม่ใช่สถิติจริง</span><button type="button" class="btn" id="stReal">ดูสถิติจริง</button></div>':'';
   const days=[...Array(14)].map((_,i)=>{const d=new Date(now.getTime()-(13-i)*86400000);return {iso:ymd(d),short:d.toLocaleDateString('th-TH',{day:'numeric'}),label:d.toLocaleDateString('th-TH',{weekday:'short',day:'numeric',month:'short'})}});
   try{
     const [tDay,tWeek,tMonth,tAll]=await Promise.all([gcCount('TOTAL',today),gcCount('TOTAL','week'),gcCount('TOTAL','month'),gcCount('TOTAL')]);
@@ -2606,7 +2626,7 @@ async function renderStats(){
     const mons=RELEASED.map((a,i)=>({k:a.slug,n:mRes[i]instanceof Error?0:mRes[i].n})).filter(r=>r.n).sort((a,b)=>b.n-a.n).slice(0,10);
     const sr=await gcCount('search',start).catch(()=>({n:0}));
     const rl={week:'7 วันล่าสุด',month:'30 วันล่าสุด',all:'ตั้งแต่เริ่มนับ'}[stRange];
-    out.innerHTML=`<div class="kpis">
+    out.innerHTML=demoBar+`<div class="kpis">
       <div class="kpi"><small>วันนี้</small><b>${fmtN(tDay.n)}</b><span>ครั้งที่เปิดดู</span></div>
       <div class="kpi"><small>7 วัน</small><b>${fmtN(tWeek.n)}</b><span>ผู้ใช้ไม่ซ้ำ ${fmtN(tWeek.u)}</span></div>
       <div class="kpi"><small>30 วัน</small><b>${fmtN(tMonth.n)}</b><span>ผู้ใช้ไม่ซ้ำ ${fmtN(tMonth.u)}</span></div>
@@ -2616,11 +2636,14 @@ async function renderStats(){
       <div class="dpanel"><h3>Aniimo ยอดฮิต<small>${rl}</small></h3><div class="rank">${rankRows(mons,'mon')}</div></div></div>
      <p class="dnote">ไม่มีข้อมูลส่วนตัว ไม่ใช้คุกกี้ · ข้อมูลจาก GoatCounter · ประวัติส่วนตัวของคุณดูได้ที่ <a href="#history" data-go="history">ประวัติการใช้งาน</a></p>`;
   }catch(e){
-    out.innerHTML=`<div class="dpanel"><h3>ยังโหลดสถิติไม่ได้</h3><p class="muted">${String(e.message).includes('disabled')||String(e.message).includes('Failed')||String(e.message).includes('fetch')?'เจ้าของเว็บต้องเปิดตัวเลือก “Allow adding visitor counts on your website” ในหน้าตั้งค่า GoatCounter ก่อน':'เชื่อมต่อไม่สำเร็จ ลองใหม่อีกครั้งภายหลัง'}</p><div><button type="button" class="btn" id="stRetry">ลองใหม่</button></div></div>`;
+    out.innerHTML=`<div class="dpanel"><h3>ยังโหลดสถิติไม่ได้</h3><p class="muted">${String(e.message).includes('disabled')||String(e.message).includes('Failed')||String(e.message).includes('fetch')?'เจ้าของเว็บต้องเปิดตัวเลือก “Allow adding visitor counts on your website” ในหน้าตั้งค่า GoatCounter ก่อน':'เชื่อมต่อไม่สำเร็จ ลองใหม่อีกครั้งภายหลัง'}</p><div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn" id="stRetry">ลองใหม่</button><button type="button" class="btn primary" id="stDemo">ดูตัวอย่าง Dashboard</button></div></div>`;
   }
 }
 document.getElementById('stRange').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;stRange=b.dataset.r;document.querySelectorAll('#stRange button').forEach(x=>x.setAttribute('aria-pressed',x===b));renderStats()});
-document.addEventListener('click',e=>{if(e.target.closest('#stRetry')){Object.keys(stCache).forEach(k=>delete stCache[k]);renderStats()}});
+document.addEventListener('click',e=>{
+  if(e.target.closest('#stDemo')){STAT_DEMO=true;try{history.replaceState(null,'','#stats-demo')}catch(_){}renderStats();return}
+  if(e.target.closest('#stReal')){STAT_DEMO=false;try{history.replaceState(null,'','#stats')}catch(_){}Object.keys(stCache).forEach(k=>delete stCache[k]);renderStats();return}
+  if(e.target.closest('#stRetry')){Object.keys(stCache).forEach(k=>delete stCache[k]);renderStats()}});
 
 /* ===== home: today at a glance ===== */
 function renderHomeToday(){
