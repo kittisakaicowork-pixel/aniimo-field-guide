@@ -705,6 +705,27 @@ dialog#menu .mtiles button{display:grid;justify-items:center;gap:6px;border:0;ba
 dialog#menu .mtiles button[aria-current="page"]{color:var(--accent);box-shadow:0 0 0 2px var(--accent)}
 dialog#menu .mtiles svg{width:22px;height:22px;color:var(--accent)}
 
+/* history */
+.hist{display:grid;gap:22px}
+.hist h3{font-size:1rem;display:flex;align-items:baseline;gap:10px;margin-bottom:10px}
+.hist h3 small{font:400 .8rem var(--body);color:var(--ink-2)}
+.hmons{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px}
+.hmons button{display:grid;justify-items:center;gap:4px;border:0;background:var(--surface);box-shadow:var(--shadow);border-radius:16px;padding:10px 6px;cursor:pointer;color:var(--ink);font-size:.82rem;text-align:center}
+.hmons button:hover{box-shadow:var(--shadow-up)}
+.hmons img{width:64px;height:64px;object-fit:contain}
+.hmons small,.hlist small{color:var(--ink-2);font-size:.72rem}
+.hlist{display:flex;flex-wrap:wrap;gap:8px}
+.hlist button{display:inline-flex;align-items:center;gap:8px;border:0;background:var(--surface);box-shadow:var(--shadow);border-radius:999px;padding:7px 14px;cursor:pointer;color:var(--ink);font-size:.85rem}
+.hbars{display:grid;gap:6px;max-width:560px}
+.hbar{display:grid;grid-template-columns:130px 1fr 40px;gap:10px;align-items:center;font-size:.85rem;border:0;background:none;padding:0;cursor:pointer;color:var(--ink);text-align:left}
+.hbar span.t{height:8px;border-radius:99px;background:var(--sunk);overflow:hidden}
+.hbar span.t i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--accent),var(--accent-2))}
+.hbar b{text-align:right;font-variant-numeric:tabular-nums;font-weight:500}
+.hclear{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.recent{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}
+.recent button{flex:none;display:grid;justify-items:center;gap:2px;width:84px;border:0;background:var(--surface);box-shadow:var(--shadow);border-radius:14px;padding:8px 4px;cursor:pointer;color:var(--ink);font-size:.74rem;line-height:1.2}
+.recent img{width:52px;height:52px;object-fit:contain}
+
 @media (max-width:959px){
   main{padding:20px 16px calc(var(--bar) + 28px + env(safe-area-inset-bottom,0px))}
   .welcome{grid-template-columns:1fr;padding:22px 20px}
@@ -744,6 +765,7 @@ dialog#menu .mtiles svg{width:22px;height:22px;color:var(--accent)}
   <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
   <symbol id="i-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 9 5-9 5-9-5z"/><path d="m3 13 9 5 9-5"/></symbol>
   <symbol id="i-calc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="3" width="14" height="18" rx="3"/><path d="M8 7h8M8 12h2M14 12h2M8 16h2M14 16h2"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
   <symbol id="i-more" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></symbol>
 </svg>
 
@@ -781,6 +803,7 @@ dialog#menu .mtiles svg{width:22px;height:22px;color:var(--accent)}
         </div>
       </div>
       <div class="today" id="homeToday" aria-live="polite"></div>
+      <div class="hgroup" id="homeRecent" hidden><h3>ดูล่าสุด<small><a href="#history" data-go="history">ประวัติทั้งหมด</a></small></h3><div class="recent" id="homeRecentList"></div></div>
       <div class="hgroups" id="homeGroups"></div>
       <div class="install" id="installBox" hidden>
         <img src="icon-192.png" alt="">
@@ -1232,6 +1255,16 @@ dialog#menu .mtiles svg{width:22px;height:22px;color:var(--accent)}
       <div id="plOut" style="display:grid;gap:14px"></div>
     </section>
 
+    <!-- HISTORY -->
+    <section class="view" data-view="history" hidden>
+      <div class="vhead">
+        <p class="eyebrow">ประวัติของคุณ</p>
+        <h2>ประวัติการใช้งาน</h2>
+        <p class="muted">Aniimo ไอเท็ม และหน้าที่คุณเปิด รวมถึงคำที่ค้นหา เก็บไว้ในเบราว์เซอร์นี้เท่านั้น ไม่ส่งไปที่ไหน กดรายการเพื่อกลับไปดูต่อได้เลย</p>
+      </div>
+      <div id="histOut" class="hist"></div>
+    </section>
+
     <!-- COLLECTION -->
     <section class="view" data-view="collection" hidden>
       <div class="vhead">
@@ -1549,6 +1582,7 @@ const VIEWS=[
  {id:'planner',th:'วางแผนวัสดุ',ic:'calc',g:'tools',d:'รวมวัสดุที่ต้องใช้'},
  {id:'compare',th:'เปรียบเทียบ',ic:'compare',g:'tools',d:'เทียบ 3 ตัวแบบเคียงกัน'},
  {id:'collection',th:'เช็กลิสต์สะสม',ic:'check',g:'tools',d:'ติ๊กตัวที่จับได้'},
+ {id:'history',th:'ประวัติการใช้งาน',ic:'clock',g:'tools',d:'ที่ดูล่าสุดและคำค้นหา'},
  {id:'codes',th:'โค้ดแลกของ',ic:'gift',g:'more',d:'กดคัดลอกได้เลย'}];
 const navItem=(v,cls)=>`<button type="button" class="${cls}" data-go="${v.id}"><svg><use href="#i-${v.ic}"/></svg><span>${v.th}</span></button>`;
 document.getElementById('side').innerHTML=navItem(VIEWS[0],'navbtn')+GROUPS.map(g=>`<p class="grp">${g.th}</p>`+VIEWS.filter(v=>v.g===g.id).map(v=>navItem(v,'navbtn')).join('')).join('')+`<div class="foot">แฟนเมด · ข้อมูล ${esc(META.scraped||'')}</div>`;
@@ -1561,9 +1595,10 @@ document.getElementById('moreBtn').addEventListener('click',()=>menu.showModal()
 menu.addEventListener('click',e=>{if(e.target===menu)menu.close()});
 let current='home';
 const RENDERED=new Set();
-function ensureRendered(id){if(RENDERED.has(id))return;RENDERED.add(id);const f={dex:()=>renderDex(),skills:()=>renderSkills(),sparkling:()=>renderSpark(),forms:()=>renderForms(),tier:()=>renderTiers(),team:()=>renderTeam(),collection:()=>renderCollection(),compare:()=>renderCompare(),bosses:()=>renderBosses(),regions:()=>renderRegions(),map:()=>renderMap(),events:()=>renderEvents(),items:()=>renderItems(),systems:()=>renderSystems(),planner:()=>renderPlanner()}[id];f&&f()}
+function ensureRendered(id){if(RENDERED.has(id))return;RENDERED.add(id);const f={dex:()=>renderDex(),skills:()=>renderSkills(),sparkling:()=>renderSpark(),forms:()=>renderForms(),tier:()=>renderTiers(),team:()=>renderTeam(),collection:()=>renderCollection(),compare:()=>renderCompare(),bosses:()=>renderBosses(),regions:()=>renderRegions(),map:()=>renderMap(),events:()=>renderEvents(),items:()=>renderItems(),systems:()=>renderSystems(),planner:()=>renderPlanner(),history:()=>renderHistory()}[id];f&&f()}
 function go(id,push){
   if(!VIEWS.some(v=>v.id===id))id='home';
+  histAdd('views',id);track('/'+id);if(id==='history')RENDERED.delete('history');if(id==='home'&&typeof renderHomeRecent==='function')renderHomeRecent();
   ensureRendered(id);
   current=id;
   document.querySelectorAll('.view').forEach(s=>s.hidden=s.dataset.view!==id);
@@ -1600,7 +1635,7 @@ function gsearch(){
   gres.innerHTML=mons.concat(sks).join('')||'<p class="small muted" style="padding:8px">ไม่พบผลลัพธ์</p>';gres.hidden=false;
 }
 gq.addEventListener('input',gsearch);gq.addEventListener('focus',gsearch);
-document.addEventListener('click',e=>{if(!e.target.closest('.gsearch'))gres.hidden=true;else if(e.target.closest('.gresults button')){gres.hidden=true;gq.value=''}});
+document.addEventListener('click',e=>{if(!e.target.closest('.gsearch'))gres.hidden=true;else if(e.target.closest('.gresults button')){if(gq.value.trim().length>1){histAdd('searches',gq.value.trim());track('/search','ค้นหา: '+gq.value.trim().toLowerCase(),true)}gres.hidden=true;gq.value=''}});
 gq.addEventListener('keydown',e=>{if(e.key==='Escape'){gq.value='';gres.hidden=true}if(e.key==='Enter'){const f=gres.querySelector('button');f&&f.click()}});
 
 /* ===== dex ===== */
@@ -1634,6 +1669,7 @@ function skillCard(s){
 }
 function openMon(slug,formIdx,tab,spark){
   const a=BY[slug];if(!a)return;
+  if(dState.slug!==slug||!dlg.open){histAdd('mons',slug);track('/aniimo/'+slug)}
   dState={slug,form:formIdx==null||formIdx===''?null:+formIdx,tab:tab||(dState.slug===slug?dState.tab:'overview'),spark:spark||null};
   renderDetail();if(!dlg.open)dlg.showModal();
 }
@@ -2273,7 +2309,7 @@ function renderItems(focus){
 [iq,ic,iqq,document.getElementById('iall')].forEach(el=>el.addEventListener(el.type==='search'?'input':'change',()=>renderItems()));
 document.addEventListener('click',e=>{
   const b=e.target.closest('[data-item]');if(!b)return;
-  e.preventDefault();const name=b.dataset.item;if(dlg.open)dlg.close();
+  e.preventDefault();const name=b.dataset.item;if(dlg.open)dlg.close();histAdd('items',name);
   go('items');iq.value='';ic.value='';iqq.value='';renderItems(ITEM_BY_NAME[name.toLowerCase()]?ITEM_BY_NAME[name.toLowerCase()].n:null);
 });
 
@@ -2431,6 +2467,54 @@ let deferred=null;
 addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferred=e;document.getElementById('installBox').hidden=false});
 document.getElementById('installBtn').addEventListener('click',async()=>{if(!deferred)return;deferred.prompt();try{await deferred.userChoice}catch(_){}deferred=null;document.getElementById('installBox').hidden=true});
 try{if('serviceWorker' in navigator&&/^(localhost|127\.0\.0\.1|\[::1\])$|\.github\.io$/.test(location.hostname))navigator.serviceWorker.register('sw.js').catch(()=>{})}catch(_){}
+
+
+/* ===== usage history (this browser only) and anonymous visit stats ===== */
+const HIST_MAX=40;
+let HIST=null;
+function histLoad(){if(HIST)return HIST;HIST={mons:[],items:[],searches:[],views:[],counts:{},since:Date.now()};try{const x=JSON.parse(localStorage.getItem('aniimo-history')||'null');if(x&&typeof x==='object')HIST={...HIST,...x}}catch(_){}return HIST}
+function histSave(){try{localStorage.setItem('aniimo-history',JSON.stringify(HIST))}catch(_){}}
+function histAdd(kind,key){
+  const h=histLoad();if(!key)return;
+  if(kind==='views'){h.counts[key]=(h.counts[key]||0)+1;if(key==='home'||key==='history'){histSave();return}}
+  h[kind]=[[key,Date.now()]].concat(h[kind].filter(x=>x[0]!==key)).slice(0,HIST_MAX);histSave();
+  if(kind==='mons'&&current==='home')renderHomeRecent();
+}
+const ago=t=>{const m=Math.round((Date.now()-t)/60000);if(m<1)return 'เมื่อสักครู่';if(m<60)return m+' นาทีก่อน';const h=Math.round(m/60);if(h<24)return h+' ชม.ก่อน';const d=Math.round(h/24);return d<30?d+' วันก่อน':new Date(t).toLocaleDateString('th-TH',{day:'numeric',month:'short'})};
+function renderHomeRecent(){
+  const box=document.getElementById('homeRecent');if(!box)return;const ms=histLoad().mons.filter(([s])=>BY[s]).slice(0,12);box.hidden=!ms.length;
+  document.getElementById('homeRecentList').innerHTML=ms.map(([s])=>`<button type="button" data-open="${s}"><img decoding="async" src="${TH(BY[s].i)}" alt="">${esc(BY[s].name)}</button>`).join('');
+}
+function renderHistory(){
+  const h=histLoad(),out=document.getElementById('histOut');
+  const ms=h.mons.filter(([s])=>BY[s]),its=h.items,ss=h.searches;
+  const vs=Object.entries(h.counts).filter(([k])=>k!=='home'&&k!=='history'&&VIEWS.some(v=>v.id===k)).sort((a,b)=>b[1]-a[1]).slice(0,8);const vmax=vs.length?vs[0][1]:1;
+  if(!ms.length&&!its.length&&!ss.length&&!vs.length){out.innerHTML='<div class="panel"><p class="muted">ยังไม่มีประวัติ ลองเปิดดู Aniimo สักตัว หรือค้นหาจากช่องค้นหาด้านบน แล้วกลับมาที่หน้านี้</p><div><button type="button" class="btn primary" data-go="dex">ไปที่รายชื่อ Aniimo</button></div></div>';return}
+  out.innerHTML=
+   (ms.length?`<div><h3>Aniimo ที่ดูล่าสุด<small>${ms.length} ตัว</small></h3><div class="hmons">${ms.map(([s,t])=>`<button type="button" data-open="${s}"><img decoding="async" loading="lazy" src="${TH(BY[s].i)}" alt="">${esc(BY[s].name)}<small>${ago(t)}</small></button>`).join('')}</div></div>`:'')
+   +(its.length?`<div><h3>ไอเท็มที่เปิดดู<small>${its.length} ชิ้น</small></h3><div class="hlist">${its.map(([n,t])=>`<button type="button" data-item="${esc(n)}">${esc(n)}<small>${ago(t)}</small></button>`).join('')}</div></div>`:'')
+   +(ss.length?`<div><h3>คำที่ค้นหา</h3><div class="hlist">${ss.map(([q,t])=>`<button type="button" data-hq="${esc(q)}">"${esc(q)}"<small>${ago(t)}</small></button>`).join('')}</div></div>`:'')
+   +(vs.length?`<div><h3>หน้าที่เปิดบ่อย<small>ตั้งแต่ ${new Date(h.since).toLocaleDateString('th-TH',{day:'numeric',month:'short',year:'numeric'})}</small></h3><div class="hbars">${vs.map(([k,n])=>`<button type="button" class="hbar" data-go="${k}"><span>${esc(VIEWS.find(v=>v.id===k).th)}</span><span class="t"><i style="width:${Math.round(n/vmax*100)}%"></i></span><b>${n}</b></button>`).join('')}</div></div>`:'')
+   +`<div class="hclear" id="histClearBox"><button type="button" class="btn" id="histClear">ล้างประวัติทั้งหมด</button></div>`;
+}
+document.addEventListener('click',e=>{
+  const q=e.target.closest('[data-hq]');if(q){const g=document.getElementById('gq');g.value=q.dataset.hq;g.focus();gsearch();return}
+  if(e.target.closest('#histClear')){document.getElementById('histClearBox').innerHTML='<span class="small">ลบประวัติทั้งหมดในเบราว์เซอร์นี้?</span><button type="button" class="btn primary" id="histClearYes">ลบเลย</button><button type="button" class="btn" id="histClearNo">ยกเลิก</button>';return}
+  if(e.target.closest('#histClearNo')){renderHistory();return}
+  if(e.target.closest('#histClearYes')){HIST=null;try{localStorage.removeItem('aniimo-history')}catch(_){}renderHistory();renderHomeRecent();return}
+});
+
+/* Anonymous visit counting for the site owner (GoatCounter: no cookies, no personal data).
+   Off until GC_CODE is set; only runs on the public GitHub Pages site. */
+const GC_CODE='';
+const STATS_ON=!!GC_CODE&&/\.github\.io$/.test(location.hostname);
+if(STATS_ON){window.goatcounter={no_onload:true,allow_local:false};const sc=document.createElement('script');sc.async=true;sc.src='//gc.zgo.at/count.js';sc.dataset.goatcounter=`https://${GC_CODE}.goatcounter.com/count`;document.head.appendChild(sc)}
+let trackQ=[];
+function track(path,title,event){
+  if(!STATS_ON)return;const send=()=>window.goatcounter.count({path:event?path.replace(/^\//,''):path,title:title||document.title,event:!!event});
+  if(window.goatcounter&&window.goatcounter.count)send();else{trackQ.push(send);if(trackQ.length===1){const iv=setInterval(()=>{if(window.goatcounter&&window.goatcounter.count){clearInterval(iv);trackQ.splice(0).forEach(f=>f())}},500);setTimeout(()=>clearInterval(iv),15000)}}
+}
+renderHomeRecent();
 
 /* ===== home: today at a glance ===== */
 function renderHomeToday(){
