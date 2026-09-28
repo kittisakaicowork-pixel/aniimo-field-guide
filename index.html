@@ -1,7 +1,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Aniimo Field Guide</title>
-<meta name="theme-color" content="#2B7A6A">
+<meta name="theme-color" content="#7A5AD8">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Aniimo">
 <link rel="manifest" href="manifest.webmanifest">
@@ -9,42 +9,48 @@
 <link rel="apple-touch-icon" href="icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kanit:wght@500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
 <style>
 :root{
-  --ground:#F5F7F4; --surface:#FFFFFF; --sunk:#EDF1EC; --ink:#1D2B27; --ink-2:#5B6A64; --line:#E0E6DF;
-  --accent:#2B7A6A; --accent-2:#5AAE98; --accent-ink:#FFFFFF; --glow:#DDEFE8; --sun:#D9A441;
-  --fire:#D8613C; --water:#3A78C4; --grass:#4E9A57; --lightning:#C99A1C; --ice:#3AA5B8;
-  --earth:#9C7147; --wind:#46A58C; --light:#BF9A2E; --dark:#6E5A9E;
-  --good:#2F8A5B; --bad:#C24B43; --neutral:#8A9892;
-  --display:"Bai Jamjuree","IBM Plex Sans Thai","Noto Sans Thai",system-ui,sans-serif;
+  --ground:#F6F2FB; --surface:#FFFFFF; --sunk:#EFE9F7; --ink:#27213A; --ink-2:#6A6284; --line:#E4DCF0;
+  --accent:#7A5AD8; --accent-2:#B59CFF; --accent-ink:#FFFFFF; --glow:#ECE4FF; --sun:#F4B55A; --peach:#FF9F80;
+  --fire:#E0613E; --water:#3B7BD6; --grass:#4A9E5C; --lightning:#D09C12; --ice:#34A9C2;
+  --earth:#A2724A; --wind:#3FAE93; --light:#C9A12A; --dark:#7457B5;
+  --good:#2E9463; --bad:#D04A55; --neutral:#8D86A3;
+  --display:"Kanit","IBM Plex Sans Thai","Noto Sans Thai",system-ui,sans-serif;
   --body:"IBM Plex Sans Thai","Noto Sans Thai",system-ui,sans-serif;
   --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
-  --bar:64px; --r:14px; --r-lg:20px;
-  --shadow:0 1px 2px rgba(20,40,34,.05),0 4px 14px rgba(20,40,34,.05);
-  --shadow-up:0 2px 4px rgba(20,40,34,.06),0 12px 28px rgba(20,40,34,.09);
+  --bar:64px; --r:16px; --r-lg:22px;
+  --glass:rgba(255,255,255,.72); --glass-line:rgba(255,255,255,.85);
+  --sky:radial-gradient(1200px 600px at 85% -10%,rgba(255,176,146,.45),transparent 60%),radial-gradient(900px 600px at -10% 10%,rgba(181,156,255,.45),transparent 60%),radial-gradient(900px 700px at 50% 110%,rgba(140,210,255,.35),transparent 60%),linear-gradient(180deg,#F8F3FF,#F3EEFA);
+  --shadow:0 1px 2px rgba(60,40,110,.06),0 8px 24px rgba(60,40,110,.08);
+  --shadow-up:0 2px 6px rgba(60,40,110,.08),0 18px 40px rgba(60,40,110,.14);
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     color-scheme:dark;
-    --ground:#101614; --surface:#171F1C; --sunk:#131A17; --ink:#E4ECE8; --ink-2:#98A8A1; --line:#25302B;
-    --accent:#62C2AC; --accent-2:#8AD7C4; --accent-ink:#06201A; --glow:#1B2E28; --sun:#E6BB5E;
-    --fire:#F0845E; --water:#6FA3EA; --grass:#71BE79; --lightning:#E3BE4C; --ice:#63C8D8;
-    --earth:#C99C6E; --wind:#6FCCB2; --light:#E3C465; --dark:#A590D8;
-    --good:#5EC08A; --bad:#EB766C; --neutral:#71827B;
-    --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.2);
-    --shadow-up:0 2px 4px rgba(0,0,0,.35),0 12px 28px rgba(0,0,0,.35);
+    --ground:#15111F; --surface:#1E1830; --sunk:#191427; --ink:#EEEAF8; --ink-2:#A79FC0; --line:#2E2644;
+    --accent:#A98BFF; --accent-2:#D2C2FF; --accent-ink:#1A1030; --glow:#2A2146; --sun:#F6C46E; --peach:#FFB199;
+    --fire:#FF8A63; --water:#72A6F2; --grass:#72C483; --lightning:#EEC34A; --ice:#66CFE2;
+    --earth:#CFA070; --wind:#6FD0B6; --light:#E8C866; --dark:#B39AF0;
+    --good:#62C991; --bad:#F27C86; --neutral:#7C7494;
+    --glass:rgba(30,24,48,.72); --glass-line:rgba(255,255,255,.08);
+    --sky:radial-gradient(1200px 600px at 85% -10%,rgba(255,140,110,.18),transparent 60%),radial-gradient(900px 600px at -10% 10%,rgba(140,110,255,.25),transparent 60%),radial-gradient(900px 700px at 50% 110%,rgba(70,140,220,.18),transparent 60%),linear-gradient(180deg,#171223,#120E1C);
+    --shadow:0 1px 2px rgba(0,0,0,.35),0 8px 24px rgba(0,0,0,.3);
+    --shadow-up:0 2px 6px rgba(0,0,0,.4),0 18px 40px rgba(0,0,0,.45);
   }
 }
 :root[data-theme="dark"]{
   color-scheme:dark;
-  --ground:#101614; --surface:#171F1C; --sunk:#131A17; --ink:#E4ECE8; --ink-2:#98A8A1; --line:#25302B;
-  --accent:#62C2AC; --accent-2:#8AD7C4; --accent-ink:#06201A; --glow:#1B2E28; --sun:#E6BB5E;
-  --fire:#F0845E; --water:#6FA3EA; --grass:#71BE79; --lightning:#E3BE4C; --ice:#63C8D8;
-  --earth:#C99C6E; --wind:#6FCCB2; --light:#E3C465; --dark:#A590D8;
-  --good:#5EC08A; --bad:#EB766C; --neutral:#71827B;
-  --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.2);
-  --shadow-up:0 2px 4px rgba(0,0,0,.35),0 12px 28px rgba(0,0,0,.35);
+  --ground:#15111F; --surface:#1E1830; --sunk:#191427; --ink:#EEEAF8; --ink-2:#A79FC0; --line:#2E2644;
+  --accent:#A98BFF; --accent-2:#D2C2FF; --accent-ink:#1A1030; --glow:#2A2146; --sun:#F6C46E; --peach:#FFB199;
+  --fire:#FF8A63; --water:#72A6F2; --grass:#72C483; --lightning:#EEC34A; --ice:#66CFE2;
+  --earth:#CFA070; --wind:#6FD0B6; --light:#E8C866; --dark:#B39AF0;
+  --good:#62C991; --bad:#F27C86; --neutral:#7C7494;
+  --glass:rgba(30,24,48,.72); --glass-line:rgba(255,255,255,.08);
+  --sky:radial-gradient(1200px 600px at 85% -10%,rgba(255,140,110,.18),transparent 60%),radial-gradient(900px 600px at -10% 10%,rgba(140,110,255,.25),transparent 60%),radial-gradient(900px 700px at 50% 110%,rgba(70,140,220,.18),transparent 60%),linear-gradient(180deg,#171223,#120E1C);
+  --shadow:0 1px 2px rgba(0,0,0,.35),0 8px 24px rgba(0,0,0,.3);
+  --shadow-up:0 2px 6px rgba(0,0,0,.4),0 18px 40px rgba(0,0,0,.45);
 }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
@@ -773,6 +779,60 @@ dialog#menu .mtiles svg{width:22px;height:22px;color:var(--accent)}
 .dqr img{width:min(280px,100%);border-radius:18px;background:#fff;padding:10px;box-shadow:var(--shadow)}
 .dqr small{color:var(--ink-2);font-size:.8rem}
 @media (max-width:760px){.donate{grid-template-columns:1fr;padding:20px}}
+/* =================== v3 skin: Idyll dusk (bright fantasy, glass surfaces) =================== */
+body{background:var(--sky) fixed,var(--ground)}
+h1,h2,h3,h4,.eyebrow{font-family:var(--display)}
+h2{font-weight:600;letter-spacing:0}
+.eyebrow{letter-spacing:.1em;color:var(--accent)}
+.appbar{background:color-mix(in srgb,var(--glass) 90%,transparent);border-bottom:1px solid var(--glass-line)}
+.logo b{font-family:var(--display);font-weight:700}
+.logo b span{background:linear-gradient(90deg,var(--accent),var(--peach));-webkit-background-clip:text;background-clip:text;color:transparent}
+.gsearch input{background:var(--glass);border:1px solid var(--glass-line)}
+.side{background:transparent}
+.navbtn[aria-current="page"]{background:linear-gradient(90deg,var(--glow),color-mix(in srgb,var(--glow) 40%,transparent));color:var(--accent);box-shadow:none}
+.card,.panel,.rcard,.ecard,.icard,.colstat,.dd,.step,.checklist li,.code,.slot,.crow,.skrow,.colrow,.bcard,.quick button,.preset,.tl,ol.tips li,.dpanel,.kpi,.tile,.today>*,.bar-tools,.lcat,.mapinfo,.hmons button,.hlist button,.recent button,.mon,.fcard,.scard,.donate,.dcard,table.plain,.spec,.scroll-x,.gnav a{
+  background:var(--glass);backdrop-filter:blur(14px) saturate(1.2);-webkit-backdrop-filter:blur(14px) saturate(1.2);border-color:var(--glass-line)}
+.mon,.fcard,.scard,.tile,.bcard{border:1px solid var(--glass-line)}
+.pic{background:radial-gradient(circle at 50% 60%,color-mix(in srgb,var(--accent-2) 30%,transparent),transparent 72%)}
+.tile span.ic{background:linear-gradient(135deg,var(--glow),color-mix(in srgb,var(--peach) 25%,var(--glow)));color:var(--accent)}
+.btn.primary,.seg button[aria-pressed="true"]{background:linear-gradient(135deg,var(--accent),color-mix(in srgb,var(--accent) 60%,var(--peach)));border-color:transparent;color:#fff}
+.chip{background:color-mix(in srgb,var(--glow) 70%,transparent)}
+.tabbar{background:var(--glass)}
+.tabbar button[aria-current="page"] svg{background:var(--glow)}
+
+/* hero */
+.hero3{position:relative;overflow:hidden;display:grid;grid-template-columns:1.2fr 1fr;gap:18px;align-items:center;padding:34px 36px;border-radius:30px;
+  background:radial-gradient(70% 90% at 90% 20%,rgba(255,178,140,.55),transparent 60%),radial-gradient(60% 80% at 10% 100%,rgba(140,120,255,.5),transparent 65%),linear-gradient(135deg,#8C6CF0,#C58BD8 55%,#FFB38E);
+  color:#fff;box-shadow:0 20px 60px rgba(90,60,170,.28)}
+.hero3::after{content:"";position:absolute;inset:0;background:radial-gradient(2px 2px at 20% 30%,rgba(255,255,255,.9),transparent),radial-gradient(1.5px 1.5px at 70% 15%,rgba(255,255,255,.8),transparent),radial-gradient(2px 2px at 85% 70%,rgba(255,255,255,.7),transparent),radial-gradient(1.5px 1.5px at 40% 80%,rgba(255,255,255,.6),transparent),radial-gradient(1.5px 1.5px at 55% 45%,rgba(255,255,255,.7),transparent);pointer-events:none}
+.hero3 .h3text{position:relative;z-index:1;display:grid;gap:12px;align-content:start}
+.h3chips{display:flex;flex-wrap:wrap;gap:8px}
+.h3chips button{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.55);background:rgba(255,255,255,.2);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#fff;border-radius:999px;padding:5px 12px 5px 6px;font-size:.8rem;cursor:pointer;text-align:left}
+.h3chips button:hover{background:rgba(255,255,255,.32)}
+.h3chips b{background:#fff;color:#7A5AD8;border-radius:999px;padding:1px 8px;font-size:.68rem;font-family:var(--display)}
+.h3live{display:flex;align-items:center;gap:8px;font-size:.82rem;opacity:.95}
+.h3live i{width:8px;height:8px;border-radius:50%;background:#7CF2B0;box-shadow:0 0 0 4px rgba(124,242,176,.3)}
+.h3title{font:700 clamp(2.4rem,6vw,4.2rem)/.95 var(--display);letter-spacing:-.01em;text-shadow:0 4px 24px rgba(60,30,120,.35)}
+.h3title span{display:block;font-size:.42em;font-weight:500;letter-spacing:.14em;text-transform:uppercase;opacity:.9;margin-top:8px}
+.hero3 .lede{color:rgba(255,255,255,.92);max-width:34em;font-size:1rem}
+.h3cta{display:flex;flex-wrap:wrap;gap:10px}
+.cta{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:999px;padding:11px 20px;font:600 .95rem var(--display);cursor:pointer;background:#fff;color:#5B3DC2;box-shadow:0 8px 24px rgba(60,30,120,.25)}
+.cta svg{width:18px;height:18px}
+.cta.ghost{background:rgba(255,255,255,.18);color:#fff;border:1px solid rgba(255,255,255,.6);box-shadow:none}
+.cta:hover{transform:translateY(-1px)}
+.hero3 .hsearch{background:rgba(255,255,255,.95);border:0;color:#6A6284;max-width:420px;margin-top:2px}
+.h3code{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:.84rem}
+.h3code code{font:600 .9rem var(--mono);background:rgba(20,10,50,.35);border:1px dashed rgba(255,255,255,.6);border-radius:10px;padding:4px 10px;letter-spacing:.04em}
+.h3code button{border:0;background:#fff;color:#5B3DC2;border-radius:999px;padding:4px 12px;font-size:.78rem;font-weight:600;cursor:pointer}
+.hero3 .stage{position:relative;z-index:1;max-width:380px}
+.hero3 .stage img{filter:drop-shadow(0 16px 24px rgba(40,20,90,.45))}
+.hgroup h3{font-size:1.05rem}
+@media (max-width:959px){
+  .hero3{grid-template-columns:1fr;padding:24px 20px;border-radius:24px}
+  .hero3 .stage{display:block;max-width:260px;margin:-4px auto 0;order:-1}
+  .h3title{font-size:2.5rem}
+}
+
 /* history */
 .hist{display:grid;gap:22px}
 .hist h3{font-size:1rem;display:flex;align-items:baseline;gap:10px;margin-bottom:10px}
@@ -861,12 +921,15 @@ dialog#menu .mtiles svg{width:22px;height:22px;color:var(--accent)}
   <main id="main">
     <!-- HOME -->
     <section class="view" data-view="home">
-      <div class="welcome">
-        <div>
-          <p class="eyebrow">คู่มือ Aniimo ภาษาไทย · เซิร์ฟเวอร์เอเชีย</p>
-          <h1>วันนี้จะออกสำรวจ <br>Idyll ตรงไหนดี</h1>
-          <p class="lede">ข้อมูล Aniimo ครบ 100 ตัว สกิล <span id="skTotal">—</span> สกิล แผนที่ทวีป อีเวนต์ และเครื่องมือจัดทีม อัปเดตทุกสัปดาห์</p>
+      <div class="hero3">
+        <div class="h3text">
+          <div class="h3chips" id="heroChips"></div>
+          <p class="h3live"><i></i>เซิร์ฟเวอร์เอเชีย · อัปเดตข้อมูลทุกสัปดาห์</p>
+          <h1 class="h3title">Aniimo<span>Field Guide</span></h1>
+          <p class="lede">คู่มือ Aniimo ภาษาไทยที่ครบที่สุด ข้อมูล Aniimo 100 ตัว สกิล <span id="skTotal">—</span> สกิล แผนที่ทวีป อีเวนต์ และเครื่องมือจัดทีม ใช้ฟรี ไม่มีโฆษณา</p>
+          <div class="h3cta"><button type="button" class="cta" data-go="map"><svg><use href="#i-map"/></svg>สำรวจแผนที่</button><button type="button" class="cta ghost" data-go="dex"><svg><use href="#i-dex"/></svg>รายชื่อ Aniimo</button></div>
           <button type="button" class="hsearch" id="hsearch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>ค้นหา Aniimo หรือสกิล</button>
+          <div class="h3code" id="heroCode"></div>
         </div>
         <div class="stage">
           <button class="s1" type="button" data-open="helion" aria-label="ดู Helion"><img src="img/helion.webp" alt="Helion"></button>
@@ -1627,7 +1690,7 @@ dialog#menu .mtiles svg{width:22px;height:22px;color:var(--accent)}
   let saved=null;try{saved=localStorage.getItem('aniimo-theme')}catch(_){}
   if(saved==='light'||saved==='dark')root.setAttribute('data-theme',saved);
   const isDark=()=>root.getAttribute('data-theme')?root.getAttribute('data-theme')==='dark':mq.matches;
-  const sync=()=>{btn.setAttribute('aria-label',isDark()?'เปลี่ยนเป็นโหมดสว่าง':'เปลี่ยนเป็นโหมดมืด');meta.content=isDark()?'#101614':'#2B7A6A'};
+  const sync=()=>{btn.setAttribute('aria-label',isDark()?'เปลี่ยนเป็นโหมดสว่าง':'เปลี่ยนเป็นโหมดมืด');meta.content=isDark()?'#15111F':'#7A5AD8'};
   btn.addEventListener('click',()=>{const n=isDark()?'light':'dark';root.setAttribute('data-theme',n);try{localStorage.setItem('aniimo-theme',n)}catch(_){}sync()});
   mq.addEventListener&&mq.addEventListener('change',sync);sync();
 })();
@@ -2836,6 +2899,18 @@ let DONATE_ON=false;
 function renderDonate(){
   document.getElementById('donateBox').innerHTML=`<img src="${DONATE.qr}" alt="QR สำหรับโอนเงินสนับสนุน" onerror="this.replaceWith(Object.assign(document.createElement('p'),{className:'muted',textContent:'ยังไม่เปิดรับการสนับสนุนตอนนี้'}))"><small>${esc(DONATE.label)}</small>${DONATE.links.map(l=>`<a class="btn" href="${esc(l.url)}" target="_blank" rel="noopener" style="text-decoration:none;color:inherit">${esc(l.th)} ↗</a>`).join('')}`;
 }
+
+/* ===== hero: what's new chips + newest code ===== */
+function renderHero(){
+  const now=Date.now(),live=EVENTS.map(e=>({e,w:eventWindow(e,now)})).filter(x=>x.e.kind!=='gameplay'&&x.w.state==='live').sort((a,b)=>(a.w.end||9e15)-(b.w.end||9e15)).slice(0,2);
+  const chips=live.map(({e,w})=>`<button type="button" data-go="events"><b>อีเวนต์</b>${esc(e.t)}${w.end?` · เหลือ ${fmtLeft(w.end-now)}`:''}</button>`)
+   .concat([`<button type="button" data-go="map"><b>ใหม่</b>แผนที่ทวีป Idyll 4,334 จุด</button>`,`<button type="button" data-go="beginner"><b>มือใหม่</b>สิ่งที่ต้องรู้ก่อนเริ่มเล่น</button>`]);
+  document.getElementById('heroChips').innerHTML=chips.slice(0,3).join('');
+  const code=C.find(c=>!c[2]);
+  document.getElementById('heroCode').innerHTML=code?`<span>โค้ดของขวัญ</span><code>${esc(code[0])}</code><button type="button" id="heroCopy">คัดลอก</button><a href="#codes" data-go="codes" style="color:#fff;opacity:.9">ดูทั้งหมด</a>`:'';
+}
+document.addEventListener('click',e=>{const b=e.target.closest('#heroCopy');if(!b)return;const code=document.querySelector('#heroCode code').textContent;try{navigator.clipboard.writeText(code).then(()=>{b.textContent='คัดลอกแล้ว'},()=>{b.textContent=code})}catch(_){b.textContent=code}});
+renderHero();
 
 /* ===== home: today at a glance ===== */
 function renderHomeToday(){
