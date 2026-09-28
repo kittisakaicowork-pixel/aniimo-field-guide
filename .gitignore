@@ -1,0 +1,6 @@
+tools/cache/
+dist-full/
+tools/build-full.log
+.DS_Store
+.claude/
+tools/scrape.log

@@ -1,0 +1,95 @@
+{
+ "codes_checked": "2026-09-25",
+ "codes": [
+  {
+   "code": "twinewithaniimo",
+   "reward": "Glimmer ×10, Credit ×20,000, Growth Flower ×10, Aniipod Pro ×5",
+   "expired": false
+  },
+  {
+   "code": "Aniimo2026",
+   "reward": "Glimmer ×10, Credit ×20,000, Growth Flower ×10, Aniipod Pro ×5",
+   "expired": false
+  },
+  {
+   "code": "aniimofreetoplay",
+   "reward": "Glimmer ×50, Growth Flower ×5, Aniipod Pro ×5",
+   "expired": false
+  },
+  {
+   "code": "aniimowelcome",
+   "reward": "Glimmer ×50, Growth Flower ×5, Aniipod Pro ×5",
+   "expired": false
+  },
+  {
+   "code": "anyoneaniimo",
+   "reward": "Glimmer ×50, Growth Flower ×5, Aniipod Pro ×5",
+   "expired": false
+  },
+  {
+   "code": "aniimolaunch2026",
+   "reward": "Glimmer ×50, Growth Flower ×5, Aniipod Pro ×5",
+   "expired": false
+  },
+  {
+   "code": "ANIIMOGIFT",
+   "reward": "Glimmer ×50, Growth Flower ×5, Aniipod Pro ×5",
+   "expired": false
+  },
+  {
+   "code": "anywhereaniimo",
+   "reward": "Growth Flower ×3, Credit ×10,000",
+   "expired": false
+  },
+  {
+   "code": "anythinganiimo",
+   "reward": "Growth Flower ×3, Credit ×10,000",
+   "expired": false
+  },
+  {
+   "code": "aniimonow",
+   "reward": "Growth Flower ×3, Credit ×10,000",
+   "expired": false
+  },
+  {
+   "code": "aniimotogether",
+   "reward": "Growth Flower ×3, Credit ×10,000",
+   "expired": false
+  },
+  {
+   "code": "aniimoidyll",
+   "reward": "Credit ×10,000, Aniipod ×5",
+   "expired": false
+  },
+  {
+   "code": "aniimobonus",
+   "reward": "Credit ×10,000, Aniipod ×5",
+   "expired": false
+  },
+  {
+   "code": "aniimoopenworld",
+   "reward": "Credit ×10,000, Aniipod ×5",
+   "expired": false
+  },
+  {
+   "code": "aniimazingfroyo",
+   "reward": "Glimmer ×20 (เฉพาะเซิร์ฟเวอร์ US)",
+   "expired": false
+  },
+  {
+   "code": "aniimoparty",
+   "reward": "Glimmer ×50 · หมดอายุ 19 ก.ย.",
+   "expired": true
+  }
+ ],
+ "boss_rush": [
+  "alpha-bouldus-boss-rush-1045401",
+  "alpha-geoclaw-boss-rush-1016301",
+  "alpha-irisal-boss-rush-1021202",
+  "alpha-minespine-boss-rush-1028501",
+  "alpha-panpanta-boss-rush-1017401",
+  "alpha-scorchhowl-boss-rush-1005301",
+  "alpha-tubster-boss-rush-1018701"
+ ],
+ "boss_rush_note": "Boss Rush stage slugs are only linked from a client-side tab on aniidex.com/bosses/, so they are listed here by hand."
+}
