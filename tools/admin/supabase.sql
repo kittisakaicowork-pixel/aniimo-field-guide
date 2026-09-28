@@ -15,6 +15,11 @@ create table if not exists public.events (
 create index if not exists events_at on public.events (at);
 create index if not exists events_kind_at on public.events (kind, at);
 
+-- explicit grants, so this works whether or not the project auto-exposes new tables
+grant usage on schema public to anon, authenticated;
+grant insert (kind, key, visitor, device, lang, tz) on public.events to anon, authenticated;
+revoke select, update, delete on public.events from anon, authenticated;
+
 alter table public.events enable row level security;
 drop policy if exists "anyone can add usage" on public.events;
 create policy "anyone can add usage" on public.events
