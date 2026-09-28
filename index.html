@@ -736,6 +736,13 @@ dialog#menu .mtiles svg{width:22px;height:22px;color:var(--accent)}
 @keyframes sk{to{background-position:-200% 0}}
 @media (max-width:959px){.kpis{grid-template-columns:1fr 1fr}.dgrid{grid-template-columns:1fr}.rrow{grid-template-columns:28px minmax(0,1fr) 70px 44px}}
 
+.side .foot{display:grid;gap:8px}
+.adentry{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:transparent;color:var(--ink-2);border-radius:999px;padding:4px 12px;font-size:.78rem;cursor:pointer;justify-self:start}
+.adentry:hover{color:var(--accent);border-color:var(--accent)}
+.adentry svg{width:14px;height:14px}
+.adlogin{margin-inline:auto;justify-items:stretch;text-align:left}
+.adlogin .ic{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:var(--glow);color:var(--accent)}
+.adlogin .ic svg{width:22px;height:22px}
 /* history */
 .hist{display:grid;gap:22px}
 .hist h3{font-size:1rem;display:flex;align-items:baseline;gap:10px;margin-bottom:10px}
@@ -798,6 +805,7 @@ dialog#menu .mtiles svg{width:22px;height:22px;color:var(--accent)}
   <symbol id="i-calc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="3" width="14" height="18" rx="3"/><path d="M8 7h8M8 12h2M14 12h2M8 16h2M14 16h2"/></symbol>
   <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
   <symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V4"/><path d="M4 20h16"/><path d="M8 16v-4M12 16V8M16 16v-6"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
   <symbol id="i-more" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></symbol>
 </svg>
 
@@ -1292,7 +1300,7 @@ dialog#menu .mtiles svg{width:22px;height:22px;color:var(--accent)}
       <div class="vhead">
         <p class="eyebrow">หลังบ้าน</p>
         <h2>สถิติการใช้งานเว็บ</h2>
-        <p class="muted" id="adSub">ดูได้เฉพาะเจ้าของเว็บ ต้องใช้ API token ของ GoatCounter ซึ่งเก็บไว้ในเครื่องนี้เท่านั้น</p>
+        <p class="muted" id="adSub">ดูได้เฉพาะเจ้าของเว็บ เข้าด้วยรหัสผ่านหลังบ้าน</p>
       </div>
       <div id="adOut" class="dash"></div>
     </section>
@@ -1628,9 +1636,9 @@ const VIEWS=[
  {id:'codes',th:'โค้ดแลกของ',ic:'gift',g:'more',d:'กดคัดลอกได้เลย'},
  {id:'admin',th:'หลังบ้าน',ic:'chart',hidden:1}];
 const navItem=(v,cls)=>`<button type="button" class="${cls}" data-go="${v.id}"><svg><use href="#i-${v.ic}"/></svg><span>${v.th}</span></button>`;
-document.getElementById('side').innerHTML=navItem(VIEWS[0],'navbtn')+GROUPS.map(g=>`<p class="grp">${g.th}</p>`+VIEWS.filter(v=>v.g===g.id).map(v=>navItem(v,'navbtn')).join('')).join('')+`<div class="foot">แฟนเมด · ข้อมูล ${esc(META.scraped||'')}</div>`;
+document.getElementById('side').innerHTML=navItem(VIEWS[0],'navbtn')+GROUPS.map(g=>`<p class="grp">${g.th}</p>`+VIEWS.filter(v=>v.g===g.id).map(v=>navItem(v,'navbtn')).join('')).join('')+`<div class="foot"><button type="button" class="adentry" data-go="admin"><svg><use href="#i-lock"/></svg>หลังบ้าน</button><span>แฟนเมด · ข้อมูล ${esc(META.scraped||'')}</span></div>`;
 document.getElementById('tabbar').innerHTML=VIEWS.filter(v=>v.tab).map(v=>navItem({...v,th:v.tabTh||v.th},'')).join('')+`<button type="button" id="moreBtn"><svg><use href="#i-more"/></svg><span>เพิ่มเติม</span></button>`;
-document.getElementById('menuInner').innerHTML='<div class="grab"></div>'+GROUPS.map(g=>`<div class="mgrp"><p>${g.th}</p><div class="mtiles">${VIEWS.filter(v=>v.g===g.id).map(v=>`<button type="button" data-go="${v.id}"><svg><use href="#i-${v.ic}"/></svg>${v.th}</button>`).join('')}</div></div>`).join('');
+document.getElementById('menuInner').innerHTML='<div class="grab"></div>'+GROUPS.map(g=>`<div class="mgrp"><p>${g.th}</p><div class="mtiles">${VIEWS.filter(v=>v.g===g.id).map(v=>`<button type="button" data-go="${v.id}"><svg><use href="#i-${v.ic}"/></svg>${v.th}</button>`).join('')}</div></div>`).join('')+'<button type="button" class="adentry" data-go="admin" style="justify-self:center"><svg><use href="#i-lock"/></svg>หลังบ้าน</button>';
 document.getElementById('homeGroups').innerHTML=GROUPS.map(g=>`<div class="hgroup"><h3>${g.th}${g.d?`<small>${g.d}</small>`:''}</h3><div class="tiles">${VIEWS.filter(v=>v.g===g.id).map(v=>`<button type="button" class="tile" data-go="${v.id}"><span class="ic"><svg><use href="#i-${v.ic}"/></svg></span><span><b>${v.th}</b><small>${v.d||''}</small></span></button>`).join('')}</div></div>`).join('');
 document.getElementById('hsearch').addEventListener('click',()=>{const g=document.getElementById('gq');g.focus();g.scrollIntoView({block:'nearest'})});
 const menu=document.getElementById('menu');
@@ -2563,8 +2571,18 @@ renderHomeRecent();
 /* ===== back office: site stats (owner only) =====
    Reads the GoatCounter API with the owner's read-only token, kept in this browser only.
    Nothing about the stats ships with the public site, so visitors cannot see them. */
-const AD={token:'',demo:false,range:7,busy:false};
-try{AD.token=localStorage.getItem('aniimo-admin-token')||''}catch(_){}
+const AD={token:'',demo:false,range:7,busy:false,seal:undefined};
+try{AD.token=sessionStorage.getItem('aniimo-admin-token')||localStorage.getItem('aniimo-admin-token')||''}catch(_){}
+function adForget(){AD.token='';try{sessionStorage.removeItem('aniimo-admin-token');localStorage.removeItem('aniimo-admin-token')}catch(_){}}
+/* admin.json holds the GoatCounter token encrypted with the owner's password (PBKDF2-SHA256 → AES-GCM) */
+async function adSeal(){if(AD.seal!==undefined)return AD.seal;try{const r=await fetch('admin.json',{cache:'no-store'});AD.seal=r.ok?await r.json():null}catch(_){AD.seal=null}return AD.seal}
+const b64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+async function adUnlock(pw){
+  const sl=await adSeal();if(!sl)throw new Error('noseal');
+  const base=await crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveKey']);
+  const key=await crypto.subtle.deriveKey({name:'PBKDF2',salt:b64(sl.salt),iterations:sl.iter,hash:'SHA-256'},base,{name:'AES-GCM',length:256},false,['decrypt']);
+  try{return new TextDecoder().decode(await crypto.subtle.decrypt({name:'AES-GCM',iv:b64(sl.iv)},key,b64(sl.ct)))}catch(_){throw new Error('badpw')}
+}
 const API=GC_CODE?`https://${GC_CODE}.goatcounter.com/api/v0/`:'';
 const fmtN=n=>Number(n||0).toLocaleString('th-TH');
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
@@ -2617,21 +2635,23 @@ function trendSvg(days){
 }
 function rankList(rows,render){const mx=Math.max(1,...rows.map(r=>r.count));return rows.map(r=>render(r,Math.round(r.count/mx*100))).join('')||'<p class="dnote">ยังไม่มีข้อมูลในช่วงนี้</p>'}
 const bar=(pct,n)=>`<span class="t"><i style="width:${pct}%"></i></span><b>${fmtN(n)}</b>`;
-function adminLogin(msg){
-  document.getElementById('adOut').innerHTML=`<div class="dpanel" style="max-width:620px"><h3>เข้าสู่หลังบ้าน</h3>
+async function adminLogin(msg){
+  const out=document.getElementById('adOut'),sl=await adSeal();
+  if(!sl){out.innerHTML=`<div class="dpanel" style="max-width:560px"><h3>ยังไม่ได้ตั้งค่าหลังบ้าน</h3><p class="muted">เจ้าของเว็บต้องตั้งรหัสผ่านหลังบ้านครั้งแรกก่อน (รันสคริปต์ <code>tools/admin/setup.sh</code> ในเครื่องที่มีโค้ดเว็บ)</p><div><button type="button" class="btn" id="adDemo">ดูตัวอย่างด้วยข้อมูลสมมติ</button></div></div>`;return}
+  out.innerHTML=`<form class="dpanel adlogin" id="adForm" style="max-width:420px">
+   <span class="ic"><svg><use href="#i-lock"/></svg></span><h3>เข้าสู่หลังบ้าน</h3>
    ${msg?`<p class="warnbox" style="margin:0">${msg}</p>`:''}
-   <ol class="small" style="margin:0;padding-left:1.2em;display:grid;gap:4px;color:var(--ink-2)">
-    <li>ล็อกอิน <a href="https://${GC_CODE}.goatcounter.com/user/api" target="_blank" rel="noopener">${GC_CODE}.goatcounter.com → Settings → API</a></li>
-    <li>กด <b>New token</b> ติ๊กเฉพาะ <b>Read statistics</b> แล้วกด Create</li>
-    <li>คัดลอก token มาวางด้านล่าง</li></ol>
-   <form id="adForm" style="display:grid;gap:8px"><label for="adToken">API token<input type="password" id="adToken" autocomplete="off" style="font:inherit;font-size:.92rem;border:1px solid var(--line);border-radius:12px;padding:9px 12px;background:var(--surface);color:var(--ink)"></label>
-   <div style="display:flex;gap:8px;flex-wrap:wrap"><button type="submit" class="btn primary">เข้าสู่หลังบ้าน</button><button type="button" class="btn" id="adDemo">ดูตัวอย่างด้วยข้อมูลสมมติ</button></div></form>
-   <p class="dnote">token เก็บไว้ในเบราว์เซอร์เครื่องนี้เท่านั้น ไม่ได้อยู่ในเว็บ คนอื่นที่เปิดหน้านี้จะเห็นแค่ฟอร์มนี้ ถ้าใช้เครื่องสาธารณะ กดออกจากระบบทุกครั้ง</p></div>`;
+   <label for="adPw">รหัสผ่าน<input type="password" id="adPw" autocomplete="current-password" required style="font:inherit;font-size:.95rem;border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--surface);color:var(--ink)"></label>
+   <label for="adRemember" style="display:flex;flex-direction:row;gap:8px;align-items:center;color:var(--ink)"><input type="checkbox" id="adRemember"> จำการเข้าสู่ระบบในเครื่องนี้</label>
+   <button type="submit" class="btn primary" id="adGo">เข้าสู่หลังบ้าน</button>
+   <button type="button" class="btn" id="adDemo">ดูตัวอย่างด้วยข้อมูลสมมติ</button>
+   <p class="dnote">ใช้เครื่องสาธารณะ ไม่ต้องติ๊กจำ และกดออกจากระบบทุกครั้ง</p></form>`;
+  setTimeout(()=>{const i=document.getElementById('adPw');i&&i.focus()},50);
 }
 async function renderAdmin(){
   const out=document.getElementById('adOut');
   if(!API){out.innerHTML='<div class="dpanel"><p class="muted">ยังไม่ได้ตั้งค่าการนับสถิติ</p></div>';return}
-  if(!AD.token&&!AD.demo){adminLogin();return}
+  if(!AD.token&&!AD.demo){await adminLogin();return}
   if(AD.busy)return;AD.busy=true;
   const sk='<div class="skel" style="width:60%"></div>';
   out.innerHTML=`<div class="kpis">${[1,2,3,4].map(()=>`<div class="kpi">${sk}${sk}</div>`).join('')}</div><div class="dpanel">${sk}</div>`;
@@ -2662,16 +2682,21 @@ async function renderAdmin(){
      </div>
      <p class="dnote">ข้อมูลจาก GoatCounter ไม่ใช้คุกกี้และไม่เก็บข้อมูลส่วนตัว · คำค้นหารายคำเริ่มนับตั้งแต่ 28 ก.ย. 2026</p>`;
   }catch(e){
-    if(e.message==='auth'){AD.token='';try{localStorage.removeItem('aniimo-admin-token')}catch(_){}adminLogin('token ไม่ถูกต้องหรือไม่มีสิทธิ์ Read statistics สร้าง token ใหม่แล้วลองอีกครั้ง')}
+    if(e.message==='auth'){adForget();adminLogin('ข้อมูลเข้าระบบหมดอายุหรือถูกยกเลิก เจ้าของเว็บต้องตั้งค่าหลังบ้านใหม่')}
     else out.innerHTML=`<div class="dpanel"><h3>โหลดสถิติไม่สำเร็จ</h3><p class="muted">เชื่อมต่อ GoatCounter ไม่ได้ ตรวจอินเทอร์เน็ตแล้วกดลองใหม่</p><div><button type="button" class="btn" id="adRefresh">ลองใหม่</button></div></div>`;
   }finally{AD.busy=false}
 }
-document.addEventListener('submit',e=>{if(e.target.id!=='adForm')return;e.preventDefault();const v=document.getElementById('adToken').value.trim();if(!v)return;AD.token=v;AD.demo=false;try{localStorage.setItem('aniimo-admin-token',v)}catch(_){}renderAdmin()});
+let adTries=0;
+document.addEventListener('submit',async e=>{if(e.target.id!=='adForm')return;e.preventDefault();
+  const pw=document.getElementById('adPw').value,btn=document.getElementById('adGo');if(!pw)return;btn.disabled=true;btn.textContent='กำลังตรวจสอบ…';
+  if(adTries>=3)await sleep(Math.min(8000,1000*2**(adTries-3)));
+  try{const t=await adUnlock(pw);adTries=0;AD.token=t;AD.demo=false;try{(document.getElementById('adRemember').checked?localStorage:sessionStorage).setItem('aniimo-admin-token',t)}catch(_){}renderAdmin()}
+  catch(err){adTries++;adminLogin(err.message==='badpw'?'รหัสผ่านไม่ถูกต้อง':'เปิดข้อมูลเข้าระบบไม่ได้')}});
 document.addEventListener('click',e=>{
   if(e.target.closest('#adDemo')){AD.demo=true;renderAdmin();return}
   if(e.target.closest('#adExitDemo')){AD.demo=false;renderAdmin();return}
   if(e.target.closest('#adRefresh')){renderAdmin();return}
-  if(e.target.closest('#adLogout')){AD.token='';try{localStorage.removeItem('aniimo-admin-token')}catch(_){}renderAdmin();return}
+  if(e.target.closest('#adLogout')){adForget();renderAdmin();return}
   const r=e.target.closest('#adRange [data-r]');if(r){AD.range=+r.dataset.r;renderAdmin()}
 });
 

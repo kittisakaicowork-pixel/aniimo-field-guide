@@ -23,6 +23,7 @@ jobs:
         run: |
           mkdir _site
           cp -r index.html data.js thumbs.js map.js map.webp map-icons.webp skills.webp items.webp spark-*.webp manifest.webmanifest icon-192.png icon-512.png sw.js img _site/
+          [ -f admin.json ] && cp admin.json _site/ || true
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
