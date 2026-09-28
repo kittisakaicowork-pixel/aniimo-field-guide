@@ -1,5 +1,5 @@
 // Network-first service worker: always fresh when online, cached copy when offline.
-const CACHE = 'aniimo-v9';
+const CACHE = 'aniimo-v10';
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(['./', './index.html', './data.js', './thumbs.js', './skills.webp', './manifest.webmanifest', './icon-192.png'])).then(() => self.skipWaiting()));
 });
@@ -8,7 +8,8 @@ self.addEventListener('activate', e => {
 });
 self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET' || new URL(e.request.url).origin !== location.origin) return;
-  e.respondWith(fetch(e.request).then(res => {
+  // revalidate with the server every time (cheap 304s) so a new deploy shows up on the next load
+  e.respondWith(fetch(e.request, { cache: 'no-cache' }).then(res => {
     const copy = res.clone(); caches.open(CACHE).then(c => c.put(e.request, copy)); return res;
   }).catch(() => caches.match(e.request)));
 });
