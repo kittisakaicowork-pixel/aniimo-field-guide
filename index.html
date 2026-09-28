@@ -807,6 +807,15 @@ dialog#menu .mtiles svg{width:22px;height:22px;color:var(--accent)}
 .vote .dist i{display:block;height:100%}
 .tn .vc{font-size:.68rem;color:var(--ink-2);margin-left:2px}
 
+/* duels / sanctums */
+.dugrid,.scgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.ducard{background:var(--glass);border:1px solid var(--glass-line);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:var(--shadow);border-radius:18px;padding:14px 16px;display:grid;gap:8px;align-content:start}
+.ducard h3{font-size:1rem;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.ducard .st{display:grid;gap:5px;padding:9px 11px;border-radius:12px;background:color-mix(in srgb,var(--sunk) 80%,transparent)}
+.ducard .st b{font-family:var(--display);font-size:.86rem}
+.ducard .rw{display:flex;flex-wrap:wrap;gap:4px}
+.ducard .elite{background:linear-gradient(135deg,var(--sun),var(--peach));color:#3a2200}
+
 /* feedback */
 .fbform{max-width:640px}
 .fbform textarea,.fbform input[type=text]{font:inherit;font-size:.95rem;border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--surface);color:var(--ink);resize:vertical}
@@ -986,7 +995,7 @@ h2{font-weight:600;letter-spacing:0}
           <div class="h3chips" id="heroChips"></div>
           <p class="h3live"><i></i>เซิร์ฟเวอร์เอเชีย · อัปเดตข้อมูลทุกสัปดาห์</p>
           <h1 class="h3title">Aniimo<span>Field Guide</span></h1>
-          <p class="lede">คู่มือ Aniimo ภาษาไทยที่ครบที่สุด ข้อมูล Aniimo 100 ตัว สกิล <span id="skTotal">—</span> สกิล แผนที่ทวีป อีเวนต์ และเครื่องมือจัดทีม ใช้ฟรี ไม่มีโฆษณา</p>
+          <p class="lede">คู่มือ Aniimo ภาษาไทยที่ครบที่สุด ข้อมูล Aniimo <span id="monTotal">—</span> ตัว สกิล <span id="skTotal">—</span> สกิล แผนที่ทวีป อีเวนต์ และเครื่องมือจัดทีม ใช้ฟรี ไม่มีโฆษณา</p>
           <div class="h3cta"><button type="button" class="cta" data-go="map"><svg><use href="#i-map"/></svg>สำรวจแผนที่</button><button type="button" class="cta ghost" data-go="dex"><svg><use href="#i-dex"/></svg>รายชื่อ Aniimo</button></div>
           <button type="button" class="hsearch" id="hsearch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>ค้นหา Aniimo หรือสกิล</button>
           <div class="h3code" id="heroCode"></div>
@@ -1451,6 +1460,40 @@ h2{font-weight:600;letter-spacing:0}
       <div id="plOut" style="display:grid;gap:14px"></div>
     </section>
 
+    <!-- DUELS -->
+    <section class="view" data-view="duels" hidden>
+      <div class="vhead">
+        <p class="eyebrow">ท้าดวล Pathfinder</p>
+        <h2>ดวล Pathfinder ทั่ว Idyll</h2>
+        <p class="muted">Pathfinder Challenge คือเทรนเนอร์ที่ยืนรออยู่ตามจุดต่าง ๆ บนแผนที่ แต่ละคนมี 1–2 ด่าน ชนะแล้วได้วัตถุดิบ Star Dust และ Credits ส่วน Elite Pathfinder Challenge เป็นเทรนเนอร์ระดับหัวกะทิของสถาบัน ให้เหรียญตราและทรัพยากรหายาก ทุกจุดกดดูบนแผนที่ได้</p>
+      </div>
+      <div class="bar-tools three">
+        <label for="duQ">ค้นหารางวัลหรือภูมิภาค<input type="search" id="duQ" placeholder="เช่น Star Dust, Blitzwood"></label>
+        <label for="duKind">ประเภท<select id="duKind"><option value="">ทั้งหมด</option><option value="pathfinder">Pathfinder Challenge</option><option value="elite-pathfinder">Elite (ระดับสูง)</option></select></label>
+        <label for="duSort">เรียงตาม<select id="duSort"><option value="lv">เลเวลแนะนำ</option><option value="region">ภูมิภาค</option></select></label>
+      </div>
+      <span class="count" id="duCount"></span>
+      <div class="dugrid" id="duGrid"><p class="muted">กำลังโหลด…</p></div>
+    </section>
+
+    <!-- SANCTUMS -->
+    <section class="view" data-view="sanctums" hidden>
+      <div class="vhead">
+        <p class="eyebrow">Sanctum</p>
+        <h2>Sanctum ทั้ง 17 แห่ง</h2>
+        <p class="muted">Sanctum คือซากวิหารโบราณที่มีปริศนาและผู้พิทักษ์ เข้าได้ 1–2 คน ในแต่ละแห่งมีหีบซ่อนอยู่ เคลียร์ครั้งแรกได้ EXP 500 ห้องที่ล็อกต้องใช้กุญแจ (Sanctum ระดับมือใหม่ใช้ Rusted Iron Key ระดับยากใช้ Silver-Plated Key)</p>
+      </div>
+      <div class="scgrid" id="scGrid"><p class="muted">กำลังโหลด…</p></div>
+      <div class="gsec">
+        <h3>Lost Sanctum ต่างจาก Sanctum ยังไง</h3>
+        <div class="grid g2">
+          <article class="card"><span class="tag">Lost Sanctum</span><p>ดันเจี้ยนแยกที่ผู้พิทักษ์เป็น Aniimo ปราบแล้วได้ลูกแก้วพลังงาน (Rare / Epic) ต้องใช้อุปกรณ์ของ Pathfinder คือ <b>Amplifier</b> (เพิ่มดาเมจ) และ <b>Unit</b> (เพิ่มพลังป้องกัน) ใส่ <b>Chip</b> เพิ่มความสามารถ เช่น ส่องสว่าง Blink รักษา Haste และน้ำหนักบรรทุก</p></article>
+          <article class="card"><span class="tag">ระดับความยาก</span><p>อุปกรณ์แต่ละระดับเก่งกับเป้าหมายต่างกัน: Experimental สำหรับเป้าหมายมือใหม่ · Common ถึงระดับ Hard · Intermediate/Advanced ถึงระดับ Chaos และ Nightmare อุปกรณ์เสื่อมความทนทานเมื่อใช้โบราณวัตถุฟื้นพลังงาน</p></article>
+        </div>
+        <p class="small muted"><span class="rtag community">จากข้อมูลไอเท็มในเกม</span> ยังไม่มีข้อมูลผังห้องของ Lost Sanctum ถ้าเล่นแล้วอยากช่วยบันทึก <a href="#feedback" data-go="feedback">ส่งข้อมูลมาได้</a></p>
+      </div>
+    </section>
+
     <!-- NEWS -->
     <section class="view" data-view="news" hidden>
       <div class="vhead">
@@ -1762,7 +1805,7 @@ h2{font-weight:600;letter-spacing:0}
         <li><a href="https://www.thegamer.com/aniimo-beginner-tips-tricks-guide/" target="_blank" rel="noopener">TheGamer — Beginner Tips</a></li>
         <li><a href="https://gamerant.com/aniimo-operation-egg-heist-guide-how-to-play-rewards-ranks/" target="_blank" rel="noopener">GameRant — Egg Heist</a></li>
       </ul>
-      <p class="small muted">เว็บแฟนเมด ไม่เกี่ยวข้องกับ Pawprint Studio · ภาพและชื่อ Aniimo เป็นลิขสิทธิ์ของผู้พัฒนาเกม · คำอธิบายสกิลเป็นข้อความต้นฉบับภาษาอังกฤษ</p>
+      <p class="small muted">เว็บแฟนเมด ไม่เกี่ยวข้องกับ Pawprint Studio · ภาพและชื่อ Aniimo เป็นลิขสิทธิ์ของผู้พัฒนาเกม · ข้อมูลเกม ภาพ และแผนที่ส่วนใหญ่ใช้โดยได้รับอนุญาตจาก <a href="https://aniidex.com/" target="_blank" rel="noopener">AniiDex</a> · ข่าวสรุปจากประกาศทางการ</p>
     </section>
   </main>
 </div>
@@ -1814,10 +1857,10 @@ const badge=k=>EK[k]?`<span class="ebadge" style="background:var(--${k})">${EK[k
 const KIND={region:'ภูมิภาค',prismana:'Prismana',rain:'ฝน/พายุ',thunder:'พายุฟ้าคะนอง',snow:'หิมะ',night:'กลางคืน'};
 const SLOT={atk:'โจมตีปกติ',s1:'สกิล 1',s2:'สกิล 2',s3:'สกิล 3',s4:'สกิล 4',ult:'อัลติเมต'};
 const DMG={p:'กายภาพ',m:'เวท','':'ไม่ทำดาเมจ'};
-const A=(window.ANIIMO||[]).slice().sort((a,b)=>{const na=+a.no,nb=+b.no;return (na>9000)-(nb>9000)||na-nb});
+const A=(window.ANIIMO||[]).filter(a=>!a.u).sort((a,b)=>{const na=+a.no,nb=+b.no;return (na>9000)-(nb>9000)||na-nb});
 const BY=Object.fromEntries(A.map(a=>[a.slug,a]));
 const SK=window.SKILLS||{};const SPR=window.SPRITE||{cols:15,rows:15};
-const EVO=window.EVO||[];
+const EVO=(window.EVO||[]).filter(([s,d])=>BY[s]&&BY[d]);
 /* evolution lines: real routes first; creatures with no recorded route fall back to their art-id family */
 const LINES=(()=>{const p={};const f=x=>p[x]===x?x:(p[x]=f(p[x]));A.forEach(a=>p[a.slug]=a.slug);
   const linked=new Set();EVO.forEach(([s,d])=>{if(p[s]&&p[d]){p[f(s)]=f(d);linked.add(s);linked.add(d)}});
@@ -1847,7 +1890,7 @@ const workLabel=w=>(WORK_TH[w[0]]||('งานธาตุ'+(EK[w[0].toLowerCase
 const BOSSES=window.BOSSES||[];const REGIONS=window.REGIONS||{};
 const TIERMAP={};
 const ALLSK=[];A.forEach(a=>skillsOf(a.slug).forEach(s=>ALLSK.push({a,s})));
-document.getElementById('skTotal').textContent=ALLSK.length;
+document.getElementById('skTotal').textContent=ALLSK.length;{const m=document.getElementById('monTotal');if(m)m.textContent=A.length}
 
 /* ===== navigation ===== */
 const GROUPS=[
@@ -1866,7 +1909,7 @@ const VIEWS=[
  {id:'beginner',th:'มือใหม่',ic:'star',g:'start',d:'ตัวเลือกที่ย้อนไม่ได้ ควรทำ/ไม่ควรทำ'},
  {id:'growth',th:'แนวทางพัฒนา',ic:'up',g:'start',d:'พัฒนา Aniimo และใช้ทรัพยากรให้คุ้ม'},
  {id:'guide',th:'ข้อมูลเกม',ic:'book',g:'start',d:'ระบบหลัก สเปกเครื่อง แหล่งอ้างอิง'},
- {id:'dex',th:'รายชื่อ Aniimo',ic:'dex',g:'mon',tab:1,tabTh:'Aniimo',d:'100 ตัว ค่าสถานะ สายวิวัฒนาการ'},
+ {id:'dex',th:'รายชื่อ Aniimo',ic:'dex',g:'mon',tab:1,tabTh:'Aniimo',d:A.length+' ตัว ค่าสถานะ สายวิวัฒนาการ'},
  {id:'skills',th:'สกิลและสีธาตุ',ic:'skill',g:'mon',d:'สกิลทุกตัวแยกตามสีธาตุ'},
  {id:'forms',th:'ร่างพิเศษ',ic:'forms',g:'mon',d:'ร่างตามพื้นที่ สภาพอากาศ Prismana'},
  {id:'sparkling',th:'เปล่งประกาย',ic:'spark',g:'mon',d:'12 แบบต่อร่าง'},
@@ -1875,6 +1918,8 @@ const VIEWS=[
  {id:'map',th:'แผนที่ทวีป',ic:'map',g:'world',tab:1,tabTh:'แผนที่',d:'หีบ ไข่ วัตถุดิบ บอส 4,334 จุด'},
  {id:'regions',th:'ภูมิภาค',ic:'pin',g:'world',d:'14 ภูมิภาคและจุดเกิด'},
  {id:'bosses',th:'บอส Alpha / Omega',ic:'boss',g:'world',d:'จุดอ่อนและตัวที่ควรใช้'},
+ {id:'duels',th:'ดวล Pathfinder',ic:'team',g:'world',d:'62 จุด เลเวลและรางวัล'},
+ {id:'sanctums',th:'Sanctum',ic:'layers',g:'world',d:'17 แห่ง และ Lost Sanctum'},
  {id:'events',th:'อีเวนต์',ic:'cal',g:'world',d:'นับถอยหลังตามเวลาไทย'},
  {id:'items',th:'ไอเท็ม',ic:'bag',g:'world',d:'658 ชิ้นพร้อมวิธีหา'},
  {id:'systems',th:'ระบบเชิงลึก',ic:'layers',g:'world',d:'ยศ บ้าน ไข่ ร้านค้า ดันเจี้ยน'},
@@ -1888,7 +1933,7 @@ const VIEWS=[
  {id:'admin',th:'หลังบ้าน',ic:'chart',hidden:1},
  {id:'donate',th:'สนับสนุนเว็บ',ic:'heart',hidden:1}];
 const navItem=(v,cls)=>`<button type="button" class="${cls}" data-go="${v.id}"><svg><use href="#i-${v.ic}"/></svg><span>${v.th}</span></button>`;
-document.getElementById('side').innerHTML=navItem(VIEWS[0],'navbtn')+GROUPS.map(g=>`<p class="grp">${g.th}</p>`+VIEWS.filter(v=>v.g===g.id).map(v=>navItem(v,'navbtn')).join('')).join('')+`<div class="foot"><button type="button" class="donbtn" data-go="donate" data-donate hidden><svg><use href="#i-heart"/></svg>สนับสนุนเว็บ</button><button type="button" class="adentry" data-go="admin"><svg><use href="#i-lock"/></svg>หลังบ้าน</button><span>แฟนเมด · ข้อมูล ${esc(META.scraped||'')}</span></div>`;
+document.getElementById('side').innerHTML=navItem(VIEWS[0],'navbtn')+GROUPS.map(g=>`<p class="grp">${g.th}</p>`+VIEWS.filter(v=>v.g===g.id).map(v=>navItem(v,'navbtn')).join('')).join('')+`<div class="foot"><button type="button" class="donbtn" data-go="donate" data-donate hidden><svg><use href="#i-heart"/></svg>สนับสนุนเว็บ</button><button type="button" class="adentry" data-go="admin"><svg><use href="#i-lock"/></svg>หลังบ้าน</button><span>แฟนเมด · ข้อมูลจาก <a href="https://aniidex.com/" target="_blank" rel="noopener">AniiDex</a> · ${esc(META.scraped||'')}</span></div>`;
 document.getElementById('tabbar').innerHTML=VIEWS.filter(v=>v.tab).map(v=>navItem({...v,th:v.tabTh||v.th},'')).join('')+`<button type="button" id="moreBtn"><svg><use href="#i-more"/></svg><span>เพิ่มเติม</span></button>`;
 document.getElementById('menuInner').innerHTML='<div class="grab"></div>'+GROUPS.map(g=>`<div class="mgrp"><p>${g.th}</p><div class="mtiles">${VIEWS.filter(v=>v.g===g.id).map(v=>`<button type="button" data-go="${v.id}"><svg><use href="#i-${v.ic}"/></svg>${v.th}</button>`).join('')}</div></div>`).join('')+'<button type="button" class="donbtn" data-go="donate" data-donate hidden style="justify-self:center"><svg><use href="#i-heart"/></svg>สนับสนุนเว็บ</button><button type="button" class="adentry" data-go="admin" style="justify-self:center"><svg><use href="#i-lock"/></svg>หลังบ้าน</button>';
 document.getElementById('homeGroups').innerHTML=GROUPS.map(g=>`<div class="hgroup"><h3>${g.th}${g.d?`<small>${g.d}</small>`:''}</h3><div class="tiles">${VIEWS.filter(v=>v.g===g.id).map(v=>`<button type="button" class="tile" data-go="${v.id}"><span class="ic"><svg><use href="#i-${v.ic}"/></svg></span><span><b>${v.th}</b><small>${v.d||''}</small></span></button>`).join('')}</div></div>`).join('');
@@ -1898,7 +1943,7 @@ document.getElementById('moreBtn').addEventListener('click',()=>menu.showModal()
 menu.addEventListener('click',e=>{if(e.target===menu)menu.close()});
 let current='home';
 const RENDERED=new Set();
-function ensureRendered(id){if(RENDERED.has(id))return;RENDERED.add(id);const f={dex:()=>renderDex(),skills:()=>renderSkills(),sparkling:()=>renderSpark(),forms:()=>renderForms(),tier:()=>renderTiers(),team:()=>renderTeam(),collection:()=>renderCollection(),compare:()=>renderCompare(),bosses:()=>renderBosses(),regions:()=>renderRegions(),map:()=>renderMap(),events:()=>renderEvents(),items:()=>renderItems(),systems:()=>renderSystems(),planner:()=>renderPlanner(),history:()=>renderHistory(),news:()=>renderNews(),media:()=>renderMedia(),faq:()=>renderFaq(),glossary:()=>renderGloss(),admin:()=>renderAdmin(),donate:()=>renderDonate()}[id];f&&f()}
+function ensureRendered(id){if(RENDERED.has(id))return;RENDERED.add(id);const f={dex:()=>renderDex(),skills:()=>renderSkills(),sparkling:()=>renderSpark(),forms:()=>renderForms(),tier:()=>renderTiers(),team:()=>renderTeam(),collection:()=>renderCollection(),compare:()=>renderCompare(),bosses:()=>renderBosses(),regions:()=>renderRegions(),map:()=>renderMap(),events:()=>renderEvents(),items:()=>renderItems(),systems:()=>renderSystems(),planner:()=>renderPlanner(),history:()=>renderHistory(),news:()=>renderNews(),duels:()=>withMap(renderDuels),sanctums:()=>withMap(renderSanctums),media:()=>renderMedia(),faq:()=>renderFaq(),glossary:()=>renderGloss(),admin:()=>renderAdmin(),donate:()=>renderDonate()}[id];f&&f()}
 function go(id,push){
   if(!VIEWS.some(v=>v.id===id))id='home';
   if(id!=='admin'){histAdd('views',id);track('view',id)}if(id!=='feedback'&&id!=='admin'&&typeof fbLastPage!=='undefined')fbLastPage=id;if(id==='history'||id==='admin'||id==='news')RENDERED.delete(id);if(id==='home'&&typeof renderHomeRecent==='function')renderHomeRecent();
@@ -2984,6 +3029,32 @@ document.addEventListener('click',e=>{
   if(e.target.closest('#adLogout')){if(AD.s)fetch(SB.url+'/auth/v1/logout',{method:'POST',headers:{apikey:SB.key,Authorization:'Bearer '+AD.s.access}}).catch(()=>{});adSave(null);renderAdmin();return}
   const r=e.target.closest('#adRange [data-r]');if(r){AD.range=+r.dataset.r;renderAdmin()}
 });
+
+/* ===== Pathfinder duels & Sanctums (from the map data) ===== */
+function withMap(fn){if(window.MAP){fn();return}const sc=document.createElement('script');sc.src='map.js';sc.onload=fn;sc.onerror=()=>{};document.head.appendChild(sc)}
+function regionAt(m){const x=m[1]/100,y=m[2]/100;return Object.keys(MAP.regions).find(n=>inPoly(x,y,MAP.regions[n]))||''}
+const mapBtn=i=>`<button type="button" class="chip" data-mapm-go="${i}" style="cursor:pointer">ดูบนแผนที่</button>`;
+const elBadges=a=>(a||[]).map(e=>badge(mEl(e))).join('');
+const rwChips=a=>(a||[]).map(([n,q])=>`<span class="chip">${itemRef(n)} ×${Number(q).toLocaleString()}</span>`).join('');
+function renderDuels(){
+  const q=document.getElementById('duQ').value.trim().toLowerCase(),kind=document.getElementById('duKind').value,sort=document.getElementById('duSort').value;
+  const rows=MAP.m.map((m,i)=>({m,i,o:MAP.info[m[3]]})).filter(x=>x.o.k==='pathfinder'||x.o.k==='elite-pathfinder').map(x=>({...x,region:regionAt(x.m),lv:Math.min(...(x.o.st||[{lv:99}]).map(s=>s.lv||99))}))
+    .filter(x=>(!kind||x.o.k===kind)&&(!q||(x.region+' '+JSON.stringify(x.o.st)).toLowerCase().includes(q)))
+    .sort((a,b)=>sort==='region'?a.region.localeCompare(b.region)||a.lv-b.lv:a.lv-b.lv);
+  document.getElementById('duCount').textContent=`${rows.length} จุด`;
+  document.getElementById('duGrid').innerHTML=rows.map(({i,o,region})=>`<article class="ducard"><h3>${o.k==='elite-pathfinder'?'<span class="chip elite">Elite</span>':''}${esc(region||'ไม่ทราบภูมิภาค')}</h3>
+    ${(o.st||[]).map((s,k)=>`<div class="st"><b>ด่าน ${k+1}${s.lv?` · แนะนำ Lv. ${s.lv}`:''}</b>${s.rec&&s.rec.length?`<div class="rw"><small class="muted">ธาตุที่ได้เปรียบ</small> ${elBadges(s.rec)}</div>`:''}${s.rw&&s.rw.length?`<div class="rw">${rwChips(s.rw)}</div>`:''}</div>`).join('')}
+    <div>${mapBtn(i)}</div></article>`).join('')||'<p class="muted">ไม่พบ</p>';
+}
+['duQ','duKind','duSort'].forEach(id=>document.getElementById(id).addEventListener(id==='duQ'?'input':'change',()=>window.MAP&&renderDuels()));
+function renderSanctums(){
+  const rows=MAP.m.map((m,i)=>({m,i,o:MAP.info[m[3]]})).filter(x=>x.o.k==='sanctum').map(x=>({...x,region:regionAt(x.m)})).sort((a,b)=>a.region.localeCompare(b.region));
+  document.getElementById('scGrid').innerHTML=rows.map(({i,o,region})=>`<article class="ducard"><h3>${esc(o.t.replace(/^Sanctum: /,''))}</h3>
+    <div class="rw"><span class="chip">${esc(region)}</span><span class="chip">${o.ch>1?`${o.ch} คน`:'เล่นคนเดียว'}</span><span class="chip">หีบ ${o.cht||0} ใบ</span></div>
+    <p class="small muted">${esc(mTr(o.d))}</p><div>${mapBtn(i)}</div></article>`).join('');
+}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-mapm-go]');if(!b)return;const m=MAP.m[+b.dataset.mapmGo];go('map');
+  const f=()=>{MV.on.add(m[0]);mapLayersUI();const r=mapCv.getBoundingClientRect();mapCenter(m[1]/1e4,m[2]/1e4,fitScale()*4);mapShow(m)};if(MV.ready)f();else MV.pending=f});
 
 /* ===== news, media, FAQ, glossary (content.js) ===== */
 const NEWS=window.NEWS||[],FAQ=window.FAQ||[],GLOSS=window.GLOSSARY||[],VIDEOS=window.VIDEOS||[],ROAD=window.ROADMAP||[],OLINKS=window.LINKS||[];
