@@ -744,6 +744,22 @@ dialog#menu .mtiles svg{width:22px;height:22px;color:var(--accent)}
 .adlogin .ic{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:var(--glow);color:var(--accent)}
 .adlogin .ic svg{width:22px;height:22px}
 .adlogin input[type=email],.adlogin input[type=password]{font:inherit;font-size:.95rem;border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--surface);color:var(--ink)}
+/* donate */
+.donbtn{display:inline-flex;align-items:center;gap:6px;border:0;background:color-mix(in srgb,var(--sun) 22%,var(--surface));color:var(--ink);border-radius:999px;padding:6px 14px;font-size:.82rem;font-weight:500;cursor:pointer;justify-self:start}
+.donbtn svg{width:15px;height:15px;color:#C9544A}
+.dcard{display:grid;grid-template-columns:40px 1fr auto;gap:12px;align-items:center;text-align:left;border:0;background:color-mix(in srgb,var(--sun) 12%,var(--surface));box-shadow:var(--shadow);border-radius:16px;padding:14px 16px;cursor:pointer;color:var(--ink)}
+.dcard .ic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:color-mix(in srgb,#C9544A 14%,var(--surface));color:#C9544A}
+.dcard svg{width:20px;height:20px}
+.dcard b{display:block;font-family:var(--display);font-weight:600}
+.dcard small{display:block;color:var(--ink-2);font-size:.8rem}
+.dcard .go{font-size:.82rem;font-weight:600;color:var(--accent)}
+.donate{display:grid;grid-template-columns:1.2fr 1fr;gap:24px;align-items:center;background:var(--surface);box-shadow:var(--shadow);border-radius:24px;padding:28px}
+.donate h2{margin:6px 0 10px}
+.dfor{margin:14px 0 0;padding-left:1.2em;display:grid;gap:4px;color:var(--ink-2);font-size:.92rem}
+.dqr{display:grid;justify-items:center;gap:10px;text-align:center}
+.dqr img{width:min(280px,100%);border-radius:18px;background:#fff;padding:10px;box-shadow:var(--shadow)}
+.dqr small{color:var(--ink-2);font-size:.8rem}
+@media (max-width:760px){.donate{grid-template-columns:1fr;padding:20px}}
 /* history */
 .hist{display:grid;gap:22px}
 .hist h3{font-size:1rem;display:flex;align-items:baseline;gap:10px;margin-bottom:10px}
@@ -807,6 +823,7 @@ dialog#menu .mtiles svg{width:22px;height:22px;color:var(--accent)}
   <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
   <symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V4"/><path d="M4 20h16"/><path d="M8 16v-4M12 16V8M16 16v-6"/></symbol>
   <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-9.2-9A5 5 0 0 1 12 6.2 5 5 0 0 1 21.2 11C19 15.6 12 20 12 20z"/></symbol>
   <symbol id="i-more" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></symbol>
 </svg>
 
@@ -846,6 +863,7 @@ dialog#menu .mtiles svg{width:22px;height:22px;color:var(--accent)}
       <div class="today" id="homeToday" aria-live="polite"></div>
       <div class="hgroup" id="homeRecent" hidden><h3>ดูล่าสุด<small><a href="#history" data-go="history">ประวัติทั้งหมด</a></small></h3><div class="recent" id="homeRecentList"></div></div>
       <div class="hgroups" id="homeGroups"></div>
+      <button type="button" class="dcard" data-go="donate" data-donate hidden><span class="ic"><svg><use href="#i-heart"/></svg></span><span><b>ชอบเว็บนี้ไหม?</b><small>ใช้ฟรีไม่มีโฆษณา สนับสนุนคนทำได้ตามความสมัครใจ</small></span><span class="go">สนับสนุน</span></button>
       <div class="install" id="installBox" hidden>
         <img src="icon-192.png" alt="">
         <div><b style="font-family:var(--display);font-weight:500">ติดตั้งเป็นแอป</b><p class="small muted">เปิดจากหน้าจอหลักได้เหมือนแอป และใช้งานออฟไลน์ได้หลังเปิดครั้งแรก</p></div>
@@ -1296,6 +1314,24 @@ dialog#menu .mtiles svg{width:22px;height:22px;color:var(--accent)}
       <div id="plOut" style="display:grid;gap:14px"></div>
     </section>
 
+    <!-- DONATE -->
+    <section class="view" data-view="donate" hidden>
+      <div class="donate">
+        <div class="dtext">
+          <p class="eyebrow">สนับสนุนเว็บ</p>
+          <h2>ชอบคู่มือนี้ ช่วยเลี้ยงกาแฟคนทำได้นะ</h2>
+          <p class="muted">เว็บนี้ใช้ฟรี ไม่มีโฆษณา และจะเป็นแบบนี้ต่อไป ใครอยากสนับสนุนก็ร่วมได้ตามความสมัครใจ ไม่สนับสนุนก็ใช้ได้ทุกอย่างเหมือนเดิม</p>
+          <ul class="dfor">
+            <li>ค่าดูแลเว็บและฐานข้อมูล</li>
+            <li>เวลาอัปเดตข้อมูล อีเวนต์ และโค้ดทุกสัปดาห์</li>
+            <li>ฟีเจอร์ใหม่ที่ผู้เล่นขอมา</li>
+          </ul>
+        </div>
+        <div class="dqr" id="donateBox"></div>
+      </div>
+      <p class="small muted">ขอบคุณทุกการสนับสนุน ไม่ว่าจะเป็นเงิน การแชร์เว็บให้เพื่อน หรือการติชม 🙏</p>
+    </section>
+
     <!-- BACK OFFICE (owner only) -->
     <section class="view" data-view="admin" hidden>
       <div class="vhead">
@@ -1635,11 +1671,12 @@ const VIEWS=[
  {id:'collection',th:'เช็กลิสต์สะสม',ic:'check',g:'tools',d:'ติ๊กตัวที่จับได้'},
  {id:'history',th:'ประวัติการใช้งาน',ic:'clock',g:'tools',d:'ที่ดูล่าสุดและคำค้นหา'},
  {id:'codes',th:'โค้ดแลกของ',ic:'gift',g:'more',d:'กดคัดลอกได้เลย'},
- {id:'admin',th:'หลังบ้าน',ic:'chart',hidden:1}];
+ {id:'admin',th:'หลังบ้าน',ic:'chart',hidden:1},
+ {id:'donate',th:'สนับสนุนเว็บ',ic:'heart',hidden:1}];
 const navItem=(v,cls)=>`<button type="button" class="${cls}" data-go="${v.id}"><svg><use href="#i-${v.ic}"/></svg><span>${v.th}</span></button>`;
-document.getElementById('side').innerHTML=navItem(VIEWS[0],'navbtn')+GROUPS.map(g=>`<p class="grp">${g.th}</p>`+VIEWS.filter(v=>v.g===g.id).map(v=>navItem(v,'navbtn')).join('')).join('')+`<div class="foot"><button type="button" class="adentry" data-go="admin"><svg><use href="#i-lock"/></svg>หลังบ้าน</button><span>แฟนเมด · ข้อมูล ${esc(META.scraped||'')}</span></div>`;
+document.getElementById('side').innerHTML=navItem(VIEWS[0],'navbtn')+GROUPS.map(g=>`<p class="grp">${g.th}</p>`+VIEWS.filter(v=>v.g===g.id).map(v=>navItem(v,'navbtn')).join('')).join('')+`<div class="foot"><button type="button" class="donbtn" data-go="donate" data-donate hidden><svg><use href="#i-heart"/></svg>สนับสนุนเว็บ</button><button type="button" class="adentry" data-go="admin"><svg><use href="#i-lock"/></svg>หลังบ้าน</button><span>แฟนเมด · ข้อมูล ${esc(META.scraped||'')}</span></div>`;
 document.getElementById('tabbar').innerHTML=VIEWS.filter(v=>v.tab).map(v=>navItem({...v,th:v.tabTh||v.th},'')).join('')+`<button type="button" id="moreBtn"><svg><use href="#i-more"/></svg><span>เพิ่มเติม</span></button>`;
-document.getElementById('menuInner').innerHTML='<div class="grab"></div>'+GROUPS.map(g=>`<div class="mgrp"><p>${g.th}</p><div class="mtiles">${VIEWS.filter(v=>v.g===g.id).map(v=>`<button type="button" data-go="${v.id}"><svg><use href="#i-${v.ic}"/></svg>${v.th}</button>`).join('')}</div></div>`).join('')+'<button type="button" class="adentry" data-go="admin" style="justify-self:center"><svg><use href="#i-lock"/></svg>หลังบ้าน</button>';
+document.getElementById('menuInner').innerHTML='<div class="grab"></div>'+GROUPS.map(g=>`<div class="mgrp"><p>${g.th}</p><div class="mtiles">${VIEWS.filter(v=>v.g===g.id).map(v=>`<button type="button" data-go="${v.id}"><svg><use href="#i-${v.ic}"/></svg>${v.th}</button>`).join('')}</div></div>`).join('')+'<button type="button" class="donbtn" data-go="donate" data-donate hidden style="justify-self:center"><svg><use href="#i-heart"/></svg>สนับสนุนเว็บ</button><button type="button" class="adentry" data-go="admin" style="justify-self:center"><svg><use href="#i-lock"/></svg>หลังบ้าน</button>';
 document.getElementById('homeGroups').innerHTML=GROUPS.map(g=>`<div class="hgroup"><h3>${g.th}${g.d?`<small>${g.d}</small>`:''}</h3><div class="tiles">${VIEWS.filter(v=>v.g===g.id).map(v=>`<button type="button" class="tile" data-go="${v.id}"><span class="ic"><svg><use href="#i-${v.ic}"/></svg></span><span><b>${v.th}</b><small>${v.d||''}</small></span></button>`).join('')}</div></div>`).join('');
 document.getElementById('hsearch').addEventListener('click',()=>{const g=document.getElementById('gq');g.focus();g.scrollIntoView({block:'nearest'})});
 const menu=document.getElementById('menu');
@@ -1647,7 +1684,7 @@ document.getElementById('moreBtn').addEventListener('click',()=>menu.showModal()
 menu.addEventListener('click',e=>{if(e.target===menu)menu.close()});
 let current='home';
 const RENDERED=new Set();
-function ensureRendered(id){if(RENDERED.has(id))return;RENDERED.add(id);const f={dex:()=>renderDex(),skills:()=>renderSkills(),sparkling:()=>renderSpark(),forms:()=>renderForms(),tier:()=>renderTiers(),team:()=>renderTeam(),collection:()=>renderCollection(),compare:()=>renderCompare(),bosses:()=>renderBosses(),regions:()=>renderRegions(),map:()=>renderMap(),events:()=>renderEvents(),items:()=>renderItems(),systems:()=>renderSystems(),planner:()=>renderPlanner(),history:()=>renderHistory(),admin:()=>renderAdmin()}[id];f&&f()}
+function ensureRendered(id){if(RENDERED.has(id))return;RENDERED.add(id);const f={dex:()=>renderDex(),skills:()=>renderSkills(),sparkling:()=>renderSpark(),forms:()=>renderForms(),tier:()=>renderTiers(),team:()=>renderTeam(),collection:()=>renderCollection(),compare:()=>renderCompare(),bosses:()=>renderBosses(),regions:()=>renderRegions(),map:()=>renderMap(),events:()=>renderEvents(),items:()=>renderItems(),systems:()=>renderSystems(),planner:()=>renderPlanner(),history:()=>renderHistory(),admin:()=>renderAdmin(),donate:()=>renderDonate()}[id];f&&f()}
 function go(id,push){
   if(!VIEWS.some(v=>v.id===id))id='home';
   if(id!=='admin'){histAdd('views',id);track('view',id)}if(id==='history'||id==='admin')RENDERED.delete(id);if(id==='home'&&typeof renderHomeRecent==='function')renderHomeRecent();
@@ -2693,6 +2730,15 @@ document.addEventListener('click',e=>{
   if(e.target.closest('#adLogout')){if(AD.s)fetch(SB.url+'/auth/v1/logout',{method:'POST',headers:{apikey:SB.key,Authorization:'Bearer '+AD.s.access}}).catch(()=>{});adSave(null);renderAdmin();return}
   const r=e.target.closest('#adRange [data-r]');if(r){AD.range=+r.dataset.r;renderAdmin()}
 });
+
+/* ===== donations (voluntary) =====
+   The owner's payment QR image goes in the site folder; entry points stay hidden until it exists. */
+const DONATE={qr:'donate-qr.jpg',label:'สแกนด้วยแอปธนาคารหรือวอลเล็ต จำนวนเท่าไหร่ก็ได้',links:[]}; // links: [{th:'Ko-fi',url:'https://ko-fi.com/...'}]
+let DONATE_ON=false;
+(function(){const im=new Image();im.onload=()=>{DONATE_ON=true;document.querySelectorAll('[data-donate]').forEach(b=>b.hidden=false)};im.src=DONATE.qr})();
+function renderDonate(){
+  document.getElementById('donateBox').innerHTML=`<img src="${DONATE.qr}" alt="QR สำหรับโอนเงินสนับสนุน" onerror="this.replaceWith(Object.assign(document.createElement('p'),{className:'muted',textContent:'ยังไม่เปิดรับการสนับสนุนตอนนี้'}))"><small>${esc(DONATE.label)}</small>${DONATE.links.map(l=>`<a class="btn" href="${esc(l.url)}" target="_blank" rel="noopener" style="text-decoration:none;color:inherit">${esc(l.th)} ↗</a>`).join('')}`;
+}
 
 /* ===== home: today at a glance ===== */
 function renderHomeToday(){
