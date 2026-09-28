@@ -617,7 +617,8 @@ a{color:var(--accent);text-underline-offset:3px}
 .gsearch input:focus{background:var(--surface);border-color:var(--accent);outline:none;box-shadow:0 0 0 4px var(--glow)}
 .iconbtn{background:transparent;border-color:transparent}
 .iconbtn:hover{background:var(--sunk)}
-.shell{grid-template-columns:232px minmax(0,1fr);max-width:1360px}
+.shell{max-width:1360px}
+@media (min-width:960px){.shell{grid-template-columns:232px minmax(0,1fr)}}
 .side{border-right:0;padding:14px 10px 18px;gap:1px}
 .side .grp{font:600 .68rem/1 var(--display);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);opacity:.75;padding:18px 14px 6px}
 .navbtn{padding:8px 12px;border-radius:10px;font-size:.92rem;gap:11px}
@@ -707,6 +708,12 @@ dialog#menu .mtiles svg{width:22px;height:22px;color:var(--accent)}
 @media (max-width:959px){
   main{padding:20px 16px calc(var(--bar) + 28px + env(safe-area-inset-bottom,0px))}
   .welcome{grid-template-columns:1fr;padding:22px 20px}
+  .welcome h1{font-size:1.8rem}
+  .welcome h1 br{display:none}
+  .hsearch{max-width:none}
+  .today{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .today>*{font-size:.8rem;padding:10px 12px;align-items:flex-start}
+  .today i{margin-top:6px}
   .welcome .stage{display:none}
   .gnav{top:calc(59px + env(safe-area-inset-top,0px));overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none}
   .gnav a{white-space:nowrap}
@@ -763,7 +770,7 @@ dialog#menu .mtiles svg{width:22px;height:22px;color:var(--accent)}
       <div class="welcome">
         <div>
           <p class="eyebrow">คู่มือ Aniimo ภาษาไทย · เซิร์ฟเวอร์เอเชีย</p>
-          <h1>วันนี้จะออกสำรวจ<br>Idyll ตรงไหนดี</h1>
+          <h1>วันนี้จะออกสำรวจ <br>Idyll ตรงไหนดี</h1>
           <p class="lede">ข้อมูล Aniimo ครบ 100 ตัว สกิล <span id="skTotal">—</span> สกิล แผนที่ทวีป อีเวนต์ และเครื่องมือจัดทีม อัปเดตทุกสัปดาห์</p>
           <button type="button" class="hsearch" id="hsearch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>ค้นหา Aniimo หรือสกิล</button>
         </div>
