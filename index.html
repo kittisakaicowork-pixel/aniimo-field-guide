@@ -829,22 +829,6 @@ dialog#menu .mtiles svg{width:22px;height:22px;color:var(--accent)}
 .fbitem p{white-space:pre-wrap;word-break:break-word;font-size:.92rem}
 .fbitem .acts{display:flex;gap:6px;flex-wrap:wrap}
 .fbitem .acts button{font-size:.76rem;padding:4px 10px}
-/* donate */
-.donbtn{display:inline-flex;align-items:center;gap:6px;border:0;background:color-mix(in srgb,var(--sun) 22%,var(--surface));color:var(--ink);border-radius:999px;padding:6px 14px;font-size:.82rem;font-weight:500;cursor:pointer;justify-self:start}
-.donbtn svg{width:15px;height:15px;color:#C9544A}
-.dcard{display:grid;grid-template-columns:40px 1fr auto;gap:12px;align-items:center;text-align:left;border:0;background:color-mix(in srgb,var(--sun) 12%,var(--surface));box-shadow:var(--shadow);border-radius:16px;padding:14px 16px;cursor:pointer;color:var(--ink)}
-.dcard .ic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:color-mix(in srgb,#C9544A 14%,var(--surface));color:#C9544A}
-.dcard svg{width:20px;height:20px}
-.dcard b{display:block;font-family:var(--display);font-weight:600}
-.dcard small{display:block;color:var(--ink-2);font-size:.8rem}
-.dcard .go{font-size:.82rem;font-weight:600;color:var(--accent)}
-.donate{display:grid;grid-template-columns:1.2fr 1fr;gap:24px;align-items:center;background:var(--surface);box-shadow:var(--shadow);border-radius:24px;padding:28px}
-.donate h2{margin:6px 0 10px}
-.dfor{margin:14px 0 0;padding-left:1.2em;display:grid;gap:4px;color:var(--ink-2);font-size:.92rem}
-.dqr{display:grid;justify-items:center;gap:10px;text-align:center}
-.dqr img{width:min(280px,100%);border-radius:18px;background:#fff;padding:10px;box-shadow:var(--shadow)}
-.dqr small{color:var(--ink-2);font-size:.8rem}
-@media (max-width:760px){.donate{grid-template-columns:1fr;padding:20px}}
 /* =================== v3 skin: Idyll dusk (bright fantasy, glass surfaces) =================== */
 body{background:var(--sky) fixed,var(--ground)}
 h1,h2,h3,h4,.eyebrow{font-family:var(--display)}
@@ -1009,8 +993,7 @@ h2{font-weight:600;letter-spacing:0}
       <div class="today" id="homeToday" aria-live="polite"></div>
       <div class="hgroup" id="homeRecent" hidden><h3>ดูล่าสุด<small><a href="#history" data-go="history">ประวัติทั้งหมด</a></small></h3><div class="recent" id="homeRecentList"></div></div>
       <div class="hgroups" id="homeGroups"></div>
-      <button type="button" class="dcard" data-go="donate" data-donate hidden><span class="ic"><svg><use href="#i-heart"/></svg></span><span><b>ชอบเว็บนี้ไหม?</b><small>ใช้ฟรีไม่มีโฆษณา สนับสนุนคนทำได้ตามความสมัครใจ</small></span><span class="go">สนับสนุน</span></button>
-      <div class="install" id="installBox" hidden>
+            <div class="install" id="installBox" hidden>
         <img src="icon-192.png" alt="">
         <div><b style="font-family:var(--display);font-weight:500">ติดตั้งเป็นแอป</b><p class="small muted">เปิดจากหน้าจอหลักได้เหมือนแอป และใช้งานออฟไลน์ได้หลังเปิดครั้งแรก</p></div>
         <button type="button" id="installBtn">ติดตั้ง</button>
@@ -1563,24 +1546,6 @@ h2{font-weight:600;letter-spacing:0}
       </form>
     </section>
 
-    <!-- DONATE -->
-    <section class="view" data-view="donate" hidden>
-      <div class="donate">
-        <div class="dtext">
-          <p class="eyebrow">สนับสนุนเว็บ</p>
-          <h2>ชอบคู่มือนี้ ช่วยเลี้ยงกาแฟคนทำได้นะ</h2>
-          <p class="muted">เว็บนี้ใช้ฟรี ไม่มีโฆษณา และจะเป็นแบบนี้ต่อไป ใครอยากสนับสนุนก็ร่วมได้ตามความสมัครใจ ไม่สนับสนุนก็ใช้ได้ทุกอย่างเหมือนเดิม</p>
-          <ul class="dfor">
-            <li>ค่าดูแลเว็บและฐานข้อมูล</li>
-            <li>เวลาอัปเดตข้อมูล อีเวนต์ และโค้ดทุกสัปดาห์</li>
-            <li>ฟีเจอร์ใหม่ที่ผู้เล่นขอมา</li>
-          </ul>
-        </div>
-        <div class="dqr" id="donateBox"></div>
-      </div>
-      <p class="small muted"><a href="#feedback" data-go="feedback">ส่งคำแนะนำ</a> · ขอบคุณทุกการสนับสนุน ไม่ว่าจะเป็นเงิน การแชร์เว็บให้เพื่อน หรือการติชม 🙏</p>
-    </section>
-
     <!-- BACK OFFICE (owner only) -->
     <section class="view" data-view="admin" hidden>
       <div class="vhead">
@@ -1830,9 +1795,10 @@ h2{font-weight:600;letter-spacing:0}
 </dialog>
 <dialog id="menu" aria-label="เมนูทั้งหมด"><div class="inner" id="menuInner"></div></dialog>
 
-<script src="data.js"></script>
-<script src="thumbs.js"></script>
-<script src="content.js"></script>
+<script src="data.js?v=202609290620"></script>
+<script src="thumbs.js?v=202609290620"></script>
+<script src="content.js?v=202609290620"></script>
+<script src="i18n-en.js?v=202609290620"></script>
 <script>
 /* ===== theme ===== */
 (function(){
@@ -1847,7 +1813,9 @@ h2{font-weight:600;letter-spacing:0}
 })();
 
 /* ===== data ===== */
+const LOC=(()=>{try{return localStorage.getItem('aniimo-lang')==='en'?'en-GB':'th-TH'}catch(_){return 'th-TH'}})();
 const E=[{k:'fire',th:'ไฟ',en:'Fire'},{k:'water',th:'น้ำ',en:'Water'},{k:'grass',th:'พืช',en:'Grass'},{k:'lightning',th:'สายฟ้า',en:'Lightning'},{k:'ice',th:'น้ำแข็ง',en:'Ice'},{k:'earth',th:'ดิน',en:'Earth'},{k:'wind',th:'ลม',en:'Wind'},{k:'light',th:'แสง',en:'Light'},{k:'dark',th:'มืด',en:'Dark'}];
+if(LOC==='en-GB')E.forEach(e=>e.th=e.en);
 const EK=Object.fromEntries(E.map(e=>[e.k,e]));
 const M={fire:{s:['grass','ice'],r:['fire','water','earth','light']},water:{s:['fire','earth'],r:['water','grass','ice','light']},grass:{s:['water','earth'],r:['fire','grass','light']},lightning:{s:['water','wind'],r:['lightning','ice','earth']},ice:{s:['water','lightning'],r:['fire','ice','earth']},earth:{s:['fire','ice'],r:['water','grass','earth','dark']},wind:{s:['grass','dark'],r:['lightning','wind']},light:{s:['wind','dark'],r:['lightning','light']},dark:{s:['grass','lightning','light'],r:['water','wind']}};
 const mult=(a,d)=>M[a].s.includes(d)?1.6:M[a].r.includes(d)?0.625:1;
@@ -1857,6 +1825,11 @@ const badge=k=>EK[k]?`<span class="ebadge" style="background:var(--${k})">${EK[k
 const KIND={region:'ภูมิภาค',prismana:'Prismana',rain:'ฝน/พายุ',thunder:'พายุฟ้าคะนอง',snow:'หิมะ',night:'กลางคืน'};
 const SLOT={atk:'โจมตีปกติ',s1:'สกิล 1',s2:'สกิล 2',s3:'สกิล 3',s4:'สกิล 4',ult:'อัลติเมต'};
 const DMG={p:'กายภาพ',m:'เวท','':'ไม่ทำดาเมจ'};
+let LANG='th';try{LANG=localStorage.getItem('aniimo-lang')||'th'}catch(_){}
+/* official Thai names (wiki.aniimo.com/th); a.name follows the site language, a.en / a.th keep both */
+const NAMES_TH=window.NAMES_TH||{};
+(window.ANIIMO||[]).forEach(a=>{a.en=a.name;a.th=NAMES_TH[a.slug]||'';if(LANG==='th'&&a.th)a.name=a.th});
+const nameHit=(a,q)=>(a.en+' '+a.th).toLowerCase().includes(q);
 const A=(window.ANIIMO||[]).filter(a=>!a.u).sort((a,b)=>{const na=+a.no,nb=+b.no;return (na>9000)-(nb>9000)||na-nb});
 const BY=Object.fromEntries(A.map(a=>[a.slug,a]));
 const SK=window.SKILLS||{};const SPR=window.SPRITE||{cols:15,rows:15};
@@ -1883,7 +1856,6 @@ function orb(s,sm){
   return `<span class="orb${sm?' sm':''}${s.r?' rare':''}" style="--c:var(--${s.e||'neutral'})" title="${esc(s.n)} · ${EK[s.e]?EK[s.e].th:''}"><span style="${bg}"></span></span>`;
 }
 const TRM=window.TH||{};const META=window.META||{};
-let LANG='th';try{LANG=localStorage.getItem('aniimo-lang')||'th'}catch(_){}
 const tr=t=>(t&&LANG==='th'&&TRM[t])||t||'';
 const WORK_TH={Hauling:'ขนของ',Artisanship:'งานช่าง',Leisure:'สันทนาการ',Perfumery:'ทำน้ำหอม'};
 const workLabel=w=>(WORK_TH[w[0]]||('งานธาตุ'+(EK[w[0].toLowerCase()]?EK[w[0].toLowerCase()].th:w[0])))+' Lv.'+w[1];
@@ -1930,12 +1902,11 @@ const VIEWS=[
  {id:'history',th:'ประวัติการใช้งาน',ic:'clock',g:'tools',d:'ที่ดูล่าสุดและคำค้นหา'},
  {id:'codes',th:'โค้ดแลกของ',ic:'gift',g:'more',d:'กดคัดลอกได้เลย'},
  {id:'feedback',th:'ส่งคำแนะนำ',ic:'chat',g:'more',d:'แนะนำฟีเจอร์ แจ้งข้อมูลผิด'},
- {id:'admin',th:'หลังบ้าน',ic:'chart',hidden:1},
- {id:'donate',th:'สนับสนุนเว็บ',ic:'heart',hidden:1}];
+ {id:'admin',th:'หลังบ้าน',ic:'chart',hidden:1}];
 const navItem=(v,cls)=>`<button type="button" class="${cls}" data-go="${v.id}"><svg><use href="#i-${v.ic}"/></svg><span>${v.th}</span></button>`;
-document.getElementById('side').innerHTML=navItem(VIEWS[0],'navbtn')+GROUPS.map(g=>`<p class="grp">${g.th}</p>`+VIEWS.filter(v=>v.g===g.id).map(v=>navItem(v,'navbtn')).join('')).join('')+`<div class="foot"><button type="button" class="donbtn" data-go="donate" data-donate hidden><svg><use href="#i-heart"/></svg>สนับสนุนเว็บ</button><button type="button" class="adentry" data-go="admin"><svg><use href="#i-lock"/></svg>หลังบ้าน</button><span>แฟนเมด · ข้อมูลจาก <a href="https://aniidex.com/" target="_blank" rel="noopener">AniiDex</a> · ${esc(META.scraped||'')}</span></div>`;
+document.getElementById('side').innerHTML=navItem(VIEWS[0],'navbtn')+GROUPS.map(g=>`<p class="grp">${g.th}</p>`+VIEWS.filter(v=>v.g===g.id).map(v=>navItem(v,'navbtn')).join('')).join('')+`<div class="foot"><button type="button" class="adentry" data-go="admin"><svg><use href="#i-lock"/></svg>หลังบ้าน</button><span>แฟนเมด · ข้อมูลจาก <a href="https://aniidex.com/" target="_blank" rel="noopener">AniiDex</a> · ${esc(META.scraped||'')}</span></div>`;
 document.getElementById('tabbar').innerHTML=VIEWS.filter(v=>v.tab).map(v=>navItem({...v,th:v.tabTh||v.th},'')).join('')+`<button type="button" id="moreBtn"><svg><use href="#i-more"/></svg><span>เพิ่มเติม</span></button>`;
-document.getElementById('menuInner').innerHTML='<div class="grab"></div>'+GROUPS.map(g=>`<div class="mgrp"><p>${g.th}</p><div class="mtiles">${VIEWS.filter(v=>v.g===g.id).map(v=>`<button type="button" data-go="${v.id}"><svg><use href="#i-${v.ic}"/></svg>${v.th}</button>`).join('')}</div></div>`).join('')+'<button type="button" class="donbtn" data-go="donate" data-donate hidden style="justify-self:center"><svg><use href="#i-heart"/></svg>สนับสนุนเว็บ</button><button type="button" class="adentry" data-go="admin" style="justify-self:center"><svg><use href="#i-lock"/></svg>หลังบ้าน</button>';
+document.getElementById('menuInner').innerHTML='<div class="grab"></div>'+GROUPS.map(g=>`<div class="mgrp"><p>${g.th}</p><div class="mtiles">${VIEWS.filter(v=>v.g===g.id).map(v=>`<button type="button" data-go="${v.id}"><svg><use href="#i-${v.ic}"/></svg>${v.th}</button>`).join('')}</div></div>`).join('')+'<button type="button" class="adentry" data-go="admin" style="justify-self:center"><svg><use href="#i-lock"/></svg>หลังบ้าน</button>';
 document.getElementById('homeGroups').innerHTML=GROUPS.map(g=>`<div class="hgroup"><h3>${g.th}${g.d?`<small>${g.d}</small>`:''}</h3><div class="tiles">${VIEWS.filter(v=>v.g===g.id).map(v=>`<button type="button" class="tile" data-go="${v.id}"><span class="ic"><svg><use href="#i-${v.ic}"/></svg></span><span><b>${v.th}</b><small>${v.d||''}</small></span></button>`).join('')}</div></div>`).join('');
 document.getElementById('hsearch').addEventListener('click',()=>{const g=document.getElementById('gq');g.focus();g.scrollIntoView({block:'nearest'})});
 const menu=document.getElementById('menu');
@@ -1943,7 +1914,7 @@ document.getElementById('moreBtn').addEventListener('click',()=>menu.showModal()
 menu.addEventListener('click',e=>{if(e.target===menu)menu.close()});
 let current='home';
 const RENDERED=new Set();
-function ensureRendered(id){if(RENDERED.has(id))return;RENDERED.add(id);const f={dex:()=>renderDex(),skills:()=>renderSkills(),sparkling:()=>renderSpark(),forms:()=>renderForms(),tier:()=>renderTiers(),team:()=>renderTeam(),collection:()=>renderCollection(),compare:()=>renderCompare(),bosses:()=>renderBosses(),regions:()=>renderRegions(),map:()=>renderMap(),events:()=>renderEvents(),items:()=>renderItems(),systems:()=>renderSystems(),planner:()=>renderPlanner(),history:()=>renderHistory(),news:()=>renderNews(),duels:()=>withMap(renderDuels),sanctums:()=>withMap(renderSanctums),media:()=>renderMedia(),faq:()=>renderFaq(),glossary:()=>renderGloss(),admin:()=>renderAdmin(),donate:()=>renderDonate()}[id];f&&f()}
+function ensureRendered(id){if(RENDERED.has(id))return;RENDERED.add(id);const f={dex:()=>renderDex(),skills:()=>renderSkills(),sparkling:()=>renderSpark(),forms:()=>renderForms(),tier:()=>renderTiers(),team:()=>renderTeam(),collection:()=>renderCollection(),compare:()=>renderCompare(),bosses:()=>renderBosses(),regions:()=>renderRegions(),map:()=>renderMap(),events:()=>renderEvents(),items:()=>renderItems(),systems:()=>renderSystems(),planner:()=>renderPlanner(),history:()=>renderHistory(),news:()=>renderNews(),duels:()=>withMap(renderDuels),sanctums:()=>withMap(renderSanctums),media:()=>renderMedia(),faq:()=>renderFaq(),glossary:()=>renderGloss(),admin:()=>renderAdmin()}[id];f&&f()}
 function go(id,push){
   if(!VIEWS.some(v=>v.id===id))id='home';
   if(id!=='admin'){histAdd('views',id);track('view',id)}if(id!=='feedback'&&id!=='admin'&&typeof fbLastPage!=='undefined')fbLastPage=id;if(id==='history'||id==='admin'||id==='news')RENDERED.delete(id);if(id==='home'&&typeof renderHomeRecent==='function')renderHomeRecent();
@@ -1980,7 +1951,7 @@ document.querySelectorAll('.gnav a').forEach(a=>a.addEventListener('click',e=>{e
 const gq=document.getElementById('gq'),gres=document.getElementById('gres');
 function gsearch(){
   const q=gq.value.trim().toLowerCase();if(!q){gres.hidden=true;return}
-  const mons=A.filter(a=>a.name.toLowerCase().includes(q)||a.no===q).slice(0,6).map(a=>`<button type="button" data-open="${a.slug}"><img decoding="async" src="${TH(a.i)}" alt=""><span><b>${esc(a.name)}</b><small>${numLabel(a)} · ${a.e.map(k=>EK[k].th).join(' / ')}</small></span></button>`);
+  const mons=A.filter(a=>nameHit(a,q)||a.no===q).slice(0,6).map(a=>`<button type="button" data-open="${a.slug}"><img decoding="async" src="${TH(a.i)}" alt=""><span><b>${esc(a.name)}</b><small>${numLabel(a)} · ${a.e.map(k=>EK[k].th).join(' / ')}</small></span></button>`);
   const sks=ALLSK.filter(x=>x.s.n.toLowerCase().includes(q)).slice(0,6).map(({a,s})=>`<button type="button" data-open="${a.slug}" data-tab="skills">${orb(s,true)}<span><b>${esc(s.n)}</b><small>สกิลของ ${esc(a.name)} · ${SLOT[s.k]||s.k}</small></span></button>`);
   gres.innerHTML=mons.concat(sks).join('')||'<p class="small muted" style="padding:8px">ไม่พบผลลัพธ์</p>';gres.hidden=false;
 }
@@ -1996,7 +1967,7 @@ const dw=document.getElementById('dw'),dc=document.getElementById('dc');
 dw.innerHTML+=['Hauling','Artisanship','Leisure','Perfumery'].map(k=>`<option value="${k}">${WORK_TH[k]}</option>`).join('')+E.map(e=>`<option value="${e.en}">งานธาตุ${e.th}</option>`).join('');
 function renderDex(){
   const q=dq.value.trim().toLowerCase().replace(/^#/,'');
-  const list=A.filter(a=>(!q||a.name.toLowerCase().includes(q)||a.no.includes(q))&&(!de.value||a.e.includes(de.value))&&(!dr.value||a.r===dr.value)&&(!ds.value||a.st===ds.value)&&(!dp.checked||hasPr(a))&&(!dsp.checked||hasSpark(a.slug))&&(du.checked||!a.u)&&(!dw.value||(a.w||[]).some(w=>w[0]===dw.value))&&(!dc.value||(dc.value==='have')===!!COL.d.c[a.slug]));
+  const list=A.filter(a=>(!q||nameHit(a,q)||a.no.includes(q))&&(!de.value||a.e.includes(de.value))&&(!dr.value||a.r===dr.value)&&(!ds.value||a.st===ds.value)&&(!dp.checked||hasPr(a))&&(!dsp.checked||hasSpark(a.slug))&&(du.checked||!a.u)&&(!dw.value||(a.w||[]).some(w=>w[0]===dw.value))&&(!dc.value||(dc.value==='have')===!!COL.d.c[a.slug]));
   document.getElementById('dcount').textContent=`แสดง ${list.length} จาก ${A.length} ตัว`;
   document.getElementById('dexGrid').innerHTML=list.map(a=>`<button class="mon" type="button" data-open="${a.slug}">
     ${hasPr(a)?'<span class="flag pr">Prismana</span>':''}${hasSpark(a.slug)?'<span class="flag sp">✦</span>':''}${a.u?'<span class="flag un">ยังไม่เปิด</span>':a.f.length?`<span class="flag fc">${a.f.length+1} ร่าง</span>`:''}
@@ -2072,7 +2043,7 @@ function renderDetail(){
   dlgBody.innerHTML=`<div class="dlg">
    <div class="hero-pic">${dState.spark&&spIdx!=null?(META.full&&SPK.ids?`<img src="spk/${SPK.ids[spIdx]}_${String(dState.spark).padStart(2,'0')}.webp" alt="${esc(a.name)} ${STYPES[dState.spark-1]}">`:`<span class="spr" style="${sprStyle(dState.spark,spIdx,1)}" role="img" aria-label="${esc(a.name)} ${STYPES[dState.spark-1]}"></span>`):`<img src="${img}" alt="${esc(a.name)}" class="${!cur&&a.cut?'cut':''}">`}<span class="fname">${cur?KIND[cur.k]+' · '+esc(cur.n):'ร่างปกติ'}${dState.spark?' · ✦ '+STYPES[dState.spark-1]:''}</span></div>
    <div class="body">
-    <div><p class="eyebrow">${numLabel(a)} · ${a.st}${a.u?' · ยังไม่เปิดให้จับ':''}</p><h3 id="dlgTitle">${esc(a.name)}</h3></div>
+    <div><p class="eyebrow">${numLabel(a)} · ${a.st}${a.u?' · ยังไม่เปิดให้จับ':''}</p><h3 id="dlgTitle">${esc(a.name)}</h3>${a.th&&a.th!==a.en?`<p class="muted small">${esc(LANG==='th'?a.en:a.th)}</p>`:''}</div>
     <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">${els.map(badge).join('')}<span class="chip">${a.r}</span><span class="dots" style="margin-left:4px" title="สีสกิล">${cols.map(k=>`<i style="background:var(--${k})"></i>`).join('')}</span></div>
     <div class="dactions">${a.u?'':`<button type="button" data-col="${cur?'f':'c'}" data-key="${cur?a.slug+'|'+dState.form:a.slug}" aria-pressed="${!!(cur?COL.d.f[a.slug+'|'+dState.form]:COL.d.c[a.slug])}">${(cur?COL.d.f[a.slug+'|'+dState.form]:COL.d.c[a.slug])?'✓ จับแล้ว':'+ จับแล้ว'}${cur?' (ร่างนี้)':''}</button>`}<button type="button" data-cmp-add="${a.slug}">${CMP.includes(a.slug)?'✓ อยู่ในการเปรียบเทียบ':'+ เปรียบเทียบ'}</button><button type="button" data-team-add="${a.slug}">+ ใส่ทีม</button></div>
     <div class="dtabs" role="tablist">${tabs.map(([k,l])=>`<button type="button" role="tab" data-dtab="${k}" aria-selected="${dState.tab===k}">${l}</button>`).join('')}</div>
@@ -2096,7 +2067,7 @@ let skMode='by',skEl='',skLimit=60;
 const skElBox=document.getElementById('skEl');
 skElBox.innerHTML=`<button type="button" data-e="" aria-pressed="true">ทุกสี</button>`+E.map(e=>`<button type="button" data-e="${e.k}" aria-pressed="false"><i style="background:var(--${e.k})"></i>${e.th}</button>`).join('');
 const skq=document.getElementById('skq'),skk=document.getElementById('skk'),skt=document.getElementById('skt'),skr=document.getElementById('skr');
-function skMatch(a,s,q){return (!skEl||s.e===skEl)&&(!skk.value||s.k===skk.value)&&(!skt.value||(skt.value==='-'?!s.t:s.t===skt.value))&&(!skr.value||s.r)&&(!q||s.n.toLowerCase().includes(q)||a.name.toLowerCase().includes(q))}
+function skMatch(a,s,q){return (!skEl||s.e===skEl)&&(!skk.value||s.k===skk.value)&&(!skt.value||(skt.value==='-'?!s.t:s.t===skt.value))&&(!skr.value||s.r)&&(!q||s.n.toLowerCase().includes(q)||nameHit(a,q))}
 function renderSkills(){
   const q=skq.value.trim().toLowerCase();
   const by=document.getElementById('skBy'),all=document.getElementById('skAll'),more=document.getElementById('skMore');
@@ -2131,7 +2102,7 @@ const spTypeBox=document.getElementById('spType'),spq=document.getElementById('s
 spTypeBox.innerHTML=STYPES.map((t,i)=>`<button type="button" data-st="${i+1}" aria-pressed="${i===0}">${i<10?t.replace('Type ',''):t}</button>`).join('');
 function renderSpark(){
   const q=spq.value.trim().toLowerCase();
-  const list=SPK.e.map(([s,fi],i)=>({a:BY[s],fi,i})).filter(x=>x.a&&(!q||x.a.name.toLowerCase().includes(q))&&(spf.value==='all'||(spf.value==='base'?x.fi==null:x.fi!=null)));
+  const list=SPK.e.map(([s,fi],i)=>({a:BY[s],fi,i})).filter(x=>x.a&&(!q||nameHit(x.a,q))&&(spf.value==='all'||(spf.value==='base'?x.fi==null:x.fi!=null)));
   document.getElementById('spCount').textContent=`${STYPES[spType-1]} · ${list.length} ร่าง`;
   document.getElementById('sgrid').innerHTML=list.map(({a,fi,i})=>`<button type="button" class="scard" data-open="${a.slug}" data-form="${fi==null?'':fi}" data-tab="sparkling" data-spark="${spType}"><span class="sparkle-flag">✦ ${STYPE_TH[spType-1]}</span><span class="pic"><span class="spr" style="${sprStyle(spType,i)}" role="img" aria-label="${esc(a.name)} ${STYPES[spType-1]}"></span></span><span class="info"><b>${esc(a.name)}</b><small>${fi==null?'ร่างปกติ':a.f[fi].k==='prismana'?'Prismana':esc(a.f[fi].n)} · ${(fi==null?a.e:a.f[fi].e).map(k=>EK[k].th).join('/')}</small></span></button>`).join('')||'<p class="muted">ไม่พบ Aniimo</p>';
 }
@@ -2173,7 +2144,7 @@ function tierChip(n,term){
 }
 function renderTiers(){const term=q.value.trim().toLowerCase();let html='';
   if(TV.src==='vote'){const groups={S:[],A:[],B:[],C:[],D:[]},res=TV.res||{};A.filter(a=>!a.u).forEach(a=>{const t=tvTier(res[a.slug]);if(t)groups[t].push(a)});
-    for(const t of Object.keys(groups)){if(tf!=='all'&&tf!==t)continue;const list=groups[t].filter(a=>!term||a.name.toLowerCase().includes(term));if(!list.length)continue;
+    for(const t of Object.keys(groups)){if(tf!=='all'&&tf!==t)continue;const list=groups[t].filter(a=>!term||nameHit(a,term));if(!list.length)continue;
       html+=`<div class="trow"><div class="t t-${t}">${t}</div><div class="names">${list.map(a=>`<button type="button" class="tn" data-open="${a.slug}"><img decoding="async" src="${TH(a.i)}" alt="" loading="lazy">${esc(a.name)}<span class="vc">${res[a.slug].n}</span></button>`).join('')}</div></div>`}
     tiersEl.innerHTML=html||`<p class="muted">${TV.err?'โหลดผลโหวตไม่สำเร็จ':'ยังมีโหวตไม่พอ ช่วยกันโหวตได้ในหน้ารายละเอียดของแต่ละตัว'}</p>`;return}
   for(const t of Object.keys(T)){if(tf!=='all'&&tf!==t)continue;const list=T[t].filter(n=>!term||n.toLowerCase().includes(term));if(term&&!list.length)continue;html+=`<div class="trow"><div class="t t-${t}">${t}</div><div class="names">${list.map(n=>tierChip(n,term)).join('')}</div></div>`}tiersEl.innerHTML=html||'<p class="muted">ไม่พบชื่อนี้ใน Tier List</p>'}
@@ -2183,7 +2154,7 @@ document.getElementById('seg').addEventListener('click',e=>{const b=e.target.clo
 /* ===== codes ===== */
 const C=(window.CODES&&window.CODES.codes||[]).map(x=>[x.code,x.reward,x.expired]);
 const cl=document.getElementById('codeList');
-if(window.CODES&&window.CODES.codes_checked)document.getElementById('codesChecked').textContent=new Date(window.CODES.codes_checked+'T00:00:00').toLocaleDateString('th-TH',{day:'numeric',month:'short',year:'numeric'});
+if(window.CODES&&window.CODES.codes_checked)document.getElementById('codesChecked').textContent=new Date(window.CODES.codes_checked+'T00:00:00').toLocaleDateString(LOC,{day:'numeric',month:'short',year:'numeric'});
 cl.innerHTML=C.map(([c,r,x])=>`<div class="code${x?' expired':''}"><code>${c}</code>${x?'<span class="small muted">หมดอายุ</span>':`<button type="button" data-c="${c}">คัดลอก</button>`}<span class="rw">${r}</span></div>`).join('');
 cl.addEventListener('click',e=>{const b=e.target.closest('button[data-c]');if(!b)return;const c=b.dataset.c;const ok=()=>{b.textContent='คัดลอกแล้ว';b.classList.add('done');setTimeout(()=>{b.textContent='คัดลอก';b.classList.remove('done')},1600)};const fb=()=>{const r=document.createRange();r.selectNodeContents(b.previousElementSibling);const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='เลือกแล้ว กด Ctrl+C'};try{navigator.clipboard.writeText(c).then(ok,fb)}catch(_){fb()}});
 
@@ -2283,7 +2254,7 @@ const pick=document.getElementById('pick'),pq=document.getElementById('pq'),pe=d
 pe.innerHTML+=E.map(e=>`<option value="${e.k}">${e.th}</option>`).join('');
 function renderPick(){
   const q=pq.value.trim().toLowerCase(),taken=new Set(pickTarget==='compare'?CMP:team.filter(Boolean).map(m=>m.slug));
-  document.getElementById('pgrid').innerHTML=A.filter(a=>(!q||a.name.toLowerCase().includes(q))&&(!pe.value||a.e.includes(pe.value))&&(!pr.value||a.r===pr.value)).map(a=>`<button type="button" data-choose="${a.slug}" ${taken.has(a.slug)?'disabled':''}><img decoding="async" src="${TH(a.i)}" alt="" class="${a.cut?'cut':''}" loading="lazy"><b style="font-weight:500">${esc(a.name)}</b><span style="display:flex;gap:3px">${a.e.map(badge).join('')}</span><small class="muted">${a.r}${a.u?' · ยังไม่เปิด':''}</small></button>`).join('')||'<p class="muted">ไม่พบ Aniimo</p>';
+  document.getElementById('pgrid').innerHTML=A.filter(a=>(!q||nameHit(a,q))&&(!pe.value||a.e.includes(pe.value))&&(!pr.value||a.r===pr.value)).map(a=>`<button type="button" data-choose="${a.slug}" ${taken.has(a.slug)?'disabled':''}><img decoding="async" src="${TH(a.i)}" alt="" class="${a.cut?'cut':''}" loading="lazy"><b style="font-weight:500">${esc(a.name)}</b><span style="display:flex;gap:3px">${a.e.map(badge).join('')}</span><small class="muted">${a.r}${a.u?' · ยังไม่เปิด':''}</small></button>`).join('')||'<p class="muted">ไม่พบ Aniimo</p>';
 }
 [pq,pe,pr].forEach(el=>el.addEventListener(el.type==='search'?'input':'change',renderPick));
 document.getElementById('pickClose').addEventListener('click',()=>pick.close());
@@ -2351,7 +2322,7 @@ function renderCollection(){
   colModeUI();
   document.getElementById('colStats').innerHTML=colTotals().map(([l,h,t])=>`<div class="colstat"><small>${l}</small><b>${h} / ${t}</b><div class="meter"><i style="width:${t?Math.round(h/t*100):0}%"></i></div><small>${t?Math.round(h/t*100):0}%</small></div>`).join('');
   const q=document.getElementById('cq').value.trim().toLowerCase(),cf=document.getElementById('cf').value;
-  const rows=RELEASED.filter(a=>(!q||a.name.toLowerCase().includes(q))&&(!ce.value||a.e.includes(ce.value))).map(a=>{
+  const rows=RELEASED.filter(a=>(!q||nameHit(a,q))&&(!ce.value||a.e.includes(ce.value))).map(a=>{
     const spkN=SPK.e.filter(([s])=>s===a.slug).length*12,spkH=Object.keys(COL.d.s).filter(k=>k.startsWith(a.slug+'|')).length;
     const fH=a.f.filter((f,i)=>COL.d.f[a.slug+'|'+i]).length;
     const done=!!COL.d.c[a.slug]&&fH===a.f.length&&spkH===spkN;
@@ -2479,7 +2450,7 @@ function renderMap(){
     MAP.count=MAP.layers.map(()=>0);MAP.m.forEach(m=>MAP.count[m[0]]++);
     mapLayersUI();
   };
-  if(window.MAP)boot();else{const sc=document.createElement('script');sc.src='map.js';sc.onload=boot;sc.onerror=()=>{document.getElementById('mapLoad').textContent='โหลดข้อมูลแผนที่ไม่สำเร็จ'};document.head.appendChild(sc)}
+  if(window.MAP)boot();else{const sc=document.createElement('script');sc.src='map.js?v=202609290620';sc.onload=boot;sc.onerror=()=>{document.getElementById('mapLoad').textContent='โหลดข้อมูลแผนที่ไม่สำเร็จ'};document.head.appendChild(sc)}
 }
 function mapSaveLayers(){try{localStorage.setItem('aniimo-map-layers',JSON.stringify([...MV.on].map(i=>MAP.layers[i].id)))}catch(_){}}
 function mapLayersUI(){
@@ -2622,8 +2593,8 @@ document.getElementById('tmCodeGo').addEventListener('click',()=>{const v=docume
 
 /* ===== language ===== */
 const langBtn=document.getElementById('langBtn');
-const syncLang=()=>{langBtn.textContent=LANG==='th'?'ไทย':'EN';langBtn.setAttribute('aria-label',LANG==='th'?'คำอธิบายเป็นภาษาไทย กดเพื่อดูต้นฉบับภาษาอังกฤษ':'Descriptions in English, press for Thai')};
-langBtn.addEventListener('click',()=>{LANG=LANG==='th'?'en':'th';try{localStorage.setItem('aniimo-lang',LANG)}catch(_){}syncLang();const keep=current;RENDERED.clear();ensureRendered(keep);if(dlg.open){dState.boss?openBoss(dState.boss):renderDetail()}});
+const syncLang=()=>{langBtn.textContent=LANG==='th'?'EN':'ไทย';langBtn.setAttribute('aria-label',LANG==='th'?'Switch to English':'เปลี่ยนเป็นภาษาไทย');document.documentElement.lang=LANG};
+langBtn.addEventListener('click',()=>{const next=LANG==='th'?'en':'th';try{localStorage.setItem('aniimo-lang',next)}catch(_){}location.reload()});
 syncLang();
 
 /* ===== beginner checklists (per-viewer convenience, this browser only) ===== */
@@ -2674,7 +2645,7 @@ let evKind='event';
 const scrapedAt=META.scraped?new Date(META.scraped+'T12:00:00Z'):null;
 function approxDate(rel){
   if(!scrapedAt||!rel)return '';const d=(rel.match(/(\d+)d/)||[0,0])[1]*1,h=(rel.match(/(\d+)h/)||[0,0])[1]*1,m=(rel.match(/(\d+)m/)||[0,0])[1]*1;
-  const t=new Date(scrapedAt.getTime()+((d*24+h)*60+m)*60000);return t.toLocaleDateString('th-TH',{day:'numeric',month:'short'});
+  const t=new Date(scrapedAt.getTime()+((d*24+h)*60+m)*60000);return t.toLocaleDateString(LOC,{day:'numeric',month:'short'});
 }
 const EV_KIND_TH={event:'อีเวนต์',gameplay:'โหมดกิจกรรม',upcoming:'กำลังจะมา',ended:'จบแล้ว'};
 document.getElementById('evSeg').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;evKind=b.dataset.k;document.querySelectorAll('#evSeg button').forEach(x=>x.setAttribute('aria-pressed',x===b));renderEvents()});
@@ -2694,8 +2665,8 @@ function parseDay(s){
 const parseRange=r=>{const p=String(r).split('–');return [parseDay(p[0]),parseDay(p[1])]};
 const relMs=rel=>{const g=k=>+((String(rel).match(new RegExp('(\\d+)'+k))||[0,0])[1]);return ((g('d')*24+g('h'))*60+g('m'))*60000};
 function euRelToAsia(rel){const euAt=SCRAPED_TS+relMs(rel);const d=new Date(euAt-4*3600000);return srvResetAt(d.getUTCFullYear(),d.getUTCMonth(),d.getUTCDate())}
-const thTime=ts=>new Date(ts).toLocaleString('th-TH',{timeZone:'Asia/Bangkok',day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})+' น.';
-function fmtLeft(ms){if(ms<=0)return 'ตอนนี้';const m=Math.floor(ms/60000),d=Math.floor(m/1440),h=Math.floor(m%1440/60),mi=m%60;return d?`${d} วัน ${h} ชม.`:h?`${h} ชม. ${mi} นาที`:`${mi} นาที`}
+const thTime=ts=>new Date(ts).toLocaleString(LOC,{timeZone:'Asia/Bangkok',day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})+(LOC==='en-GB'?'':' น.');
+function fmtLeft(ms){const en=LOC==='en-GB';if(ms<=0)return en?'now':'ตอนนี้';const m=Math.floor(ms/60000),d=Math.floor(m/1440),h=Math.floor(m%1440/60),mi=m%60;return en?(d?`${d}d ${h}h`:h?`${h}h ${mi}m`:`${mi}m`):(d?`${d} วัน ${h} ชม.`:h?`${h} ชม. ${mi} นาที`:`${mi} นาที`)}
 function nextDailyReset(now){const d=new Date(now+SRV.tz*3600000);let t=Date.UTC(d.getUTCFullYear(),d.getUTCMonth(),d.getUTCDate(),SRV.reset)-SRV.tz*3600000;if(t<=now)t+=86400000;return t}
 function nextHatchHaste(now){ // Friday 04:00 → Monday 04:00, server time
   const d=new Date(now+SRV.tz*3600000);const dow=d.getUTCDay();
@@ -2739,7 +2710,7 @@ setInterval(()=>{if(current==='events'&&!document.hidden)renderEvents()},60000);
 
 /* ===== territories & boss rush ===== */
 const TERR=window.TERR||[],RUSH=window.RUSH||[];
-const speciesOf=name=>A.find(a=>name&&name.split(' ').includes(a.name));
+const speciesOf=name=>A.find(a=>name&&name.split(' ').includes(a.en));
 const RUSH_TH={Melee:'ระยะประชิด',Ranged:'ระยะไกล','Basic Attack Damage':'ดาเมจโจมตีปกติ','Sustained Skill':'สกิลต่อเนื่อง','Shield Break':'ทำลายโล่','High-Frequency Damage':'ดาเมจถี่','P.DMG':'ดาเมจกายภาพ','M.DMG':'ดาเมจเวท','Fire Debuff':'ดีบัฟไฟ','Water Debuff':'ดีบัฟน้ำ','Ice Debuff':'ดีบัฟน้ำแข็ง','Lightning Debuff':'ดีบัฟสายฟ้า','Earth Debuff':'ดีบัฟดิน',Fly:'บิน',Tunnel:'มุดดิน',Pound:'ทุบ',Rock:'หิน','Magical Damage':'ดาเมจเวท'};
 const rushTh=s=>String(s).split(' · ').map(x=>RUSH_TH[x.trim()]||x).join(' · ');
 function renderSystems(){
@@ -2785,7 +2756,7 @@ const evoNext=s=>EVO.filter(e=>e[0]===s);
 function reachable(from){const out=[from],q=[from];while(q.length){const s=q.shift();evoNext(s).forEach(e=>{if(!out.includes(e[1])){out.push(e[1]);q.push(e[1])}})}return out}
 function pathTo(from,to){const prev={},q=[from],seen=new Set([from]);while(q.length){const s=q.shift();if(s===to)break;evoNext(s).forEach(e=>{if(!seen.has(e[1])){seen.add(e[1]);prev[e[1]]=e;q.push(e[1])}})}const out=[];let c=to;while(prev[c]){out.unshift(prev[c]);c=prev[c][0]}return out}
 function syncTargets(){const r=reachable(plFrom.value);plTo.innerHTML=r.map(s=>`<option value="${s}">${esc(BY[s]?BY[s].name:s)}${s===plFrom.value?' (ไม่วิวัฒนาการ)':''}</option>`).join('');plTo.value=r[r.length-1]}
-function familyCrystal(slug){const line=LINES[slug]||[BY[slug]];for(const a of line){const n=a.name+' Dewdrop Crystal';if(ITEM_BY_NAME[n.toLowerCase()])return n}return null}
+function familyCrystal(slug){const line=LINES[slug]||[BY[slug]];for(const a of line){const n=a.en+' Dewdrop Crystal';if(ITEM_BY_NAME[n.toLowerCase()])return n}return null}
 function planFor(from,to){
   const steps=from===to?[]:pathTo(from,to);const mats={};const add=(n,q,why)=>{(mats[n]=mats[n]||{n,q:0,why:new Set()}).q+=q;mats[n].why.add(why)};
   steps.forEach(([s,d,c,k])=>k.forEach(([n,q])=>add(n,q,'วิวัฒนาการ')));
@@ -2835,7 +2806,7 @@ function histAdd(kind,key){
   h[kind]=[[key,Date.now()]].concat(h[kind].filter(x=>x[0]!==key)).slice(0,HIST_MAX);histSave();
   if(kind==='mons'&&current==='home')renderHomeRecent();
 }
-const ago=t=>{const m=Math.round((Date.now()-t)/60000);if(m<1)return 'เมื่อสักครู่';if(m<60)return m+' นาทีก่อน';const h=Math.round(m/60);if(h<24)return h+' ชม.ก่อน';const d=Math.round(h/24);return d<30?d+' วันก่อน':new Date(t).toLocaleDateString('th-TH',{day:'numeric',month:'short'})};
+const ago=t=>{const en=LOC==='en-GB';const m=Math.round((Date.now()-t)/60000);if(m<1)return en?'just now':'เมื่อสักครู่';if(m<60)return en?m+' min ago':m+' นาทีก่อน';const h=Math.round(m/60);if(h<24)return en?h+' h ago':h+' ชม.ก่อน';const d=Math.round(h/24);return d<30?(en?d+' days ago':d+' วันก่อน'):new Date(t).toLocaleDateString(LOC,{day:'numeric',month:'short'})};
 function renderHomeRecent(){
   const box=document.getElementById('homeRecent');if(!box)return;const ms=histLoad().mons.filter(([s])=>BY[s]).slice(0,12);box.hidden=!ms.length;
   document.getElementById('homeRecentList').innerHTML=ms.map(([s])=>`<button type="button" data-open="${s}"><img decoding="async" src="${TH(BY[s].i)}" alt="">${esc(BY[s].name)}</button>`).join('');
@@ -2849,7 +2820,7 @@ function renderHistory(){
    (ms.length?`<div><h3>Aniimo ที่ดูล่าสุด<small>${ms.length} ตัว</small></h3><div class="hmons">${ms.map(([s,t])=>`<button type="button" data-open="${s}"><img decoding="async" loading="lazy" src="${TH(BY[s].i)}" alt="">${esc(BY[s].name)}<small>${ago(t)}</small></button>`).join('')}</div></div>`:'')
    +(its.length?`<div><h3>ไอเท็มที่เปิดดู<small>${its.length} ชิ้น</small></h3><div class="hlist">${its.map(([n,t])=>`<button type="button" data-item="${esc(n)}">${esc(n)}<small>${ago(t)}</small></button>`).join('')}</div></div>`:'')
    +(ss.length?`<div><h3>คำที่ค้นหา</h3><div class="hlist">${ss.map(([q,t])=>`<button type="button" data-hq="${esc(q)}">"${esc(q)}"<small>${ago(t)}</small></button>`).join('')}</div></div>`:'')
-   +(vs.length?`<div><h3>หน้าที่เปิดบ่อย<small>ตั้งแต่ ${new Date(h.since).toLocaleDateString('th-TH',{day:'numeric',month:'short',year:'numeric'})}</small></h3><div class="hbars">${vs.map(([k,n])=>`<button type="button" class="hbar" data-go="${k}"><span>${esc(VIEWS.find(v=>v.id===k).th)}</span><span class="t"><i style="width:${Math.round(n/vmax*100)}%"></i></span><b>${n}</b></button>`).join('')}</div></div>`:'')
+   +(vs.length?`<div><h3>หน้าที่เปิดบ่อย<small>ตั้งแต่ ${new Date(h.since).toLocaleDateString(LOC,{day:'numeric',month:'short',year:'numeric'})}</small></h3><div class="hbars">${vs.map(([k,n])=>`<button type="button" class="hbar" data-go="${k}"><span>${esc(VIEWS.find(v=>v.id===k).th)}</span><span class="t"><i style="width:${Math.round(n/vmax*100)}%"></i></span><b>${n}</b></button>`).join('')}</div></div>`:'')
    +`<div class="hclear" id="histClearBox"><button type="button" class="btn" id="histClear">ล้างประวัติทั้งหมด</button></div>`;
 }
 document.addEventListener('click',e=>{
@@ -2881,7 +2852,7 @@ renderHomeRecent();
    stats_summary() for that account. Visitors never see any numbers. */
 const AD={s:null,demo:false,range:7,busy:false};
 try{AD.s=JSON.parse(sessionStorage.getItem('aniimo-admin')||localStorage.getItem('aniimo-admin')||'null')}catch(_){}
-const fmtN=n=>Number(n||0).toLocaleString('th-TH');
+const fmtN=n=>Number(n||0).toLocaleString(LOC);
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 function adSave(s,remember){AD.s=s;try{sessionStorage.removeItem('aniimo-admin');localStorage.removeItem('aniimo-admin');if(s)(remember||s.remember?localStorage:sessionStorage).setItem('aniimo-admin',JSON.stringify(s))}catch(_){}}
 async function sbAuth(body,grant){
@@ -2913,7 +2884,7 @@ function feedbackPanel(){
   const st={new:'ใหม่',read:'อ่านแล้ว',done:'จัดการแล้ว'};
   const body=FB.err==='nofeedback'?'<p class="dnote">ยังไม่ได้ติดตั้งระบบคำแนะนำในฐานข้อมูล ให้รันไฟล์ tools/admin/feedback.sql ใน Supabase SQL Editor</p>'
    :FB.err?'<p class="dnote">โหลดคำแนะนำไม่สำเร็จ</p>'
-   :(FB.items||[]).map(f=>`<div class="fbitem ${f.status}"><div class="meta"><span class="chip">${esc(FB_TOPIC[f.topic]||f.topic)}</span><span>${new Date(f.at).toLocaleString('th-TH',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}</span>${f.page?`<span>จากหน้า ${esc((VIEWS.find(v=>v.id===f.page)||{}).th||f.page)}</span>`:''}<span>· ${st[f.status]}</span></div>
+   :(FB.items||[]).map(f=>`<div class="fbitem ${f.status}"><div class="meta"><span class="chip">${esc(FB_TOPIC[f.topic]||f.topic)}</span><span>${new Date(f.at).toLocaleString(LOC,{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}</span>${f.page?`<span>จากหน้า ${esc((VIEWS.find(v=>v.id===f.page)||{}).th||f.page)}</span>`:''}<span>· ${st[f.status]}</span></div>
       <p>${esc(f.message)}</p>${f.contact?`<div class="meta">ติดต่อกลับ: <b style="color:var(--ink)">${esc(f.contact)}</b></div>`:''}
       <div class="acts">${f.status!=='read'?`<button type="button" class="btn" data-fb="${f.id}" data-s="read">อ่านแล้ว</button>`:''}${f.status!=='done'?`<button type="button" class="btn" data-fb="${f.id}" data-s="done">จัดการแล้ว</button>`:''}${f.status!=='new'?`<button type="button" class="btn" data-fb="${f.id}" data-s="new">ทำเป็นใหม่</button>`:''}<button type="button" class="btn" data-fb="${f.id}" data-s="delete">ลบ</button></div></div>`).join('')||'<p class="dnote">ไม่มีคำแนะนำในหมวดนี้</p>';
   return `<div class="dpanel" id="fbPanel"><h3>คำแนะนำจากผู้ใช้<small>${FB.filter==='new'?'ยังไม่ได้อ่าน':''}</small></h3>
@@ -2945,7 +2916,7 @@ function demoData(days){
     top_items:top({'Night Stone':1,'Sparkling Cube':.8,'Capafruit':.7,'Aniipod Ultra':.6,'Star Dust':.45,'Prismatic Stone':.4},views*.03),
     top_searches:top({stellarys:1,helion:.8,'night stone':.6,lunara:.55,fulmintis:.4,'egg heist':.35,turbo:.3},views*.04),
     devices:[{key:'phone',n:Math.round(views*.24)},{key:'desktop',n:Math.round(views*.09)},{key:'tablet',n:Math.round(views*.03)}],
-    langs:[{key:'th-TH',n:Math.round(views*.31)},{key:'en-US',n:Math.round(views*.04)},{key:'lo-LA',n:Math.round(views*.01)}],
+    langs:[{key:LOC,n:Math.round(views*.31)},{key:'en-US',n:Math.round(views*.04)},{key:'lo-LA',n:Math.round(views*.01)}],
     zones:[{key:'Asia/Bangkok',n:Math.round(views*.3)},{key:'Asia/Vientiane',n:Math.round(views*.02)},{key:'Asia/Singapore',n:Math.round(views*.015)}]};
 }
 function trendSvg(days){
@@ -2953,7 +2924,7 @@ function trendSvg(days){
   const bw=(W-L-8)/days.length,y=v=>T+(H-T-B)*(1-v/top),every=days.length>16?Math.ceil(days.length/10):1,showVal=days.length<=14;
   return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="การเข้าชมรายวัน">${[0,top/2,top].map(t=>`<line class="gl" x1="${L}" x2="${W-4}" y1="${y(t)}" y2="${y(t)}"/><text class="ax" x="${L-6}" y="${y(t)+4}" text-anchor="end">${fmtN(Math.round(t))}</text>`).join('')}
    ${days.map((d,i)=>{const x=L+i*bw+bw*.16,w=bw*.68,h=Math.max(d.n?2:0,(H-T-B)*d.n/top),dt=new Date(d.day+'T00:00:00Z');
-     return `<rect class="bar${i===days.length-1?' today':''}" x="${x}" y="${y(d.n)}" width="${w}" height="${h}" rx="3"><title>${dt.toLocaleDateString('th-TH',{weekday:'short',day:'numeric',month:'short'})}: ${fmtN(d.n)} ครั้ง · ${fmtN(d.u)} คน</title></rect>${showVal&&d.n?`<text class="val" x="${x+w/2}" y="${y(d.n)-4}" text-anchor="middle">${fmtN(d.n)}</text>`:''}${(days.length-1-i)%every===0?`<text class="ax" x="${x+w/2}" y="${H-10}" text-anchor="middle">${dt.getUTCDate()}</text>`:''}`}).join('')}</svg>`;
+     return `<rect class="bar${i===days.length-1?' today':''}" x="${x}" y="${y(d.n)}" width="${w}" height="${h}" rx="3"><title>${dt.toLocaleDateString(LOC,{weekday:'short',day:'numeric',month:'short'})}: ${fmtN(d.n)} ครั้ง · ${fmtN(d.u)} คน</title></rect>${showVal&&d.n?`<text class="val" x="${x+w/2}" y="${y(d.n)-4}" text-anchor="middle">${fmtN(d.n)}</text>`:''}${(days.length-1-i)%every===0?`<text class="ax" x="${x+w/2}" y="${H-10}" text-anchor="middle">${dt.getUTCDate()}</text>`:''}`}).join('')}</svg>`;
 }
 function fillDays(list,days){const m={};(list||[]).forEach(d=>m[d.day]=d);const tz=7*3600000;return [...Array(days)].map((_,i)=>{const day=new Date(Date.now()+tz-(days-1-i)*86400000).toISOString().slice(0,10);return m[day]||{day,n:0,u:0}})}
 function rankList(rows,render){const mx=Math.max(1,...rows.map(r=>r.n));return rows.map(r=>render(r,Math.round(r.n/mx*100))).join('')||'<p class="dnote">ยังไม่มีข้อมูลในช่วงนี้</p>'}
@@ -3031,7 +3002,7 @@ document.addEventListener('click',e=>{
 });
 
 /* ===== Pathfinder duels & Sanctums (from the map data) ===== */
-function withMap(fn){if(window.MAP){fn();return}const sc=document.createElement('script');sc.src='map.js';sc.onload=fn;sc.onerror=()=>{};document.head.appendChild(sc)}
+function withMap(fn){if(window.MAP){fn();return}const sc=document.createElement('script');sc.src='map.js?v=202609290620';sc.onload=fn;sc.onerror=()=>{};document.head.appendChild(sc)}
 function regionAt(m){const x=m[1]/100,y=m[2]/100;return Object.keys(MAP.regions).find(n=>inPoly(x,y,MAP.regions[n]))||''}
 const mapBtn=i=>`<button type="button" class="chip" data-mapm-go="${i}" style="cursor:pointer">ดูบนแผนที่</button>`;
 const elBadges=a=>(a||[]).map(e=>badge(mEl(e))).join('');
@@ -3060,7 +3031,7 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-mapm-go]')
 const NEWS=window.NEWS||[],FAQ=window.FAQ||[],GLOSS=window.GLOSSARY||[],VIDEOS=window.VIDEOS||[],ROAD=window.ROADMAP||[],OLINKS=window.LINKS||[];
 const NTYPE={update:'อัปเดตใหญ่',patch:'แพตช์โน้ต',news:'ประกาศ'};
 const RTAG={official:'<span class="rtag official">ทางการ</span>',community:'<span class="rtag community">จากผู้เล่น</span>'};
-const thDate=(iso,o)=>new Date(iso+'T00:00:00+07:00').toLocaleDateString('th-TH',o||{day:'numeric',month:'short',year:'numeric'});
+const thDate=(iso,o)=>new Date(iso+'T00:00:00+07:00').toLocaleDateString(LOC,o||{day:'numeric',month:'short',year:'numeric'});
 let newsKind='';
 function renderNews(openId){
   const list=document.getElementById('newsList'),art=document.getElementById('newsArticle'),seg=document.getElementById('newsSeg');
@@ -3075,7 +3046,7 @@ function renderNews(openId){
     window.scrollTo({top:0});return;
   }
   list.innerHTML=NEWS.filter(x=>!newsKind||x.type===newsKind).map(x=>{const d=new Date(x.date+'T00:00:00+07:00');return `<button type="button" class="ncard" data-news="${x.id}">
-    <span class="dt"><b>${d.getDate()}</b><small>${d.toLocaleDateString('th-TH',{month:'short',year:'2-digit'})}</small></span>
+    <span class="dt"><b>${d.getDate()}</b><small>${d.toLocaleDateString(LOC,{month:'short',year:'2-digit'})}</small></span>
     <span><span class="meta"><span class="ntype ${x.type}">${NTYPE[x.type]}</span>${RTAG[x.tag]||''}</span><h3>${esc(x.title)}</h3><p>${esc(x.lede)}</p></span></button>`}).join('');
 }
 document.getElementById('newsSeg').addEventListener('click',e=>{const b=e.target.closest('[data-k]');if(!b)return;newsKind=b.dataset.k;document.querySelectorAll('#newsSeg button').forEach(x=>x.setAttribute('aria-pressed',x===b));renderNews()});
@@ -3153,14 +3124,6 @@ document.getElementById('fbForm').addEventListener('submit',async e=>{
   finally{btn.disabled=false}
 });
 
-/* ===== donations (voluntary) =====
-   The owner's payment QR image goes in the site folder; entry points stay hidden until it exists. */
-const DONATE={qr:'donate-qr.jpg',label:'สแกนด้วยแอปธนาคารหรือวอลเล็ต จำนวนเท่าไหร่ก็ได้',links:[]}; // links: [{th:'Ko-fi',url:'https://ko-fi.com/...'}]
-let DONATE_ON=false;
-(function(){const im=new Image();im.onload=()=>{DONATE_ON=true;document.querySelectorAll('[data-donate]').forEach(b=>b.hidden=false)};im.src=DONATE.qr})();
-function renderDonate(){
-  document.getElementById('donateBox').innerHTML=`<img src="${DONATE.qr}" alt="QR สำหรับโอนเงินสนับสนุน" onerror="this.replaceWith(Object.assign(document.createElement('p'),{className:'muted',textContent:'ยังไม่เปิดรับการสนับสนุนตอนนี้'}))"><small>${esc(DONATE.label)}</small>${DONATE.links.map(l=>`<a class="btn" href="${esc(l.url)}" target="_blank" rel="noopener" style="text-decoration:none;color:inherit">${esc(l.th)} ↗</a>`).join('')}`;
-}
 
 /* ===== hero: what's new chips + newest code ===== */
 function renderHero(){
@@ -3185,5 +3148,24 @@ function renderHomeToday(){
    +(codes?`<button type="button" data-go="codes"><i></i><span>โค้ดที่ยังใช้ได้ <b>${codes}</b></span></button>`:'');
 }
 renderHomeToday();setInterval(()=>{if(current==='home'&&!document.hidden)renderHomeToday()},60000);
+/* ===== whole-site English (i18n-en.js) ===== */
+const UI_EN=window.UI_EN||{};
+const HAS_TH=/[฀-๿]/,LATIN=/[A-Za-z0-9][A-Za-z0-9 .,'’%×+\-\/:&!?#()"“”]*[A-Za-z0-9%)"”]|[A-Za-z0-9]/g;
+function i18nKey(t){const parts=[];const k=t.replace(/\s+/g,' ').trim().replace(LATIN,m=>{parts.push(m);return '{}'});return [k,parts]}
+function i18nText(t){if(!t||!HAS_TH.test(t))return null;const [k,parts]=i18nKey(t);const v=UI_EN[k];if(v==null)return null;let i=0;const out=v.replace(/\{(\d*)\}/g,(_,n)=>n!==''?(parts[+n]??''):(parts[i++]??''));const lead=t.match(/^\s*/)[0],trail=t.match(/\s*$/)[0];return lead+out+trail}
+const I18N_ATTR=['placeholder','aria-label','title','alt'];
+function i18nWalk(root){
+  if(LANG!=='en'||!root)return;
+  const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT|NodeFilter.SHOW_ELEMENT);let n=root;
+  do{if(n.nodeType===3){const v=i18nText(n.nodeValue);if(v!=null)n.nodeValue=v}
+    else if(n.nodeType===1){if(n.tagName==='SCRIPT'||n.tagName==='STYLE')continue;for(const a of I18N_ATTR){const x=n.getAttribute&&n.getAttribute(a);if(x){const v=i18nText(x);if(v!=null)n.setAttribute(a,v)}}}}while((n=w.nextNode()));
+}
+if(LANG==='en'){
+  document.title='Aniimo Field Guide';
+  i18nWalk(document.body);
+  new MutationObserver(ms=>{for(const m of ms){if(m.type==='characterData'){const v=i18nText(m.target.nodeValue);if(v!=null)m.target.nodeValue=v}else m.addedNodes.forEach(x=>i18nWalk(x))}}).observe(document.body,{childList:true,subtree:true,characterData:true});
+}
+/* dev helper: list Thai phrases on screen that have no English yet */
+window.__i18nMissing=()=>{const out=new Set();const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT|NodeFilter.SHOW_ELEMENT);let n;while((n=w.nextNode())){if(n.nodeType===3){if(HAS_TH.test(n.nodeValue)&&n.parentElement&&!/SCRIPT|STYLE/.test(n.parentElement.tagName)){const [k]=i18nKey(n.nodeValue);if(!(k in UI_EN))out.add(k)}}else for(const a of I18N_ATTR){const x=n.getAttribute(a);if(x&&HAS_TH.test(x)){const [k]=i18nKey(x);if(!(k in UI_EN))out.add(k)}}}return [...out]};
 route();
 </script>
