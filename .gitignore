@@ -4,3 +4,5 @@ tools/build-full.log
 .DS_Store
 .claude/
 tools/scrape.log
+tools/raw.json
+tools/items_all.json
