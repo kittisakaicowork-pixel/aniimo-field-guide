@@ -744,6 +744,19 @@ dialog#menu .mtiles svg{width:22px;height:22px;color:var(--accent)}
 .adlogin .ic{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:var(--glow);color:var(--accent)}
 .adlogin .ic svg{width:22px;height:22px}
 .adlogin input[type=email],.adlogin input[type=password]{font:inherit;font-size:.95rem;border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--surface);color:var(--ink)}
+/* feedback */
+.fbform{max-width:640px}
+.fbform textarea,.fbform input[type=text]{font:inherit;font-size:.95rem;border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--surface);color:var(--ink);resize:vertical}
+.fbform textarea:focus,.fbform input[type=text]:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 4px var(--glow)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.fbseg{display:flex;gap:6px;flex-wrap:wrap}
+.fblist{display:grid;gap:10px}
+.fbitem{display:grid;gap:6px;padding:12px 14px;border-radius:14px;background:var(--sunk)}
+.fbitem.new{background:color-mix(in srgb,var(--sun) 12%,var(--surface));box-shadow:inset 3px 0 0 var(--sun)}
+.fbitem .meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:.76rem;color:var(--ink-2)}
+.fbitem p{white-space:pre-wrap;word-break:break-word;font-size:.92rem}
+.fbitem .acts{display:flex;gap:6px;flex-wrap:wrap}
+.fbitem .acts button{font-size:.76rem;padding:4px 10px}
 /* donate */
 .donbtn{display:inline-flex;align-items:center;gap:6px;border:0;background:color-mix(in srgb,var(--sun) 22%,var(--surface));color:var(--ink);border-radius:999px;padding:6px 14px;font-size:.82rem;font-weight:500;cursor:pointer;justify-self:start}
 .donbtn svg{width:15px;height:15px;color:#C9544A}
@@ -824,6 +837,7 @@ dialog#menu .mtiles svg{width:22px;height:22px;color:var(--accent)}
   <symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V4"/><path d="M4 20h16"/><path d="M8 16v-4M12 16V8M16 16v-6"/></symbol>
   <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
   <symbol id="i-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-9.2-9A5 5 0 0 1 12 6.2 5 5 0 0 1 21.2 11C19 15.6 12 20 12 20z"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/></symbol>
   <symbol id="i-more" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></symbol>
 </svg>
 
@@ -1314,6 +1328,29 @@ dialog#menu .mtiles svg{width:22px;height:22px;color:var(--accent)}
       <div id="plOut" style="display:grid;gap:14px"></div>
     </section>
 
+    <!-- FEEDBACK -->
+    <section class="view" data-view="feedback" hidden>
+      <div class="vhead">
+        <p class="eyebrow">ส่งคำแนะนำ</p>
+        <h2>อยากให้เว็บมีอะไรเพิ่ม บอกได้เลย</h2>
+        <p class="muted">แนะนำฟีเจอร์ แจ้งข้อมูลที่ผิด หรือบอกปัญหาที่เจอ คนทำเว็บอ่านทุกข้อความ</p>
+      </div>
+      <form class="dpanel fbform" id="fbForm">
+        <div class="seg" id="fbTopic" role="radiogroup" aria-label="หัวข้อ">
+          <button type="button" data-t="idea" aria-pressed="true">แนะนำฟีเจอร์</button>
+          <button type="button" data-t="data" aria-pressed="false">ข้อมูลผิด / ไม่ครบ</button>
+          <button type="button" data-t="bug" aria-pressed="false">เว็บมีปัญหา</button>
+          <button type="button" data-t="other" aria-pressed="false">อื่น ๆ</button>
+        </div>
+        <label for="fbMsg">ข้อความ<textarea id="fbMsg" rows="5" maxlength="1000" required placeholder="เช่น อยากให้มีตารางเปรียบเทียบ Held Item หรือ ข้อมูลจุดเกิดของ Bolty ผิด"></textarea></label>
+        <span class="dnote" id="fbCount">0 / 1000</span>
+        <label for="fbContact">ช่องทางติดต่อกลับ (ไม่บังคับ)<input type="text" id="fbContact" maxlength="100" placeholder="เช่น ชื่อในเกม หรือ Facebook ถ้าอยากให้ตอบกลับ"></label>
+        <input type="text" id="fbWebsite" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp">
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><button type="submit" class="btn primary" id="fbSend">ส่งคำแนะนำ</button><span class="small" id="fbMsgOut" aria-live="polite"></span></div>
+        <p class="dnote">ข้อความจะส่งถึงเจ้าของเว็บเท่านั้น ไม่แสดงต่อสาธารณะ ไม่ต้องใส่ข้อมูลส่วนตัว</p>
+      </form>
+    </section>
+
     <!-- DONATE -->
     <section class="view" data-view="donate" hidden>
       <div class="donate">
@@ -1329,7 +1366,7 @@ dialog#menu .mtiles svg{width:22px;height:22px;color:var(--accent)}
         </div>
         <div class="dqr" id="donateBox"></div>
       </div>
-      <p class="small muted">ขอบคุณทุกการสนับสนุน ไม่ว่าจะเป็นเงิน การแชร์เว็บให้เพื่อน หรือการติชม 🙏</p>
+      <p class="small muted"><a href="#feedback" data-go="feedback">ส่งคำแนะนำ</a> · ขอบคุณทุกการสนับสนุน ไม่ว่าจะเป็นเงิน การแชร์เว็บให้เพื่อน หรือการติชม 🙏</p>
     </section>
 
     <!-- BACK OFFICE (owner only) -->
@@ -1671,6 +1708,7 @@ const VIEWS=[
  {id:'collection',th:'เช็กลิสต์สะสม',ic:'check',g:'tools',d:'ติ๊กตัวที่จับได้'},
  {id:'history',th:'ประวัติการใช้งาน',ic:'clock',g:'tools',d:'ที่ดูล่าสุดและคำค้นหา'},
  {id:'codes',th:'โค้ดแลกของ',ic:'gift',g:'more',d:'กดคัดลอกได้เลย'},
+ {id:'feedback',th:'ส่งคำแนะนำ',ic:'chat',g:'more',d:'แนะนำฟีเจอร์ แจ้งข้อมูลผิด'},
  {id:'admin',th:'หลังบ้าน',ic:'chart',hidden:1},
  {id:'donate',th:'สนับสนุนเว็บ',ic:'heart',hidden:1}];
 const navItem=(v,cls)=>`<button type="button" class="${cls}" data-go="${v.id}"><svg><use href="#i-${v.ic}"/></svg><span>${v.th}</span></button>`;
@@ -1687,7 +1725,7 @@ const RENDERED=new Set();
 function ensureRendered(id){if(RENDERED.has(id))return;RENDERED.add(id);const f={dex:()=>renderDex(),skills:()=>renderSkills(),sparkling:()=>renderSpark(),forms:()=>renderForms(),tier:()=>renderTiers(),team:()=>renderTeam(),collection:()=>renderCollection(),compare:()=>renderCompare(),bosses:()=>renderBosses(),regions:()=>renderRegions(),map:()=>renderMap(),events:()=>renderEvents(),items:()=>renderItems(),systems:()=>renderSystems(),planner:()=>renderPlanner(),history:()=>renderHistory(),admin:()=>renderAdmin(),donate:()=>renderDonate()}[id];f&&f()}
 function go(id,push){
   if(!VIEWS.some(v=>v.id===id))id='home';
-  if(id!=='admin'){histAdd('views',id);track('view',id)}if(id==='history'||id==='admin')RENDERED.delete(id);if(id==='home'&&typeof renderHomeRecent==='function')renderHomeRecent();
+  if(id!=='admin'){histAdd('views',id);track('view',id)}if(id!=='feedback'&&id!=='admin'&&typeof fbLastPage!=='undefined')fbLastPage=id;if(id==='history'||id==='admin')RENDERED.delete(id);if(id==='home'&&typeof renderHomeRecent==='function')renderHomeRecent();
   ensureRendered(id);
   current=id;
   document.querySelectorAll('.view').forEach(s=>s.hidden=s.dataset.view!==id);
@@ -2629,6 +2667,33 @@ async function sbSession(){
   if(Date.now()>AD.s.exp){try{const n=await sbAuth({refresh_token:AD.s.refresh},'refresh_token');adSave({...n,remember:AD.s.remember})}catch(_){adSave(null);throw new Error('nologin')}}
   return AD.s.access;
 }
+async function sbRpc(fn,args){
+  const tok=await sbSession();
+  const r=await fetch(SB.url+'/rest/v1/rpc/'+fn,{method:'POST',headers:{apikey:SB.key,Authorization:'Bearer '+tok,'Content-Type':'application/json'},body:JSON.stringify(args||{})});
+  if(r.status===401){adSave(null);throw new Error('nologin')}
+  const j=r.status===204?null:await r.json().catch(()=>null);
+  if(!r.ok){if(j&&(j.code==='PGRST202'||j.code==='42883'))throw new Error('nofeedback');if(j&&j.code==='42501')throw new Error('notowner');throw new Error('net')}
+  return j;
+}
+const FB={filter:'new',items:null,err:''};
+const DEMO_FB=[{id:3,at:new Date(Date.now()-3600e3).toISOString(),topic:'idea',message:'อยากให้มีตารางเปรียบเทียบ Held Item ว่าตัวไหนเหมาะกับบทบาทอะไร',contact:'ชื่อในเกม: Mintz',page:'items',status:'new'},{id:2,at:new Date(Date.now()-26*3600e3).toISOString(),topic:'data',message:'จุดเกิดของ Bolty ในภูมิภาค Blitzwood เลเวลน่าจะเป็น 18-22 ไม่ใช่ 15-20',contact:null,page:'dex',status:'read'},{id:1,at:new Date(Date.now()-3*86400e3).toISOString(),topic:'bug',message:'แผนที่บนไอแพดซูมแล้วกระตุกนิดหน่อย',contact:'fb.com/example',page:'map',status:'done'}];
+async function loadFeedback(){
+  if(AD.demo){FB.items=DEMO_FB.filter(f=>FB.filter==='all'||f.status===FB.filter);FB.err='';return}
+  try{FB.items=await sbRpc('feedback_list',{lim:100,only_status:FB.filter==='all'?null:FB.filter})||[];FB.err=''}
+  catch(e){FB.items=[];FB.err=e.message}
+}
+function feedbackPanel(){
+  const st={new:'ใหม่',read:'อ่านแล้ว',done:'จัดการแล้ว'};
+  const body=FB.err==='nofeedback'?'<p class="dnote">ยังไม่ได้ติดตั้งระบบคำแนะนำในฐานข้อมูล ให้รันไฟล์ tools/admin/feedback.sql ใน Supabase SQL Editor</p>'
+   :FB.err?'<p class="dnote">โหลดคำแนะนำไม่สำเร็จ</p>'
+   :(FB.items||[]).map(f=>`<div class="fbitem ${f.status}"><div class="meta"><span class="chip">${esc(FB_TOPIC[f.topic]||f.topic)}</span><span>${new Date(f.at).toLocaleString('th-TH',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}</span>${f.page?`<span>จากหน้า ${esc((VIEWS.find(v=>v.id===f.page)||{}).th||f.page)}</span>`:''}<span>· ${st[f.status]}</span></div>
+      <p>${esc(f.message)}</p>${f.contact?`<div class="meta">ติดต่อกลับ: <b style="color:var(--ink)">${esc(f.contact)}</b></div>`:''}
+      <div class="acts">${f.status!=='read'?`<button type="button" class="btn" data-fb="${f.id}" data-s="read">อ่านแล้ว</button>`:''}${f.status!=='done'?`<button type="button" class="btn" data-fb="${f.id}" data-s="done">จัดการแล้ว</button>`:''}${f.status!=='new'?`<button type="button" class="btn" data-fb="${f.id}" data-s="new">ทำเป็นใหม่</button>`:''}<button type="button" class="btn" data-fb="${f.id}" data-s="delete">ลบ</button></div></div>`).join('')||'<p class="dnote">ไม่มีคำแนะนำในหมวดนี้</p>';
+  return `<div class="dpanel" id="fbPanel"><h3>คำแนะนำจากผู้ใช้<small>${FB.filter==='new'?'ยังไม่ได้อ่าน':''}</small></h3>
+    <div class="seg fbseg" id="fbFilter">${[['new','ใหม่'],['read','อ่านแล้ว'],['done','จัดการแล้ว'],['all','ทั้งหมด']].map(([k,l])=>`<button type="button" data-f="${k}" aria-pressed="${FB.filter===k}">${l}</button>`).join('')}</div>
+    <div class="fblist">${body}</div></div>`;
+}
+async function refreshFeedback(){await loadFeedback();const el=document.getElementById('fbPanel');if(el)el.outerHTML=feedbackPanel()}
 async function sbStats(days){
   const tok=await sbSession();
   const r=await fetch(SB.url+'/rest/v1/rpc/stats_summary',{method:'POST',headers:{apikey:SB.key,Authorization:'Bearer '+tok,'Content-Type':'application/json'},body:JSON.stringify({days})});
@@ -2688,7 +2753,7 @@ async function renderAdmin(){
   const sk='<div class="skel" style="width:60%"></div>';
   out.innerHTML=`<div class="kpis">${[1,2,3,4].map(()=>`<div class="kpi">${sk}${sk}</div>`).join('')}</div><div class="dpanel">${sk}</div>`;
   try{
-    const d=AD.demo?demoData(AD.range):await sbStats(AD.range);
+    const d=AD.demo?demoData(AD.range):await sbStats(AD.range);await loadFeedback();
     const days=AD.demo?d.daily:fillDays(d.daily,AD.range);
     const rl={7:'7 วันล่าสุด',30:'30 วันล่าสุด',90:'90 วันล่าสุด'}[AD.range];
     const views=(d.top_views||[]).filter(r=>VIEWS.some(v=>v.id===r.key)&&r.key!=='admin').slice(0,10);
@@ -2696,6 +2761,7 @@ async function renderAdmin(){
     out.innerHTML=(AD.demo?'<div class="warnbox" style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between"><span><b>ข้อมูลตัวอย่าง</b> ตัวเลขในหน้านี้สร้างขึ้นเพื่อดูหน้าตา ไม่ใช่สถิติจริง</span><button type="button" class="btn" id="adExitDemo">ออกจากตัวอย่าง</button></div>':'')
      +`<div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between"><div class="seg" id="adRange" role="group" aria-label="ช่วงเวลา">${[7,30,90].map(n=>`<button type="button" data-r="${n}" aria-pressed="${AD.range===n}">${n} วัน</button>`).join('')}</div>
        <div style="display:flex;gap:8px;align-items:center">${AD.demo?'':`<span class="dnote">${esc(AD.s.email||'')}</span>`}<button type="button" class="btn" id="adRefresh">รีเฟรช</button>${AD.demo?'':'<button type="button" class="btn" id="adLogout">ออกจากระบบ</button>'}</div></div>
+     ${feedbackPanel()}
      <div class="kpis">
       <div class="kpi"><small>ผู้ใช้ ${rl}</small><b>${fmtN(d.visitors)}</b><span>เปิดหน้าเว็บ ${fmtN(d.views)} ครั้ง</span></div>
       <div class="kpi"><small>วันนี้ (เวลาไทย)</small><b>${fmtN(d.today_visitors)}</b><span>คน · ${fmtN(d.today)} ครั้ง</span></div>
@@ -2727,8 +2793,39 @@ document.addEventListener('click',e=>{
   if(e.target.closest('#adDemo')){AD.demo=true;renderAdmin();return}
   if(e.target.closest('#adExitDemo')){AD.demo=false;renderAdmin();return}
   if(e.target.closest('#adRefresh')){renderAdmin();return}
+  const ff=e.target.closest('#fbFilter [data-f]');if(ff){FB.filter=ff.dataset.f;refreshFeedback();return}
+  const fa=e.target.closest('[data-fb]');if(fa){
+    if(fa.dataset.s==='delete'&&!fa.dataset.sure){fa.dataset.sure='1';fa.textContent='กดอีกครั้งเพื่อลบ';return}
+    const id=+fa.dataset.fb,s=fa.dataset.s;
+    if(AD.demo){const i=DEMO_FB.findIndex(x=>x.id===id);if(i>=0){if(s==='delete')DEMO_FB.splice(i,1);else DEMO_FB[i].status=s}refreshFeedback();return}
+    fa.disabled=true;sbRpc('feedback_set',{fid:id,new_status:s}).then(refreshFeedback).catch(()=>{fa.disabled=false;fa.textContent='ไม่สำเร็จ ลองใหม่'});return}
   if(e.target.closest('#adLogout')){if(AD.s)fetch(SB.url+'/auth/v1/logout',{method:'POST',headers:{apikey:SB.key,Authorization:'Bearer '+AD.s.access}}).catch(()=>{});adSave(null);renderAdmin();return}
   const r=e.target.closest('#adRange [data-r]');if(r){AD.range=+r.dataset.r;renderAdmin()}
+});
+
+/* ===== feedback from users → owner's Supabase (insert-only for visitors) ===== */
+const FB_TOPIC={idea:'แนะนำฟีเจอร์',data:'ข้อมูลผิด / ไม่ครบ',bug:'เว็บมีปัญหา',other:'อื่น ๆ'};
+let fbTopic='idea',fbLastPage='home';
+document.getElementById('fbTopic').addEventListener('click',e=>{const b=e.target.closest('[data-t]');if(!b)return;fbTopic=b.dataset.t;document.querySelectorAll('#fbTopic button').forEach(x=>x.setAttribute('aria-pressed',x===b))});
+document.getElementById('fbMsg').addEventListener('input',e=>{document.getElementById('fbCount').textContent=`${e.target.value.length} / 1000`});
+document.getElementById('fbForm').addEventListener('submit',async e=>{
+  e.preventDefault();const out=document.getElementById('fbMsgOut'),btn=document.getElementById('fbSend');
+  const msg=document.getElementById('fbMsg').value.trim(),contact=document.getElementById('fbContact').value.trim();
+  if(document.getElementById('fbWebsite').value){out.textContent='ส่งแล้ว ขอบคุณครับ';return}
+  if(msg.length<3){out.textContent='พิมพ์ข้อความอย่างน้อย 3 ตัวอักษร';return}
+  let last=0;try{last=+localStorage.getItem('aniimo-fb-last')||0}catch(_){}
+  if(Date.now()-last<60000){out.textContent='เพิ่งส่งไป รอสักครู่แล้วค่อยส่งอีกครั้ง';return}
+  if(!SB.url){out.textContent='ระบบรับคำแนะนำยังไม่พร้อม';return}
+  btn.disabled=true;out.textContent='กำลังส่ง…';
+  try{
+    const r=await fetch(SB.url+'/rest/v1/feedback',{method:'POST',headers:{apikey:SB.key,Authorization:'Bearer '+SB.key,'Content-Type':'application/json',Prefer:'return=minimal'},
+      body:JSON.stringify({topic:fbTopic,message:msg.slice(0,1000),contact:contact.slice(0,100)||null,page:fbLastPage.slice(0,40),visitor:VISITOR||null})});
+    if(!r.ok)throw new Error(r.status);
+    try{localStorage.setItem('aniimo-fb-last',String(Date.now()))}catch(_){}
+    document.getElementById('fbMsg').value='';document.getElementById('fbContact').value='';document.getElementById('fbCount').textContent='0 / 1000';
+    out.textContent='ส่งแล้ว ขอบคุณที่ช่วยแนะนำครับ';
+  }catch(err){out.textContent='ส่งไม่สำเร็จ ตรวจอินเทอร์เน็ตแล้วลองใหม่'}
+  finally{btn.disabled=false}
 });
 
 /* ===== donations (voluntary) =====
