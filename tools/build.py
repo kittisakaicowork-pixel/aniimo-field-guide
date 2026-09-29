@@ -77,6 +77,7 @@ def main():
     th = json.loads((TOOLS / "i18n" / "th.json").read_text())
     manual = json.loads((TOOLS / "manual.json").read_text())  # hand-kept data: redeem codes
     names_th = json.loads((TOOLS / "i18n" / "names_th.json").read_text())
+    game = None
     if (ROOT / "gamedata").exists():  # the game's own data wins over the scrape (see tools/game.py)
         import game
         names_th.update(game.apply(raw, th))
@@ -85,30 +86,47 @@ def main():
     out_dir.mkdir(exist_ok=True)
 
     # ------------------------------------------------ creature + form art
-    img_jobs, art = [], {}
+    # The game's own Research Book art wins (lightly restyled, see game.stylize); AniiDex art only
+    # fills in what the game files lack. Only creatures and forms already listed on the site get art,
+    # so nothing unannounced leaks from the game files.
+    img_jobs, art, from_game = [], {}, set()
     for a in A:
         name = f"img/{a['slug']}.webp"
         art[(a["slug"], None)] = name
         img_jobs.append((a, None, name))
         for fi, f in enumerate(a["forms"]):
-            if f["has_image"]:
+            if f["has_image"] or (game and game.art(f["id"])):
                 name = f"img/f{f['id']}.webp"
                 art[(a["slug"], fi)] = name
                 img_jobs.append((a, f, name))
     size = 2048 if FULL else 1024
     cache = CACHE / f"full{size}"
-    urls = [((RAW_URL if FULL else IPX.format(s=size)) + art_path(a, f), cache / Path(n).name) for a, f, n in img_jobs]
+    gcache = CACHE / "game-art"
+    gcache.mkdir(parents=True, exist_ok=True)
+    srcs, urls = {}, []
+    for a, f, n in img_jobs:
+        gid = f["id"] if f else (re.search(r"(\d+)", a["head"]).group(1) if a["head"] else "")
+        g = game and not a["unreleased"] and game.art(gid)
+        if g:
+            dest = gcache / Path(n).name
+            if not dest.exists() or dest.stat().st_mtime < g.stat().st_mtime:
+                game.stylize(g).save(dest, "WEBP", quality=88, method=4)
+            srcs[n] = dest
+            from_game.add(n)
+        else:
+            urls.append(((RAW_URL if FULL else IPX.format(s=size)) + art_path(a, f), cache / Path(n).name))
+            srcs[n] = cache / Path(n).name
     ok = download(urls)
-    print(f"art {size}px: {sum(ok)}/{len(ok)}")
+    print(f"art: {len(from_game)} from the game, {sum(ok)}/{len(ok)} from AniiDex")
     (out_dir / "img").mkdir(exist_ok=True)
-    for (_, dest), (_, _, name) in zip(urls, img_jobs):
-        if dest.exists():
-            shutil.copyfile(dest, out_dir / name)
+    for _, _, name in img_jobs:
+        if srcs[name].exists():
+            shutil.copyfile(srcs[name], out_dir / name)
 
     # thumbnails (200px) embedded in one script so list views stay light
     thumbs = {}
     for _, _, name in img_jobs:
-        src = cache / Path(name).name
+        src = srcs[name]
         if not src.exists():
             continue
         im = Image.open(src).convert("RGBA")
@@ -190,7 +208,7 @@ def main():
         hid = int(re.search(r"(\d+)", a["head"]).group(1)) if a["head"] else 0
         aniimo.append(dict(
             no=a["no"], name=a["name"], slug=a["slug"], e=a["elements"], st=a["stage"], r=a["role"], d=a["desc"],
-            s=a["stats"], i=art[(a["slug"], None)], cut=not a["full_id"], u=a["unreleased"], ord=hid,
+            s=a["stats"], i=art[(a["slug"], None)], cut=art[(a["slug"], None)] not in from_game and not a["full_id"], u=a["unreleased"], ord=hid,
             f=[dict(n=f["name"], k=f["kind"], e=f["elements"], i=art.get((a["slug"], fi), "")) for fi, f in enumerate(a["forms"])],
             w=a["work"], it=[[x["name"], x["effect"]] for x in a["items"]],
             sp=dict(c=a["spawn"]["conditions"], r=[[g["name"], g["level"]] for g in a["spawn"]["regions"]]),

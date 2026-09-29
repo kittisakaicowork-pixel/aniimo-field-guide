@@ -202,6 +202,43 @@ if __name__ == "__main__":
     main()
 
 
+def art(gid):
+    """In-game Research Book art for a creature or form id (e.g. 10222, 1022201), or None."""
+    for name in (f"UI_Img_ResearchBook_Enter_{gid}.png", f"UI_Img_ResearchBook_Enter_{gid}_Shadow.png"):
+        p = GAME / "art" / name
+        if p.exists():
+            return p
+    return None
+
+
+def stylize(path):
+    """Light touch so the site does not carry the game's art 1:1: tones posterized to 32 levels,
+    colour lifted a little, and edges where the painting is cut off fade out. Returns a square RGBA image."""
+    from PIL import Image, ImageChops, ImageEnhance, ImageOps
+    im = Image.open(path).convert("RGBA")
+    r, g, b, a = im.split()
+    rgb = ImageEnhance.Color(ImageOps.posterize(Image.merge("RGB", (r, g, b)), 5)).enhance(1.08)
+    w, h = im.size
+    fade = max(8, int(min(w, h) * 0.12))
+    ramp = Image.linear_gradient("L").resize((1, fade))  # 0 at the edge -> 255 inside
+    mask = Image.new("L", (w, h), 255)
+    touches = lambda box: max(a.crop(box).getdata()) > 16
+    if touches((0, 0, w, 2)):
+        mask.paste(ImageChops.multiply(mask.crop((0, 0, w, fade)), ramp.resize((w, fade))), (0, 0))
+    if touches((0, h - 2, w, h)):
+        mask.paste(ImageChops.multiply(mask.crop((0, h - fade, w, h)), ramp.transpose(Image.FLIP_TOP_BOTTOM).resize((w, fade))), (0, h - fade))
+    side = ramp.transpose(Image.ROTATE_90).resize((fade, h))  # 0 at x=0 -> 255 inside
+    if touches((0, 0, 2, h)):
+        mask.paste(ImageChops.multiply(mask.crop((0, 0, fade, h)), side), (0, 0))
+    if touches((w - 2, 0, w, h)):
+        mask.paste(ImageChops.multiply(mask.crop((w - fade, 0, w, h)), side.transpose(Image.FLIP_LEFT_RIGHT)), (w - fade, 0))
+    out = Image.merge("RGBA", (*rgb.split(), ImageChops.multiply(a, mask)))
+    s = max(w, h)
+    sq = Image.new("RGBA", (s, s), (0, 0, 0, 0))
+    sq.alpha_composite(out, ((s - w) // 2, (s - h) // 2))
+    return sq
+
+
 def official_th():
     """English game text (resolved, match key) -> official Thai, for every string that has both."""
     out = {}
