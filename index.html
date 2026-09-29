@@ -2504,7 +2504,7 @@ async function mount3d(slug,look){
   catch(_){el.innerHTML='<span class="muted small">โหลดตัวแสดงผล 3D ไม่ได้ ลองเชื่อมต่อเน็ตแล้วเปิดใหม่</span>';return}
   if(!el.isConnected)return;
   const mv=((BY[slug]||{}).b||{}).mv||{};
-  try{await V.mountViewer(el,T,libs,{url:look.url,look,period:(M3D.m[slug]||{}).p||3,motion:{fly:!!(mv.fly||mv.glide)},still:matchMedia('(prefers-reduced-motion: reduce)').matches})}
+  try{await V.mountViewer(el,T,libs,{url:look.url,look,period:(M3D.m[slug]||{}).p||3,motion:{fly:!!(mv.fly||mv.glide),fold:(M3D.m[slug]||{}).fold||0},still:matchMedia('(prefers-reduced-motion: reduce)').matches})}
   catch(_){el.innerHTML='<span class="muted small">โหลดโมเดลไม่ได้</span>'}
 }
 function renderDetail(){

@@ -57,9 +57,10 @@ def main():
         if not a or a["unreleased"] or not p.get("parts"):
             continue
         mats = []  # distinct non-eye textures, in the order obj2glb creates materials
-        for _, t in p["parts"]:
-            if t not in mats and "_eye" not in t.lower():
-                mats.append(t)
+        for _, ts in p["parts"]:
+            for t in ([ts] if isinstance(ts, str) else ts):  # one texture, or one per submesh (submesh.py)
+                if t and t not in mats and "_eye" not in t.lower():
+                    mats.append(t)
         keys = []
         for t in mats:
             m = TEX.match(Path(t).name.lower())

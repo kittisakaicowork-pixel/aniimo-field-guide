@@ -13,6 +13,7 @@ man_file = ROOT / "3d" / "variants.json"
 man = json.loads(man_file.read_text())
 picks = json.loads((HERE / "picks.json").read_text())
 idle = json.loads((HERE / "idle.json").read_text())
+pose = {k: v for k, v in json.loads((HERE / "pose.json").read_text()).items() if not k.startswith("_")}
 ex = json.loads((HERE / "exclude.json").read_text())
 exclude = {k for k in ex if not k.startswith("_")}
 for s in ex.get("_creatures", []):
@@ -29,5 +30,7 @@ for s, m in man["models"].items():
             del m["looks"][fid]
     if s in picks and picks[s]["mid"] in idle:
         m["p"] = idle[picks[s]["mid"]]
+    if s in pose:
+        m["fold"] = pose[s]
 man_file.write_text(json.dumps(man))
 print(sum(len(m["looks"]) for m in man["models"].values()), "form looks,", sum(len(m.get("fg", [])) for m in man["models"].values()), "with their own mesh")

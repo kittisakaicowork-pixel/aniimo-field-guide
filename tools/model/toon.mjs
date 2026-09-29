@@ -43,7 +43,7 @@ export function findSibling(file, suffix) {
     const t2 = file.slice(0, file.indexOf('textures2') + 9);
     for (const d of fs.readdirSync(t2)) {
       let fs2; try { fs2 = fs.readdirSync(path.join(t2, d)) } catch { continue }
-      for (const f of fs2) if (/_(mohr|n)\.png$/i.test(f)) sibIndex[f.toLowerCase()] ||= path.join(t2, d, f);
+      for (const f of fs2) if (/_(mohr|n|e)\.png$/i.test(f)) sibIndex[f.toLowerCase()] ||= path.join(t2, d, f);
     }
   }
   return sibIndex[swap(path.basename(file)).toLowerCase()] || null;
@@ -61,6 +61,16 @@ export async function normalTex(file, size) {
     out[j] = (x * 0.5 + 0.5) * 255; out[j + 1] = (y * 0.5 + 0.5) * 255; out[j + 2] = (z * 0.5 + 0.5) * 255;
   }
   return sharp(out, { raw: { width: info.width, height: info.height, channels: 3 } }).webp({ quality: 90 }).toBuffer();
+}
+
+// E: what glows in the game (flames, crystals, eyes). null when it is all black.
+export async function emissiveTex(file, size) {
+  const e = findSibling(file, 'E');
+  if (!e) return null;
+  const img = sharp(e).resize(size, size).removeAlpha();
+  const { channels } = await img.clone().stats();
+  if (Math.max(...channels.map(c => c.max)) < 24) return null;
+  return img.webp({ quality: 88 }).toBuffer();
 }
 
 // MOHR (R metallic, G occlusion, B height, A roughness) -> glTF ORM (R occlusion, G roughness, B metalness)

@@ -20,6 +20,9 @@ fs.rmSync(path.join(outDir, 'v'), { recursive: true, force: true });
 fs.mkdirSync(path.join(outDir, 'v'), { recursive: true });
 
 const manifest = { accents: old.accents || [], glow: old.glow || [], models: {} };
+// same brightness gain as the base model (bright.mjs) for forms that use the game's own maps
+const BRIGHT = (f => fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'utf8')) : {})(path.join(path.dirname(new URL(import.meta.url).pathname), 'bright.json'));
+const gainFn = g => !g || g === 1 ? null : d => { for (let i = 0; i < d.length; i += 4) for (let c = 0; c < 3; c++) d[i + c] = Math.min(255, d[i + c] * g) };
 const count = { game: 0, partial: 0, derived: 0, none: 0 }, how = {};
 for (const [slug, p] of Object.entries(plan)) {
   const m = manifest.models[slug] = { mats: p.mats.map(t => path.basename(t).toLowerCase()), looks: {} };
@@ -30,7 +33,7 @@ for (const [slug, p] of Object.entries(plan)) {
     const own = w.src.map((s, i) => s || (w.base[i] !== p.mats[i] ? w.base[i] : null));
     const out = i => path.join(outDir, 'v', `${fid}-n-${i}.webp`);
     if (own.some(Boolean)) {
-      for (let i = 0; i < p.mats.length; i++) fs.writeFileSync(out(i), await toonTex(path.join(root, own[i] || p.mats[i]), DETAIL.variant * 2));
+      for (let i = 0; i < p.mats.length; i++) fs.writeFileSync(out(i), await toonTex(path.join(root, own[i] || p.mats[i]), DETAIL.variant * 2, gainFn(BRIGHT[slug])));
       const k = own.every(Boolean) ? 'game' : 'partial'; count[k]++; how[fid] = k;
     } else if (baseRef && look.ref.common) {
       const [a, b] = [await stats(baseRef), await stats(look.ref.common)];

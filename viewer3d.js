@@ -11,7 +11,7 @@
 // for creatures the game says can fly or glide, flyers hovering, loose ends fluttering. Its period is the
 // creature's in-game Idle clip length.
 
-const IDLE = `uniform float uT,uP,uFly;uniform vec3 uMin,uSize;
+const IDLE = `uniform float uT,uP,uFly,uFold;uniform vec3 uMin,uSize;uniform mat4 uNode,uNodeInv;
 vec3 rotX(vec3 p,vec3 o,float a){p-=o;float c=cos(a),s=sin(a);return o+vec3(p.x,c*p.y-s*p.z,s*p.y+c*p.z);}
 vec3 rotY(vec3 p,vec3 o,float a){p-=o;float c=cos(a),s=sin(a);return o+vec3(c*p.x+s*p.z,p.y,-s*p.x+c*p.z);}
 vec3 rotZ(vec3 p,vec3 o,float a){p-=o;float c=cos(a),s=sin(a);return o+vec3(c*p.x-s*p.y,s*p.x+c*p.y,p.z);}
@@ -23,15 +23,19 @@ vec3 idle(vec3 p,vec3 n){
   p.xz=c.xz+(p.xz-c.xz)*(1.+.025*br*torso);
   float tail=smoothstep(-.3,-.8,fz)*(1.-smoothstep(.75,.95,h));
   p=rotY(p,vec3(c.x,p.y,c.z-uSize.z*.2),.2*sin(ph*1.5)*tail);
-  float wing=uFly*smoothstep(.45,.9,abs(fx))*smoothstep(.3,.55,h);
-  p=rotZ(p,vec3(c.x+sign(fx)*uSize.x*.18,uMin.y+uSize.y*.6,p.z),sign(fx)*.3*sin(ph*2.)*wing);
+  // wings: birds exported with wings spread get them folded down to the body (uFold, radians); flyers flap
+  float wing=smoothstep(.45,.9,abs(fx))*smoothstep(.3,.55,h);
+  vec3 sh=vec3(c.x+sign(fx)*uSize.x*.14,uMin.y+uSize.y*.62,p.z);
+  p=rotZ(p,sh,-sign(fx)*uFold*smoothstep(.3,.5,abs(fx))*smoothstep(.3,.55,h));
+  p=rotZ(p,sh,sign(fx)*(uFold>0.?.08:.3)*sin(ph*2.)*wing*uFly);
   float head=smoothstep(.62,.86,h);
   vec3 neck=vec3(c.x,uMin.y+uSize.y*.62,c.z);
   p=rotX(p,neck,.05*sin(ph+.8)*head);
   p=rotY(p,neck,.1*sin(ph*.37)*head);
   p.y+=uSize.y*(.008*br*h+uFly*.03*sin(ph));
   float r=length((p.xz-c.xz)/(uSize.xz*.5)),loose=.6*smoothstep(.75,1.,r)+.4*smoothstep(.88,1.,h);
-  p+=n*uSize.y*.003*loose*sin(uT*4.+p.y*18./uSize.y+p.x*9./uSize.x);
+  // a smooth field of position only, so parts that touch (eyes, fur, accessories) move exactly together
+  p+=vec3(sin(uT*3.1+p.y*14./uSize.y),0.,cos(uT*2.7+p.x*11./uSize.x))*uSize.y*.004*loose;
   return p;}
 `;
 // mode: 0 plain, 1 Sparkling I-X, 2 Dazzling, 3 Shadow
@@ -50,7 +54,7 @@ const FRAG_RIM = `
 // Soft studio light: an environment for reflections and fill, plus a key and a rim light.
 export function setupScene(T, renderer, libs = {}) {
   const scene = new T.Scene();
-  renderer.toneMapping = T.NeutralToneMapping ?? T.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05;
+  renderer.toneMapping = T.NeutralToneMapping ?? T.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.0;
   if (libs.RoomEnvironment) {
     const pm = new T.PMREMGenerator(renderer);
     scene.environment = pm.fromScene(new libs.RoomEnvironment(), 0.04).texture;
@@ -70,7 +74,7 @@ export async function buildModel(T, { GLTFLoader, MeshoptDecoder }, { url, look 
   const box = new T.Box3().setFromObject(root);
   const mode = { '': 0, n: 0, s: 1, z: 2, d: 3 }[look.kind || ''] ?? 0;
   const U = {
-    uT: { value: 0 }, uP: { value: period || 3 }, uFly: { value: motion.fly ? 1 : 0 },
+    uT: { value: 0 }, uP: { value: period || 3 }, uFly: { value: motion.fly ? 1 : 0 }, uFold: { value: motion.fold || 0 },
     uMin: { value: box.min.clone() }, uSize: { value: box.getSize(new T.Vector3()) },
     uGlow: { value: new T.Color(look.glow || '#000000') }, uMode: { value: mode }, uSheen: { value: 0.35 },
   };
@@ -83,16 +87,25 @@ export async function buildModel(T, { GLTFLoader, MeshoptDecoder }, { url, look 
     if (i >= 0) {
       try { const map = await tl.loadAsync(`${base}3d/v/${texFid}-n-${i}.webp`); map.flipY = false; map.colorSpace = T.SRGBColorSpace; map.channel = src.map ? src.map.channel : 0; m.map = map } catch (_) {}
     }
-    m.side = T.DoubleSide; m.alphaTest = 0.4; m.transparent = false;
+    m.side = T.DoubleSide; m.transparent = false;
+    // the colour map's alpha is mostly the game's fur-density mask, not opacity: cut only what is truly empty
+    m.alphaTest = 0.06;
     m.onBeforeCompile = sh => {
-      Object.assign(sh.uniforms, U);
-      sh.vertexShader = IDLE + sh.vertexShader.replace('#include <begin_vertex>', 'vec3 transformed=idle(vec3(position),normal);');
+      Object.assign(sh.uniforms, U, m.userData.node);
+      // meshopt quantization gives every part its own node transform: move into the model's shared space,
+      // deform there, and come back, so all parts use one frame and move exactly together
+      sh.vertexShader = IDLE + sh.vertexShader.replace('#include <begin_vertex>',
+        'vec3 transformed=(uNodeInv*vec4(idle((uNode*vec4(position,1.)).xyz,normal),1.)).xyz;');
       sh.fragmentShader = FRAG_DECL + sh.fragmentShader
         .replace('#include <map_fragment>', '#include <map_fragment>' + FRAG_TINT)
         .replace('#include <opaque_fragment>', FRAG_RIM + '\n#include <opaque_fragment>');
     };
     m.customProgramCacheKey = () => 'aniiguide-pbr';
     o.material = m;
+    // this part's node transform relative to the model root
+    root.updateMatrixWorld(true);
+    const node = new T.Matrix4().copy(root.matrixWorld).invert().multiply(o.matrixWorld);
+    m.userData.node = { uNode: { value: node }, uNodeInv: { value: node.clone().invert() } };
   }));
   // sparkles: points around the body that twinkle, in the type's colour
   let points = null;

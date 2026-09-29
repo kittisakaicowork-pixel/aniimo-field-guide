@@ -57,7 +57,7 @@ async function show() {
   viewer && viewer.stop();
   const el = document.getElementById('view'); el.innerHTML = ''; document.getElementById('msg').hidden = false;
   const lk = look(); const mv = (a.b || {}).mv || {};
-  viewer = await mountViewer(el, T, libs, { url: lk.url, base: '../../', look: lk, period: m.p || 3, motion: { fly: !!(mv.fly || mv.glide) } });
+  viewer = await mountViewer(el, T, libs, { url: lk.url, base: '../../', look: lk, period: m.p || 3, motion: { fly: !!(mv.fly || mv.glide), fold: m.fold || 0 } });
   document.getElementById('msg').hidden = true;
 }
 document.getElementById('list').onclick = e => { const b = e.target.closest('[data-i]'); if (b) { cur = +b.dataset.i; form = null; spark = 0; show() } };

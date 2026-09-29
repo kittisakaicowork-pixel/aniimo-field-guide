@@ -19,7 +19,7 @@ from pathlib import Path
 OUT = Path(sys.argv[1] if __name__ == "__main__" and len(sys.argv) > 1 else str(Path(__file__).resolve().parents[2] / "aniimo" / "out"))
 ROOT = Path(__file__).resolve().parents[2]
 MESH = re.compile(r"M_Pa?r?mon_(\d+)_(.+?)(?:_(LOD\d))?_(-?\d+)\.obj$")
-SKIP = re.compile(r"shiny|spark|demonic|voxel|collider|dark", re.I)
+SKIP = re.compile(r"shiny|sparkl|demonic|voxel|collider|dark", re.I)  # "Body_Spark" is a lightning mane, not Sparkling
 LOD_PREF = {"LOD1": 0, None: 1, "LOD0": 1, "LOD2": 2}  # LOD1 keeps the detail, LOD2 is the far-away mesh
 
 
