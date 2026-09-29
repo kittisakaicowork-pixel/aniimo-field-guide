@@ -2497,6 +2497,21 @@ function itemsInfo(a){
 /* ===== 3D model (3d/<slug>.glb, stylised: posterized texture + toon shading + outline) =====
    three.js loads from the CDN only when someone opens the 3D view. */
 const THREE_CDN='https://cdn.jsdelivr.net/npm/three@0.186.1/';
+// idle motion (the game files have no skeleton or animation keys, so this is our own): breathing in the torso,
+// a slow sway that grows toward the top, and loose parts (ears, tail, fur, wings) fluttering. Period = the
+// creature's in-game Idle clip length. Same function in every material so the outline and glow follow.
+const IDLE_GLSL=`uniform float uT,uP;uniform vec3 uMin,uSize;
+vec3 idle(vec3 p,vec3 n){
+  float h=clamp((p.y-uMin.y)/uSize.y,0.,1.),ph=6.2831*uT/uP,br=sin(ph);
+  vec2 c=vec2(uMin.x+uSize.x*.5,uMin.z+uSize.z*.5),d=p.xz-c;
+  float torso=smoothstep(.15,.45,h)*(1.-smoothstep(.65,.95,h));
+  p.xz=c+d*(1.+.025*br*torso);
+  float a=.05*sin(ph*.5)*h*h;d=p.xz-c;p.xz=c+vec2(d.x*cos(a)-d.y*sin(a),d.x*sin(a)+d.y*cos(a));
+  p.y+=uSize.y*.012*br*h;
+  float r=length(d)/max(uSize.x,uSize.z),loose=smoothstep(.25,.6,r)+.5*smoothstep(.8,1.,h);
+  p+=n*uSize.y*.006*loose*sin(uT*4.+p.y*18./uSize.y+p.x*9./uSize.x);
+  return p;}
+`;
 async function mount3d(slug,look){
   const el=document.getElementById('m3d');if(!el)return;
   let T,GLTFLoader,MeshoptDecoder,OrbitControls;
@@ -2506,27 +2521,34 @@ async function mount3d(slug,look){
   const w=el.clientWidth,h=el.clientHeight;
   const r=new T.WebGLRenderer({antialias:true,alpha:true});r.setPixelRatio(Math.min(devicePixelRatio,2));r.setSize(w,h);r.outputColorSpace=T.SRGBColorSpace;
   const scene=new T.Scene(),cam=new T.PerspectiveCamera(30,w/h,0.01,100);
-  scene.add(new T.AmbientLight(0xffffff,1.6));const sun=new T.DirectionalLight(0xffffff,2.2);sun.position.set(2,3,2);scene.add(sun);
-  const ramp=new T.DataTexture(new Uint8Array([90,90,90,255,180,180,180,255,255,255,255,255]),3,1);ramp.minFilter=ramp.magFilter=T.NearestFilter;ramp.needsUpdate=true;
-  const outline=new T.ShaderMaterial({side:T.BackSide,vertexShader:'void main(){gl_Position=projectionMatrix*modelViewMatrix*vec4(position+normal*0.008,1.);}',fragmentShader:'void main(){gl_FragColor=vec4(0.12,0.1,0.18,1.);}'});
+  scene.add(new T.AmbientLight(0xffffff,1.0),new T.HemisphereLight(0xfff4e8,0x40385a,0.6));const sun=new T.DirectionalLight(0xffffff,2.4);sun.position.set(2,3,2);scene.add(sun);
+  const ramp=new T.DataTexture(new Uint8Array([120,120,120,255,200,200,200,255,255,255,255,255]),3,1);ramp.minFilter=ramp.magFilter=T.NearestFilter;ramp.needsUpdate=true;
+  const U={uT:{value:0},uP:{value:(M3D.m[slug]||{}).p||3},uMin:{value:new T.Vector3()},uSize:{value:new T.Vector3(1,1,1)}};
+  const shell=(frag,extra={})=>new T.ShaderMaterial({...extra,uniforms:{...U,...(extra.uniforms||{})},
+    vertexShader:IDLE_GLSL+'varying vec3 n;varying vec3 v;uniform float uPush;void main(){vec3 p=idle(position,normal)+normal*uPush;vec4 q=modelViewMatrix*vec4(p,1.);n=normalize(normalMatrix*normal);v=normalize(-q.xyz);gl_Position=projectionMatrix*q;}',fragmentShader:frag});
+  const outline=shell('void main(){gl_FragColor=vec4(0.12,0.1,0.18,1.);}',{side:T.BackSide,uniforms:{uPush:{value:0.008}}});
+  const glow=c=>shell('uniform vec3 c;varying vec3 n;varying vec3 v;void main(){float f=pow(1.-abs(dot(n,v)),4.);gl_FragColor=vec4(c*f*0.75,1.);}',{transparent:true,blending:T.AdditiveBlending,depthWrite:false,uniforms:{c:{value:new T.Color(c)},uPush:{value:0}}});
+  const sheen=glow('#5a5048'),rim=look.glow&&glow(look.glow);
   let g;try{g=await new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).loadAsync(`3d/${slug}.glb`)}catch(_){el.innerHTML='<span class="muted small">โหลดโมเดลไม่ได้</span>';return}
   if(!el.isConnected)return;
   const root=g.scene,meshes=[];root.traverse(o=>o.isMesh&&meshes.push(o));
-  const tl=new T.TextureLoader(),rim=look.glow&&new T.ShaderMaterial({transparent:true,blending:T.AdditiveBlending,depthWrite:false,uniforms:{c:{value:new T.Color(look.glow)}},
-    vertexShader:'varying vec3 n;varying vec3 v;void main(){vec4 p=modelViewMatrix*vec4(position,1.);n=normalize(normalMatrix*normal);v=normalize(-p.xyz);gl_Position=projectionMatrix*p;}',
-    fragmentShader:'uniform vec3 c;varying vec3 n;varying vec3 v;void main(){float f=pow(1.-abs(dot(n,v)),4.);gl_FragColor=vec4(c*f*0.75,1.);}'});
+  const box=new T.Box3().setFromObject(root);U.uMin.value.copy(box.min);U.uSize.value.copy(box.getSize(new T.Vector3()));
+  const tl=new T.TextureLoader();
   await Promise.all(meshes.map(async o=>{
     let map=o.material.map;const nm=o.material.name||'',i=look.kind&&nm.startsWith('body:')?look.mats.indexOf(nm.slice(5)):-1;
     if(i>=0){try{map=await tl.loadAsync(`3d/v/${look.fid}-${look.kind}-${i}.webp`);map.flipY=false;map.colorSpace=T.SRGBColorSpace}catch(_){}}
-    o.material=new T.MeshToonMaterial({map,gradientMap:ramp,alphaTest:0.4,side:T.DoubleSide});o.add(new T.Mesh(o.geometry,outline));
-    if(rim)o.add(new T.Mesh(o.geometry,rim));
+    const m=new T.MeshToonMaterial({map,gradientMap:ramp,alphaTest:0.4,side:T.DoubleSide});
+    m.onBeforeCompile=sh=>{Object.assign(sh.uniforms,U);sh.vertexShader=IDLE_GLSL+sh.vertexShader.replace('#include <begin_vertex>','vec3 transformed=idle(vec3(position),normal);')};
+    o.material=m;o.add(new T.Mesh(o.geometry,outline),new T.Mesh(o.geometry,sheen));if(rim)o.add(new T.Mesh(o.geometry,rim));
   }));
   if(!el.isConnected)return;
-  const box=new T.Box3().setFromObject(root),c=box.getCenter(new T.Vector3()),size=box.getSize(new T.Vector3()).length();
+  const c=box.getCenter(new T.Vector3()),size=box.getSize(new T.Vector3()).length();
   root.position.sub(c);root.rotation.y=0.6;scene.add(root);cam.position.set(0,size*0.18,size*1.55);
-  const ctl=new OrbitControls(cam,r.domElement);ctl.enablePan=false;ctl.enableDamping=true;ctl.autoRotate=!matchMedia('(prefers-reduced-motion: reduce)').matches;ctl.autoRotateSpeed=1.5;ctl.minDistance=size*0.7;ctl.maxDistance=size*3;
+  const still=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const ctl=new OrbitControls(cam,r.domElement);ctl.enablePan=false;ctl.enableDamping=true;ctl.autoRotate=!still;ctl.autoRotateSpeed=1.2;ctl.minDistance=size*0.7;ctl.maxDistance=size*3;
   el.replaceChildren(r.domElement);
-  const tick=()=>{if(!r.domElement.isConnected){ctl.dispose();r.dispose();return}ctl.update();r.render(scene,cam);requestAnimationFrame(tick)};tick();
+  const t0=performance.now();
+  const tick=()=>{if(!r.domElement.isConnected){ctl.dispose();r.dispose();return}if(!still)U.uT.value=(performance.now()-t0)/1000;ctl.update();r.render(scene,cam);requestAnimationFrame(tick)};tick();
 }
 function renderDetail(){
   const a=BY[dState.slug],cur=dState.form==null?null:a.f[dState.form];

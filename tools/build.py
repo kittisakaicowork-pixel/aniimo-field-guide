@@ -77,6 +77,13 @@ def models3d():
     f = ROOT / "3d" / "variants.json"
     man = json.loads(f.read_text()) if f.exists() else {"models": {}}
     have = {p.stem for p in (ROOT / "3d").glob("*.glb")}
+    picks = ROOT / "tools" / "model" / "picks.json"
+    idle = ROOT / "tools" / "model" / "idle.json"  # in-game Idle clip length per model id -> motion period
+    if picks.exists() and idle.exists():
+        pk, il = json.loads(picks.read_text()), json.loads(idle.read_text())
+        for s, m in man["models"].items():
+            if s in pk and pk[s]["mid"] in il:
+                m["p"] = il[pk[s]["mid"]]
     return dict(glow=man.get("glow", []), m={s: m for s, m in man["models"].items() if s in have} | {s: {"mats": [], "looks": {}} for s in have - man["models"].keys()})
 
 

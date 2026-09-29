@@ -93,7 +93,10 @@ def main():
                 seen.add(key)
                 cands.append(dict(name=name, parts=parts))
         if cands:
-            out[a["slug"]] = dict(mid=mid, art=f"img/{a['slug']}.webp", cands=cands)
+            # reference to score against: a full-body render of the in-game model when we have one (compared only,
+            # never copied), else the in-game painting
+            ref = ROOT / "tools" / "cache" / "img" / "full1024" / f"{a['slug']}.webp"
+            out[a["slug"]] = dict(mid=mid, art=f"ref/{a['slug']}.webp" if ref.exists() else f"img/{a['slug']}.webp", cands=cands)
     print(json.dumps(out, indent=1))
 
 
