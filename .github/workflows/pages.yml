@@ -22,7 +22,7 @@ jobs:
       - name: Collect site files
         run: |
           mkdir _site
-          cp -r index.html data.js thumbs.js content.js i18n-en.js map.js map.webp map-icons.webp skills.webp items.webp spark-*.webp manifest.webmanifest icon-192.png icon-512.png og.png sw.js img _site/
+          cp -r index.html data.js thumbs.js content.js i18n-en.js map.js map.webp map-icons.webp heist.js heist skills.webp items.webp spark-*.webp manifest.webmanifest icon-192.png icon-512.png og.png sw.js img _site/
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

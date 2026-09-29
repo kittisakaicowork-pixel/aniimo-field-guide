@@ -984,16 +984,61 @@ dialog[open]::backdrop{animation:bdIn .25s ease}
 @keyframes pop{from{opacity:0;transform:translateY(12px) scale(.97)}}
 @keyframes sheet{from{transform:translateY(100%)}}
 @keyframes bdIn{from{opacity:0}}
+.tipsl{display:grid;gap:6px;padding-left:1.2em;margin:0}
+.hvstage{min-height:0}
+.hvlays{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}
+.hvlays button{flex:none;display:grid;gap:4px;justify-items:center;width:96px;padding:6px;border:1px solid var(--line);border-radius:14px;background:var(--surface);color:var(--ink);cursor:pointer;font:inherit;font-size:.78rem}
+.hvlays button[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent)}
+.hvlays img{width:84px;height:64px;object-fit:contain;background:#141018;border-radius:8px}
+.hvlays span{display:grid;justify-items:center;line-height:1.2}.hvlays small{color:var(--ink-2)}
+/* fun */
+#toast{position:fixed;left:50%;bottom:calc(var(--bar,0px) + 22px + env(safe-area-inset-bottom,0px));z-index:70;transform:translate(-50%,30px);opacity:0;pointer-events:none;background:var(--ink);color:var(--ground);font:500 .88rem var(--display);padding:10px 18px;border-radius:999px;box-shadow:0 12px 30px rgba(0,0,0,.25);transition:transform .35s cubic-bezier(.2,.8,.25,1.3),opacity .25s;white-space:nowrap;max-width:calc(100vw - 32px);overflow:hidden;text-overflow:ellipsis}
+#toast.on{transform:translate(-50%,0);opacity:1}
+.fxp{position:fixed;z-index:80;width:8px;height:8px;border-radius:2px;pointer-events:none}
+.fxp.star{width:11px;height:11px;border-radius:0;clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)}
+.rv{opacity:0;transform:translateY(22px) scale(.98)}
+.rv.rv-in{opacity:1;transform:none;transition:opacity .55s ease,transform .6s cubic-bezier(.2,.75,.25,1)}
+.mon,.feat>button,.daily .dart{transform-style:preserve-3d}
+.tilt{transform:perspective(700px) rotateX(var(--rx,0)) rotateY(var(--ry,0)) translateY(-3px)!important;transition:transform .08s linear!important}
+.mon::after,.feat>button::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .2s;background:radial-gradient(circle at var(--gx,50%) var(--gy,50%),rgba(255,255,255,.28),transparent 55%)}
+.feat>button{position:relative;overflow:hidden}
+.tilt::after{opacity:1}
+.feat .ic{transition:transform .35s cubic-bezier(.2,.8,.25,1.4)}
+.feat>button:hover .ic{transform:rotate(-8deg) scale(1.12)}
+.spks{position:absolute;inset:0;pointer-events:none;z-index:0}
+.spks i{position:absolute;width:6px;height:6px;border-radius:50%;background:#fff;box-shadow:0 0 10px 2px rgba(255,255,255,.8);opacity:0;animation:twinkle 3.2s ease-in-out infinite}
+.spks i:nth-child(1){left:62%;top:18%}.spks i:nth-child(2){left:78%;top:12%;animation-delay:.6s}.spks i:nth-child(3){left:88%;top:44%;animation-delay:1.2s}.spks i:nth-child(4){left:56%;top:70%;animation-delay:1.8s}
+.spks i:nth-child(5){left:70%;top:84%;animation-delay:.9s}.spks i:nth-child(6){left:94%;top:78%;animation-delay:2.2s}.spks i:nth-child(7){left:48%;top:36%;animation-delay:2.6s}.spks i:nth-child(8){left:82%;top:30%;animation-delay:1.5s;width:4px;height:4px}
+@keyframes twinkle{0%,100%{opacity:0;transform:scale(.4)}50%{opacity:1;transform:scale(1)}}
+.hero3 .stage button{transition:transform .25s,translate .5s cubic-bezier(.2,.7,.2,1)}
+.hero3 .stage .s1 img{animation:bob 6s ease-in-out -2s infinite}.hero3 .stage .s3 img{animation:bob 5.5s ease-in-out -4s infinite}
+.daily{display:grid;grid-template-columns:220px 1fr;gap:22px;align-items:center;padding:18px 22px;border:1px solid var(--line);border-radius:22px;background:radial-gradient(120% 140% at 0% 0%,var(--glow),var(--surface) 60%)}
+.daily .dart{position:relative;border:0;padding:0;background:radial-gradient(circle at 50% 60%,color-mix(in srgb,var(--accent-2) 40%,transparent),transparent 70%);border-radius:50%;aspect-ratio:1;cursor:pointer;display:grid;place-items:center}
+.daily .dart img{width:92%;height:92%;object-fit:contain;filter:drop-shadow(0 12px 18px color-mix(in srgb,var(--ink) 25%,transparent));animation:bob 5s ease-in-out infinite}
+.daily .dart img.cut{border-radius:50%;object-fit:cover;width:80%;height:80%}
+.daily .dtxt{display:grid;gap:8px}
+.daily h3{font:600 1.6rem/1.1 var(--display)}
+.daily .row{display:flex;gap:4px;flex-wrap:wrap}
+.daily .dbtns{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.daily.rolling .dart img{animation:none;filter:blur(1.5px);transform:scale(.92)}
+.daily.pop .dart{animation:popIn .5s cubic-bezier(.2,.8,.25,1.5)}
+@keyframes popIn{from{transform:scale(.6) rotate(-8deg)}}
+.parade{position:fixed;bottom:calc(var(--bar,0px) + 10px);left:-90px;width:72px;height:72px;object-fit:contain;z-index:75;pointer-events:none;animation:parade 5s linear forwards,hop .45s ease-in-out infinite alternate}
+@keyframes parade{to{left:calc(100vw + 90px)}}
+@keyframes hop{to{margin-bottom:22px}}
+@media (max-width:560px){.daily{grid-template-columns:1fr;justify-items:center;text-align:center;padding:16px}.daily .dart{width:170px}.daily .row,.daily .dbtns{justify-content:center}}
 </style>
 
 <div id="boot" role="status" aria-live="polite"><div class="bootin"><img src="icon-192.png" alt=""><b>Aniimo Field Guide</b><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><small id="bootMsg">กำลังโหลดข้อมูล Aniimo…</small></div></div>
 <div id="progress" aria-hidden="true"></div>
+<div id="toast" role="status" aria-live="polite"></div>
 <script>
 (function(){var en=false;try{en=localStorage.getItem('aniimo-lang')==='en';var t=localStorage.getItem('aniimo-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(_){}var m=document.getElementById('bootMsg');if(en)m.textContent='Loading Aniimo data…';
 setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.contains('done'))m.textContent=en?'Taking longer than usual. Try refreshing the page.':'โหลดนานกว่าปกติ ลองรีเฟรชหน้าเว็บ'},15000)})();
 </script>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-egg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c-3.9 0-7 5.6-7 10.2A7 7 0 0 0 12 21a7 7 0 0 0 7-7.8C19 8.6 15.9 3 12 3z"/><path d="M9 13.5l2 1.5 3-3"/></symbol>
   <symbol id="i-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></symbol>
   <symbol id="i-dex" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h6m6 0h6"/><circle cx="12" cy="12" r="3"/></symbol>
   <symbol id="i-forms" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></symbol>
@@ -1054,6 +1099,7 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
           <button type="button" class="hsearch" id="hsearch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>ค้นหา Aniimo หรือสกิล</button>
           <div class="h3cta"><button type="button" class="cta" data-go="dex"><svg><use href="#i-dex"/></svg>รายชื่อ Aniimo</button><button type="button" class="cta ghost" data-go="map"><svg><use href="#i-map"/></svg>แผนที่ทวีป</button></div>
         </div>
+        <div class="spks" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
         <div class="stage">
           <button class="s1" type="button" data-open="helion" aria-label="ดู Helion"><img src="img/helion.webp" alt="Helion"></button>
           <button class="s2" type="button" data-open="stellarys" aria-label="ดู Stellarys"><img src="img/stellarys.webp" alt="Stellarys"></button>
@@ -1061,6 +1107,7 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
         </div>
       </div>
       <section class="hsec"><h2>ตอนนี้ในเกม</h2><div class="hnow" id="homeNow" aria-live="polite"></div></section>
+      <section class="hsec"><h2>Aniimo ประจำวัน<small>เปลี่ยนทุกวัน</small></h2><div class="daily" id="homeDaily"></div></section>
       <section class="hsec"><h2>เว็บนี้มีอะไรบ้าง<small>เริ่มจากตรงนี้</small></h2><div class="feat" id="homeFeat"></div></section>
       <section class="hsec" id="homeRecent" hidden><h2>ดูล่าสุด<small><a href="#history" data-go="history">ประวัติทั้งหมด</a></small></h2><div class="recent" id="homeRecentList"></div></section>
       <section class="hsec"><h2>หน้าอื่น ๆ ทั้งหมด</h2><div class="hall" id="homeGroups"></div></section>
@@ -1460,7 +1507,7 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
       <div class="gsec" id="s-egg">
         <h3><span class="n">3</span>ไข่และการฟัก</h3>
         <div class="grid g2">
-          <article class="card"><span class="tag">ได้ไข่จากไหน</span><ul><li>ในโลกตอนมีฝนดาวตกช่วงกลางคืน</li><li>Egg Box ที่ระบุบทบาท</li><li>ของขวัญเริ่มเกมจาก Polaris Institute</li><li>Operation: Egg Heist</li><li>อีเวนต์ต่าง ๆ</li><li>ส่ง Aniimo ออกเดินทางจาก RV Park (ยิ่งนานยิ่งมีโอกาส ได้สูงสุด 1 ใบต่อรอบ)</li></ul></article>
+          <article class="card"><span class="tag">ได้ไข่จากไหน</span><ul><li>ในโลกตอนมีฝนดาวตกช่วงกลางคืน</li><li><button type="button" class="itemlink" data-go="eggs">ไข่ที่วางอยู่ในโลก (ดูจุดทั้งหมด)</button></li><li>Egg Box ที่ระบุบทบาท</li><li>ของขวัญเริ่มเกมจาก Polaris Institute</li><li><button type="button" class="itemlink" data-go="heist">Operation: Egg Heist</button></li><li>อีเวนต์ต่าง ๆ</li><li>ส่ง Aniimo ออกเดินทางจาก RV Park (ยิ่งนานยิ่งมีโอกาส ได้สูงสุด 1 ใบต่อรอบ)</li></ul></article>
           <article class="card"><span class="tag">การฟัก</span><ul><li>ฟักได้ที่ Hatchinator ของ Outpost, Astra และในบ้าน</li><li>เวลาฟักต่างกันตามชนิด ตั้งแต่ประมาณ 1 นาทีจนถึง 12 ชั่วโมง (เช่น Incredible Egg ประมาณ 2 ชั่วโมง 30 นาที)</li><li>เร่งได้ด้วยการลูบไข่ทุกวัน ไอเท็มเร่ง และอีเวนต์ Hatch Haste (ศุกร์–อาทิตย์ ลดเวลาครึ่งหนึ่ง) ถ้ามี Monthly Pass จะได้ผลซ้อนกัน</li><li>ป้ายบนไข่บอกธาตุและระดับ (Elite, Perfect, Sparkling, Prismana)</li></ul></article>
           <article class="card"><span class="tag">เลือก Aniipod ตอนฟัก</span><ul><li><button type="button" class="itemlink" data-item="Aniipod Ultra">Aniipod Ultra</button>: ศักยภาพอย่างน้อย Elite (มีโอกาสได้ Perfect)</li><li><button type="button" class="itemlink" data-item="Sparkling Cube">Sparkling Cube</button>: ศักยภาพ Perfect และเป็นร่างเปล่งประกาย</li><li>เช็กป้ายก่อนฟัก: ไข่ที่ได้ Elite แน่นอนอยู่แล้วไม่ต้องใช้ Aniipod Ultra</li></ul></article>
           <article class="card"><span class="tag">ร่าง Prismana</span><p>ร่าง Prismana หายากที่สุด มักผูกกับ Prismana Flow หรืออีเวนต์พิเศษ มี 22 ชนิดที่มีร่าง Prismana ให้สะสม ส่วนร่าง Umbral เป็นระบบความหายากแยกต่างหาก</p></article>
@@ -1789,6 +1836,93 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
       <ul class="sources" id="wwSources"></ul>
     </section>
 
+    <!-- EGG HUNT (egg spawns from the Idyll map data) -->
+    <section class="view" data-view="eggs" hidden>
+      <div class="vhead">
+        <p class="eyebrow">ล่าไข่</p>
+        <h2>จุดเกิดไข่ในทวีป Idyll</h2>
+        <p class="muted">ไข่ที่วางอยู่ในโลก <b id="egTotal">—</b> จุด แยกตามชนิดและภูมิภาค บางจุดจะปรากฏเมื่อทำกิจกรรมในพื้นที่นั้นคืบหน้าแล้ว</p>
+      </div>
+      <div><button type="button" class="btn primary" data-eggmap="">เปิดแผนที่แบบเฉพาะไข่</button></div>
+      <div class="seg" id="egSeg" role="group" aria-label="ชนิดไข่"></div>
+      <div class="dugrid" id="egGrid"><p class="muted loadrow"><span class="spin"></span>กำลังโหลด…</p></div>
+      <div class="gsec"><h3>ได้ไข่จากทางอื่น</h3>
+        <div class="grid g2">
+          <article class="card"><span class="tag">ฝนดาวตก</span><p>ตอนกลางคืนมีโอกาสเกิดฝนดาวตก ไข่จะตกลงมาในโลก รีบไปเก็บก่อนหาย</p></article>
+          <article class="card"><span class="tag">RV Park</span><p>ส่ง Aniimo ออกเดินทางจาก RV Park (RV เลเวล 6 ขึ้นไป) ยิ่งนานยิ่งมีโอกาสได้ Mysterious Aniimo Egg สูงสุด 1 ใบต่อรอบ</p></article>
+          <article class="card"><span class="tag">โหมดกิจกรรม</span><p>Operation: Egg Heist ได้ไข่ศักยภาพ Perfect และไข่ Prismana</p><button type="button" class="itemlink" data-go="heist">อ่านคู่มือ Egg Heist</button></article>
+          <article class="card"><span class="tag">ฟักไข่</span><p>ฟักได้ที่ Hatchinator ของ Outpost, Astra และในบ้าน เร่งได้ด้วยการลูบไข่ทุกวัน และอีเวนต์ Hatch Haste ศุกร์–อาทิตย์</p><a class="itemlink" href="#s-egg">ไข่และการฟักแบบละเอียด</a></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- OPERATION: EGG HEIST -->
+    <section class="view" data-view="heist" hidden>
+      <div class="vhead">
+        <p class="eyebrow">โหมดกิจกรรม</p>
+        <h2>Operation: Egg Heist</h2>
+        <p class="muted">บุกเกาะ Lost Isles หาไข่หายาก แล้วหนีออกมาทางเรือ ปลดล็อกเมื่อถึงเลเวล 50 และยศ Wayfarer III</p>
+      </div>
+      <div class="grid g2">
+        <article class="card"><span class="tag">เล่นอย่างไร</span><ol>
+          <li>เข้า Lost Sanctum สู้ศัตรูและเก็บของ</li>
+          <li>หาไข่เป้าหมายแล้ว Twine เข้าไปเพื่อเก็บ</li>
+          <li>พาไข่กลับไปที่ทางออกของ Sanctum</li>
+          <li>ส่งไข่ที่ Egg Boat</li>
+          <li>ทำเงื่อนไขหนีให้ครบ แล้วออกจาก Lost Isles เพื่อรับรางวัล</li>
+        </ol></article>
+        <article class="card"><span class="tag">ต้องรู้ก่อนเข้า</span><ul>
+          <li>เล่นคนเดียวหรือทีมสูงสุด 3 คน</li>
+          <li><b>ถ้าสลบระหว่างเล่น ของที่เก็บมาจะหายหมด</b> ผู้เล่นใหม่มี Beginner's Protection กันได้ 3 ครั้ง</li>
+          <li>ขายของที่เก็บได้เป็น Eggshell Coin ในทีมแต่ละคนได้เหรียญแยกกัน</li>
+          <li>ร้านในโหมดขายไข่ Mysterious Prismana, Chaos Ticket และกุญแจเปิดห้องเพิ่ม</li>
+          <li>มีระดับตั้งแต่ Rookie Egg Hunter ถึง Egg Emperor เลื่อนระดับแล้วได้รางวัลและอุปกรณ์ใหม่</li>
+        </ul></article>
+      </div>
+      <div class="gsec"><h3>ระดับความยากและเงื่อนไขหนี</h3>
+        <div class="scroll-x"><table class="plain" style="min-width:520px">
+          <tr><th>ระดับ</th><th>ส่งไข่</th><th>Eggshell Coin ของทีม</th><th>หมายเหตุ</th></tr>
+          <tr><td>Beginner</td><td>1 ใบ</td><td>20,000</td><td>เหมาะกับรอบแรก</td></tr>
+          <tr><td>Hard</td><td>1 ใบ</td><td>60,000</td><td></td></tr>
+          <tr><td>Nightmare</td><td>1 ใบ</td><td>150,000</td><td>ใช้ Gilded Key</td></tr>
+          <tr><td>Chaos</td><td>—</td><td>300,000</td><td>ต้องถึงระดับ Elite Egg Seeker IV และใช้ Chaos Ticket · <a href="#s-chaos">รายละเอียด</a></td></tr>
+        </table></div>
+        <p class="small muted">ข้อมูลจากผู้เล่น ชื่อระดับแรกบางแหล่งเรียกว่า Normal เช็กเงื่อนไขในเกมก่อนเข้าทุกครั้ง</p>
+      </div>
+      <div class="gsec" id="heistMap"><h3>แผนที่ Lost Isles และ Lost Sanctum</h3>
+        <p class="small muted">ลากเพื่อเลื่อน หมุนล้อเมาส์หรือถ่างสองนิ้วเพื่อซูม แตะหมุดเพื่อดูรายละเอียด ห้อง Lost Sanctum จะสุ่ม 1 แบบทุกรอบ เลือกระดับความยาก แล้วกดแบบห้องที่เจอในเกม</p>
+        <div class="seg" id="hvMode" role="group" aria-label="แผนที่"><button type="button" data-hvmode="island" aria-pressed="true">เกาะ Lost Isles</button><button type="button" data-hvmode="sanctum" aria-pressed="false">Lost Sanctum</button></div>
+        <div id="hvSanctumBar" hidden style="display:grid;gap:10px">
+          <div class="seg" id="hvDiff" role="group" aria-label="ระดับความยาก"></div>
+          <p class="small muted" id="hvKey"></p>
+          <div class="hvlays" id="hvLays"></div>
+        </div>
+        <div class="mapwrap">
+          <aside class="mapside"><div id="hvLayers" style="display:grid;gap:8px"></div></aside>
+          <div class="mapstage hvstage" id="hvStage">
+            <canvas id="hvCv" aria-label="แผนที่ Egg Heist แบบโต้ตอบ"></canvas>
+            <div class="maploading" id="hvLoad"><span class="spin"></span>กำลังโหลดแผนที่…</div>
+            <div class="mapzoom"><button type="button" data-hvz="1.5" aria-label="ซูมเข้า">+</button><button type="button" data-hvz="0.67" aria-label="ซูมออก">−</button><button type="button" data-hvz="fit" aria-label="ดูทั้งแผนที่">⤢</button></div>
+            <div class="mapinfo" id="hvInfo" hidden></div>
+          </div>
+        </div>
+        <p class="small muted">ข้อมูลแผนที่และตำแหน่งหมุดจาก <a href="https://aniilog.gg/map/?map=egg-heist" target="_blank" rel="noopener">AniiLog</a> ใช้โดยได้รับอนุญาต · หีบธรรมดาและกองของบางจุดไม่มีหมุดในแผนที่ของเกม</p>
+      </div>
+      <div class="gsec"><h3>เคล็ดลับ</h3><ul class="tipsl">
+        <li>เก็บของหายากก่อน จะได้ Eggshell Coin ครบเงื่อนไขหนีเร็วขึ้น</li>
+        <li>ใช้ตัว DPS ระยะไกล สู้ได้ปลอดภัยกว่า</li>
+        <li>อัปความทนทานของอุปกรณ์ก่อนลองระดับที่ยากขึ้น</li>
+        <li>เคลียร์ทางไว้ก่อนแล้วค่อยไปเอาไข่ ตอนพาไข่กลับจะได้ไม่โดนรุม</li>
+        <li>หนีสำเร็จครั้งแรกของวันได้คะแนนระดับ 2 เท่า</li>
+      </ul></div>
+      <ul class="sources">
+        <li><a href="https://game8.co/games/Aniimo/archives/618276" target="_blank" rel="noopener">Game8 — Operation Egg Heist Guide</a></li>
+        <li><a href="https://aniimotools.dev/systems/egg-heist/" target="_blank" rel="noopener">AniimoTools — Egg Heist</a></li>
+        <li><a href="https://aniilog.gg/map/?map=sanctum" target="_blank" rel="noopener">AniiLog — Egg Heist และ Lost Sanctum Map</a></li>
+        <li><a href="https://wikily.gg/aniimo/egg-heist-team-mode" target="_blank" rel="noopener">Wikily — Egg Heist Team Mode Map</a></li>
+      </ul>
+    </section>
+
     <!-- FORMS -->
     <section class="view" data-view="forms" hidden>
       <div class="vhead">
@@ -1881,7 +2015,7 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
         <article class="card"><span class="tag">การเติบโต</span><h3>วิวัฒนาการ</h3><p>Lumin → Gamma → Nova และ Legendary บางสายแตกหลายร่างสุดท้าย เช่น Chirpi → Tromber / Cornet / Tubster</p></article>
         <article class="card"><span class="tag">สกิล</span><h3>ช่องสกิล</h3><p>โจมตีปกติ สกิล 1–4 และอัลติเมต ใช้ EP เป็นค่าร่าย อัลติเมตใช้เกจ 100 สกิลอัปเกรดได้ด้วยไอเท็ม Mark of the Strong</p></article>
         <article class="card"><span class="tag">บ้าน</span><h3>Homeland / RV</h3><p>ปลูกพืช ตกแต่ง และให้ Aniimo ช่วยทำงาน ฟาร์มจะผลิตไอเท็มวิวัฒนาการหายากในภายหลัง</p></article>
-        <article class="card"><span class="tag">PvPvE</span><h3>Operation: Egg Heist</h3><p>ทีม 1–3 คน ขโมย Prismatic Egg แล้วหนีทางเรือ ปลดล็อกที่ยศ Wayfarer III มีระดับ Normal / Hard / Nightmare</p></article>
+        <article class="card"><span class="tag">โหมดกิจกรรม</span><h3>Operation: Egg Heist</h3><p>ทีม 1–3 คน ขโมยไข่หายากแล้วหนีทางเรือ ปลดล็อกที่ยศ Wayfarer III มี 4 ระดับรวม Chaos</p><button type="button" class="itemlink" data-go="heist">อ่านคู่มือ</button></article>
         <article class="card"><span class="tag">พลังงาน</span><h3>Primegy</h3><p>ใช้เมื่อสู้ Alpha ฟื้น 1 หน่วยทุก 6 นาที สูงสุด 300 (600 เมื่อมี Monthly Pass)</p></article>
         <article class="card"><span class="tag">สกุลเงิน</span><h3>เงินในเกม</h3><p>Lumin Crystal (พรีเมียม), Glimmer, Credit, Growth Flower</p></article>
         <article class="card"><span class="tag">กิจกรรม</span><h3>อีเวนต์</h3><p>Prismana Pact (ถาวร) · Legendary Journey (หมุนเวียน) · ภารกิจรายวัน/รายสัปดาห์</p></article>
@@ -1943,7 +2077,7 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
         <li><a href="https://aniimocentral.com/guides/holo-battle-interlink/" target="_blank" rel="noopener">Aniimo Central — Holo-Battle Interlink</a></li>
         <li><a href="https://mobilematters.gg/guides/gaming/aniimo-system-requirements-ios-android-pc" target="_blank" rel="noopener">Mobile Matters — สเปกมือถือ</a></li>
       </ul>
-      <p class="small muted">เว็บแฟนเมด ไม่เกี่ยวข้องกับ Pawprint Studio · ภาพและชื่อ Aniimo เป็นลิขสิทธิ์ของผู้พัฒนาเกม · ข้อมูลเกม ภาพ และแผนที่ส่วนใหญ่ใช้โดยได้รับอนุญาตจาก <a href="https://aniidex.com/" target="_blank" rel="noopener">AniiDex</a> · ข่าวสรุปจากประกาศทางการ</p>
+      <p class="small muted">เว็บแฟนเมด ไม่เกี่ยวข้องกับ Pawprint Studio · ภาพและชื่อ Aniimo เป็นลิขสิทธิ์ของผู้พัฒนาเกม · ข้อมูลเกม ภาพ และแผนที่ส่วนใหญ่ใช้โดยได้รับอนุญาตจาก <a href="https://aniidex.com/" target="_blank" rel="noopener">AniiDex</a> · แผนที่ Egg Heist จาก <a href="https://aniilog.gg/" target="_blank" rel="noopener">AniiLog</a> · ข่าวสรุปจากประกาศทางการ</p>
     </section>
   </main>
 </div>
@@ -1968,10 +2102,10 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
 </dialog>
 <dialog id="menu" aria-label="เมนูทั้งหมด"><div class="inner" id="menuInner"></div></dialog>
 
-<script src="data.js?v=202609290740"></script>
-<script src="thumbs.js?v=202609290740"></script>
-<script src="content.js?v=202609290740"></script>
-<script src="i18n-en.js?v=202609290740"></script>
+<script src="data.js?v=202609291255"></script>
+<script src="thumbs.js?v=202609291255"></script>
+<script src="content.js?v=202609291255"></script>
+<script src="i18n-en.js?v=202609291255"></script>
 <script>
 /* ===== theme ===== */
 (function(){
@@ -2069,6 +2203,8 @@ const VIEWS=[
  {id:'whisperwake',th:'Whisperwake Isles',ic:'star',g:'world',d:'พื้นที่ใหม่ 29 ต.ค. · Aniimo 10 ตัว'},
  {id:'bosses',th:'บอส Alpha / Omega',ic:'boss',g:'world',d:'จุดอ่อนและตัวที่ควรใช้'},
  {id:'duels',th:'ดวล Pathfinder',ic:'team',g:'world',d:'62 จุด เลเวลและรางวัล'},
+ {id:'eggs',th:'ล่าไข่',ic:'egg',g:'world',d:'ไข่ 141 จุด แยกชนิดและภูมิภาค'},
+ {id:'heist',th:'Operation: Egg Heist',ic:'lock',g:'world',d:'คู่มือโหมดขโมยไข่ และแผนที่ Lost Isles'},
  {id:'sanctums',th:'Sanctum',ic:'layers',g:'world',d:'17 แห่ง และ Lost Sanctum'},
  {id:'events',th:'อีเวนต์',ic:'cal',g:'world',d:'นับถอยหลังตามเวลาไทย'},
  {id:'items',th:'ไอเท็ม',ic:'bag',g:'world',d:'658 ชิ้นพร้อมวิธีหา'},
@@ -2100,7 +2236,7 @@ document.getElementById('moreBtn').addEventListener('click',()=>menu.showModal()
 menu.addEventListener('click',e=>{if(e.target===menu)menu.close()});
 let current='home';
 const RENDERED=new Set();
-function ensureRendered(id){if(RENDERED.has(id))return;RENDERED.add(id);const f={dex:()=>renderDex(),skills:()=>renderSkills(),sparkling:()=>renderSpark(),forms:()=>renderForms(),tier:()=>renderTiers(),team:()=>renderTeam(),collection:()=>renderCollection(),compare:()=>renderCompare(),bosses:()=>renderBosses(),regions:()=>renderRegions(),whisperwake:()=>renderWW(),map:()=>renderMap(),events:()=>renderEvents(),items:()=>renderItems(),systems:()=>renderSystems(),planner:()=>renderPlanner(),history:()=>renderHistory(),news:()=>renderNews(),duels:()=>withMap(renderDuels),sanctums:()=>withMap(renderSanctums),media:()=>renderMedia(),faq:()=>renderFaq(),glossary:()=>renderGloss(),admin:()=>renderAdmin()}[id];f&&f()}
+function ensureRendered(id){if(RENDERED.has(id))return;RENDERED.add(id);const f={dex:()=>renderDex(),skills:()=>renderSkills(),sparkling:()=>renderSpark(),forms:()=>renderForms(),tier:()=>renderTiers(),team:()=>renderTeam(),collection:()=>renderCollection(),compare:()=>renderCompare(),bosses:()=>renderBosses(),regions:()=>renderRegions(),whisperwake:()=>renderWW(),map:()=>renderMap(),events:()=>renderEvents(),items:()=>renderItems(),systems:()=>renderSystems(),planner:()=>renderPlanner(),history:()=>renderHistory(),news:()=>renderNews(),duels:()=>withMap(renderDuels),sanctums:()=>withMap(renderSanctums),eggs:()=>withMap(renderEggs),heist:()=>renderHeist(),media:()=>renderMedia(),faq:()=>renderFaq(),glossary:()=>renderGloss(),admin:()=>renderAdmin()}[id];f&&f()}
 function go(id,push){
   if(!VIEWS.some(v=>v.id===id))id='home';
   if(id!==current){const pg=document.getElementById('progress');if(pg){pg.classList.remove('go');void pg.offsetWidth;pg.classList.add('go')}}
@@ -2637,7 +2773,7 @@ function renderMap(){
     MAP.count=MAP.layers.map(()=>0);MAP.m.forEach(m=>MAP.count[m[0]]++);
     mapLayersUI();
   };
-  if(window.MAP)boot();else{const sc=document.createElement('script');sc.src='map.js?v=202609290740';sc.onload=boot;sc.onerror=()=>{document.getElementById('mapLoad').textContent='โหลดข้อมูลแผนที่ไม่สำเร็จ'};document.head.appendChild(sc)}
+  if(window.MAP)boot();else{const sc=document.createElement('script');sc.src='map.js?v=202609291255';sc.onload=boot;sc.onerror=()=>{document.getElementById('mapLoad').textContent='โหลดข้อมูลแผนที่ไม่สำเร็จ'};document.head.appendChild(sc)}
 }
 function mapSaveLayers(){try{localStorage.setItem('aniimo-map-layers',JSON.stringify([...MV.on].map(i=>MAP.layers[i].id)))}catch(_){}}
 function mapLayersUI(){
@@ -3200,7 +3336,7 @@ document.addEventListener('click',e=>{
 });
 
 /* ===== Pathfinder duels & Sanctums (from the map data) ===== */
-function withMap(fn){if(window.MAP){fn();return}const sc=document.createElement('script');sc.src='map.js?v=202609290740';sc.onload=fn;sc.onerror=()=>{};document.head.appendChild(sc)}
+function withMap(fn){if(window.MAP){fn();return}const sc=document.createElement('script');sc.src='map.js?v=202609291255';sc.onload=fn;sc.onerror=()=>{};document.head.appendChild(sc)}
 function regionAt(m){const x=m[1]/100,y=m[2]/100;return Object.keys(MAP.regions).find(n=>inPoly(x,y,MAP.regions[n]))||''}
 const mapBtn=i=>`<button type="button" class="chip" data-mapm-go="${i}" style="cursor:pointer">ดูบนแผนที่</button>`;
 const elBadges=a=>(a||[]).map(e=>badge(mEl(e))).join('');
@@ -3224,6 +3360,120 @@ function renderSanctums(){
 }
 document.addEventListener('click',e=>{const b=e.target.closest('[data-mapm-go]');if(!b)return;const m=MAP.m[+b.dataset.mapmGo];go('map');
   const f=()=>{MV.on.add(m[0]);mapLayersUI();const r=mapCv.getBoundingClientRect();mapCenter(m[1]/1e4,m[2]/1e4,fitScale()*4);mapShow(m)};if(MV.ready)f();else MV.pending=f});
+
+/* ===== egg hunt (egg spawns from the Idyll map data) ===== */
+let egKind='';
+const eggLayer=()=>MAP.layers.findIndex(l=>l.id==='type_Egg');
+function renderEggs(){
+  const L=eggLayer(),rows=MAP.m.filter(m=>m[0]===L).map(m=>({t:MAP.info[m[3]].t,region:regionAt(m)}));
+  document.getElementById('egTotal').textContent=rows.length.toLocaleString();
+  const kinds={};rows.forEach(r=>kinds[r.t]=(kinds[r.t]||0)+1);
+  document.getElementById('egSeg').innerHTML=[['',rows.length],...Object.entries(kinds).sort((a,b)=>b[1]-a[1])].map(([k,n])=>`<button type="button" data-egk="${esc(k)}" aria-pressed="${k===egKind}">${k?esc(k):'ทุกชนิด'} <small>${n}</small></button>`).join('');
+  const by={};rows.filter(r=>!egKind||r.t===egKind).forEach(r=>{const g=by[r.region||'']=by[r.region||'']||{};g[r.t]=(g[r.t]||0)+1});
+  const total=g=>Object.values(g).reduce((a,b)=>a+b,0);
+  document.getElementById('egGrid').innerHTML=Object.entries(by).sort((a,b)=>total(b[1])-total(a[1])).map(([region,g])=>`<article class="ducard"><h3>${esc(region||'ไม่ทราบภูมิภาค')}<span class="chip">${total(g)} จุด</span></h3>
+    <div class="rw">${Object.entries(g).sort((a,b)=>b[1]-a[1]).map(([t,n])=>`<span class="chip">${itemRef(t)} ×${n}</span>`).join('')}</div>
+    ${region?`<div><button type="button" class="chip" data-eggmap="${esc(region)}" style="cursor:pointer">ดูบนแผนที่</button></div>`:''}</article>`).join('')||'<p class="muted">ไม่พบ</p>';
+}
+// open the map with only the egg layer on (not saved as the visitor's layer choice)
+function eggMap(region){go('map');const f=()=>{MV.on=new Set([eggLayer()]);mapLayersUI();if(region){mapFocusRegion(region);document.getElementById('mapInfo').hidden=true}else mapFit()};if(MV.ready)f();else MV.pending=f}
+document.addEventListener('click',e=>{
+  const k=e.target.closest('[data-egk]');if(k){egKind=k.dataset.egk;renderEggs();return}
+  const b=e.target.closest('[data-eggmap]');if(b){withMap(()=>eggMap(b.dataset.eggmap))}
+});
+
+/* ===== Egg Heist maps: Lost Isles island and Lost Sanctum layouts (heist.js, AniiLog data used with permission) ===== */
+const HV={mode:'island',diff:'normal',lay:'',on:{},x:0,y:0,s:1,imgs:{},bg:{},ico:null,ready:false,booting:false,sel:null};
+let hvCv,hvCtx;
+const hvTr=t=>(t&&LANG==='th'&&window.HEIST&&HEIST.th[t])||t||'';
+function renderHeist(){
+  hvCv=document.getElementById('hvCv');hvCtx=hvCv.getContext('2d');
+  if(HV.ready){setTimeout(hvSize,0);return}if(HV.booting)return;HV.booting=true;
+  const fail=()=>{document.getElementById('hvLoad').textContent='โหลดแผนที่ไม่สำเร็จ'};
+  const sc=document.createElement('script');sc.src='heist.js?v=202609291255';sc.onerror=fail;
+  sc.onload=()=>{const ico=new Image();ico.onerror=fail;ico.onload=()=>{
+    HV.ico=ico;HV.ready=true;
+    const busy=new Set(['egg_lesser_chest','egg_loot_pile','sanctum_chest','sanctum_loot_pile']); // plain chests and piles crowd the map; off at first
+    HV.on.island=new Set(HEIST.island.layers.map((l,i)=>busy.has(l.id)?-1:i).filter(i=>i>=0));
+    HV.on.sanctum=new Set(HEIST.slayers.map((l,i)=>busy.has(l.id)?-1:i).filter(i=>i>=0));
+    hvSetDiff('normal');hvShow()};ico.src='heist/icons.webp'};
+  document.head.appendChild(sc);
+}
+function hvMap(){ // the map on screen: image, layers, markers after the difficulty filter
+  if(HV.mode==='island'){const I=HEIST.island;return {src:'heist/island.webp',w:I.w,h:I.h,layers:I.layers,m:I.m,on:HV.on.island}}
+  const L=HEIST.layouts[HV.lay];return {src:`heist/s/${HV.lay}.webp`,w:L.w,h:L.h,layers:HEIST.slayers,m:L.m.filter(r=>!r[4]||r[4].includes(HV.diff)),on:HV.on.sanctum};
+}
+function hvShow(){
+  const M=hvMap(),load=document.getElementById('hvLoad');HV.sel=null;document.getElementById('hvInfo').hidden=true;hvUI();
+  const show=()=>{load.hidden=true;hvSize();hvFit()};
+  if(HV.imgs[M.src]){show();return}
+  load.hidden=false;load.innerHTML='<span class="spin"></span>กำลังโหลดแผนที่…';
+  const img=new Image();img.onload=()=>{HV.imgs[M.src]=img;
+    try{const t=document.createElement('canvas');t.width=t.height=1;const x=t.getContext('2d');x.drawImage(img,0,0,4,4,0,0,1,1);const d=x.getImageData(0,0,1,1).data;HV.bg[M.src]=`rgb(${d[0]},${d[1]},${d[2]})`}catch(_){}
+    if(hvMap().src===M.src)show()};
+  img.onerror=()=>{load.textContent='โหลดภาพแผนที่ไม่สำเร็จ'};img.src=M.src;
+}
+function hvSetDiff(k){
+  HV.diff=k;const D=HEIST.diffs.find(d=>d.k===k),tot=D.lay.reduce((a,[,w])=>a+w,0);
+  if(!D.lay.some(([id])=>id===HV.lay))HV.lay=D.lay[0][0];
+  document.getElementById('hvDiff').innerHTML=HEIST.diffs.map(d=>`<button type="button" data-hvdiff="${d.k}" aria-pressed="${d.k===k}">${esc(d.n)}</button>`).join('');
+  document.getElementById('hvKey').textContent=`เปิดด้วย ${D.key} · ห้องสุ่ม 1 จาก ${D.lay.length} แบบทุกรอบ`;
+  document.getElementById('hvLays').innerHTML=D.lay.map(([id,w])=>`<button type="button" data-hvlay="${id}" aria-pressed="${id===HV.lay}"><img src="heist/s/${id}.webp" alt="" loading="lazy"><span>No. ${HEIST.layouts[id].n}<small>${Math.round(w/tot*100)}%</small></span></button>`).join('');
+}
+function hvUI(){
+  document.getElementById('hvSanctumBar').hidden=HV.mode!=='sanctum';
+  document.querySelectorAll('#hvMode [data-hvmode]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.hvmode===HV.mode));
+  const M=hvMap(),count=M.layers.map(()=>0);M.m.forEach(r=>count[r[0]]++);
+  const cats=[];M.layers.forEach((l,i)=>{if(!count[i])return;let c=cats.find(c=>c.n===l.c);if(!c)cats.push(c={n:l.c,th:l.cth,ls:[]});c.ls.push(i)});
+  const ic=l=>`background-image:url(heist/icons.webp);background-position:${-(l.ic*22)}px 0;background-size:${HEIST.icons*22}px 22px`;
+  document.getElementById('hvLayers').innerHTML=cats.map(c=>`<details class="lcat" open><summary>${esc(LANG==='th'?c.th:c.n)} <small>${c.ls.filter(i=>M.on.has(i)).length}/${c.ls.length}</small></summary>
+    ${c.ls.map(i=>{const l=M.layers[i];return `<label class="lrow"><input type="checkbox" data-hvlayer="${i}"${M.on.has(i)?' checked':''}><i style="${ic(l)}"></i>${esc(LANG==='th'?l.th:l.n)}<small>${count[i]}</small></label>`}).join('')}</details>`).join('');
+}
+function hvSize(){if(!hvCv)return;const st=document.getElementById('hvStage');if(HV.ready){const M=hvMap(),w=st.clientWidth;st.style.height=Math.round(Math.max(300,Math.min(innerHeight*.75,w*M.h/M.w)))+'px'}const r=hvCv.getBoundingClientRect(),d=window.devicePixelRatio||1;hvCv.width=Math.max(1,r.width*d|0);hvCv.height=Math.max(1,r.height*d|0);hvDraw()}
+const hvFitS=()=>{const M=hvMap();return Math.min(hvCv.clientWidth/M.w,hvCv.clientHeight/M.h)};
+function hvFit(){const M=hvMap();HV.s=hvFitS();HV.x=(hvCv.clientWidth-M.w*HV.s)/2;HV.y=(hvCv.clientHeight-M.h*HV.s)/2;hvDraw()}
+function hvZoom(f,cx,cy){if(cx==null){cx=hvCv.clientWidth/2;cy=hvCv.clientHeight/2}const fit=hvFitS(),ns=Math.max(fit*.9,Math.min(fit*8,HV.s*f));f=ns/HV.s;HV.x=cx-(cx-HV.x)*f;HV.y=cy-(cy-HV.y)*f;HV.s=ns;hvDraw()}
+function hvVisible(){const M=hvMap();return M.m.filter(r=>M.on.has(r[0]))}
+function hvDraw(){
+  if(!HV.ready||!hvCtx)return;const M=hvMap(),img=HV.imgs[M.src],d=window.devicePixelRatio||1,c=hvCtx;
+  c.setTransform(d,0,0,d,0,0);c.fillStyle=HV.bg[M.src]||'#141018';c.fillRect(0,0,hvCv.clientWidth,hvCv.clientHeight);if(!img)return;
+  c.imageSmoothingQuality='high';c.drawImage(img,HV.x,HV.y,M.w*HV.s,M.h*HV.s);
+  const z=(hvCv.clientWidth<520?.75:1)*(HV.mode==='island'?26:22),cell=HEIST.cell;
+  for(const r of hvVisible()){const X=HV.x+r[1]/1e4*M.w*HV.s,Y=HV.y+r[2]/1e4*M.h*HV.s,l=M.layers[r[0]];
+    if(HV.sel===r){c.beginPath();c.arc(X,Y,z*.75,0,7);c.fillStyle='rgba(255,255,255,.9)';c.fill()}
+    c.drawImage(HV.ico,l.ic*cell,0,cell,cell,X-z/2,Y-z/2,z,z)}
+}
+function hvHit(px,py){const M=hvMap(),v=hvVisible();let best=null,bd=16*16;
+  for(const r of v){const dx=HV.x+r[1]/1e4*M.w*HV.s-px,dy=HV.y+r[2]/1e4*M.h*HV.s-py,dd=dx*dx+dy*dy;if(dd<bd){bd=dd;best=r}}return best}
+function hvInfo(r){
+  const box=document.getElementById('hvInfo');HV.sel=r;hvDraw();if(!r){box.hidden=true;return}
+  const M=hvMap(),l=M.layers[r[0]],o=HEIST.info[r[3]];
+  box.innerHTML=`<button type="button" class="x" data-hvclose aria-label="ปิด">×</button><h3>${esc(o.t===l.n?(LANG==='th'?l.th:l.n):hvTr(o.t))}</h3><span class="muted small">${esc(LANG==='th'?l.th:l.n)}${r[4]?` · ${r[4].map(k=>(HEIST.diffs.find(d=>d.k===k)||{}).n||k).join(' / ')}`:''}</span>
+    ${o.d?`<p>${esc(hvTr(o.d))}</p>`:''}${o.sp?`<div class="rw">${o.sp.map(([n,p])=>`<span class="chip">${esc(n)}${p!=null?` · ${p}%`:''}</span>`).join('')}</div>`:''}`;
+  box.hidden=false;
+}
+{ // pan with one pointer, pinch with two, tap to pick a marker
+  const pts=new Map();let moved=0,pinch=null;
+  const cv=document.getElementById('hvCv');
+  cv.addEventListener('pointerdown',e=>{cv.setPointerCapture(e.pointerId);pts.set(e.pointerId,{x:e.clientX,y:e.clientY});moved=0;
+    if(pts.size===2){const [a,b]=[...pts.values()];pinch={d:Math.hypot(a.x-b.x,a.y-b.y)}}cv.classList.add('drag')});
+  cv.addEventListener('pointermove',e=>{const p=pts.get(e.pointerId);if(!p||!HV.ready)return;
+    if(pts.size===2&&pinch){p.x=e.clientX;p.y=e.clientY;const [a,b]=[...pts.values()],d=Math.hypot(a.x-b.x,a.y-b.y),r=cv.getBoundingClientRect();hvZoom(d/pinch.d,(a.x+b.x)/2-r.left,(a.y+b.y)/2-r.top);pinch.d=d;moved=99;return}
+    const dx=e.clientX-p.x,dy=e.clientY-p.y;moved+=Math.abs(dx)+Math.abs(dy);HV.x+=dx;HV.y+=dy;p.x=e.clientX;p.y=e.clientY;hvDraw()});
+  const up=e=>{if(!pts.has(e.pointerId))return;pts.delete(e.pointerId);if(pts.size<2)pinch=null;if(!pts.size)cv.classList.remove('drag');
+    if(moved<6&&HV.ready){const r=cv.getBoundingClientRect();hvInfo(hvHit(e.clientX-r.left,e.clientY-r.top))}};
+  cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);
+  cv.addEventListener('wheel',e=>{if(!HV.ready)return;e.preventDefault();const r=cv.getBoundingClientRect();hvZoom(e.deltaY<0?1.2:1/1.2,e.clientX-r.left,e.clientY-r.top)},{passive:false});
+}
+document.addEventListener('click',e=>{
+  let b=e.target.closest('[data-hvmode]');if(b&&HV.ready){HV.mode=b.dataset.hvmode;hvShow();return}
+  b=e.target.closest('[data-hvdiff]');if(b){hvSetDiff(b.dataset.hvdiff);hvShow();return}
+  b=e.target.closest('[data-hvlay]');if(b){HV.lay=b.dataset.hvlay;hvSetDiff(HV.diff);hvShow();return}
+  b=e.target.closest('[data-hvz]');if(b&&HV.ready){b.dataset.hvz==='fit'?hvFit():hvZoom(+b.dataset.hvz);return}
+  if(e.target.closest('[data-hvclose]'))hvInfo(null);
+});
+document.addEventListener('change',e=>{const b=e.target.closest('[data-hvlayer]');if(!b)return;const M=hvMap(),i=+b.dataset.hvlayer;b.checked?M.on.add(i):M.on.delete(i);hvUI();hvDraw()});
+addEventListener('resize',()=>{if(current==='heist'&&HV.ready)hvSize()});
 
 /* ===== Whisperwake Isles (coming area; content.js WHISPERWAKE) ===== */
 const WW=window.WHISPERWAKE||{slugs:[],confirmed:[],datamined:[],prep:[],sources:[]};
@@ -3366,6 +3616,68 @@ function renderHomeNow(){
 }
 document.addEventListener('click',e=>{const b=e.target.closest('#heroCopy');if(!b)return;const code=document.querySelector('#homeNow code').textContent;try{navigator.clipboard.writeText(code).then(()=>{b.textContent='คัดลอกแล้ว'},()=>{b.textContent=code})}catch(_){b.textContent=code}});
 renderHomeNow();setInterval(()=>{if(current==='home'&&!document.hidden)renderHomeNow()},60000);
+/* ===== fun: confetti, toasts, reveal on scroll, card tilt, count-up, hero parallax, Aniimo of the day, logo easter egg ===== */
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches,FINE=matchMedia('(hover: hover) and (pointer: fine)').matches;
+const FXC=['var(--accent)','var(--peach)','var(--sun)','var(--good)','var(--accent-2)','var(--water)'];
+function burst(x,y,n=18){if(RM)return;
+  for(let i=0;i<n;i++){const p=document.createElement('i');p.className='fxp'+(i%3?'':' star');p.style.cssText=`left:${x}px;top:${y}px;background:${FXC[i%FXC.length]}`;document.body.appendChild(p);
+    const a=Math.random()*Math.PI*2,d=40+Math.random()*70,dx=Math.cos(a)*d,dy=Math.sin(a)*d-30;
+    p.animate([{transform:'translate(-50%,-50%) scale(1)',opacity:1},{transform:`translate(calc(-50% + ${dx}px),calc(-50% + ${dy+50}px)) rotate(${Math.random()*540-270}deg) scale(.6)`,opacity:0}],{duration:700+Math.random()*400,easing:'cubic-bezier(.2,.7,.3,1)'}).onfinish=()=>p.remove()}}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.remove('on');void t.offsetWidth;t.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('on'),1900)}
+// celebrate: caught toggles, checklist ticks, copied codes
+document.addEventListener('click',e=>{const t=e.target.closest('[data-col]');if(!t)return;
+  const on=t.dataset.col==='c'?COL.d.c[t.dataset.key]:COL.d.f[t.dataset.key];if(on){burst(e.clientX,e.clientY);toast('จับแล้ว ✓')}},true);
+document.addEventListener('change',e=>{const c=e.target;if(c.matches&&c.matches('.checklist input')&&c.checked){const r=c.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,12)}});
+document.addEventListener('click',e=>{const b=e.target.closest('#heroCopy,button[data-c]');if(!b)return;const r=b.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,14);toast('คัดลอกโค้ดแล้ว ไปแลกในเกมได้เลย')});
+// cards float up as they scroll into view
+const RV_SEL='.feat>button,.hnow>*,.daily,.card,.ducard,.ecard,.rcard,.bcard,.mon,.fcard,.slot,.tl,.checklist li,.hall>div';
+const rvIO=!RM&&'IntersectionObserver' in window?new IntersectionObserver(es=>{let k=0;es.forEach(en=>{if(!en.isIntersecting)return;const el=en.target;rvIO.unobserve(el);el.style.transitionDelay=Math.min(k++*45,360)+'ms';el.classList.add('rv-in');setTimeout(()=>{el.classList.remove('rv','rv-in');el.style.transitionDelay=''},900)})},{rootMargin:'0px 0px -40px 0px'}):null;
+function reveal(){if(!rvIO)return;const v=document.querySelector(`.view[data-view="${current}"]`);if(!v)return;
+  v.querySelectorAll(RV_SEL).forEach(el=>{if(el.dataset.rv)return;el.dataset.rv=1;if(el.getBoundingClientRect().top<innerHeight)return;el.classList.add('rv');rvIO.observe(el)})}
+new MutationObserver(()=>{cancelAnimationFrame(reveal.f);reveal.f=requestAnimationFrame(reveal)}).observe(document.querySelector('main'),{childList:true,subtree:true,attributes:true,attributeFilter:['hidden']});
+// 3D tilt with a glare on Aniimo and feature cards (mouse only)
+if(FINE&&!RM){
+  document.addEventListener('pointermove',e=>{const c=e.target.closest('.mon,.feat>button,.daily .dart');if(tilt.c&&tilt.c!==c)tilt(null);if(!c)return;tilt.c=c;const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
+    c.classList.add('tilt');c.style.setProperty('--rx',((.5-y)*10).toFixed(2)+'deg');c.style.setProperty('--ry',((x-.5)*12).toFixed(2)+'deg');c.style.setProperty('--gx',(x*100).toFixed(1)+'%');c.style.setProperty('--gy',(y*100).toFixed(1)+'%')});
+  document.addEventListener('pointerleave',()=>tilt(null));
+}
+function tilt(c){if(tilt.c){tilt.c.classList.remove('tilt');tilt.c.style.removeProperty('--rx');tilt.c.style.removeProperty('--ry')}tilt.c=c}
+// numbers count up the first time they appear
+function countUp(el){if(RM||el.dataset.counted)return;el.dataset.counted=1;
+  const w=document.createTreeWalker(el,NodeFilter.SHOW_TEXT);let n;while((n=w.nextNode())&&!/\d/.test(n.nodeValue));if(!n)return;
+  const m=n.nodeValue.match(/\d[\d,]*/);const to=+m[0].replace(/,/g,''),comma=m[0].includes(',');if(!to||to<4)return;
+  const node=n,before=node.nodeValue.slice(0,m.index),after=node.nodeValue.slice(m.index+m[0].length),t0=performance.now();
+  const step=t=>{const k=Math.min(1,(t-t0)/800),v=Math.round(to*(1-Math.pow(1-k,3)));node.nodeValue=before+(comma?v.toLocaleString('en-US'):v)+after;if(k<1)requestAnimationFrame(step)};requestAnimationFrame(step)}
+const cuIO='IntersectionObserver' in window?new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){cuIO.unobserve(en.target);countUp(en.target)}}),{threshold:.6}):null;
+function countAll(){if(!cuIO)return;document.querySelectorAll('.hnow b,.feat small,#egTotal,#dcount').forEach(el=>{if(!el.dataset.cuo){el.dataset.cuo=1;cuIO.observe(el)}})}
+// hero: a different trio each visit, drifting with the mouse
+{const pool=['helion','stellarys','lunara','inferlupa','fulmintis','luminelle','emberpup','sparkelf','somniwing','glacy','gracewing','celestis','hexxin','flamerion','soleon','dazmand','pomawk','fragrancier'].filter(s=>BY[s]&&!BY[s].u);
+  const pick=pool.sort(()=>Math.random()-.5).slice(0,3);
+  document.querySelectorAll('.hero3 .stage button').forEach((b,i)=>{const a=BY[pick[i]];if(!a)return;b.dataset.open=a.slug;b.setAttribute('aria-label','ดู '+a.name);const im=b.querySelector('img');im.src=a.i;im.alt=a.name});
+  const hero=document.querySelector('.hero3');
+  if(hero&&FINE&&!RM)hero.addEventListener('pointermove',e=>{const r=hero.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+    hero.querySelectorAll('.stage button').forEach((b,i)=>{const d=[14,24,18][i];b.style.translate=`${(-x*d).toFixed(1)}px ${(-y*d).toFixed(1)}px`})});
+}
+// Aniimo of the day, with a slot-machine reroll
+function dailyPick(){const d=new Date(Date.now()+7*3600e3).toISOString().slice(0,10);let h=0;for(const c of d)h=(h*31+c.charCodeAt(0))>>>0;return RELEASED[h%RELEASED.length]}
+function renderDaily(a,rolled){
+  const el=document.getElementById('homeDaily');if(!el)return;const desc=String(tr(a.d)||'').split(/(?<=[.!?。])\s|\n/)[0];
+  el.innerHTML=`<button type="button" class="dart" data-open="${a.slug}" aria-label="ดู ${esc(a.name)}"><img src="${a.i}" alt="${esc(a.name)}" class="${a.cut?'cut':''}"></button>
+    <div class="dtxt"><p class="eyebrow">${numLabel(a)} · ${a.st}${a.r&&a.r!=='—'?' · '+a.r:''}</p><h3>${esc(a.name)}</h3><div class="row">${a.e.map(badge).join('')}</div>${desc?`<p class="muted">${esc(desc)}</p>`:''}
+    <div class="dbtns"><button type="button" class="btn primary" data-open="${a.slug}">ดูรายละเอียด</button><button type="button" class="btn" id="dailyRoll">🎲 สุ่มตัวอื่น</button></div></div>`;
+  if(rolled){const r=el.querySelector('.dart').getBoundingClientRect();el.classList.remove('pop');void el.offsetWidth;el.classList.add('pop');burst(r.left+r.width/2,r.top+r.height/2,16)}
+}
+document.addEventListener('click',e=>{if(!e.target.closest('#dailyRoll'))return;const el=document.getElementById('homeDaily'),img=el.querySelector('.dart img');
+  const end=RELEASED[Math.random()*RELEASED.length|0];if(RM){renderDaily(end,true);return}
+  let n=0;el.classList.add('rolling');const spin=()=>{const a=RELEASED[Math.random()*RELEASED.length|0];img.src=TH(a.i);if(++n<12)setTimeout(spin,40+n*12);else{el.classList.remove('rolling');renderDaily(end,true)}};spin()});
+renderDaily(dailyPick());
+// easter egg: tap the logo five times quickly for an Aniimo parade
+{let taps=[];document.querySelector('.appbar .logo').addEventListener('click',()=>{const now=Date.now();taps=taps.filter(t=>now-t<1500);taps.push(now);if(taps.length<5)return;taps=[];
+  toast('เจอไข่อีสเตอร์แล้ว! ขบวนพาเหรด Aniimo มาแล้ว');if(RM)return;
+  const row=RELEASED.slice().sort(()=>Math.random()-.5).slice(0,8);
+  row.forEach((a,i)=>{const im=document.createElement('img');im.src=TH(a.i);im.alt='';im.className='parade';im.style.animationDelay=(i*.28)+'s';document.body.appendChild(im);setTimeout(()=>im.remove(),5200+i*280)})})}
+setInterval(countAll,1200);countAll();
+
 /* ===== whole-site English (i18n-en.js) ===== */
 const UI_EN=window.UI_EN||{};
 const HAS_TH=/[฀-๿]/,LATIN=/[A-Za-z0-9][A-Za-z0-9 .,'’%×+\-\/:&!?#()"“”]*[A-Za-z0-9%)"”]|[A-Za-z0-9]/g;

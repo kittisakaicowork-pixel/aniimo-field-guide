@@ -15,6 +15,7 @@
 - ตารางธาตุ Tier List และโค้ดแลกของ
 - หน้าเตรียมตัว Whisperwake Isles (เปิด 29 ต.ค. 2026) นับถอยหลัง Aniimo ใหม่ 10 ตัว และธาตุที่ควรเตรียม
 - คู่มือ Holo-Battle Interlink, Operation: Egg Heist โหมด Chaos และการเล่นบนมือถือ/ข้ามแพลตฟอร์ม
+- หน้าล่าไข่ (ไข่ 141 จุดบน Idyll แยกชนิดและภูมิภาค) และหน้า Operation: Egg Heist พร้อมแผนที่เกาะ Lost Isles และห้อง Lost Sanctum ทุกระดับความยาก
 
 ## โครงสร้าง
 
@@ -27,6 +28,7 @@
 | `tools/build.py` | สร้างไฟล์ข้อมูลและภาพ |
 | `map.js`, `map.webp`, `map-icons.webp` | ข้อมูลและภาพแผนที่ สร้างโดย `tools/map.py` (ดึงจากแผนที่ของ AniiDex) โหลดเมื่อเปิดหน้าแผนที่เท่านั้น |
 | `tools/map.py` | สร้างไฟล์แผนที่ (ต้องมี Node.js) |
+| `heist.js`, `heist/`, `tools/heist.py` | แผนที่ Operation: Egg Heist (เกาะ Lost Isles และห้อง Lost Sanctum 21 แบบ) จาก AniiLog ใช้โดยได้รับอนุญาต สร้างด้วย `python3 tools/heist.py` (ต้องมี Node.js) โหลดเมื่อเปิดหน้า Egg Heist เท่านั้น |
 | `tools/i18n/rules.py` | กฎแปลข้อความที่เป็นรูปแบบซ้ำ เช่น แหล่งที่มาไอเท็ม ใช้เมื่อ `th.json` ไม่มีคำแปล |
 | `tools/i18n/th.json` | คำแปลภาษาไทย (ข้อความอังกฤษ → ไทย) |
 | `tools/i18n/ui_en.json`, `tools/i18n/ui_en.py` | คำแปลภาษาอังกฤษของหน้าเว็บ (ไทย → อังกฤษ) และสคริปต์สร้าง `i18n-en.js` |
@@ -53,6 +55,7 @@ python3 tools/scrape.py --refresh   # ดาวน์โหลดหน้าใ
 python3 tools/build.py              # สร้างเวอร์ชันเว็บ
 python3 tools/build.py --full       # สร้างเวอร์ชันเต็ม (ครั้งแรกดาวน์โหลดภาพประมาณ 300 MB)
 python3 tools/map.py --refresh      # ดึงข้อมูลแผนที่ใหม่ (เพิ่ม --full สำหรับเวอร์ชันเต็ม)
+python3 tools/heist.py --refresh    # ดึงแผนที่ Egg Heist ใหม่จาก AniiLog
 ```
 
 - **ข้อความใหม่ที่ยังไม่ได้แปล:** `build.py` จะเขียนไว้ใน `tools/i18n/missing.json` (`map.py` เขียนใน `missing_map.json`) ให้ใส่คำแปลแล้วเพิ่มลงใน `tools/i18n/th.json` จากนั้นรัน `build.py` อีกครั้ง ข้อความที่ยังไม่แปลจะแสดงเป็นภาษาอังกฤษ
