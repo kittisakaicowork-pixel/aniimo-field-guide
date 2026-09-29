@@ -80,7 +80,7 @@ def models3d():
         for s, m in man["models"].items():
             if s in pk and pk[s]["mid"] in il:
                 m["p"] = il[pk[s]["mid"]]
-    return dict(glow=man.get("glow", []), m={s: m for s, m in man["models"].items() if s in have} | {s: {"mats": [], "looks": {}} for s in have - man["models"].keys()})
+    return dict(glow=man.get("glow", []), m={s: m for s, m in man["models"].items() if s in have})
 
 
 def pack_sheet(paths, cell, cols, out, quality=86):

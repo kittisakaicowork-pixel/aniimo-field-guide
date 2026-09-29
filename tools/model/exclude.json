@@ -1,6 +1,21 @@
 {
- "_why": "Forms whose game texture does not fit the base mesh (the form has its own mesh the export lacks), checked by eye against reference renders. They keep their 2D art instead of a wrong-looking 3D view.",
- "1001201": "stellarys", "1001202": "stellarys", "1004303": "glacy", "1016102": "budclaw", "1021204": "irisal",
- "1032402": "melloblum", "1002601": "pawney", "1014301": "luminelle", "1033102": "sparki", "1019402": "sherro",
- "1050301": "panpanta"
+ "_why": "Forms whose 3D look does not match the game (texture made for a mesh the export lacks, or a colour estimate that misses), checked by eye against reference renders. They keep their 2D art.",
+ "1001201": "stellarys",
+ "1001202": "stellarys",
+ "1004303": "glacy",
+ "1016102": "budclaw",
+ "1033102": "sparki",
+ "1032402": "melloblum",
+ "1017402": "panpanta",
+ "1019401": "sherro",
+ "1019402": "sherro",
+ "1002101": "helmut",
+ "1002102": "helmut",
+ "1002201": "helmwhelp",
+ "1050301": "grizbo",
+ "1014301": "luminelle",
+ "_creatures": [
+  "helmut"
+ ],
+ "_creatures_why": "base model comes out broken (helmet and a hand only)"
 }

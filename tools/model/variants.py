@@ -83,10 +83,11 @@ def main():
                 srcs = []
                 for k in keys:
                     hit = None
-                    if k:
-                        hit = idx.get((gid, k[0], k[1], kind))
-                        if not hit and kind != "n":
-                            hit = idx.get((gid, k[0], "01a", kind))
+                    if k:  # same part and variant, else the form's other variants of that part (01a/01b/01c)
+                        for v in (k[1], "01a", "01b", "01c"):
+                            hit = idx.get((gid, k[0], v, kind))
+                            if hit:
+                                break
                     srcs.append(hit)
                 base = []  # the texture a derived variant starts from: the form's own, else the model's
                 for k, t in zip(keys, mats):
