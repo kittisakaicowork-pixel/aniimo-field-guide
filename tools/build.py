@@ -59,6 +59,27 @@ def art_path(a, form=None):
     return f"images/aniimo/{a['head']}"
 
 
+def icons_from_game():
+    """icon file name as the scrape knows it (UI_Skillicon_Fire_2.webp, ui_item_1001.webp) -> gamedata/icons PNG."""
+    d = ROOT / "gamedata" / "icons"
+    have = {p.name.lower(): p for p in d.glob("*.png")} if d.exists() else {}
+    def find(name):
+        stem = name.lower().rsplit(".", 1)[0]
+        for n in (stem, stem + "_large", stem + "_small"):
+            if n + ".png" in have:
+                return have[n + ".png"]
+        return None
+    return find
+
+
+def models3d():
+    """3d/variants.json (tools/model/variants.mjs + render.cjs), limited to models that exist."""
+    f = ROOT / "3d" / "variants.json"
+    man = json.loads(f.read_text()) if f.exists() else {"models": {}}
+    have = {p.stem for p in (ROOT / "3d").glob("*.glb")}
+    return dict(glow=man.get("glow", []), m={s: m for s, m in man["models"].items() if s in have} | {s: {"mats": [], "looks": {}} for s in have - man["models"].keys()})
+
+
 def pack_sheet(paths, cell, cols, out, quality=86):
     rows = (len(paths) + cols - 1) // cols
     sheet = Image.new("RGBA", (cols * cell, rows * cell), (0, 0, 0, 0))
@@ -113,11 +134,14 @@ def main():
                 game.stylize(g).save(dest, "WEBP", quality=88, method=4)
             srcs[n] = dest
             from_game.add(n)
+        elif (CACHE / "own-art" / f"{a['slug']}.webp").exists() and not f:
+            srcs[n] = CACHE / "own-art" / f"{a['slug']}.webp"  # rendered from our 3D model
+            from_game.add(n)
         else:
             urls.append(((RAW_URL if FULL else IPX.format(s=size)) + art_path(a, f), cache / Path(n).name))
             srcs[n] = cache / Path(n).name
     ok = download(urls)
-    print(f"art: {len(from_game)} from the game, {sum(ok)}/{len(ok)} from AniiDex")
+    print(f"art: {len(from_game)} from the game or our renders, {sum(ok)}/{len(ok)} from AniiDex")
     (out_dir / "img").mkdir(exist_ok=True)
     for _, _, name in img_jobs:
         if srcs[name].exists():
@@ -138,20 +162,25 @@ def main():
 
     # ------------------------------------------------ skill icon sprite
     icons = sorted({s["icon"] for a in A for s in a["skills"]})
-    download([(IPX.format(s=128).replace("fit_inside&", "") + "images/skills/" + ic, CACHE / "skill128" / ic) for ic in icons])
+    icon = icons_from_game()  # the game's own icons first, AniiDex's only for the few it lacks
+    download([(IPX.format(s=128).replace("fit_inside&", "") + "images/skills/" + ic, CACHE / "skill128" / ic) for ic in icons if not icon(ic)])
     cols = 15
-    rows = pack_sheet([CACHE / "skill128" / ic for ic in icons], 128, cols, out_dir / "skills.webp", quality=90)
+    rows = pack_sheet([icon(ic) or CACHE / "skill128" / ic for ic in icons], 128, cols, out_dir / "skills.webp", quality=90)
     sprite = dict(cols=cols, rows=rows)
     icon_idx = {ic: i for i, ic in enumerate(icons)}
 
     # ------------------------------------------------ sparkling
+    # Our own renders from the stylised 3D models (tools/model/render.cjs) come first; AniiDex's
+    # Sparkling images only fill looks we have no model for.
     listed = set(raw["sparkling"])
+    own = CACHE / "spark-own"
+    has_own = lambda fid: all((own / f"{fid}_{n:02d}.webp").exists() for n in range(1, SPARK_TYPES + 1))
     entries = []  # (slug, form index or None, art id)
     for a in A:
         if a["slug"] in listed and a["full_id"]:
             entries.append((a["slug"], None, a["full_id"]))
         for fi, f in enumerate(a["forms"]):
-            if not f["has_image"]:
+            if not (f["has_image"] or has_own(f["id"])):
                 continue
             if f["kind"] == "prismana" and a["slug"] in listed:
                 entries.append((a["slug"], fi, f["id"]))
@@ -160,38 +189,39 @@ def main():
     spark_size = 1024 if FULL else 320
     sp_cache = CACHE / f"spark{spark_size}"
     jobs = [(IPX.format(s=spark_size) + f"images/aniimo/full-body-shadow/{fid}/sparkling-{n:02d}.webp", sp_cache / f"{fid}_{n:02d}.webp")
-            for _, _, fid in entries for n in range(1, SPARK_TYPES + 1)]
+            for _, _, fid in entries if not has_own(fid) for n in range(1, SPARK_TYPES + 1)]
     ok = download(jobs)
     have = {fid for (_, dest), good in zip(jobs, ok) if good for fid in [dest.stem.split("_")[0]]}
-    entries = [e for e in entries if e[2] in have]
-    print(f"sparkling {spark_size}px: {sum(ok)}/{len(ok)} images, {len(entries)} forms")
+    entries = [e for e in entries if has_own(e[2]) or e[2] in have]
+    spk = lambda fid, n: (own if has_own(fid) else sp_cache) / f"{fid}_{n:02d}.webp"
+    print(f"sparkling: {sum(has_own(e[2]) for e in entries)} forms from our renders, {len(have)} from AniiDex")
     spark = dict(e=[[s, fi] for s, fi, _ in entries], cols=10)
     if FULL:
         (out_dir / "spk").mkdir(exist_ok=True)
         for s, fi, fid in entries:
             for n in range(1, SPARK_TYPES + 1):
-                src = sp_cache / f"{fid}_{n:02d}.webp"
+                src = spk(fid, n)
                 if src.exists():
                     shutil.copyfile(src, out_dir / "spk" / src.name)
         spark["ids"] = [fid for _, _, fid in entries]
     else:
         for n in range(1, SPARK_TYPES + 1):
-            paths = [sp_cache / f"{fid}_{n:02d}.webp" for _, _, fid in entries]
+            paths = [spk(fid, n) for _, _, fid in entries]
             spark["rows"] = pack_sheet(paths, 320, 10, out_dir / f"spark-{n:02d}.webp")
             big = Image.open(out_dir / f"spark-{n:02d}.webp")
             big.resize((big.width * 128 // 320, big.height * 128 // 320), Image.LANCZOS).save(out_dir / f"spark-s-{n:02d}.webp", "WEBP", quality=80, method=4)
     # full build also gets small sheets for the grid view
     if FULL:
         for n in range(1, SPARK_TYPES + 1):
-            paths = [sp_cache / f"{fid}_{n:02d}.webp" for _, _, fid in entries]
+            paths = [spk(fid, n) for _, _, fid in entries]
             spark["rows"] = pack_sheet(paths, 128, 10, out_dir / f"spark-s-{n:02d}.webp", quality=80)
 
     # ------------------------------------------------ item icons
     items_raw = raw.get("items", [])
     icons_i = [it["icon"] for it in items_raw if it["icon"]]
-    download([(IPX.format(s=96) + "images/items/" + ic, CACHE / "item96" / ic) for ic in icons_i])
+    download([(IPX.format(s=96) + "images/items/" + ic, CACHE / "item96" / ic) for ic in icons_i if not icon(ic)])
     item_cols = 10
-    item_rows = pack_sheet([CACHE / "item96" / ic for ic in icons_i], 96, item_cols, out_dir / "items.webp", quality=88)
+    item_rows = pack_sheet([icon(ic) or CACHE / "item96" / ic for ic in icons_i], 96, item_cols, out_dir / "items.webp", quality=88)
     item_idx = {ic: i for i, ic in enumerate(icons_i)}
     held_effect = {x["name"]: x["effect"] for a in A for x in a["items"] if x["effect"]}
     items = [dict(slug=it["slug"], n=it["name"], q=it["quality"], c=it["category"], f=1 if it.get("featured", True) else 0,
@@ -209,7 +239,7 @@ def main():
         aniimo.append(dict(
             no=a["no"], name=a["name"], slug=a["slug"], e=a["elements"], st=a["stage"], r=a["role"], d=a["desc"],
             s=a["stats"], i=art[(a["slug"], None)], cut=art[(a["slug"], None)] not in from_game and not a["full_id"], u=a["unreleased"], ord=hid, b=a.get("bio"),
-            f=[dict(n=f["name"], k=f["kind"], e=f["elements"], i=art.get((a["slug"], fi), "")) for fi, f in enumerate(a["forms"])],
+            fid=a["full_id"], f=[dict(id=f["id"], n=f["name"], k=f["kind"], e=f["elements"], i=art.get((a["slug"], fi), "")) for fi, f in enumerate(a["forms"])],
             w=a["work"], it=[[x["name"], x["effect"]] for x in a["items"]],
             sp=dict(c=a["spawn"]["conditions"], r=[[g["name"], g["level"]] for g in a["spawn"]["regions"]]),
         ))
@@ -253,7 +283,7 @@ def main():
         ("ANIIMO", aniimo), ("SKILLS", skills), ("SPRITE", sprite), ("PARTNERS", partners), ("SPARK", spark),
         ("EVO", evo), ("BOSSES", bosses), ("REGIONS", regions), ("TH", th_used), ("NAMES_TH", names_th), ("CODES", manual),
         ("ITEMS", dict(cols=item_cols, rows=item_rows, list=items)), ("EVENTS", events), ("UPCOMING", raw.get("upcoming", [])),
-        ("TERR", raw.get("territories", [])), ("MODELS", sorted(p.stem for p in (ROOT / "3d").glob("*.glb"))), ("RUSH", raw.get("boss_rush", [])),
+        ("TERR", raw.get("territories", [])), ("MODELS", models3d()), ("RUSH", raw.get("boss_rush", [])),
         ("META", dict(scraped=raw["scraped"], scraped_at=raw.get("scraped_at", ""), full=FULL, server="Asia-Pacific"))])
     (out_dir / "data.js").write_text(js)
     print(f"data.js {len(js)/1e6:.2f} MB · Thai strings {len(th_used)} · untranslated {len(missing)}")

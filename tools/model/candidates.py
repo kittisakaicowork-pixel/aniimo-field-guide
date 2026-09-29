@@ -33,9 +33,9 @@ def textures():
         for f in os.listdir(OUT / "textures2" / d):
             if re.search(r"_(C|CA)\.png$", f) and not SKIP.search(f):
                 p = f"textures2/{d}/{f}"
-                old = out[m.group(1)].get(f)
+                old = out[m.group(1)].get(f.lower())  # some files are spelled T_parmon_...
                 if not old or os.path.getsize(OUT / p) > os.path.getsize(OUT / old):
-                    out[m.group(1)][f] = p
+                    out[m.group(1)][f.lower()] = p
     return out
 
 
@@ -43,9 +43,9 @@ def tex_for(part, mid, tex):
     """Body01 -> T_Parmon_<id>_Body01_01a_C(A), then the plain Body texture."""
     base = re.sub(r"\d+$", "", part)
     for name in (part, base, "Body"):
-        for v in ("01a", ""):
+        for v in ("01a", "01b", "01c", ""):
             for s in ("CA", "C"):
-                f = f"T_Parmon_{mid}_{name}_{v + '_' if v else ''}{s}.png"
+                f = f"t_parmon_{mid}_{name}_{v + '_' if v else ''}{s}.png".lower()
                 if f in tex:
                     return tex[f]
     return None
@@ -86,6 +86,8 @@ def main():
                 continue  # a set without eyes scores well on shape alone, so it must have them when they exist
             parts = sorted((m["path"], tex_for(m["part"], mid, tex)) for m in g.values())
             parts = [[p, t] for p, t in parts if t]
+            if not any("_Body" in p for p, _ in parts):
+                continue
             key = tuple(p for p, _ in parts)
             if parts and key not in seen:
                 seen.add(key)

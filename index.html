@@ -2201,7 +2201,7 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
       <ul class="sources" id="g-sources">
         <li><a href="https://www.aniimo.com/" target="_blank" rel="noopener">เว็บไซต์ทางการ aniimo.com</a></li>
         <li><a href="https://store.steampowered.com/app/4126040/Aniimo/" target="_blank" rel="noopener">Steam</a></li>
-        <li><a href="https://aniidex.com/aniimo/" target="_blank" rel="noopener">AniiDex — ภาพ ร่าง แผนที่ และอีเวนต์</a></li>
+        <li><a href="https://aniidex.com/aniimo/" target="_blank" rel="noopener">AniiDex — แผนที่ อีเวนต์ บอส และแหล่งไอเท็ม</a></li>
         <li><a href="https://game8.co/games/Aniimo" target="_blank" rel="noopener">Game8 Aniimo Wiki</a></li>
         <li><a href="https://game8.co/games/Aniimo/archives/621098" target="_blank" rel="noopener">Game8 Tier List</a></li>
         <li><a href="https://game8.co/games/Aniimo/archives/619365" target="_blank" rel="noopener">Game8 Redeem Codes</a></li>
@@ -2213,7 +2213,7 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
         <li><a href="https://game8.co/games/Aniimo/archives/623315" target="_blank" rel="noopener">Game8 — List of Controls</a></li>
         <li><a href="https://game8.co/games/Aniimo/archives/623345" target="_blank" rel="noopener">Game8 — Best and Recommended Settings</a></li>
       </ul>
-      <p class="small muted">เว็บแฟนเมด ไม่เกี่ยวข้องกับ Pawprint Studio · ภาพและชื่อ Aniimo เป็นลิขสิทธิ์ของผู้พัฒนาเกม · ค่าสถานะ สกิล ไอเท็ม ตารางธาตุ และคำแปลไทยจากข้อมูลในเกม · ภาพ แผนที่ และอีเวนต์ใช้โดยได้รับอนุญาตจาก <a href="https://aniidex.com/" target="_blank" rel="noopener">AniiDex</a> · แผนที่ Egg Heist จาก <a href="https://aniilog.gg/" target="_blank" rel="noopener">AniiLog</a> · ข่าวสรุปจากประกาศทางการ</p>
+      <p class="small muted">เว็บแฟนเมด ไม่เกี่ยวข้องกับ Pawprint Studio · ภาพ โมเดล และชื่อ Aniimo เป็นลิขสิทธิ์ของผู้พัฒนาเกม · ภาพ ไอคอน ค่าสถานะ สกิล ไอเท็ม ตารางธาตุ และคำแปลไทยจากข้อมูลในเกม (ปรับแต่งเล็กน้อย) · โมเดล 3D และภาพร่างเปล่งประกายทำจากไฟล์เกมโดยได้รับอนุญาต · แผนที่ อีเวนต์ และบอสใช้โดยได้รับอนุญาตจาก <a href="https://aniidex.com/" target="_blank" rel="noopener">AniiDex</a> · แผนที่ Egg Heist จาก <a href="https://aniilog.gg/" target="_blank" rel="noopener">AniiLog</a> · ข่าวสรุปจากประกาศทางการ</p>
     </section>
   </main>
 </div>
@@ -2292,7 +2292,15 @@ const numLabel=a=>(+a.no>9000?'พิเศษ':'#'+a.no);
 const skillsOf=slug=>((SK[slug]||{}).s||[]).map(s=>({n:s[0],k:s[1],e:s[2],t:s[3],mi:s[4],cost:s[5],cd:s[6],r:s[7],ix:s[8],d:s[9],g:s[10]||[]}));
 const skColors=slug=>{const c=[];skillsOf(slug).forEach(s=>{if(s.e&&!c.includes(s.e))c.push(s.e)});return c};
 const SPK=window.SPARK||{cols:10,rows:1,e:[]};
-const MODELS=new Set(window.MODELS||[]);
+const M3D=window.MODELS&&window.MODELS.m?window.MODELS:{glow:[],m:{}};
+// which 3D look fits the sheet's current form/Sparkling choice: {fid, kind ('' plain, n form, s/z/d Sparkling), glow}
+function look3d(a,form,spark){
+  const m=M3D.m[a.slug];if(!m)return null;
+  const f=form==null?null:a.f[form],fid=f?f.id:a.fid,kinds=(m.looks||{})[fid]||'';
+  const kind=spark?(spark<=10?'s':spark===11?'z':'d'):f?'n':'';
+  if(kind&&!kinds.includes(kind))return null;
+  return {fid,kind,glow:spark?M3D.glow[spark-1]:null,mats:m.mats||[]};
+}
 const SPK_IDX={};SPK.e.forEach(([s,fi],i)=>{SPK_IDX[s+'|'+(fi==null?'':fi)]=i});
 const hasSpark=slug=>(slug+'|') in SPK_IDX;
 const STYPES=['Type I','Type II','Type III','Type IV','Type V','Type VI','Type VII','Type VIII','Type IX','Type X','Dazzling','Shadow'];
@@ -2489,7 +2497,7 @@ function itemsInfo(a){
 /* ===== 3D model (3d/<slug>.glb, stylised: posterized texture + toon shading + outline) =====
    three.js loads from the CDN only when someone opens the 3D view. */
 const THREE_CDN='https://cdn.jsdelivr.net/npm/three@0.186.1/';
-async function mount3d(slug){
+async function mount3d(slug,look){
   const el=document.getElementById('m3d');if(!el)return;
   let T,GLTFLoader,MeshoptDecoder,OrbitControls;
   try{[T,{GLTFLoader},{MeshoptDecoder},{OrbitControls}]=await Promise.all(['+esm','examples/jsm/loaders/GLTFLoader.js/+esm','examples/jsm/libs/meshopt_decoder.module.js/+esm','examples/jsm/controls/OrbitControls.js/+esm'].map(p=>import(THREE_CDN+p)))}
@@ -2504,7 +2512,16 @@ async function mount3d(slug){
   let g;try{g=await new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).loadAsync(`3d/${slug}.glb`)}catch(_){el.innerHTML='<span class="muted small">โหลดโมเดลไม่ได้</span>';return}
   if(!el.isConnected)return;
   const root=g.scene,meshes=[];root.traverse(o=>o.isMesh&&meshes.push(o));
-  meshes.forEach(o=>{o.material=new T.MeshToonMaterial({map:o.material.map,gradientMap:ramp,alphaTest:0.4,side:T.DoubleSide});o.add(new T.Mesh(o.geometry,outline))});
+  const tl=new T.TextureLoader(),rim=look.glow&&new T.ShaderMaterial({transparent:true,blending:T.AdditiveBlending,depthWrite:false,uniforms:{c:{value:new T.Color(look.glow)}},
+    vertexShader:'varying vec3 n;varying vec3 v;void main(){vec4 p=modelViewMatrix*vec4(position,1.);n=normalize(normalMatrix*normal);v=normalize(-p.xyz);gl_Position=projectionMatrix*p;}',
+    fragmentShader:'uniform vec3 c;varying vec3 n;varying vec3 v;void main(){float f=pow(1.-abs(dot(n,v)),4.);gl_FragColor=vec4(c*f*0.75,1.);}'});
+  await Promise.all(meshes.map(async o=>{
+    let map=o.material.map;const nm=o.material.name||'',i=look.kind&&nm.startsWith('body:')?look.mats.indexOf(nm.slice(5)):-1;
+    if(i>=0){try{map=await tl.loadAsync(`3d/v/${look.fid}-${look.kind}-${i}.webp`);map.flipY=false;map.colorSpace=T.SRGBColorSpace}catch(_){}}
+    o.material=new T.MeshToonMaterial({map,gradientMap:ramp,alphaTest:0.4,side:T.DoubleSide});o.add(new T.Mesh(o.geometry,outline));
+    if(rim)o.add(new T.Mesh(o.geometry,rim));
+  }));
+  if(!el.isConnected)return;
   const box=new T.Box3().setFromObject(root),c=box.getCenter(new T.Vector3()),size=box.getSize(new T.Vector3()).length();
   root.position.sub(c);root.rotation.y=0.6;scene.add(root);cam.position.set(0,size*0.18,size*1.55);
   const ctl=new OrbitControls(cam,r.domElement);ctl.enablePan=false;ctl.enableDamping=true;ctl.autoRotate=!matchMedia('(prefers-reduced-motion: reduce)').matches;ctl.autoRotateSpeed=1.5;ctl.minDistance=size*0.7;ctl.maxDistance=size*3;
@@ -2542,7 +2559,7 @@ function renderDetail(){
       ${a.f.length?'':'<p class="muted">Aniimo ตัวนี้ยังไม่มีร่างพิเศษ</p>'}`;
   }
   dlgBody.innerHTML=`<div class="dlg">
-   <div class="hero-pic">${dState.m3d?'<div class="m3d" id="m3d"><span class="muted small">กำลังโหลดโมเดล…</span></div>':dState.spark&&spIdx!=null?(META.full&&SPK.ids?`<img src="spk/${SPK.ids[spIdx]}_${String(dState.spark).padStart(2,'0')}.webp" alt="${esc(a.name)} ${STYPES[dState.spark-1]}">`:`<span class="spr" style="${sprStyle(dState.spark,spIdx,1)}" role="img" aria-label="${esc(a.name)} ${STYPES[dState.spark-1]}"></span>`):`<img src="${img}" alt="${esc(a.name)}" class="${!cur&&a.cut?'cut':''}">`}<span class="fname">${cur?KIND[cur.k]+' · '+esc(cur.n):'ร่างปกติ'}${dState.spark?' · ✦ '+STYPES[dState.spark-1]:''}${dState.m3d?' · ลากเพื่อหมุน':''}</span>${MODELS.has(a.slug)&&!cur&&!dState.spark?`<button type="button" class="m3d-btn" data-m3d aria-pressed="${!!dState.m3d}">${dState.m3d?'ภาพ 2D':'ดู 3D'}</button>`:''}</div>
+   <div class="hero-pic">${dState.m3d&&look3d(a,dState.form,dState.spark)?'<div class="m3d" id="m3d"><span class="muted small">กำลังโหลดโมเดล…</span></div>':dState.spark&&spIdx!=null?(META.full&&SPK.ids?`<img src="spk/${SPK.ids[spIdx]}_${String(dState.spark).padStart(2,'0')}.webp" alt="${esc(a.name)} ${STYPES[dState.spark-1]}">`:`<span class="spr" style="${sprStyle(dState.spark,spIdx,1)}" role="img" aria-label="${esc(a.name)} ${STYPES[dState.spark-1]}"></span>`):`<img src="${img}" alt="${esc(a.name)}" class="${!cur&&a.cut?'cut':''}">`}<span class="fname">${cur?KIND[cur.k]+' · '+esc(cur.n):'ร่างปกติ'}${dState.spark?' · ✦ '+STYPES[dState.spark-1]:''}${dState.m3d?' · ลากเพื่อหมุน':''}</span>${look3d(a,dState.form,dState.spark)?`<button type="button" class="m3d-btn" data-m3d aria-pressed="${!!dState.m3d}">${dState.m3d?'ภาพ 2D':'ดู 3D'}</button>`:''}</div>
    <div class="body">
     <div><p class="eyebrow">${numLabel(a)} · ${a.st}${a.u?' · ยังไม่เปิดให้จับ':''}</p><h3 id="dlgTitle">${esc(a.name)}</h3>${a.th&&a.th!==a.en?`<p class="muted small">${esc(LANG==='th'?a.en:a.th)}</p>`:''}</div>
     <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">${els.map(badge).join('')}<span class="chip">${a.r}</span><span class="dots" style="margin-left:4px" title="สีสกิล">${cols.map(k=>`<i style="background:var(--${k})"></i>`).join('')}</span></div>
@@ -2550,7 +2567,7 @@ function renderDetail(){
     <div class="dtabs" role="tablist">${tabs.map(([k,l])=>`<button type="button" role="tab" data-dtab="${k}" aria-selected="${dState.tab===k}">${l}</button>`).join('')}</div>
     ${pane}
    </div></div>`;
-  if(dState.m3d)mount3d(a.slug);
+  const lk=dState.m3d&&look3d(a,dState.form,dState.spark);if(lk)mount3d(a.slug,lk);
   const b=dlg.querySelector('.body');if(b)b.scrollTop=0;dlg.querySelector('.dlg').scrollTop=0;
 }
 document.addEventListener('click',e=>{

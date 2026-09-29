@@ -8,5 +8,6 @@ tools/raw.json
 tools/items_all.json
 gamedata/
 tools/compare/
-tools/model/node_modules/
+tools/model/node_modules
 tools/model/picks/
+tools/model/3d
