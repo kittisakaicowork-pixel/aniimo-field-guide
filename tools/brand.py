@@ -1,7 +1,7 @@
 """Draw the AniiGuide brand images: app icons (icon-192.png, icon-512.png) and the link preview (og.png).
 
-The mark is two rounded "i" pillars with a pink and a mint dot on a sky-blue tile (icon.svg is the same
-drawing for browsers); the wordmark reads "aniiguide" with the same two dots. Wordmark font: Nunito
+The app icon says "anii" over "guide" in white on a sky-blue tile, with a pink and a mint dot on the ii;
+the header wordmark and og.png use the same two dots. (mark() keeps the older text-free "ii" symbol.) Wordmark font: Nunito
 (SIL Open Font License, tools/fonts/). Thai text uses the macOS Sukhumvit Set font, so run this on a Mac:
     python3 tools/brand.py
 """
@@ -75,6 +75,49 @@ def mark(size, rounded):
     return tile.resize((size, size), Image.LANCZOS)
 
 
+def mark_text(size, rounded):
+    """The app icon with the name on it: "anii" over "guide" in white, pink and mint dots on the ii."""
+    S = size * 4
+    u = S / 512
+    tile = gradient(S, S, [(0, (102, 211, 255)), (0.55, (30, 155, 235)), (1, (10, 99, 196))])
+    glow = Image.new("L", (S, S), 0)
+    ImageDraw.Draw(glow).ellipse((-0.1 * S, -0.25 * S, 0.7 * S, 0.45 * S), fill=110)
+    tile.paste((255, 255, 255), mask=glow.filter(ImageFilter.GaussianBlur(S * 0.12)))
+    tile = tile.convert("RGBA")
+    d = ImageDraw.Draw(tile)
+    f = nunito(int(170 * u))
+    white = (255, 255, 255)
+
+    def centered(parts, y):
+        # parts: list of (text, dot colours or None); dots replace the i dots
+        gap = 10 * u  # a little air between the two i's so their dots don't touch
+        widths = [d.textlength(t, font=f) + (gap if dots else 0) for t, dots in parts]
+        x = (S - sum(widths)) / 2
+        ref = d.textbbox((0, 0), "i", font=f)
+        for (t, dots), w in zip(parts, widths):
+            if dots:
+                x += gap / 2
+            d.text((x, y), t, font=f, fill=white)
+            if dots:
+                g = d.textlength(t, font=f)
+                r = int(20 * u)
+                dot = disc(2 * r, *dots)
+                tile.paste(dot, (int(x + g / 2 - r), int(y + ref[1] + (ref[3] - ref[1]) * 0.02)), dot)
+                x += g + gap / 2
+            else:
+                x += w
+
+    pink, mint = ((255, 138, 208), (255, 92, 147)), ((183, 251, 255), (95, 224, 216))
+    centered([("an", None), ("ı", pink), ("ı", mint)], 66 * u)
+    centered([("guide", None)], 250 * u)
+    sparkle(d, 440 * u, 70 * u, 30 * u, white)
+    if rounded:
+        m = Image.new("L", (S, S), 0)
+        ImageDraw.Draw(m).rounded_rectangle((0, 0, S - 1, S - 1), radius=116 * u, fill=255)
+        tile.putalpha(m)
+    return tile.resize((size, size), Image.LANCZOS)
+
+
 def wordmark(draw, img, x, y, size, color):
     """"aniiguide" in Nunito Black; the two i's get a pink and a mint dot, like the icon."""
     f = nunito(size)
@@ -105,7 +148,7 @@ def og():
     fade = fade.point(lambda v: min(255, int(v * 1.6)))
     img.paste(crop, (W - 620, 0), fade)
     d = ImageDraw.Draw(img)
-    icon = mark(120, rounded=True)
+    icon = mark_text(120, rounded=True)
     img.paste(icon, (64, 70), icon)
     wordmark(d, img, 206, 76, 84, NAVY)
     th = ImageFont.truetype(THAI, 58, index=5)
@@ -120,9 +163,11 @@ def og():
 
 def main():
     for s in (192, 512):
-        mark(s, rounded=False).save(ROOT / f"icon-{s}.png", optimize=True)  # full tile: phones apply their own mask
+        mark_text(s, rounded=False).convert("RGB").save(ROOT / f"icon-{s}.png", optimize=True)  # phones apply their own mask
+    mark_text(64, rounded=True).save(ROOT / "favicon.png", optimize=True)
+    mark_text(180, rounded=False).convert("RGB").save(ROOT / "apple-touch-icon.png", optimize=True)
     og()
-    print("icon-192.png, icon-512.png, og.png")
+    print("icon-192.png, icon-512.png, favicon.png, apple-touch-icon.png, og.png")
 
 
 if __name__ == "__main__":

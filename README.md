@@ -38,7 +38,7 @@
 | `content.js` | เนื้อหาที่เขียนเอง: ข่าว FAQ อภิธานศัพท์ Roadmap วันสำคัญที่เพิ่มในตารางอีเวนต์ (`UPCOMING_EXTRA`) และข้อมูลหน้า Whisperwake Isles |
 | `a/`, `p/`, `sitemap.xml`, `tools/seo.py` | หน้าแยกให้ Google เก็บและใช้เป็นลิงก์แชร์ สร้างใหม่ด้วย `python3 tools/seo.py` ทุกครั้งหลัง `build.py` หรือแก้ `content.js` |
 | `.github/workflows/check.yml` | เช็กข่าวทางการและโค้ดใหม่ทุกวัน 04:00 น. แล้วเปิด issue แจ้งเตือนเมื่อมีของใหม่ |
-| `icon.svg`, `icon-192.png`, `icon-512.png`, `og.png`, `tools/brand.py`, `tools/fonts/` | โลโก้ AniiGuide ไอคอนแอป และภาพตัวอย่างเวลาแชร์ลิงก์ สร้างใหม่ด้วย `python3 tools/brand.py` (ฟอนต์ Nunito ใช้สัญญาอนุญาต OFL) |
+| `icon-192.png`, `icon-512.png`, `favicon.png`, `apple-touch-icon.png`, `og.png`, `tools/brand.py`, `tools/fonts/` | โลโก้ AniiGuide ไอคอนแอป และภาพตัวอย่างเวลาแชร์ลิงก์ สร้างใหม่ด้วย `python3 tools/brand.py` (ฟอนต์ Nunito ใช้สัญญาอนุญาต OFL) |
 | `tools/admin/*.sql` | ฐานข้อมูล Supabase ของหลังบ้าน (รันใน SQL Editor ครั้งเดียวต่อไฟล์): `supabase.sql` สถิติ, `engagement.sql` ใช้งานจริงกับกดเข้ามาเฉยๆ, `sync.sql` ซิงก์เช็กลิสต์ข้ามเครื่อง, `feedback.sql` คำแนะนำ, `tiervote.sql` โหวต Tier |
 | `tools/manual.json` | ข้อมูลที่ดูแลเอง ได้แก่ โค้ดแลกของ |
 | `tools/items.json` | รายชื่อไอเท็มที่ดึงข้อมูลมาแสดง (เพิ่ม slug จาก AniiDex ได้) |
