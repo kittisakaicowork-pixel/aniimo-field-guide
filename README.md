@@ -16,6 +16,9 @@
 - หน้าเตรียมตัว Whisperwake Isles (เปิด 29 ต.ค. 2026) นับถอยหลัง Aniimo ใหม่ 10 ตัว และธาตุที่ควรเตรียม
 - คู่มือ Holo-Battle Interlink, Operation: Egg Heist โหมด Chaos และการเล่นบนมือถือ/ข้ามแพลตฟอร์ม
 - หน้าล่าไข่ (ไข่ 141 จุดบน Idyll แยกชนิดและภูมิภาค) และหน้า Operation: Egg Heist พร้อมแผนที่เกาะ Lost Isles และห้อง Lost Sanctum ทุกระดับความยาก
+- เช็กลิสต์รายวัน/รายสัปดาห์ (รีเซ็ตเอง) · Held Item และ Rune · งานใน Homeland · ของกินและบัฟ · ชุดแต่งตัว · อุปกรณ์และชิป Egg Heist · ชนิดไข่ทั้งหมด · ปุ่มควบคุมและการตั้งค่า
+- ซิงก์เช็กลิสต์ข้ามเครื่องด้วยรหัสซิงก์ · แจ้งของใหม่ตั้งแต่ครั้งก่อน · เพิ่มอีเวนต์ลงปฏิทิน · ปุ่มแชร์ Aniimo
+- หน้าแยกสำหรับค้นหาและแชร์: Aniimo ทุกตัว (`a/<slug>/`) ข่าว และหัวข้อหลัก (`p/`) พร้อม `sitemap.xml`
 
 ## โครงสร้าง
 
@@ -33,8 +36,10 @@
 | `tools/i18n/th.json` | คำแปลภาษาไทย (ข้อความอังกฤษ → ไทย) |
 | `tools/i18n/ui_en.json`, `tools/i18n/ui_en.py` | คำแปลภาษาอังกฤษของหน้าเว็บ (ไทย → อังกฤษ) และสคริปต์สร้าง `i18n-en.js` |
 | `content.js` | เนื้อหาที่เขียนเอง: ข่าว FAQ อภิธานศัพท์ Roadmap วันสำคัญที่เพิ่มในตารางอีเวนต์ (`UPCOMING_EXTRA`) และข้อมูลหน้า Whisperwake Isles |
+| `a/`, `p/`, `sitemap.xml`, `tools/seo.py` | หน้าแยกให้ Google เก็บและใช้เป็นลิงก์แชร์ สร้างใหม่ด้วย `python3 tools/seo.py` ทุกครั้งหลัง `build.py` หรือแก้ `content.js` |
+| `.github/workflows/check.yml` | เช็กข่าวทางการและโค้ดใหม่ทุกวัน 04:00 น. แล้วเปิด issue แจ้งเตือนเมื่อมีของใหม่ |
 | `og.png`, `tools/og.py` | ภาพตัวอย่างเวลาแชร์ลิงก์ (Facebook, LINE, X) และสคริปต์สร้างภาพ |
-| `tools/admin/*.sql` | ฐานข้อมูล Supabase ของหลังบ้าน (รันใน SQL Editor ครั้งเดียวต่อไฟล์): `supabase.sql` สถิติ, `engagement.sql` ใช้งานจริงกับกดเข้ามาเฉยๆ, `feedback.sql` คำแนะนำ, `tiervote.sql` โหวต Tier |
+| `tools/admin/*.sql` | ฐานข้อมูล Supabase ของหลังบ้าน (รันใน SQL Editor ครั้งเดียวต่อไฟล์): `supabase.sql` สถิติ, `engagement.sql` ใช้งานจริงกับกดเข้ามาเฉยๆ, `sync.sql` ซิงก์เช็กลิสต์ข้ามเครื่อง, `feedback.sql` คำแนะนำ, `tiervote.sql` โหวต Tier |
 | `tools/manual.json` | ข้อมูลที่ดูแลเอง ได้แก่ โค้ดแลกของ |
 | `tools/items.json` | รายชื่อไอเท็มที่ดึงข้อมูลมาแสดง (เพิ่ม slug จาก AniiDex ได้) |
 | `tools/cache/` | หน้าเว็บและภาพที่ดาวน์โหลดไว้ ทำให้สร้างซ้ำได้โดยไม่ต้องต่อเน็ต (ไม่เก็บใน git) |
@@ -57,6 +62,7 @@ python3 tools/build.py              # สร้างเวอร์ชันเ
 python3 tools/build.py --full       # สร้างเวอร์ชันเต็ม (ครั้งแรกดาวน์โหลดภาพประมาณ 300 MB)
 python3 tools/map.py --refresh      # ดึงข้อมูลแผนที่ใหม่ (เพิ่ม --full สำหรับเวอร์ชันเต็ม)
 python3 tools/heist.py --refresh    # ดึงแผนที่ Egg Heist ใหม่จาก AniiLog
+python3 tools/seo.py                # สร้างหน้าแยกสำหรับค้นหาและ sitemap ใหม่
 ```
 
 - **ข้อความใหม่ที่ยังไม่ได้แปล:** `build.py` จะเขียนไว้ใน `tools/i18n/missing.json` (`map.py` เขียนใน `missing_map.json`) ให้ใส่คำแปลแล้วเพิ่มลงใน `tools/i18n/th.json` จากนั้นรัน `build.py` อีกครั้ง ข้อความที่ยังไม่แปลจะแสดงเป็นภาษาอังกฤษ

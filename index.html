@@ -1042,6 +1042,28 @@ dialog[open]::backdrop{animation:bdIn .25s ease}
 }
 @media (max-width:560px){.hero3{min-height:600px}.hero3 .hsearch{padding:14px 16px;font-size:.98rem}.hero3 .cta{padding:10px 14px;font-size:.88rem}.h3cta{flex-wrap:wrap}}
 .trend .est{opacity:.45}
+.dlgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+.dlcol h3{justify-content:space-between}
+.dlbar{height:8px;border-radius:99px;background:var(--sunk);overflow:hidden}.dlbar i{display:block;height:100%;background:linear-gradient(90deg,var(--good),var(--accent-2));border-radius:99px;transition:width .4s}
+.runes{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+.rune{display:grid;gap:6px;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+.rune div{display:flex;flex-wrap:wrap;gap:4px}
+.hmgrid{display:grid;gap:4px}
+details.more{border:1px solid var(--line);border-radius:14px;padding:10px 14px;background:var(--surface)}
+details.more+details.more{margin-top:10px}
+details.more summary{cursor:pointer;font-family:var(--display);font-weight:600}
+details.more[open] summary{margin-bottom:12px}
+@media (max-width:959px){.dlgrid{grid-template-columns:1fr}}
+.keys td{padding:5px 6px;font-size:.84rem}.keys td:last-child{text-align:right;white-space:nowrap}
+kbd{font:600 .78rem var(--mono);border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;padding:1px 6px;background:var(--sunk);color:var(--ink)}
+.wnew{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:10px 14px;border-radius:16px;border:1px solid color-mix(in srgb,var(--accent) 45%,var(--line));background:color-mix(in srgb,var(--accent) 12%,var(--surface));font-size:.9rem;position:relative;padding-right:44px}
+.wnew[hidden]{display:none}
+.wnew button:not(.x){border:0;background:var(--accent);color:var(--accent-ink);border-radius:999px;padding:4px 12px;font:inherit;font-size:.84rem;cursor:pointer}
+.wnew .x{position:absolute;right:8px;top:50%;translate:0 -50%;border:0;background:none;color:var(--ink-2);font-size:1.2rem;cursor:pointer}
+@media (max-width:560px){.hero3{min-height:480px}.hero3 .h3title{font-size:2.1rem}.hero3 .lede{font-size:.95rem}.hero3 .hbg img{object-position:74% top}}
+.panel.sync{display:grid;gap:8px}.panel.sync .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.panel.sync input{flex:1 1 200px;min-width:0;padding:8px 12px;border:1px solid var(--line);border-radius:999px;background:var(--ground);color:var(--ink);font:inherit;font-size:.88rem}
+.seolinks{font-size:.8rem;color:var(--ink-2);line-height:1.9}.seolinks a{color:var(--ink-2)}
 </style>
 
 <div id="boot" role="status" aria-live="polite"><div class="bootin"><img src="icon-192.png" alt=""><b>Aniimo Field Guide</b><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><small id="bootMsg">กำลังโหลดข้อมูล Aniimo…</small></div></div>
@@ -1106,6 +1128,7 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
   <main id="main">
     <!-- HOME -->
     <section class="view" data-view="home">
+      <div class="wnew" id="whatsNew" hidden></div>
       <div class="hero3">
         <div class="hbg" aria-hidden="true"><img src="img/hero.webp" alt="" fetchpriority="high"></div>
         <div class="h3text">
@@ -1122,6 +1145,7 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
       <section class="hsec"><h2>เว็บนี้มีอะไรบ้าง<small>เริ่มจากตรงนี้</small></h2><div class="feat" id="homeFeat"></div></section>
       <section class="hsec" id="homeRecent" hidden><h2>ดูล่าสุด<small><a href="#history" data-go="history">ประวัติทั้งหมด</a></small></h2><div class="recent" id="homeRecentList"></div></section>
       <section class="hsec"><h2>หน้าอื่น ๆ ทั้งหมด</h2><div class="hall" id="homeGroups"></div></section>
+      <nav class="seolinks" aria-label="หน้าสรุปสำหรับแชร์"><span>หน้าสรุปสำหรับแชร์และค้นหา:</span> <a href="p/dex/">รายชื่อ Aniimo</a> · <a href="p/tier/">Tier List</a> · <a href="p/codes/">โค้ดล่าสุด</a> · <a href="p/events/">อีเวนต์</a> · <a href="p/map/">แผนที่</a> · <a href="p/daily/">เช็กลิสต์รายวัน</a> · <a href="p/beginner/">มือใหม่</a> · <a href="p/heist/">Egg Heist</a> · <a href="p/eggs/">ล่าไข่</a> · <a href="p/helditems/">Held Item</a> · <a href="p/homeland/">Homeland</a> · <a href="p/bosses/">บอส</a> · <a href="p/whisperwake/">Whisperwake Isles</a> · <a href="p/news/">ข่าว</a> · <a href="p/guide/">ข้อมูลเกม</a></nav>
             <div class="install" id="installBox" hidden>
         <img src="icon-192.png" alt="">
         <div><b style="font-family:var(--display);font-weight:500">ติดตั้งเป็นแอป</b><p class="small muted">เปิดจากหน้าจอหลักได้เหมือนแอป และใช้งานออฟไลน์ได้หลังเปิดครั้งแรก</p></div>
@@ -1760,6 +1784,7 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
         <p class="muted">ติ๊กตัวที่จับได้แล้ว ทั้งร่างปกติ ร่างพิเศษ และร่างเปล่งประกาย 12 แบบ ความคืบหน้าบันทึกให้อัตโนมัติ</p>
       </div>
       <div class="colstats" id="colStats"></div>
+      <div id="syncBoxCol"></div>
       <div class="panel" style="gap:10px">
         <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center"><span class="chip" id="colMode">กำลังโหลด…</span><span class="small muted" id="colModeTxt"></span></div>
         <div style="display:flex;flex-wrap:wrap;gap:8px"><button type="button" class="btn" id="colExport">คัดลอกโค้ดสำรอง</button><button type="button" class="btn" id="colImportBtn">นำเข้าโค้ดสำรอง</button><span class="count" id="colMsg" aria-live="polite"></span></div>
@@ -1847,6 +1872,63 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
       <ul class="sources" id="wwSources"></ul>
     </section>
 
+    <!-- DAILY / WEEKLY CHECKLIST (ticks stay in this browser; cloud sync optional) -->
+    <section class="view" data-view="daily" hidden>
+      <div class="vhead">
+        <p class="eyebrow">ทำทุกวัน</p>
+        <h2>เช็กลิสต์รายวันและรายสัปดาห์</h2>
+        <p class="muted">ติ๊กเมื่อทำเสร็จ รายการรายวันล้างเองตอน <b>03:00 น. เวลาไทย</b> รายสัปดาห์ล้างทุก <b>วันจันทร์ 03:00 น.</b> (04:00 เวลาเซิร์ฟเวอร์ Asia-Pacific)</p>
+      </div>
+      <div class="dlgrid" id="dlBoard"></div>
+      <div id="syncBoxDaily"></div>
+      <ul class="sources"><li><a href="https://game8.co/games/Aniimo/archives/622747" target="_blank" rel="noopener">Game8 — Dailies and Weeklies</a></li><li><a href="https://aniimotools.dev/checklist/" target="_blank" rel="noopener">AniimoTools — Daily and Weekly Checklist</a></li></ul>
+    </section>
+
+    <!-- HELD ITEMS & RUNES -->
+    <section class="view" data-view="helditems" hidden>
+      <div class="vhead">
+        <p class="eyebrow">Held Item</p>
+        <h2>Held Item และ Rune</h2>
+        <p class="muted">ของที่ให้ Aniimo ถือเพื่อเพิ่มพลัง ปลดล็อกเมื่อถึงยศ Student III แต่ละชิ้นบอกผล ตัวที่เว็บแนะนำให้ถือ และวิธีหา</p>
+      </div>
+      <div class="bar-tools two"><label for="hiQ">ค้นหา<input type="search" id="hiQ" placeholder="เช่น ATK, Fang, EP"></label><label for="hiQual">ความหายาก<select id="hiQual"><option value="">ทุกระดับ</option><option>Legendary</option><option>Epic</option><option>Rare</option><option>Uncommon</option></select></label></div>
+      <div class="igrid" id="hiGrid"></div>
+      <div class="gsec"><h3>Rune<small class="muted"> ของเสริมสำหรับ Held Item แยกตามค่าพลัง</small></h3><div class="runes" id="hiRunes"></div></div>
+    </section>
+
+    <!-- HOMELAND WORK -->
+    <section class="view" data-view="homeland" hidden>
+      <div class="vhead">
+        <p class="eyebrow">Homeland</p>
+        <h2>ตัวไหนเหมาะกับงานไหนในบ้าน</h2>
+        <p class="muted">เลือกงานเพื่อดู Aniimo ที่ทำได้ เรียงจากเลเวลงานสูงสุด เลเวลงานสูงกว่าที่สิ่งก่อสร้างต้องการ 1 ขั้นทำงานเร็วขึ้น 20% และนิสัยที่เข้ากับสิ่งก่อสร้างเพิ่มอีก 20% · <a href="#s-home">วิธีเล่น Homeland</a></p>
+      </div>
+      <div class="seg" id="hmSeg" role="group" aria-label="งาน"></div>
+      <div class="hmgrid" id="hmGrid"></div>
+    </section>
+
+    <!-- BUFFS / FOOD -->
+    <section class="view" data-view="buffs" hidden>
+      <div class="vhead">
+        <p class="eyebrow">บัฟ</p>
+        <h2>ของกินและบัฟ</h2>
+        <p class="muted">เครื่องดื่ม อาหาร และบัฟที่ใช้ก่อนสู้บอสหรือลงดันเจี้ยน แยกตามสิ่งที่เพิ่ม พร้อมราคาและร้านที่ขาย</p>
+      </div>
+      <div class="seg" id="bfSeg" role="group" aria-label="ประเภทบัฟ"></div>
+      <div class="igrid" id="bfGrid"></div>
+    </section>
+
+    <!-- COSMETICS -->
+    <section class="view" data-view="cosmetics" hidden>
+      <div class="vhead">
+        <p class="eyebrow">แต่งตัว</p>
+        <h2>ชุดแต่งตัวและเครื่องประดับ</h2>
+        <p class="muted">ชุดของผู้เล่นและเครื่องประดับ Aniimo ที่ยืนยันแล้วจากประกาศทางการและข้อมูลเกม เครื่องประดับ Aniimo ใช้แต่งตัวอย่างเดียว ไม่เพิ่มพลัง</p>
+      </div>
+      <div class="grid g2" id="cosOutfits"></div>
+      <div class="gsec"><h3>ไอเท็มแต่งตัวในเกม</h3><div class="igrid" id="cosGrid"></div></div>
+    </section>
+
     <!-- EGG HUNT (egg spawns from the Idyll map data) -->
     <section class="view" data-view="eggs" hidden>
       <div class="vhead">
@@ -1857,6 +1939,7 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
       <div><button type="button" class="btn primary" data-eggmap="">เปิดแผนที่แบบเฉพาะไข่</button></div>
       <div class="seg" id="egSeg" role="group" aria-label="ชนิดไข่"></div>
       <div class="dugrid" id="egGrid"><p class="muted loadrow"><span class="spin"></span>กำลังโหลด…</p></div>
+      <div class="gsec"><h3>ชนิดไข่ทั้งหมด<small class="muted" id="egKinds"></small></h3><details class="more"><summary>ดูไข่ทุกแบบ พร้อมวิธีได้</summary><div class="igrid" id="egItems"></div></details></div>
       <div class="gsec"><h3>ได้ไข่จากทางอื่น</h3>
         <div class="grid g2">
           <article class="card"><span class="tag">ฝนดาวตก</span><p>ตอนกลางคืนมีโอกาสเกิดฝนดาวตก ไข่จะตกลงมาในโลก รีบไปเก็บก่อนหาย</p></article>
@@ -1919,6 +2002,7 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
         </div>
         <p class="small muted">ข้อมูลแผนที่และตำแหน่งหมุดจาก <a href="https://aniilog.gg/map/?map=egg-heist" target="_blank" rel="noopener">AniiLog</a> ใช้โดยได้รับอนุญาต · หีบธรรมดาและกองของบางจุดไม่มีหมุดในแผนที่ของเกม</p>
       </div>
+      <div class="gsec" id="heistGear"><h3>อุปกรณ์ ชิป และของซ่อม</h3><p class="small muted">อุปกรณ์ (Gear) ช่วยตอนอยู่บนเกาะ ชิปใส่ใน Amplifier เพื่อเพิ่มความสามารถ และของซ่อมเติมพลังงานหรือความทนทาน ส่วนใหญ่ได้จากในโหมด ร้าน Egg Heist และ Daily Lucky Chest</p><div id="hgList"></div></div>
       <div class="gsec"><h3>เคล็ดลับ</h3><ul class="tipsl">
         <li>เก็บของหายากก่อน จะได้ Eggshell Coin ครบเงื่อนไขหนีเร็วขึ้น</li>
         <li>ใช้ตัว DPS ระยะไกล สู้ได้ปลอดภัยกว่า</li>
@@ -2008,7 +2092,7 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
         <p class="eyebrow">คู่มือ</p>
         <h2>ข้อมูลเกมและระบบ</h2>
       </div>
-      <div class="gnav"><a href="#g-about">ข้อมูลเกม</a><a href="#g-systems">ระบบเกม</a><a href="#g-tips">มือใหม่</a><a href="#g-world">ภูมิภาค</a><a href="#g-pc">สเปคคอม</a><a href="#g-mobile">มือถือและข้ามแพลตฟอร์ม</a><a href="#g-sources">อ้างอิง</a></div>
+      <div class="gnav"><a href="#g-about">ข้อมูลเกม</a><a href="#g-systems">ระบบเกม</a><a href="#g-tips">มือใหม่</a><a href="#g-world">ภูมิภาค</a><a href="#g-pc">สเปคคอม</a><a href="#g-mobile">มือถือและข้ามแพลตฟอร์ม</a><a href="#g-controls">ปุ่มและการตั้งค่า</a><a href="#g-sources">อ้างอิง</a></div>
       <table class="spec" id="g-about">
         <tr><th>ผู้พัฒนา</th><td>Pawprint Studio</td></tr>
         <tr><th>ผู้จัดจำหน่าย</th><td>Kingsglory (ตามรายงานของสื่อ) · หน้า Steam ระบุ Pawprint Studio</td></tr>
@@ -2074,6 +2158,24 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
         </div>
         <p class="small muted">ทางการยังไม่ได้ประกาศสเปกมือถือของเวอร์ชันเต็ม ตัวเลขนี้มาจากสื่อเกม และแต่ละแหล่งยังไม่ตรงกัน จึงใช้ค่าที่สูงกว่าไว้ก่อน (ช่วงทดสอบ iOS ทางการกำหนดขั้นต่ำ iPhone 14 Pro) · PC ที่ใช้ Intel Core รุ่น 13 หรือ 14 แล้วเกมเด้ง ดู<button type="button" class="itemlink" data-news="intel-cpu">วิธีแก้จากทีมงาน</button></p>
       </div>
+      <div class="gsec" id="g-controls">
+        <h3>ปุ่มควบคุมและการตั้งค่าที่แนะนำ</h3>
+        <div class="grid g3">
+          <article class="card"><span class="tag">คีย์บอร์ด (PC)</span><table class="plain keys"><tr><td>เดิน</td><td><kbd>W A S D</kbd></td></tr><tr><td>กระโดด</td><td><kbd>Space</kbd></td></tr><tr><td>พุ่งตัว</td><td><kbd>Shift</kbd></td></tr><tr><td>ปีน / หยุดปีน</td><td><kbd>X</kbd></td></tr><tr><td>โต้ตอบ</td><td><kbd>F</kbd></td></tr><tr><td>สกิล 1 / สกิล 2</td><td><kbd>Q / E</kbd></td></tr><tr><td>อัลติเมต</td><td><kbd>R</kbd></td></tr><tr><td>ท่าเคลื่อนที่ (Mobility)</td><td><kbd>T</kbd></td></tr><tr><td>Chain Ultimate</td><td><kbd>Y</kbd></td></tr><tr><td>ล็อกเป้า</td><td><kbd>Tab</kbd></td></tr><tr><td>สลับ Aniipod</td><td><kbd>Ctrl</kbd></td></tr><tr><td>สลับ Aniimo ตัวที่ 1–4</td><td><kbd>1–4</kbd></td></tr><tr><td>Twine</td><td><kbd>C</kbd></td></tr><tr><td>โหมดสั่งการ Aniimo</td><td><kbd>J</kbd></td></tr><tr><td>ทีม Aniimo</td><td><kbd>H</kbd></td></tr><tr><td>Aniilog</td><td><kbd>K</kbd></td></tr><tr><td>ตัวละคร</td><td><kbd>I</kbd></td></tr><tr><td>จัดการ Aniimo</td><td><kbd>P</kbd></td></tr><tr><td>เควสต์</td><td><kbd>L</kbd></td></tr><tr><td>แผนที่</td><td><kbd>N</kbd></td></tr><tr><td>กระเป๋า</td><td><kbd>B</kbd></td></tr><tr><td>อีเวนต์</td><td><kbd>F2</kbd></td></tr><tr><td>Elite Training</td><td><kbd>F3</kbd></td></tr><tr><td>คู่มือ Institute</td><td><kbd>F4</kbd></td></tr><tr><td>ถ่ายรูป (Snap)</td><td><kbd>F7</kbd></td></tr><tr><td>ร้านค้า</td><td><kbd>F9</kbd></td></tr><tr><td>Support</td><td><kbd>F10</kbd></td></tr></table><p class="small muted">เปลี่ยนปุ่มได้ที่ Settings → Controls</p></article>
+          <article class="card"><span class="tag">จอย PlayStation</span><table class="plain keys"><tr><td>เดิน / กล้อง</td><td><kbd>L / R Stick</kbd></td></tr><tr><td>กระโดด / ปีน</td><td><kbd>✕</kbd></td></tr><tr><td>พุ่งตัว</td><td><kbd>○</kbd></td></tr><tr><td>โต้ตอบ</td><td><kbd>△</kbd></td></tr><tr><td>โจมตี / หยุดปีน</td><td><kbd>□</kbd></td></tr><tr><td>สกิล 1 / สกิล 2</td><td><kbd>L1 / R1</kbd></td></tr><tr><td>โหมดจับ</td><td><kbd>L2</kbd></td></tr><tr><td>Twine</td><td><kbd>R2</kbd></td></tr><tr><td>สลับ Aniimo 1–4</td><td><kbd>D-Pad</kbd></td></tr><tr><td>ติดตาม / ล็อกเป้า</td><td><kbd>L3 / R3</kbd></td></tr><tr><td>Chain Ultimate</td><td><kbd>△ + ○</kbd></td></tr><tr><td>ท่าเคลื่อนที่</td><td><kbd>□ + ✕</kbd></td></tr><tr><td>แผนที่</td><td><kbd>Touchpad</kbd></td></tr></table></article>
+          <article class="card"><span class="tag">จอย Xbox</span><table class="plain keys"><tr><td>เดิน / กล้อง</td><td><kbd>L / R Stick</kbd></td></tr><tr><td>กระโดด / ปีน</td><td><kbd>A</kbd></td></tr><tr><td>พุ่งตัว</td><td><kbd>B</kbd></td></tr><tr><td>โต้ตอบ</td><td><kbd>Y</kbd></td></tr><tr><td>โจมตี / หยุดปีน</td><td><kbd>X</kbd></td></tr><tr><td>สกิล 1 / สกิล 2</td><td><kbd>LB / RB</kbd></td></tr><tr><td>โหมดจับ</td><td><kbd>LT</kbd></td></tr><tr><td>Twine</td><td><kbd>RT</kbd></td></tr><tr><td>สลับ Aniimo 1–4</td><td><kbd>D-Pad</kbd></td></tr><tr><td>ติดตาม / ล็อกเป้า</td><td><kbd>กดสติ๊กซ้าย / ขวา</kbd></td></tr><tr><td>Chain Ultimate</td><td><kbd>Y + B</kbd></td></tr><tr><td>ท่าเคลื่อนที่</td><td><kbd>X + A</kbd></td></tr><tr><td>แผนที่ / เมนู</td><td><kbd>Options / Start</kbd></td></tr></table></article>
+        </div>
+        <div class="grid g2" style="margin-top:14px">
+          <article class="card"><span class="tag">ตั้งค่าที่ควรเปิด</span><ul>
+            <li><b>Auto Lock-On After Attack</b>: เปิด</li><li><b>Auto-Adjust Camera When Not Locked On</b>: เปิด</li>
+            <li><b>Auto-Approach Target When Using Skills</b>: เปิด</li><li><b>Target Lock-On Indicator Line</b>: เปิด</li>
+            <li><b>Always Follow the Locked-on Target</b>: Chase Camera</li><li><b>Show Counter Information</b>: เปิด</li></ul>
+            <p class="small muted">ค่าเริ่มต้นปิดไว้ แต่เปิดแล้วจับ Aniimo และสู้ง่ายขึ้นมาก</p></article>
+          <article class="card"><span class="tag">เครื่องกระตุกหรือร้อน</span><ul>
+            <li>เริ่มจากลด Preset กราฟิกลงหนึ่งขั้น</li><li>Global Illumination: Low</li><li>Reflections: Low หรือ Performance</li><li>Ambient Occlusion: Low</li><li>Shadows: Performance</li><li>จำกัดเฟรมเรตไว้ 60 บนเครื่องที่ร้อนง่าย</li></ul>
+            <p class="small muted">ใช้ Intel Core รุ่น 13 หรือ 14 แล้วเกมเด้ง ดู<button type="button" class="itemlink" data-news="intel-cpu">วิธีแก้จากทีมงาน</button></p></article>
+        </div>
+      </div>
       <ul class="sources" id="g-sources">
         <li><a href="https://www.aniimo.com/" target="_blank" rel="noopener">เว็บไซต์ทางการ aniimo.com</a></li>
         <li><a href="https://store.steampowered.com/app/4126040/Aniimo/" target="_blank" rel="noopener">Steam</a></li>
@@ -2087,6 +2189,8 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
         <li><a href="https://aniimotools.dev/systems/egg-heist/" target="_blank" rel="noopener">AniimoTools — Egg Heist และโหมด Chaos</a></li>
         <li><a href="https://aniimocentral.com/guides/holo-battle-interlink/" target="_blank" rel="noopener">Aniimo Central — Holo-Battle Interlink</a></li>
         <li><a href="https://mobilematters.gg/guides/gaming/aniimo-system-requirements-ios-android-pc" target="_blank" rel="noopener">Mobile Matters — สเปกมือถือ</a></li>
+        <li><a href="https://game8.co/games/Aniimo/archives/623315" target="_blank" rel="noopener">Game8 — List of Controls</a></li>
+        <li><a href="https://game8.co/games/Aniimo/archives/623345" target="_blank" rel="noopener">Game8 — Best and Recommended Settings</a></li>
       </ul>
       <p class="small muted">เว็บแฟนเมด ไม่เกี่ยวข้องกับ Pawprint Studio · ภาพและชื่อ Aniimo เป็นลิขสิทธิ์ของผู้พัฒนาเกม · ข้อมูลเกม ภาพ และแผนที่ส่วนใหญ่ใช้โดยได้รับอนุญาตจาก <a href="https://aniidex.com/" target="_blank" rel="noopener">AniiDex</a> · แผนที่ Egg Heist จาก <a href="https://aniilog.gg/" target="_blank" rel="noopener">AniiLog</a> · ข่าวสรุปจากประกาศทางการ</p>
     </section>
@@ -2113,10 +2217,10 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
 </dialog>
 <dialog id="menu" aria-label="เมนูทั้งหมด"><div class="inner" id="menuInner"></div></dialog>
 
-<script src="data.js?v=202609291545"></script>
-<script src="thumbs.js?v=202609291545"></script>
-<script src="content.js?v=202609291545"></script>
-<script src="i18n-en.js?v=202609291545"></script>
+<script src="data.js?v=202609291653"></script>
+<script src="thumbs.js?v=202609291653"></script>
+<script src="content.js?v=202609291653"></script>
+<script src="i18n-en.js?v=202609291653"></script>
 <script>
 /* ===== theme ===== */
 (function(){
@@ -2201,8 +2305,9 @@ const VIEWS=[
  {id:'faq',th:'คำถามที่พบบ่อย',ic:'help',g:'info',d:'เซิร์ฟเวอร์ จอดำ รางวัล'},
  {id:'glossary',th:'อภิธานศัพท์',ic:'book',g:'info',d:'คำศัพท์ในเกม'},
  {id:'beginner',th:'มือใหม่',ic:'star',g:'start',d:'ตัวเลือกที่ย้อนไม่ได้ ควรทำ/ไม่ควรทำ'},
+ {id:'daily',th:'เช็กลิสต์รายวัน',ic:'check',g:'start',d:'ติ๊กงานรายวัน รายสัปดาห์ รีเซ็ตเอง'},
  {id:'growth',th:'แนวทางพัฒนา',ic:'up',g:'start',d:'พัฒนา Aniimo และใช้ทรัพยากรให้คุ้ม'},
- {id:'guide',th:'ข้อมูลเกม',ic:'book',g:'start',d:'ระบบหลัก สเปกเครื่อง มือถือ แหล่งอ้างอิง'},
+ {id:'guide',th:'ข้อมูลเกม',ic:'book',g:'start',d:'ระบบหลัก สเปกเครื่อง ปุ่มควบคุม มือถือ'},
  {id:'dex',th:'รายชื่อ Aniimo',ic:'dex',g:'mon',tab:1,tabTh:'Aniimo',d:A.length+' ตัว ค่าสถานะ สายวิวัฒนาการ'},
  {id:'skills',th:'สกิลและสีธาตุ',ic:'skill',g:'mon',d:'สกิลทุกตัวแยกตามสีธาตุ'},
  {id:'forms',th:'ร่างพิเศษ',ic:'forms',g:'mon',d:'ร่างตามพื้นที่ สภาพอากาศ Prismana'},
@@ -2219,6 +2324,10 @@ const VIEWS=[
  {id:'sanctums',th:'Sanctum',ic:'layers',g:'world',d:'17 แห่ง และ Lost Sanctum'},
  {id:'events',th:'อีเวนต์',ic:'cal',g:'world',d:'นับถอยหลังตามเวลาไทย'},
  {id:'items',th:'ไอเท็ม',ic:'bag',g:'world',d:'658 ชิ้นพร้อมวิธีหา'},
+ {id:'helditems',th:'Held Item และ Rune',ic:'gift',g:'mon',d:'ผล ตัวที่เหมาะ และวิธีหา'},
+ {id:'homeland',th:'งานใน Homeland',ic:'home',g:'world',d:'ตัวไหนเหมาะกับงานไหน'},
+ {id:'buffs',th:'ของกินและบัฟ',ic:'up',g:'world',d:'บัฟดาเมจ ป้องกัน ฮีล ซื้อที่ไหน'},
+ {id:'cosmetics',th:'ชุดแต่งตัว',ic:'spark',g:'world',d:'ชุด เครื่องประดับ และวิธีได้'},
  {id:'systems',th:'ระบบเชิงลึก',ic:'layers',g:'world',d:'ยศ บ้าน ไข่ ร้านค้า ดันเจี้ยน Interlink'},
  {id:'team',th:'จัดทีม',ic:'team',g:'tools',tab:1,d:'วิเคราะห์จุดแข็งจุดอ่อนของทีม'},
  {id:'planner',th:'วางแผนวัสดุ',ic:'calc',g:'tools',d:'รวมวัสดุที่ต้องใช้'},
@@ -2248,13 +2357,13 @@ document.getElementById('moreBtn').addEventListener('click',()=>menu.showModal()
 menu.addEventListener('click',e=>{if(e.target===menu)menu.close()});
 let current='home';
 const RENDERED=new Set();
-function ensureRendered(id){if(RENDERED.has(id))return;RENDERED.add(id);const f={dex:()=>renderDex(),skills:()=>renderSkills(),sparkling:()=>renderSpark(),forms:()=>renderForms(),tier:()=>renderTiers(),team:()=>renderTeam(),collection:()=>renderCollection(),compare:()=>renderCompare(),bosses:()=>renderBosses(),regions:()=>renderRegions(),whisperwake:()=>renderWW(),map:()=>renderMap(),events:()=>renderEvents(),items:()=>renderItems(),systems:()=>renderSystems(),planner:()=>renderPlanner(),history:()=>renderHistory(),news:()=>renderNews(),duels:()=>withMap(renderDuels),sanctums:()=>withMap(renderSanctums),eggs:()=>withMap(renderEggs),heist:()=>renderHeist(),media:()=>renderMedia(),faq:()=>renderFaq(),glossary:()=>renderGloss(),admin:()=>renderAdmin()}[id];f&&f()}
+function ensureRendered(id){if(RENDERED.has(id))return;RENDERED.add(id);const f={dex:()=>renderDex(),skills:()=>renderSkills(),sparkling:()=>renderSpark(),forms:()=>renderForms(),tier:()=>renderTiers(),team:()=>renderTeam(),collection:()=>renderCollection(),compare:()=>renderCompare(),bosses:()=>renderBosses(),regions:()=>renderRegions(),whisperwake:()=>renderWW(),map:()=>renderMap(),events:()=>renderEvents(),items:()=>renderItems(),systems:()=>renderSystems(),planner:()=>renderPlanner(),history:()=>renderHistory(),news:()=>renderNews(),duels:()=>withMap(renderDuels),sanctums:()=>withMap(renderSanctums),daily:()=>renderDaily2(),helditems:()=>renderHeld(),homeland:()=>renderHome2(),buffs:()=>renderBuffs(),cosmetics:()=>renderCos(),eggs:()=>withMap(renderEggs),heist:()=>renderHeist(),media:()=>renderMedia(),faq:()=>renderFaq(),glossary:()=>renderGloss(),admin:()=>renderAdmin()}[id];f&&f()}
 function go(id,push){
   if(!VIEWS.some(v=>v.id===id))id='home';
   if(id!==current){const pg=document.getElementById('progress');if(pg){pg.classList.remove('go');void pg.offsetWidth;pg.classList.add('go')}}
   if(id!=='admin'){histAdd('views',id);track('view',id)}if(id!=='feedback'&&id!=='admin'&&typeof fbLastPage!=='undefined')fbLastPage=id;if(id==='history'||id==='admin'||id==='news')RENDERED.delete(id);if(id==='home'&&typeof renderHomeRecent==='function')renderHomeRecent();
   ensureRendered(id);
-  current=id;
+  current=id;if(typeof setTitle==='function'&&LANG!=='en')setTitle(id);
   document.querySelectorAll('.view').forEach(s=>s.hidden=s.dataset.view!==id);
   if(id==='map'&&MV.ready)setTimeout(mapSize,0);
   document.querySelectorAll('[data-go]').forEach(b=>{if(b.closest('.side,.tabbar,#menu'))b.setAttribute('aria-current',b.dataset.go===id?'page':'false')});
@@ -2271,6 +2380,7 @@ function route(){
   if(/^b-/.test(h)||/^g-(steps|personality|spend|road)$/.test(h)){go(h.startsWith('b-')?'beginner':'growth',false);setTimeout(()=>{const el=document.getElementById(h);el&&el.scrollIntoView()},0);return}
   if(h.startsWith('g-')){go('guide',false);setTimeout(()=>{const el=document.getElementById(h);el&&el.scrollIntoView()},0);return}
   if(h.startsWith('news-')){go('news',false);renderNews(h.slice(5));return}
+  if(/^sync-[A-Za-z0-9]{20,40}$/.test(h)){SYNC.code=h.slice(5);syncSave();try{history.replaceState(null,'','#collection')}catch(_){}go('collection',false);syncPull(true).then(()=>toast('เชื่อมรหัสซิงก์แล้ว ข้อมูลตรงกับอีกเครื่องแล้ว'));return}
   if(h==='stats'||h==='stats-demo'||h==='admin-demo'){if(h!=='stats')AD.demo=true;go('admin',false);return}
   if(h.startsWith('team-')){loadTeamCode(h);go('team',false);return}
   if(h.startsWith('region-')){go('regions',false);setTimeout(()=>{const el=document.getElementById(h);el&&el.scrollIntoView()},0);return}
@@ -2380,7 +2490,7 @@ function renderDetail(){
    <div class="body">
     <div><p class="eyebrow">${numLabel(a)} · ${a.st}${a.u?' · ยังไม่เปิดให้จับ':''}</p><h3 id="dlgTitle">${esc(a.name)}</h3>${a.th&&a.th!==a.en?`<p class="muted small">${esc(LANG==='th'?a.en:a.th)}</p>`:''}</div>
     <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">${els.map(badge).join('')}<span class="chip">${a.r}</span><span class="dots" style="margin-left:4px" title="สีสกิล">${cols.map(k=>`<i style="background:var(--${k})"></i>`).join('')}</span></div>
-    <div class="dactions">${a.u?'':`<button type="button" data-col="${cur?'f':'c'}" data-key="${cur?a.slug+'|'+dState.form:a.slug}" aria-pressed="${!!(cur?COL.d.f[a.slug+'|'+dState.form]:COL.d.c[a.slug])}">${(cur?COL.d.f[a.slug+'|'+dState.form]:COL.d.c[a.slug])?'✓ จับแล้ว':'+ จับแล้ว'}${cur?' (ร่างนี้)':''}</button>`}<button type="button" data-cmp-add="${a.slug}">${CMP.includes(a.slug)?'✓ อยู่ในการเปรียบเทียบ':'+ เปรียบเทียบ'}</button><button type="button" data-team-add="${a.slug}">+ ใส่ทีม</button></div>
+    <div class="dactions">${a.u?'':`<button type="button" data-col="${cur?'f':'c'}" data-key="${cur?a.slug+'|'+dState.form:a.slug}" aria-pressed="${!!(cur?COL.d.f[a.slug+'|'+dState.form]:COL.d.c[a.slug])}">${(cur?COL.d.f[a.slug+'|'+dState.form]:COL.d.c[a.slug])?'✓ จับแล้ว':'+ จับแล้ว'}${cur?' (ร่างนี้)':''}</button>`}<button type="button" data-cmp-add="${a.slug}">${CMP.includes(a.slug)?'✓ อยู่ในการเปรียบเทียบ':'+ เปรียบเทียบ'}</button><button type="button" data-team-add="${a.slug}">+ ใส่ทีม</button><button type="button" data-share="${a.slug}">แชร์</button></div>
     <div class="dtabs" role="tablist">${tabs.map(([k,l])=>`<button type="button" role="tab" data-dtab="${k}" aria-selected="${dState.tab===k}">${l}</button>`).join('')}</div>
     ${pane}
    </div></div>`;
@@ -2626,7 +2736,7 @@ COL.flush=async()=>{
   COL.writing=false;if(COL.again){COL.again=false;COL.flush()}
 };
 COL.push=()=>{if(!COL.ref)return;clearTimeout(COL.timer);COL.timer=setTimeout(COL.flush,700)};
-COL.toggle=(kind,key)=>{const m=COL.d[kind];if(m[key])delete m[key];else m[key]=1;COL.saveLocal();COL.push()};
+COL.toggle=(kind,key)=>{const m=COL.d[kind];if(m[key])delete m[key];else m[key]=1;COL.saveLocal();COL.push();if(typeof syncPush==='function')syncPush()};
 (async()=>{try{
   const c=window.claude;if(!c||!c.use)return;
   const [db,user]=await Promise.all([c.use('db'),c.use('user')]);if(!db||!user)return;
@@ -2654,6 +2764,7 @@ function colTotals(){
 }
 const ce=document.getElementById('ce');ce.innerHTML+=E.map(e=>`<option value="${e.k}">${e.th}</option>`).join('');
 function renderCollection(){
+  syncBox('syncBoxCol');
   colModeUI();
   document.getElementById('colStats').innerHTML=colTotals().map(([l,h,t])=>`<div class="colstat"><small>${l}</small><b>${h} / ${t}</b><div class="meter"><i style="width:${t?Math.round(h/t*100):0}%"></i></div><small>${t?Math.round(h/t*100):0}%</small></div>`).join('');
   const q=document.getElementById('cq').value.trim().toLowerCase(),cf=document.getElementById('cf').value;
@@ -2688,7 +2799,7 @@ document.getElementById('colImportCancel').addEventListener('click',()=>{documen
 document.getElementById('colImportGo').addEventListener('click',()=>{
   const raw=document.getElementById('colImport').value.trim();
   try{if(!raw.startsWith('ANIIMO1:'))throw 0;const d=JSON.parse(decodeURIComponent(escape(atob(raw.slice(8)))));if(!d||typeof d!=='object')throw 0;
-    COL.d={c:d.c||{},f:d.f||{},s:d.s||{}};COL.saveLocal();COL.push();document.getElementById('colImportBox').hidden=true;renderCollection();if(RENDERED.has('dex'))renderDex();colMsg('นำเข้าแล้ว')}
+    COL.d={c:d.c||{},f:d.f||{},s:d.s||{}};COL.saveLocal();COL.push();if(typeof syncPush==='function')syncPush();document.getElementById('colImportBox').hidden=true;renderCollection();if(RENDERED.has('dex'))renderDex();colMsg('นำเข้าแล้ว')}
   catch(_){colMsg('โค้ดไม่ถูกต้อง ต้องขึ้นต้นด้วย ANIIMO1:')}
 });
 
@@ -2785,7 +2896,7 @@ function renderMap(){
     MAP.count=MAP.layers.map(()=>0);MAP.m.forEach(m=>MAP.count[m[0]]++);
     mapLayersUI();
   };
-  if(window.MAP)boot();else{const sc=document.createElement('script');sc.src='map.js?v=202609291545';sc.onload=boot;sc.onerror=()=>{document.getElementById('mapLoad').textContent='โหลดข้อมูลแผนที่ไม่สำเร็จ'};document.head.appendChild(sc)}
+  if(window.MAP)boot();else{const sc=document.createElement('script');sc.src='map.js?v=202609291653';sc.onload=boot;sc.onerror=()=>{document.getElementById('mapLoad').textContent='โหลดข้อมูลแผนที่ไม่สำเร็จ'};document.head.appendChild(sc)}
 }
 function mapSaveLayers(){try{localStorage.setItem('aniimo-map-layers',JSON.stringify([...MV.on].map(i=>MAP.layers[i].id)))}catch(_){}}
 function mapLayersUI(){
@@ -2932,18 +3043,15 @@ const syncLang=()=>{langBtn.textContent=LANG==='th'?'EN':'ไทย';langBtn.set
 langBtn.addEventListener('click',()=>{const next=LANG==='th'?'en':'th';try{localStorage.setItem('aniimo-lang',next)}catch(_){}location.reload()});
 syncLang();
 
-/* ===== beginner checklists (per-viewer convenience, this browser only) ===== */
-(function(){
-  let saved={};try{saved=JSON.parse(localStorage.getItem('aniimo-guide-checks')||'{}')}catch(_){}
-  document.querySelectorAll('.checklist[data-list]').forEach(list=>{
-    const id=list.dataset.list;
-    list.querySelectorAll('li').forEach((li,i)=>{
-      const cb=li.querySelector('input[type=checkbox]');if(!cb)return;
-      const key=id+':'+i;cb.id='chk-'+id+'-'+i;cb.checked=!!saved[key];li.classList.toggle('done',cb.checked);
-      cb.addEventListener('change',()=>{saved[key]=cb.checked?1:0;if(!cb.checked)delete saved[key];li.classList.toggle('done',cb.checked);try{localStorage.setItem('aniimo-guide-checks',JSON.stringify(saved))}catch(_){}});
-    });
-  });
-})();
+/* ===== beginner checklists (this browser; synced when a sync code is set) ===== */
+let GC={};try{GC=JSON.parse(localStorage.getItem('aniimo-guide-checks')||'{}')}catch(_){}
+function applyGuideChecks(){
+  document.querySelectorAll('.checklist[data-list]').forEach(list=>{const id=list.dataset.list;
+    list.querySelectorAll('li').forEach((li,i)=>{const cb=li.querySelector('input[type=checkbox]');if(!cb)return;const key=id+':'+i;cb.id='chk-'+id+'-'+i;cb.dataset.gc=key;cb.checked=!!GC[key];li.classList.toggle('done',cb.checked)})});
+}
+applyGuideChecks();
+document.addEventListener('change',e=>{const cb=e.target.closest('[data-gc]');if(!cb)return;const key=cb.dataset.gc;if(cb.checked)GC[key]=1;else delete GC[key];cb.closest('li').classList.toggle('done',cb.checked);
+  try{localStorage.setItem('aniimo-guide-checks',JSON.stringify(GC))}catch(_){}if(typeof syncPush==='function')syncPush()});
 
 /* ===== items ===== */
 const ITEMS=(window.ITEMS&&window.ITEMS.list)||[];const ISPR=window.ITEMS||{cols:10,rows:1};
@@ -2956,15 +3064,17 @@ function itemIcon(it,big){if(it.ix<0)return `<span class="iicon q-${it.q}"></spa
 const itemRef=n=>ITEM_BY_NAME[String(n).toLowerCase()]?`<button type="button" class="itemlink" data-item="${esc(n)}">${esc(n)}</button>`:esc(n);
 const ic=document.getElementById('ic'),iq=document.getElementById('iq'),iqq=document.getElementById('iqq');
 ic.innerHTML+=[...new Set(ITEMS.map(i=>i.c))].sort((a,b)=>(CAT_TH[a]||a).localeCompare(CAT_TH[b]||b,'th')).map(c=>`<option value="${esc(c)}">${esc(CAT_TH[c]||c)}</option>`).join('');
+function itemCard(i,hit,extra){return `<article class="icard${hit?' hit':''}" id="item-${esc(i.slug)}">
+    <div class="top">${itemIcon(i)}<div><b>${esc(i.n)}</b><small>${esc(CAT_TH[i.c]||i.c)} · ${esc(Q_TH[i.q]||i.q)}</small></div></div>
+    ${i.d?`<p>${esc(tr(i.d))}</p>`:''}
+    ${i.src.length?`<div><p class="eyebrow" style="margin-bottom:6px">วิธีหา</p><ul class="srcs">${i.src.map(([k,d,cost,where,note])=>`<li><span>${esc(srcLabel(d||k))}</span>${cost.length?`<span class="cost">— ${cost.map(([a,n])=>`${esc(a)} ${itemRef(n)}`).join(', ')}</span>`:''}${where&&where!==d?`<span class="cost">· ${esc(where.replace(/^.*? · /,''))}</span>`:''}${note?`<span class="cost">· ${esc(tr(note))}</span>`:''}</li>`).join('')}</ul></div>`:'<p class="small muted">ยังไม่มีข้อมูลแหล่งที่มา</p>'}
+    ${extra||''}
+    <a class="small" href="https://aniidex.com/items/${esc(i.slug)}/" target="_blank" rel="noopener">ดูแผนที่จุดขายบน AniiDex ↗</a></article>`}
 function renderItems(focus){
   const q=iq.value.trim().toLowerCase();
   const iall=document.getElementById('iall');const list=ITEMS.filter(i=>(!q||i.n.toLowerCase().includes(q))&&(!ic.value||i.c===ic.value)&&(!iqq.value||i.q===iqq.value)&&(iall.value==='all'||i.f||q||focus));
   document.getElementById('iCount').textContent=`${list.length} จาก ${ITEMS.length} ไอเท็ม`;
-  document.getElementById('iGrid').innerHTML=list.map(i=>`<article class="icard${focus&&i.n===focus?' hit':''}" id="item-${esc(i.slug)}">
-    <div class="top">${itemIcon(i)}<div><b>${esc(i.n)}</b><small>${esc(CAT_TH[i.c]||i.c)} · ${esc(Q_TH[i.q]||i.q)}</small></div></div>
-    ${i.d?`<p>${esc(tr(i.d))}</p>`:''}
-    ${i.src.length?`<div><p class="eyebrow" style="margin-bottom:6px">วิธีหา</p><ul class="srcs">${i.src.map(([k,d,cost,where,note])=>`<li><span>${esc(srcLabel(d||k))}</span>${cost.length?`<span class="cost">— ${cost.map(([a,n])=>`${esc(a)} ${itemRef(n)}`).join(', ')}</span>`:''}${where&&where!==d?`<span class="cost">· ${esc(where.replace(/^.*? · /,''))}</span>`:''}${note?`<span class="cost">· ${esc(tr(note))}</span>`:''}</li>`).join('')}</ul></div>`:'<p class="small muted">ยังไม่มีข้อมูลแหล่งที่มา</p>'}
-    <a class="small" href="https://aniidex.com/items/${esc(i.slug)}/" target="_blank" rel="noopener">ดูแผนที่จุดขายบน AniiDex ↗</a></article>`).join('')||'<p class="muted">ไม่พบไอเท็ม ลองล้างตัวกรอง</p>';
+  document.getElementById('iGrid').innerHTML=list.map(i=>itemCard(i,focus&&i.n===focus)).join('')||'<p class="muted">ไม่พบไอเท็ม ลองล้างตัวกรอง</p>';
   if(focus){const el=document.querySelector('.icard.hit');el&&setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'center'}),40)}
 }
 [iq,ic,iqq,document.getElementById('iall')].forEach(el=>el.addEventListener(el.type==='search'?'input':'change',()=>renderItems()));
@@ -3050,7 +3160,7 @@ function renderEvents(){
   EVENTS.forEach(e=>(e.dates||[]).forEach(x=>add(x.name==='Stage'?e.t:x.name,x.dates)));
   (window.UPCOMING_EXTRA||[]).forEach(u=>add(u.name,u.dates,u.at));
   up.sort((a,b)=>a.s-b.s);
-  document.getElementById('evTimeline').innerHTML=up.map(({name,s,t})=>`<div class="tl"><b>${thTime(s)}</b><span>${esc(name)} · ถึง ${t?thTime(t):'—'} · ${now>=s?'<b style="color:var(--good)">กำลังจัด</b>':'อีก '+fmtLeft(s-now)}</span></div>`).join('')||'<p class="muted">ไม่มีข้อมูลตาราง</p>';
+  document.getElementById('evTimeline').innerHTML=`<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px"><button type="button" class="btn" data-ics="interlink">📅 เตือน Holo-Battle Interlink ทุกสัปดาห์</button><button type="button" class="btn" data-ics="haste">📅 เตือน Hatch Haste ทุกศุกร์</button></div>`+up.map(({name,s,t})=>`<div class="tl"><b>${thTime(s)}</b><span>${esc(name)} · ถึง ${t?thTime(t):'—'} · ${now>=s?'<b style="color:var(--good)">กำลังจัด</b>':'อีก '+fmtLeft(s-now)}${now<s?` <button type="button" class="itemlink small" data-ics-ev="${esc(name)}|${s}|${t||s+3600e3}">เพิ่มลงปฏิทิน</button>`:''}</span></div>`).join('')||'<p class="muted">ไม่มีข้อมูลตาราง</p>';
 }
 setInterval(()=>{if(current==='events'&&!document.hidden)renderEvents()},60000);
 
@@ -3436,7 +3546,7 @@ document.addEventListener('click',e=>{
 });
 
 /* ===== Pathfinder duels & Sanctums (from the map data) ===== */
-function withMap(fn){if(window.MAP){fn();return}const sc=document.createElement('script');sc.src='map.js?v=202609291545';sc.onload=fn;sc.onerror=()=>{};document.head.appendChild(sc)}
+function withMap(fn){if(window.MAP){fn();return}const sc=document.createElement('script');sc.src='map.js?v=202609291653';sc.onload=fn;sc.onerror=()=>{};document.head.appendChild(sc)}
 function regionAt(m){const x=m[1]/100,y=m[2]/100;return Object.keys(MAP.regions).find(n=>inPoly(x,y,MAP.regions[n]))||''}
 const mapBtn=i=>`<button type="button" class="chip" data-mapm-go="${i}" style="cursor:pointer">ดูบนแผนที่</button>`;
 const elBadges=a=>(a||[]).map(e=>badge(mEl(e))).join('');
@@ -3465,6 +3575,7 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-mapm-go]')
 let egKind='';
 const eggLayer=()=>MAP.layers.findIndex(l=>l.id==='type_Egg');
 function renderEggs(){
+  const ek=ITEMS.filter(i=>/Egg/.test(i.c));document.getElementById('egKinds').textContent=' '+ek.length+' แบบ';document.getElementById('egItems').innerHTML=ek.map(i=>itemCard(i)).join('');
   const L=eggLayer(),rows=MAP.m.filter(m=>m[0]===L).map(m=>({t:MAP.info[m[3]].t,region:regionAt(m)}));
   document.getElementById('egTotal').textContent=rows.length.toLocaleString();
   const kinds={};rows.forEach(r=>kinds[r.t]=(kinds[r.t]||0)+1);
@@ -3487,10 +3598,11 @@ const HV={mode:'island',diff:'normal',lay:'',on:{},x:0,y:0,s:1,imgs:{},bg:{},ico
 let hvCv,hvCtx;
 const hvTr=t=>(t&&LANG==='th'&&window.HEIST&&HEIST.th[t])||t||'';
 function renderHeist(){
+  const hg=document.getElementById('hgList');if(hg&&!hg.innerHTML)hg.innerHTML=[['Gear','อุปกรณ์'],['Chip','ชิป'],['Repair Item','ของซ่อม']].map(([c,l])=>{const list=ITEMS.filter(i=>i.c===c);return `<details class="more"${c==='Gear'?' open':''}><summary>${l} ${list.length} ชิ้น</summary><div class="igrid">${list.map(i=>itemCard(i)).join('')}</div></details>`}).join('');
   hvCv=document.getElementById('hvCv');hvCtx=hvCv.getContext('2d');
   if(HV.ready){setTimeout(hvSize,0);return}if(HV.booting)return;HV.booting=true;
   const fail=()=>{document.getElementById('hvLoad').textContent='โหลดแผนที่ไม่สำเร็จ'};
-  const sc=document.createElement('script');sc.src='heist.js?v=202609291545';sc.onerror=fail;
+  const sc=document.createElement('script');sc.src='heist.js?v=202609291653';sc.onerror=fail;
   sc.onload=()=>{const ico=new Image();ico.onerror=fail;ico.onload=()=>{
     HV.ico=ico;HV.ready=true;
     const busy=new Set(['egg_lesser_chest','egg_loot_pile','sanctum_chest','sanctum_loot_pile']); // plain chests and piles crowd the map; off at first
@@ -3575,12 +3687,104 @@ document.addEventListener('click',e=>{
 document.addEventListener('change',e=>{const b=e.target.closest('[data-hvlayer]');if(!b)return;const M=hvMap(),i=+b.dataset.hvlayer;b.checked?M.on.add(i):M.on.delete(i);hvUI();hvDraw()});
 addEventListener('resize',()=>{if(current==='heist'&&HV.ready)hvSize()});
 
+/* ===== daily & weekly checklist (ticks per reset period; this browser, plus cloud sync when set up) ===== */
+const DAILY_LIST=[
+ {id:'act',t:'Daily Activity ให้ถึง 500 แต้ม',n:'ล็อกอิน ใช้ Primegy 60 จับ Aniimo 5 ตัว ถ่ายรูป Aniimo 1 รูป เก็บ Season Stamp 50 และซื้อของ 1 ชิ้น ได้ไข่ Incredible Egg, Aniipod และ Glimmer'},
+ {id:'pack',t:'รับ Daily Supply Pack',n:'ใช้ Primegy 50 ได้ Safari 250 และวัสดุ (ยศ Student III ขึ้นไป)'},
+ {id:'primegy',t:'ใช้ Primegy อย่าให้เต็ม',n:'ฟื้น 1 หน่วยทุก 6 นาที เต็มที่ 300 ใช้กับบอส Alpha หรือหีบ Holo-Battle Sim'},
+ {id:'home',t:'Homeland: เก็บผลผลิตและส่งคำสั่งซื้อ',n:'คำสั่งซื้อรีเฟรช 03:00 และ 15:00 น. เวลาไทย เช็กอาหารของคนงานด้วย ไม่อย่างนั้นจะผลิตช้าลง',go:'homeland'},
+ {id:'hatch',t:'Hatchinator: เก็บตัวที่ฟักแล้ว ใส่ไข่ใหม่ และลูบไข่',n:'ลูบไข่ทุกวันช่วยให้ฟักเร็วขึ้น',go:'eggs'},
+ {id:'vendor',t:'ดู Mysterious Vendor และ Curio Corner',n:'ของเปลี่ยนทุกวัน Curio Corner รีเฟรชฟรีได้ 1 ครั้ง'},
+ {id:'nurture',t:'Nurture ฟรี 3 ครั้ง',n:'ที่ Nurturing Bloom (ผ่าน Breezy Plains Branch)'},
+ {id:'heist',t:'Operation: Egg Heist 1 รอบ',n:'หนีสำเร็จครั้งแรกของวันได้คะแนนระดับ 2 เท่า',go:'heist'},
+ {id:'tea',t:'Star-Crossed Tea Party',n:'เปิด 17:00–01:00 น. เวลาไทย นั่งในร้านเพื่อรับ Voxel Coin และ Stamp'},
+ {id:'friends',t:'เพิ่ม Affinity กับเพื่อน',n:'คุยหรือให้ของขวัญ ได้สูงสุด 100 แต้มต่อวัน'},
+ {id:'codes',t:'เช็กโค้ดแลกของใหม่',n:'กดดูโค้ดล่าสุดในเว็บนี้',go:'codes'}];
+const WEEKLY_LIST=[
+ {id:'boss',t:'บอส Alpha / Omega 3 ครั้ง',n:'ครั้งละ Primegy 50 ได้วัสดุ Resonance และ Capability Awakening',go:'bosses'},
+ {id:'stamp',t:'Season Stamp ให้ถึง 1,000',n:'เพดานต่อสัปดาห์ ได้จาก Daily Activity และกิจกรรมต่าง ๆ'},
+ {id:'sim',t:'Holo-Battle Sim รับ Training Incentives',n:'รางวัลรีเฟรชทุกสัปดาห์ เคลียร์ระดับยากสุดแล้วรับของระดับต่ำกว่าได้หมด',go:'systems'},
+ {id:'interlink',t:'Holo-Battle Interlink',n:'เปิดพฤหัส 03:00 – จันทร์ 02:59 น. เก็บดาวให้ครบก่อนปิด',go:'systems'},
+ {id:'companion',t:'Companion Handbook',n:'ใช้ Primegy 200 จับ 30 ตัว และล็อกอิน 3 วัน'},
+ {id:'iris',t:'เก็บ Iris Petal ประจำสัปดาห์',n:'Legendary Journey: Irisalis ถึง 10 ธ.ค.',until:'2026-12-10'},
+ {id:'claw',t:'Super Claw: Aniipod จำกัดรายสัปดาห์',n:'Aniipod Hyper และ Aniipod Track ที่ Astra'},
+ {id:'haste',t:'ฟักไข่ช่วง Hatch Haste',n:'ศุกร์–อาทิตย์ เวลาฟักลดครึ่งหนึ่ง ใส่ไข่ที่ฟักนานไว้ช่วงนี้'}];
+function lastReset(now,weekly){const d=new Date(now+SRV.tz*3600000);let t=Date.UTC(d.getUTCFullYear(),d.getUTCMonth(),d.getUTCDate(),SRV.reset)-SRV.tz*3600000;if(t>now)t-=86400000;
+  if(weekly){const wd=new Date(t+SRV.tz*3600000).getUTCDay();t-=((wd+6)%7)*86400000}return t}
+let DL={};try{DL=JSON.parse(localStorage.getItem('aniimo-daily')||'{}')}catch(_){}
+function dlState(){const now=Date.now(),d=lastReset(now),w=lastReset(now,true);
+  if(!DL.d||DL.d.p!==d)DL.d={p:d,done:{}};if(!DL.w||DL.w.p!==w)DL.w={p:w,done:{}};return DL}
+function dlSave(){try{localStorage.setItem('aniimo-daily',JSON.stringify(DL))}catch(_){}if(typeof syncPush==='function')syncPush()}
+function renderDaily2(){
+  const st=dlState(),now=Date.now(),nextW=lastReset(now,true)+7*86400000;
+  const col=(title,list,k,next)=>{const items=list.filter(x=>!x.until||now<Date.parse(x.until+'T00:00:00+07:00')),done=items.filter(x=>st[k].done[x.id]).length;
+    return `<div class="dpanel dlcol"><h3>${title}<small>${done}/${items.length} · ล้างใน ${fmtLeft(next-now)}</small></h3><div class="dlbar"><i style="width:${items.length?done/items.length*100:0}%"></i></div>
+     <ul class="checklist">${items.map(x=>`<li class="${st[k].done[x.id]?'done':''}"><input type="checkbox" data-dl="${k}:${x.id}"${st[k].done[x.id]?' checked':''} aria-label="ทำแล้ว"><div><b>${esc(x.t)}</b><br><span class="small muted">${esc(x.n)}</span>${x.go?` <button type="button" class="itemlink small" data-go="${x.go}">ไปที่หน้า</button>`:''}</div></li>`).join('')}</ul></div>`};
+  document.getElementById('dlBoard').innerHTML=col('รายวัน',DAILY_LIST,'d',nextDailyReset(now))+col('รายสัปดาห์',WEEKLY_LIST,'w',nextW);
+  if(typeof syncBox==='function')syncBox('syncBoxDaily');
+}
+document.addEventListener('change',e=>{const c=e.target.closest('[data-dl]');if(!c)return;const [k,id]=c.dataset.dl.split(':');dlState();if(c.checked)DL[k].done[id]=1;else delete DL[k].done[id];dlSave();
+  const all=(k==='d'?DAILY_LIST:WEEKLY_LIST).filter(x=>!x.until||Date.now()<Date.parse(x.until+'T00:00:00+07:00')).every(x=>DL[k].done[x.id]);
+  renderDaily2();if(c.checked&&all){toast(k==='d'?'ครบทุกงานของวันนี้แล้ว เก่งมาก!':'ครบงานรายสัปดาห์แล้ว!');burst(innerWidth/2,innerHeight/2,30)}});
+setInterval(()=>{if(current==='daily'&&!document.hidden)renderDaily2()},60000);
+
+/* ===== Held Items & Runes ===== */
+const HELD_FX={},HELD_BY={};A.forEach(a=>(a.it||[]).forEach(([n,d])=>{HELD_FX[n]=d;(HELD_BY[n]=HELD_BY[n]||[]).push(a)}));
+function renderHeld(){
+  const q=(document.getElementById('hiQ').value||'').trim().toLowerCase(),ql=document.getElementById('hiQual').value;
+  const held=ITEMS.filter(i=>i.c==='Held Item'&&(!ql||i.q===ql)&&(!q||(i.n+' '+(HELD_FX[i.n]||'')+' '+tr(HELD_FX[i.n]||'')).toLowerCase().includes(q)))
+    .sort((a,b)=>(HELD_BY[b.n]||[]).length-(HELD_BY[a.n]||[]).length);
+  document.getElementById('hiGrid').innerHTML=held.map(i=>{const by=HELD_BY[i.n]||[],fx=HELD_FX[i.n];
+    return itemCard(fx&&!i.d?{...i,d:fx}:i,false,by.length?`<div><p class="eyebrow" style="margin-bottom:6px">เว็บแนะนำให้ ${by.length} ตัวถือ</p><div class="rmons">${by.slice(0,10).map(a=>`<button type="button" data-open="${a.slug}"><img decoding="async" loading="lazy" src="${TH(a.i)}" alt="">${esc(a.name)}</button>`).join('')}</div></div>`:'')}).join('')||'<p class="muted">ไม่พบ</p>';
+  const runes=ITEMS.filter(i=>i.c==='Held Item - Rune'&&(!q||i.n.toLowerCase().includes(q))&&(!ql||i.q===ql)),groups={};
+  runes.forEach(i=>{const k=i.n.replace(/^(Common|Uncommon|Rare|Epic|Legendary|Advanced|Superior|Basic|Elite|Perfect|Premium)\s+/i,'').replace(/\s*Rune.*$/i,'')||'อื่น ๆ';(groups[k]=groups[k]||[]).push(i)});
+  document.getElementById('hiRunes').innerHTML=Object.entries(groups).sort().map(([k,list])=>`<div class="rune"><b>${esc(k)}</b><div>${list.map(i=>`<span class="chip">${itemRef(i.n)} <small class="muted">${esc(Q_TH[i.q]||i.q)}</small></span>`).join('')}</div><small class="muted">หาได้จาก: ${esc([...new Set(list.flatMap(i=>i.src.map(x=>srcLabel(x[1]||x[0]))))].slice(0,4).join(' · ')||'—')}</small></div>`).join('')||'<p class="muted">ไม่พบ</p>';
+}
+['hiQ','hiQual'].forEach(id=>document.getElementById(id).addEventListener(id==='hiQ'?'input':'change',renderHeld));
+
+/* ===== Homeland work ===== */
+let hmJob='';
+function renderHome2(){
+  const jobs={};A.forEach(a=>(a.w||[]).forEach(([k,l])=>{(jobs[k]=jobs[k]||[]).push({a,l})}));
+  const keys=Object.keys(jobs).sort((x,y)=>jobs[y].length-jobs[x].length);if(!hmJob)hmJob=keys[0];
+  const lab=k=>LANG==='en'?(EK[k.toLowerCase()]?k+' work':k):WORK_TH[k]||('งานธาตุ'+(EK[k.toLowerCase()]?EK[k.toLowerCase()].th:k));
+  document.getElementById('hmSeg').innerHTML=keys.map(k=>`<button type="button" data-hm="${esc(k)}" aria-pressed="${k===hmJob}">${esc(lab(k))} <small>${jobs[k].length}</small></button>`).join('');
+  const list=jobs[hmJob].sort((x,y)=>y.l-x.l||(TIER_PTS[TIERMAP[y.a.slug]]??0)-(TIER_PTS[TIERMAP[x.a.slug]]??0));
+  document.getElementById('hmGrid').innerHTML=[...new Set(list.map(x=>x.l))].map(l=>`<div class="gsec"><h3>${esc(lab(hmJob))} Lv. ${l}<small class="muted"> ${list.filter(x=>x.l===l).length} ตัว</small></h3><div class="rmons">${list.filter(x=>x.l===l).map(({a})=>`<button type="button" data-open="${a.slug}"><img decoding="async" loading="lazy" src="${TH(a.i)}" alt="">${esc(a.name)} <small>${(a.w||[]).filter(w=>w[0]!==hmJob).map(w=>esc(lab(w[0]))+' '+w[1]).join(', ')}</small></button>`).join('')}</div></div>`).join('');
+}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-hm]');if(b){hmJob=b.dataset.hm;renderHome2()}});
+
+/* ===== buffs & food ===== */
+const BF_KIND=[['break','BREAK',/BREAK/],['dmg','ดาเมจ',/damage|DMG|ATK|attack/i],['def','ป้องกัน',/DEF|defen|shield|resist/i],['hp','HP และฮีล',/HP|heal|recover|restor|regen/i],['move','เคลื่อนที่และสำรวจ',/speed|stamina|jump|glide|swim|move/i],['other','อื่น ๆ',/./]];
+let bfKind='';
+function bfOf(i){const t=i.d||'';for(const [k,,re] of BF_KIND)if(re.test(t))return k;return 'other'}
+function renderBuffs(){
+  const list=ITEMS.filter(i=>['Buff','Aniimo Food','Heal','Throwable - Beneficial'].includes(i.c));
+  const cnt={};list.forEach(i=>{const k=bfOf(i);cnt[k]=(cnt[k]||0)+1});
+  document.getElementById('bfSeg').innerHTML=[['','ทั้งหมด'],...BF_KIND.map(([k,l])=>[k,l])].filter(([k])=>!k||cnt[k]).map(([k,l])=>`<button type="button" data-bf="${k}" aria-pressed="${k===bfKind}">${l} <small>${k?cnt[k]:list.length}</small></button>`).join('');
+  document.getElementById('bfGrid').innerHTML=list.filter(i=>!bfKind||bfOf(i)===bfKind).map(i=>itemCard(i)).join('');
+}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-bf]');if(b){bfKind=b.dataset.bf;renderBuffs()}});
+
+/* ===== cosmetics ===== */
+const OUTFITS=[
+ ['Sunlit Meadow','รางวัลลงทะเบียนล่วงหน้า ได้ทุกคนที่เข้าเกมช่วงเปิดตัว (ยอดลงทะเบียนเกิน 40 ล้าน)'],
+ ['ชุดฟรี 4 ชุด','ได้จากเนื้อเรื่อง กิจกรรมในบ้าน และการล็อกอินสะสม (ประกาศเปิดเกมบนมือถือ)'],
+ ['Radiant Waveglow','ชุดใหม่ในอัปเดต 1.1 ราคา 980 Lumin Crystal ที่ Shop - Featured'],
+ ['Laurel Moon Blessing','แพ็ก 280 Lumin Crystal มีเฟอร์นิเจอร์ Floral Moon Jukebox และเครื่องประดับ Laurel Lantern'],
+ ['Emberpup Set','ได้ทันทีเมื่อปลดล็อกอีเวนต์ Set Off Together! (เติมเงินจำนวนใดก็ได้)'],
+ ['เครื่องประดับ Aniimo','สะสม Aniimo ให้ถึงเป้าใน Aniilog และซื้อที่ร้าน Lumen ใน Astra (300 Voxel Coin)']];
+function renderCos(){
+  document.getElementById('cosOutfits').innerHTML=OUTFITS.map(([n,d])=>`<article class="card"><h3>${esc(n)}</h3><p>${esc(d)}</p></article>`).join('');
+  document.getElementById('cosGrid').innerHTML=ITEMS.filter(i=>i.c==='Appearance').map(i=>itemCard(i)).join('');
+}
+
 /* ===== Whisperwake Isles (coming area; content.js WHISPERWAKE) ===== */
 const WW=window.WHISPERWAKE||{slugs:[],confirmed:[],datamined:[],prep:[],sources:[]};
 const WW_OPEN=WW.opens?Date.parse(WW.opens):0;
 function renderWWCountdown(){
   const now=Date.now(),el=document.getElementById('wwCountdown');if(!el||!WW_OPEN)return;
-  el.innerHTML=now<WW_OPEN?`<p class="eyebrow">เปิดในอีก</p><b>${fmtLeft(WW_OPEN-now)}</b><span>${thTime(WW_OPEN)} เวลาไทย · หลังปิดปรับปรุง</span>`
+  el.innerHTML=now<WW_OPEN?`<p class="eyebrow">เปิดในอีก</p><b>${fmtLeft(WW_OPEN-now)}</b><span>${thTime(WW_OPEN)} เวลาไทย · หลังปิดปรับปรุง</span><div><button type="button" class="btn" data-ics-ev="Whisperwake Isles เปิด (Aniimo)|${WW_OPEN}|${WW_OPEN+3600e3}">📅 เพิ่มลงปฏิทิน</button></div>`
     :`<p class="eyebrow">เปิดแล้ว</p><b>Whisperwake Isles</b><span>เปิดเมื่อ ${thTime(WW_OPEN)} เวลาไทย ข้อมูลในหน้านี้อาจยังไม่ตรงกับเกม</span>`;
 }
 function renderWW(){
@@ -3773,6 +3977,82 @@ renderDaily(dailyPick());
   const row=RELEASED.slice().sort(()=>Math.random()-.5).slice(0,8);
   row.forEach((a,i)=>{const im=document.createElement('img');im.src=TH(a.i);im.alt='';im.className='parade';im.style.animationDelay=(i*.28)+'s';document.body.appendChild(im);setTimeout(()=>im.remove(),5200+i*280)})})}
 setInterval(countAll,1200);countAll();
+
+/* ===== bring people back: what's new since last visit, calendar reminders, sharing, page titles ===== */
+const SITE_URL='https://kittisakaicowork-pixel.github.io/aniimo-field-guide/';
+function whatsNew(){
+  const el=document.getElementById('whatsNew');if(!el)return;
+  const now=Date.now(),live=EVENTS.filter(e=>e.kind!=='gameplay'&&eventWindow(e,now).state==='live').map(e=>e.slug),codes=C.filter(c=>!c[2]).map(c=>c[0]),news=NEWS.map(n=>n.id);
+  let diff=null;try{diff=JSON.parse(sessionStorage.getItem('aniimo-new')||'null')}catch(_){}
+  if(!diff){let seen=null;try{seen=JSON.parse(localStorage.getItem('aniimo-seen')||'null')}catch(_){}
+    diff=seen?{t:seen.t,news:NEWS.filter(n=>!seen.news.includes(n.id)).map(n=>n.id),codes:codes.filter(c=>!seen.codes.includes(c)),ev:live.filter(x=>!seen.ev.includes(x))}:{};
+    try{sessionStorage.setItem('aniimo-new',JSON.stringify(diff));localStorage.setItem('aniimo-seen',JSON.stringify({t:now,news,codes,ev:live}))}catch(_){}}
+  const bits=[];
+  if(diff.codes&&diff.codes.length)bits.push(`<button type="button" data-go="codes"><b>${diff.codes.length}</b> โค้ดใหม่</button>`);
+  if(diff.news&&diff.news.length)bits.push(`<button type="button" data-news="${diff.news[0]}"><b>${diff.news.length}</b> ข่าวใหม่</button>`);
+  if(diff.ev&&diff.ev.length)bits.push(`<button type="button" data-go="events"><b>${diff.ev.length}</b> อีเวนต์เริ่มใหม่</button>`);
+  el.hidden=!bits.length||sessionStorage.getItem('aniimo-new-x')==='1';
+  el.innerHTML=bits.length?`<span>มีอะไรใหม่ตั้งแต่ครั้งก่อน${diff.t?` (${new Date(diff.t).toLocaleDateString(LOC,{day:'numeric',month:'short'})})`:''}</span>${bits.join('')}<button type="button" class="x" id="wnX" aria-label="ปิด">×</button>`:'';
+}
+document.addEventListener('click',e=>{if(e.target.closest('#wnX')){try{sessionStorage.setItem('aniimo-new-x','1')}catch(_){}document.getElementById('whatsNew').hidden=true}});
+whatsNew();
+// calendar files (.ics) the visitor saves to their own calendar
+const icsT=t=>new Date(t).toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
+function icsSave(name,body){const txt=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Aniimo Field Guide//TH','CALSCALE:GREGORIAN',...body,'END:VCALENDAR'].join('\r\n');
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([txt],{type:'text/calendar'}));a.download=name+'.ics';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500);toast('บันทึกไฟล์ปฏิทินแล้ว เปิดไฟล์เพื่อเพิ่มลงปฏิทิน')}
+const icsEv=(title,s,t,extra=[])=>['BEGIN:VEVENT','UID:'+icsT(s)+'-'+title.replace(/\W/g,'').slice(0,20)+'@aniimo-field-guide','DTSTAMP:'+icsT(Date.now()),'DTSTART:'+icsT(s),'DTEND:'+icsT(t),'SUMMARY:'+title.replace(/[,;]/g,' '),'URL:'+SITE_URL,...extra,'BEGIN:VALARM','TRIGGER:-PT30M','ACTION:DISPLAY','DESCRIPTION:'+title.replace(/[,;]/g,' '),'END:VALARM','END:VEVENT'];
+document.addEventListener('click',e=>{
+  const b=e.target.closest('[data-ics-ev]');if(b){const [n,s,t]=b.dataset.icsEv.split('|');icsSave('aniimo',icsEv(n,+s,+t));return}
+  const w=e.target.closest('[data-ics]');if(!w)return;const now=Date.now();
+  if(w.dataset.ics==='interlink'){const i=nextInterlink(now),s=i.live?i.start+7*86400e3:i.start;icsSave('aniimo-interlink',icsEv('Aniimo: Holo-Battle Interlink เปิด',s,s+3600e3,['RRULE:FREQ=WEEKLY']))}
+  else{const h=nextHatchHaste(now),s=h.live?h.start+7*86400e3:h.start;icsSave('aniimo-hatch-haste',icsEv('Aniimo: Hatch Haste (ฟักไข่เร็ว x2)',s,s+3600e3,['RRULE:FREQ=WEEKLY']))}
+});
+// share an Aniimo: its own page (with a preview image) when the site has one
+document.addEventListener('click',async e=>{const b=e.target.closest('[data-share]');if(!b)return;const a=BY[b.dataset.share];if(!a)return;
+  const url=SITE_URL+'a/'+a.slug+'/',data={title:a.name+' · Aniimo Field Guide',text:`${a.name} ใน Aniimo: ธาตุ ค่าสถานะ สกิล และที่อยู่`,url};
+  try{if(navigator.share){await navigator.share(data);return}}catch(_){return}
+  try{await navigator.clipboard.writeText(url);toast('คัดลอกลิงก์แล้ว วางแชร์ได้เลย')}catch(_){toast(url)}});
+// page titles follow the page (nicer tabs, bookmarks and history)
+const setTitle=id=>{const v=VIEWS.find(x=>x.id===id);document.title=(id==='home'||!v?'Aniimo Field Guide — คู่มือเกม Aniimo ภาษาไทย':v.th+' · Aniimo Field Guide')};
+
+/* ===== sync across devices with a sync code (Supabase sync_get / sync_put; tools/admin/sync.sql) =====
+   The newer side wins: a device pulls the saved copy when it is newer than its own last change, else pushes. */
+const SYNC={code:'',local:0,remote:0,state:'',t:null};
+try{Object.assign(SYNC,JSON.parse(localStorage.getItem('aniimo-sync')||'{}'))}catch(_){}
+const syncSave=()=>{try{localStorage.setItem('aniimo-sync',JSON.stringify({code:SYNC.code,local:SYNC.local,remote:SYNC.remote}))}catch(_){}};
+const syncData=()=>({v:1,col:COL.d,daily:DL,guide:GC});
+function syncApply(d){if(!d)return;
+  if(d.col)COL.d={c:d.col.c||{},f:d.col.f||{},s:d.col.s||{}};COL.saveLocal();
+  if(d.daily){DL=d.daily;try{localStorage.setItem('aniimo-daily',JSON.stringify(DL))}catch(_){}}
+  if(d.guide){GC=d.guide;try{localStorage.setItem('aniimo-guide-checks',JSON.stringify(GC))}catch(_){}applyGuideChecks()}
+  if(RENDERED.has('collection'))renderCollection();if(RENDERED.has('dex'))renderDex();if(RENDERED.has('daily'))renderDaily2();
+}
+async function syncNow(){if(!SYNC.code)return;try{const at=await sbCall('sync_put',{p_code:SYNC.code,p_data:syncData()});SYNC.remote=Date.parse(at)||Date.now();SYNC.state='ok'}catch(_){SYNC.state='err'}syncSave();syncBoxes()}
+function syncPush(){SYNC.local=Date.now();syncSave();if(!SYNC.code)return;clearTimeout(SYNC.t);SYNC.t=setTimeout(syncNow,1200)}
+async function syncPull(adopt){if(!SYNC.code)return;
+  try{const r=await sbCall('sync_get',{p_code:SYNC.code});
+    if(!r||!r.data){await syncNow();return}
+    const at=Date.parse(r.at);
+    if(adopt||at>SYNC.local){syncApply(r.data);SYNC.local=at;SYNC.remote=at;SYNC.state='ok';syncSave();syncBoxes()}
+    else if(SYNC.local>at)await syncNow();else{SYNC.state='ok';syncBoxes()}
+  }catch(_){SYNC.state='err';syncBoxes()}}
+const newSyncCode=()=>{const a='ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789',r=new Uint32Array(24);crypto.getRandomValues(r);return [...r].map(x=>a[x%a.length]).join('')};
+function syncBox(id){const el=document.getElementById(id);if(!el)return;
+  el.innerHTML=SYNC.code?`<div class="panel sync"><b>☁ ซิงก์ข้ามเครื่องเปิดอยู่</b><p class="small muted">${SYNC.state==='err'?'เชื่อมต่อไม่ได้ จะลองใหม่ตอนติ๊กครั้งถัดไป':SYNC.remote?'บันทึกล่าสุด '+new Date(SYNC.remote).toLocaleString(LOC,{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}):'กำลังซิงก์…'} · เช็กลิสต์สะสม เช็กลิสต์รายวัน และเช็กลิสต์มือใหม่</p>
+      <div class="row"><button type="button" class="btn primary" data-sync="copy">คัดลอกลิงก์ไปเปิดบนเครื่องอื่น</button><button type="button" class="btn" data-sync="off">เลิกซิงก์บนเครื่องนี้</button></div>
+      <p class="small muted">รหัส: <code>${esc(SYNC.code.slice(0,4))}…${esc(SYNC.code.slice(-4))}</code> · ใครมีลิงก์นี้จะเห็นและแก้เช็กลิสต์ของคุณได้ อย่าแชร์ในที่สาธารณะ</p></div>`
+   :`<div class="panel sync"><b>☁ ซิงก์ข้ามเครื่อง</b><p class="small muted">เล่นทั้งมือถือและคอม? สร้างรหัสซิงก์แล้วเปิดลิงก์เดียวกันบนอีกเครื่อง เช็กลิสต์สะสม เช็กลิสต์รายวัน และเช็กลิสต์มือใหม่จะตรงกันทุกเครื่อง ไม่ต้องสมัครสมาชิก</p>
+      <div class="row"><button type="button" class="btn primary" data-sync="new">สร้างรหัสซิงก์</button><input type="text" data-sync-in placeholder="หรือวางรหัส / ลิงก์จากเครื่องอื่น" aria-label="รหัสซิงก์"><button type="button" class="btn" data-sync="use">ใช้รหัสนี้</button></div></div>`}
+function syncBoxes(){['syncBoxCol','syncBoxDaily'].forEach(syncBox)}
+document.addEventListener('click',async e=>{const b=e.target.closest('[data-sync]');if(!b)return;const k=b.dataset.sync;
+  if(k==='new'){SYNC.code=newSyncCode();SYNC.state='';syncSave();await syncNow();toast('สร้างรหัสซิงก์แล้ว กดคัดลอกลิงก์ไปเปิดบนอีกเครื่อง');burst(e.clientX,e.clientY,14)}
+  else if(k==='use'){const v=(b.parentNode.querySelector('[data-sync-in]').value||'').trim().replace(/^.*#sync-/,'');if(!/^[A-Za-z0-9]{20,40}$/.test(v)){toast('รหัสไม่ถูกต้อง');return}SYNC.code=v;syncSave();await syncPull(true);toast('ดึงข้อมูลจากรหัสนี้แล้ว')}
+  else if(k==='copy'){const url=SITE_URL+'#sync-'+SYNC.code;try{await navigator.clipboard.writeText(url);toast('คัดลอกลิงก์แล้ว เปิดลิงก์นี้บนอีกเครื่อง')}catch(_){toast(url)}}
+  else if(k==='off'){SYNC.code='';SYNC.remote=0;syncSave();toast('เลิกซิงก์แล้ว ข้อมูลในเครื่องนี้ยังอยู่')}
+  syncBoxes();
+});
+if(SYNC.code)syncPull(false);
+addEventListener('focus',()=>{if(SYNC.code&&Date.now()-(SYNC.pulled||0)>60000){SYNC.pulled=Date.now();syncPull(false)}});
 
 /* ===== whole-site English (i18n-en.js) ===== */
 const UI_EN=window.UI_EN||{};
