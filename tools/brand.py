@@ -1,8 +1,9 @@
 """Draw the AniiGuide brand images: app icons (icon-192.png, icon-512.png) and the link preview (og.png).
 
 The mark is two rounded "i" pillars with a pink and a mint dot on a sky-blue tile (icon.svg is the same
-drawing for browsers). Wordmark font: Nunito (SIL Open Font License, tools/fonts/). Thai text uses the
-macOS Sukhumvit Set font, so run this on a Mac:  python3 tools/brand.py
+drawing for browsers); the wordmark reads "aniiguide" with the same two dots. Wordmark font: Nunito
+(SIL Open Font License, tools/fonts/). Thai text uses the macOS Sukhumvit Set font, so run this on a Mac:
+    python3 tools/brand.py
 """
 from pathlib import Path
 
@@ -75,21 +76,20 @@ def mark(size, rounded):
 
 
 def wordmark(draw, img, x, y, size, color):
-    """ANIIGUIDE with the two I's drawn as pillars under pink / mint dots, like the icon."""
+    """"aniiguide" in Nunito Black; the two i's get a pink and a mint dot, like the icon."""
     f = nunito(size)
-    left, _, _, bottom = draw.textbbox((0, 0), "AN", font=f)
-    cap_top = draw.textbbox((0, 0), "A", font=f)[1]
-    draw.text((x, y), "AN", font=f, fill=color)
-    cx = x + draw.textlength("AN", font=f) + size * 0.06
-    w, h = size * 0.2, bottom - cap_top
+    draw.text((x, y), "an", font=f, fill=color)
+    cx = x + draw.textlength("an", font=f)
+    ref = draw.textbbox((0, 0), "i", font=f)  # where a normal i dot sits
     for c0, c1 in (((255, 138, 208), (255, 92, 147)), ((183, 251, 255), (95, 224, 216))):
-        draw.rounded_rectangle((cx, y + cap_top + h * 0.28, cx + w, y + bottom), radius=w / 2, fill=color)
-        r = int(w * 0.62)
+        w = draw.textlength("ı", font=f)
+        draw.text((cx, y), "ı", font=f, fill=color)
+        r = int(size * 0.11)
         dot = disc(2 * r, c0, c1)
-        img.paste(dot, (int(cx + w / 2 - r), int(y + cap_top - r * 0.2)), dot)
-        cx += w + size * 0.1
-    draw.text((cx + size * 0.02, y), "GUIDE", font=f, fill=color)
-    return cx + size * 0.02 + draw.textlength("GUIDE", font=f)
+        img.paste(dot, (int(cx + w / 2 - r), int(y + ref[1] - r * 0.15)), dot)
+        cx += w
+    draw.text((cx, y), "guide", font=f, fill=color)
+    return cx + draw.textlength("guide", font=f)
 
 
 def og():
@@ -107,7 +107,7 @@ def og():
     d = ImageDraw.Draw(img)
     icon = mark(120, rounded=True)
     img.paste(icon, (64, 70), icon)
-    wordmark(d, img, 204, 88, 74, NAVY)
+    wordmark(d, img, 206, 76, 84, NAVY)
     th = ImageFont.truetype(THAI, 58, index=5)
     d.text((66, 250), "คู่มือเกม Aniimo", font=th, fill=NAVY)
     d.text((66, 322), "ภาษาไทย ครบในที่เดียว", font=th, fill=(10, 110, 210))

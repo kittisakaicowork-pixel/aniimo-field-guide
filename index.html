@@ -127,7 +127,8 @@ main{padding:24px 24px 64px;min-width:0}
   .tabbar button{display:grid;justify-items:center;gap:2px;border:0;background:none;padding:9px 2px 8px;font-size:.7rem;color:var(--ink-2);cursor:pointer}
   .tabbar svg{width:22px;height:22px}
   .tabbar button[aria-current="page"]{color:var(--accent);font-weight:600}
-  .logo b{display:none}
+  .logo b:not(.wm){display:none}
+  .logo{gap:7px}.logo img{width:30px;height:30px}.logo .wm{font-size:1.1rem}
 }
 
 /* ---------- shared ---------- */
@@ -1067,10 +1068,10 @@ kbd{font:600 .78rem var(--mono);border:1px solid var(--line);border-bottom-width
 .seolinks{font-size:.8rem;color:var(--ink-2);line-height:1.9}.seolinks a{color:var(--ink-2)}
 /* =================== v4 skin: AniiGuide (sky blue like the game, rounded type) =================== */
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-.wm{font:900 1.12rem/1 "Nunito",var(--display);letter-spacing:.02em;color:var(--ink);display:inline-flex;align-items:baseline;white-space:nowrap}
-.wm .ii{display:inline-flex;gap:.09em;margin:0 .07em 0 .06em;align-items:flex-end}
-.wm .ii i{position:relative;display:inline-block;width:.2em;height:.52em;border-radius:.1em;background:currentColor}
-.wm .ii i::before{content:"";position:absolute;left:50%;bottom:calc(100% + .07em);width:.25em;height:.25em;border-radius:50%;translate:-50% 0;background:linear-gradient(135deg,#FF8AD0,#FF5C93)}
+.wm{font:900 1.3rem/1 "Nunito",var(--display);letter-spacing:-.01em;color:var(--ink);display:inline-flex;align-items:baseline;white-space:nowrap}
+.wm .ii{display:inline-flex}
+.wm .ii i{position:relative;font-style:normal}
+.wm .ii i::before{content:"";position:absolute;left:50%;top:.1em;width:.22em;height:.22em;border-radius:50%;translate:-50% 0;background:linear-gradient(135deg,#FF8AD0,#FF5C93)}
 .wm .ii i+i::before{background:linear-gradient(135deg,#B7FBFF,#3FD3C8)}
 .logo img{border-radius:10px;box-shadow:0 4px 12px rgba(10,110,210,.25)}
 .logo b.wm span{background:none;-webkit-background-clip:border-box;background-clip:border-box;color:inherit}
@@ -1083,7 +1084,7 @@ h2,h3{font-weight:800}
 .hero3 .hsearch kbd{border-color:#cfe4f5}
 </style>
 
-<div id="boot" role="status" aria-live="polite"><div class="bootin"><img src="icon.svg" alt=""><b class="wm"><span aria-hidden="true">AN<span class="ii"><i></i><i></i></span>GUIDE</span><span class="sr">AniiGuide</span></b><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><small id="bootMsg">กำลังโหลดข้อมูล Aniimo…</small></div></div>
+<div id="boot" role="status" aria-live="polite"><div class="bootin"><img src="icon.svg" alt=""><b class="wm"><span aria-hidden="true">an<span class="ii"><i>ı</i><i>ı</i></span>guide</span><span class="sr">aniiguide</span></b><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><small id="bootMsg">กำลังโหลดข้อมูล Aniimo…</small></div></div>
 <div id="progress" aria-hidden="true"></div>
 <div id="toast" role="status" aria-live="polite"></div>
 <script>
@@ -1126,7 +1127,7 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
 </svg>
 
 <header class="appbar">
-  <a class="logo" href="#home" data-go="home"><img src="icon.svg" alt=""><b class="wm"><span aria-hidden="true">AN<span class="ii"><i></i><i></i></span>GUIDE</span><span class="sr">AniiGuide</span></b></a>
+  <a class="logo" href="#home" data-go="home"><img src="icon.svg" alt=""><b class="wm"><span aria-hidden="true">an<span class="ii"><i>ı</i><i>ı</i></span>guide</span><span class="sr">aniiguide</span></b></a>
   <div class="gsearch">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
     <input type="search" id="gq" placeholder="ค้นหา Aniimo หรือสกิล" aria-label="ค้นหา Aniimo หรือสกิล" autocomplete="off">
@@ -2234,10 +2235,10 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
 </dialog>
 <dialog id="menu" aria-label="เมนูทั้งหมด"><div class="inner" id="menuInner"></div></dialog>
 
-<script src="data.js?v=202609291754"></script>
-<script src="thumbs.js?v=202609291754"></script>
-<script src="content.js?v=202609291754"></script>
-<script src="i18n-en.js?v=202609291754"></script>
+<script src="data.js?v=202609291759"></script>
+<script src="thumbs.js?v=202609291759"></script>
+<script src="content.js?v=202609291759"></script>
+<script src="i18n-en.js?v=202609291759"></script>
 <script>
 /* ===== theme ===== */
 (function(){
@@ -2913,7 +2914,7 @@ function renderMap(){
     MAP.count=MAP.layers.map(()=>0);MAP.m.forEach(m=>MAP.count[m[0]]++);
     mapLayersUI();
   };
-  if(window.MAP)boot();else{const sc=document.createElement('script');sc.src='map.js?v=202609291754';sc.onload=boot;sc.onerror=()=>{document.getElementById('mapLoad').textContent='โหลดข้อมูลแผนที่ไม่สำเร็จ'};document.head.appendChild(sc)}
+  if(window.MAP)boot();else{const sc=document.createElement('script');sc.src='map.js?v=202609291759';sc.onload=boot;sc.onerror=()=>{document.getElementById('mapLoad').textContent='โหลดข้อมูลแผนที่ไม่สำเร็จ'};document.head.appendChild(sc)}
 }
 function mapSaveLayers(){try{localStorage.setItem('aniimo-map-layers',JSON.stringify([...MV.on].map(i=>MAP.layers[i].id)))}catch(_){}}
 function mapLayersUI(){
@@ -3563,7 +3564,7 @@ document.addEventListener('click',e=>{
 });
 
 /* ===== Pathfinder duels & Sanctums (from the map data) ===== */
-function withMap(fn){if(window.MAP){fn();return}const sc=document.createElement('script');sc.src='map.js?v=202609291754';sc.onload=fn;sc.onerror=()=>{};document.head.appendChild(sc)}
+function withMap(fn){if(window.MAP){fn();return}const sc=document.createElement('script');sc.src='map.js?v=202609291759';sc.onload=fn;sc.onerror=()=>{};document.head.appendChild(sc)}
 function regionAt(m){const x=m[1]/100,y=m[2]/100;return Object.keys(MAP.regions).find(n=>inPoly(x,y,MAP.regions[n]))||''}
 const mapBtn=i=>`<button type="button" class="chip" data-mapm-go="${i}" style="cursor:pointer">ดูบนแผนที่</button>`;
 const elBadges=a=>(a||[]).map(e=>badge(mEl(e))).join('');
@@ -3619,7 +3620,7 @@ function renderHeist(){
   hvCv=document.getElementById('hvCv');hvCtx=hvCv.getContext('2d');
   if(HV.ready){setTimeout(hvSize,0);return}if(HV.booting)return;HV.booting=true;
   const fail=()=>{document.getElementById('hvLoad').textContent='โหลดแผนที่ไม่สำเร็จ'};
-  const sc=document.createElement('script');sc.src='heist.js?v=202609291754';sc.onerror=fail;
+  const sc=document.createElement('script');sc.src='heist.js?v=202609291759';sc.onerror=fail;
   sc.onload=()=>{const ico=new Image();ico.onerror=fail;ico.onload=()=>{
     HV.ico=ico;HV.ready=true;
     const busy=new Set(['egg_lesser_chest','egg_loot_pile','sanctum_chest','sanctum_loot_pile']); // plain chests and piles crowd the map; off at first
