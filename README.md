@@ -28,6 +28,7 @@
 | `data.js`, `thumbs.js`, `img/`, `skills.webp`, `spark-*.webp` | ข้อมูลและภาพของเวอร์ชันเว็บ สร้างโดย `tools/build.py` |
 | `dist-full/` | เวอร์ชันเต็มสำหรับเปิดในเครื่อง ภาพ 2048px และร่างเปล่งประกายครบทุกร่าง (ประมาณ 330 MB ไม่เก็บใน git) |
 | `gamedata/`, `tools/game.py` | ข้อมูลที่ export จากไฟล์เกม (ไม่เก็บใน git) `build.py` ใช้แทนข้อมูลจาก AniiDex เมื่อมีโฟลเดอร์นี้: ค่าสถานะ สกิล Trait ไอเท็ม ชื่อไทย และคำแปลไทยทางการ · `python3 tools/game.py` สร้างรายงานเทียบใน `tools/compare/` |
+| `3d/`, `tools/model/` | โมเดล 3D (ปุ่ม "ดู 3D" ในหน้า Aniimo) ใช้โดยได้รับอนุญาต ดัดแปลงให้ไม่เหมือนในเกม (ลดรายละเอียด ลดโทนสี ลงเงาแบบการ์ตูน) สร้างด้วย `tools/model/obj2glb.mjs` แล้วรัน `build.py` ใหม่ three.js โหลดจาก CDN เมื่อกดดูเท่านั้น |
 | `tools/scrape.py` | ดึงข้อมูลจาก AniiDex ไปเป็น `tools/raw.json` และเช็กโค้ดใหม่จาก Game8 |
 | `tools/build.py` | สร้างไฟล์ข้อมูลและภาพ |
 | `map.js`, `map.webp`, `map-icons.webp` | ข้อมูลและภาพแผนที่ สร้างโดย `tools/map.py` (ดึงจากแผนที่ของ AniiDex) โหลดเมื่อเปิดหน้าแผนที่เท่านั้น |
