@@ -47,16 +47,16 @@ TOPICS = [
     ("guide", "ข้อมูลเกม Aniimo สเปก ปุ่มควบคุม และมือถือ", "ข้อมูลเกม Aniimo สเปกคอมและมือถือ ปุ่มควบคุม PC PS5 Xbox การตั้งค่าที่แนะนำ", "guide"),
 ]
 
-CSS = """:root{--bg:#15111F;--card:#201a30;--ink:#F1ECFF;--ink2:#B7AFCF;--line:#342b4b;--accent:#B59CFF}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 "IBM Plex Sans Thai","Noto Sans Thai",system-ui,sans-serif}
+CSS = """:root{--bg:#EEF7FF;--card:#FFFFFF;--ink:#172238;--ink2:#56678A;--line:#D3E5F4;--accent:#0A84D6}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 "IBM Plex Sans Thai","Noto Sans Thai",system-ui,sans-serif}h1,h2,header a{font-family:"Nunito","Mitr",system-ui,sans-serif}
 a{color:var(--accent)}main{max-width:880px;margin:0 auto;padding:20px 16px 60px}header{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--line)}
 header a{display:flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none;font-weight:700}header img{width:32px;height:32px;border-radius:8px}
 h1{font-size:2rem;line-height:1.2;margin:.4em 0 .2em}h2{font-size:1.2rem;margin:1.6em 0 .5em}.muted{color:var(--ink2)}
-.hero{display:grid;grid-template-columns:260px 1fr;gap:20px;align-items:center}.hero img{width:100%;height:auto;aspect-ratio:1;object-fit:contain;border-radius:20px;background:radial-gradient(circle,#3a2d63,#1c1530)}
+.hero{display:grid;grid-template-columns:260px 1fr;gap:20px;align-items:center}.hero img{width:100%;height:auto;aspect-ratio:1;object-fit:contain;border-radius:20px;background:radial-gradient(circle,#dff1ff,#b9ddfa)}
 .chips{display:flex;flex-wrap:wrap;gap:6px}.chip{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--card);border:1px solid var(--line);font-size:.85rem}
 table{width:100%;border-collapse:collapse}td,th{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
 .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px;margin:10px 0}
-.cta{display:inline-block;margin:18px 0;padding:12px 22px;border-radius:999px;background:linear-gradient(135deg,#7A5AD8,#FF9F80);color:#fff;font-weight:700;text-decoration:none}
+.cta{display:inline-block;margin:18px 0;padding:12px 22px;border-radius:999px;background:linear-gradient(135deg,#34B4FF,#0A84D6 55%,#0A63C4);color:#fff;font-weight:700;text-decoration:none}
 ul.grid{list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}ul.grid a{display:block;padding:8px 10px;background:var(--card);border:1px solid var(--line);border-radius:12px;text-decoration:none;color:var(--ink)}
 footer{max-width:880px;margin:0 auto;padding:20px 16px;color:var(--ink2);font-size:.85rem}
 @media (max-width:640px){.hero{grid-template-columns:1fr}.hero img{max-width:240px}}"""
@@ -86,11 +86,11 @@ def page(path, title, desc, body, image=None, jsonld=None, prefix="../../"):
     ld = f'<script type="application/ld+json">{json.dumps(jsonld, ensure_ascii=False)}</script>' if jsonld else ""
     doc = f"""<!doctype html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{E(title)}</title><meta name="description" content="{E(desc)}"><link rel="canonical" href="{url}">
-<meta property="og:type" content="article"><meta property="og:site_name" content="Aniimo Field Guide"><meta property="og:title" content="{E(title)}">
+<meta property="og:type" content="article"><meta property="og:site_name" content="AniiGuide"><meta property="og:title" content="{E(title)}">
 <meta property="og:description" content="{E(desc)}"><meta property="og:url" content="{url}"><meta property="og:image" content="{img}">
-<meta property="og:locale" content="th_TH"><meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#15111F">
-<link rel="icon" href="{prefix}icon-192.png">{ld}<style>{CSS}</style></head><body>
-<header><a href="{prefix}"><img src="{prefix}icon-192.png" alt="">Aniimo Field Guide</a></header>
+<meta property="og:locale" content="th_TH"><meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#1E9BEB">
+<link rel="icon" href="{prefix}icon.svg" type="image/svg+xml"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@900&family=Mitr:wght@500&display=swap">{ld}<style>{CSS}</style></head><body>
+<header><a href="{prefix}"><img src="{prefix}icon.svg" alt="">AniiGuide</a></header>
 <main>{body}</main>
 <footer>คู่มือเกม Aniimo ภาษาไทย (แฟนเมด ไม่เกี่ยวข้องกับ Pawprint Studio) · ข้อมูลเกมใช้โดยได้รับอนุญาตจาก AniiDex · <a href="{prefix}">เปิดคู่มือเต็ม</a></footer>
 </body></html>"""
@@ -145,7 +145,7 @@ def main():
         ld = {"@context": "https://schema.org", "@type": "WebPage", "name": title, "description": desc, "inLanguage": "th",
               "about": {"@type": "Thing", "name": a["name"], "alternateName": nth.get(slug)},
               "breadcrumb": {"@type": "BreadcrumbList", "itemListElement": [
-                  {"@type": "ListItem", "position": 1, "name": "Aniimo Field Guide", "item": SITE},
+                  {"@type": "ListItem", "position": 1, "name": "AniiGuide", "item": SITE},
                   {"@type": "ListItem", "position": 2, "name": "รายชื่อ Aniimo", "item": SITE + "p/dex/"},
                   {"@type": "ListItem", "position": 3, "name": short(a), "item": SITE + f"a/{slug}/"}]}}
         urls.append(page(f"a/{slug}/", title, desc, body, SITE + a["i"], ld))
@@ -156,7 +156,7 @@ def main():
         body = f"""<p class="muted"><a href="../">ข่าว Aniimo</a> › {E(n['date'])}</p><h1>{E(n['title'])}</h1><p><b>{E(n['lede'])}</b></p>{secs}
 <p class="muted">ที่มา: <a href="{E(n['source'])}" rel="noopener">{E(n['source'])}</a></p><a class="cta" href="../../../#news-{E(n['id'])}">อ่านในคู่มือเต็ม</a>"""
         ld = {"@context": "https://schema.org", "@type": "NewsArticle", "headline": n["title"], "datePublished": n["date"],
-              "inLanguage": "th", "description": n["lede"], "publisher": {"@type": "Organization", "name": "Aniimo Field Guide"}}
+              "inLanguage": "th", "description": n["lede"], "publisher": {"@type": "Organization", "name": "AniiGuide"}}
         urls.append(page(f"p/news/{n['id']}/", f"{n['title']} | ข่าว Aniimo", n["lede"], body, None, ld, "../../../"))
     body = "<h1>ข่าวและแพตช์โน้ต Aniimo</h1><p class='muted'>สรุปข่าวทางการเป็นภาษาไทย</p><ul>" + "".join(
         f"<li><a href='{n['id']}/'>{E(n['title'])}</a> <span class='muted'>{E(n['date'])}</span></li>" for n in d["NEWS"]) + "</ul><a class='cta' href='../../#news'>เปิดหน้าข่าวในคู่มือ</a>"
@@ -176,7 +176,7 @@ def main():
     }
     for key, title, desc, view in TOPICS:
         body = f"<h1>{E(title)}</h1><p>{E(desc)}</p><a class='cta' href='../../#{view}'>เปิดหน้านี้ในคู่มือ</a>{extra.get(key, '')}"
-        urls.append(page(f"p/{key}/", title + " | Aniimo Field Guide", desc, body))
+        urls.append(page(f"p/{key}/", title + " | AniiGuide", desc, body))
 
     sm = "".join(f"<url><loc>{u}</loc><lastmod>{TODAY}</lastmod></url>" for u in urls)
     (ROOT / "sitemap.xml").write_text(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{sm}</urlset>\n')

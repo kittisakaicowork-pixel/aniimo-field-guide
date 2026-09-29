@@ -1,11 +1,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Aniimo Field Guide</title>
+<title>AniiGuide — คู่มือเกม Aniimo ภาษาไทย</title>
 <meta name="description" content="คู่มือเกม Aniimo ภาษาไทย รายชื่อ Aniimo ทุกตัว สกิล ร่างพิเศษ แผนที่ Idyll 4,334 จุด อีเวนต์นับถอยหลัง จัดทีม Tier List และโค้ดแลกของ">
 <link rel="canonical" href="https://kittisakaicowork-pixel.github.io/aniimo-field-guide/">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Aniimo Field Guide">
-<meta property="og:title" content="Aniimo Field Guide — คู่มือเกม Aniimo ภาษาไทย">
+<meta property="og:site_name" content="AniiGuide">
+<meta property="og:title" content="AniiGuide — คู่มือเกม Aniimo ภาษาไทย">
 <meta property="og:description" content="รายชื่อ Aniimo สกิล ร่างพิเศษ แผนที่ อีเวนต์ จัดทีม Tier List และโค้ดแลกของ อัปเดตตามเวอร์ชันล่าสุด">
 <meta property="og:url" content="https://kittisakaicowork-pixel.github.io/aniimo-field-guide/">
 <meta property="og:image" content="https://kittisakaicowork-pixel.github.io/aniimo-field-guide/og.png">
@@ -14,54 +14,55 @@
 <meta property="og:locale" content="th_TH">
 <meta property="og:locale:alternate" content="en_GB">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#7A5AD8">
+<meta name="theme-color" content="#1E9BEB">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Aniimo">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" href="icon-192.png">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="icon" href="icon-192.png" sizes="192x192">
 <link rel="apple-touch-icon" href="icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kanit:wght@500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Mitr:wght@400;500;600&family=IBM+Plex+Sans+Thai:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
 <style>
 :root{
-  --ground:#F6F2FB; --surface:#FFFFFF; --sunk:#EFE9F7; --ink:#27213A; --ink-2:#6A6284; --line:#E4DCF0;
-  --accent:#7A5AD8; --accent-2:#B59CFF; --accent-ink:#FFFFFF; --glow:#ECE4FF; --sun:#F4B55A; --peach:#FF9F80;
+  --ground:#EEF7FF; --surface:#FFFFFF; --sunk:#E3F1FC; --ink:#172238; --ink-2:#56678A; --line:#D3E5F4;
+  --accent:#0A84D6; --accent-2:#6CC6FF; --accent-ink:#FFFFFF; --glow:#DDF0FF; --sun:#F4B55A; --peach:#FF6FB1;
   --fire:#E0613E; --water:#3B7BD6; --grass:#4A9E5C; --lightning:#D09C12; --ice:#34A9C2;
   --earth:#A2724A; --wind:#3FAE93; --light:#C9A12A; --dark:#7457B5;
   --good:#2E9463; --bad:#D04A55; --neutral:#8D86A3;
-  --display:"Kanit","IBM Plex Sans Thai","Noto Sans Thai",system-ui,sans-serif;
+  --display:"Nunito","Mitr","IBM Plex Sans Thai","Noto Sans Thai",system-ui,sans-serif;
   --body:"IBM Plex Sans Thai","Noto Sans Thai",system-ui,sans-serif;
   --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
   --bar:64px; --r:16px; --r-lg:22px;
   --glass:rgba(255,255,255,.72); --glass-line:rgba(255,255,255,.85);
-  --sky:radial-gradient(1200px 600px at 85% -10%,rgba(255,176,146,.45),transparent 60%),radial-gradient(900px 600px at -10% 10%,rgba(181,156,255,.45),transparent 60%),radial-gradient(900px 700px at 50% 110%,rgba(140,210,255,.35),transparent 60%),linear-gradient(180deg,#F8F3FF,#F3EEFA);
-  --shadow:0 1px 2px rgba(60,40,110,.06),0 8px 24px rgba(60,40,110,.08);
-  --shadow-up:0 2px 6px rgba(60,40,110,.08),0 18px 40px rgba(60,40,110,.14);
+  --sky:radial-gradient(1200px 600px at 85% -10%,rgba(255,150,205,.28),transparent 60%),radial-gradient(900px 600px at -10% 10%,rgba(110,200,255,.45),transparent 60%),radial-gradient(900px 700px at 50% 110%,rgba(150,230,255,.40),transparent 60%),linear-gradient(180deg,#F4FAFF,#E6F3FF);
+  --shadow:0 1px 2px rgba(20,70,130,.06),0 8px 24px rgba(20,70,130,.08);
+  --shadow-up:0 2px 6px rgba(20,70,130,.08),0 18px 40px rgba(20,70,130,.14);
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     color-scheme:dark;
-    --ground:#15111F; --surface:#1E1830; --sunk:#191427; --ink:#EEEAF8; --ink-2:#A79FC0; --line:#2E2644;
-    --accent:#A98BFF; --accent-2:#D2C2FF; --accent-ink:#1A1030; --glow:#2A2146; --sun:#F6C46E; --peach:#FFB199;
+    --ground:#0B1426; --surface:#12203A; --sunk:#0E1A31; --ink:#EAF4FF; --ink-2:#9BB1CC; --line:#223659;
+    --accent:#4DB2FF; --accent-2:#9AD8FF; --accent-ink:#06182E; --glow:#153458; --sun:#F6C46E; --peach:#FF8FC7;
     --fire:#FF8A63; --water:#72A6F2; --grass:#72C483; --lightning:#EEC34A; --ice:#66CFE2;
     --earth:#CFA070; --wind:#6FD0B6; --light:#E8C866; --dark:#B39AF0;
     --good:#62C991; --bad:#F27C86; --neutral:#7C7494;
-    --glass:rgba(30,24,48,.72); --glass-line:rgba(255,255,255,.08);
-    --sky:radial-gradient(1200px 600px at 85% -10%,rgba(255,140,110,.18),transparent 60%),radial-gradient(900px 600px at -10% 10%,rgba(140,110,255,.25),transparent 60%),radial-gradient(900px 700px at 50% 110%,rgba(70,140,220,.18),transparent 60%),linear-gradient(180deg,#171223,#120E1C);
+    --glass:rgba(16,30,56,.74); --glass-line:rgba(255,255,255,.08);
+    --sky:radial-gradient(1200px 600px at 85% -10%,rgba(255,120,190,.14),transparent 60%),radial-gradient(900px 600px at -10% 10%,rgba(60,150,255,.24),transparent 60%),radial-gradient(900px 700px at 50% 110%,rgba(70,200,230,.14),transparent 60%),linear-gradient(180deg,#0B1426,#0D1830);
     --shadow:0 1px 2px rgba(0,0,0,.35),0 8px 24px rgba(0,0,0,.3);
     --shadow-up:0 2px 6px rgba(0,0,0,.4),0 18px 40px rgba(0,0,0,.45);
   }
 }
 :root[data-theme="dark"]{
   color-scheme:dark;
-  --ground:#15111F; --surface:#1E1830; --sunk:#191427; --ink:#EEEAF8; --ink-2:#A79FC0; --line:#2E2644;
-  --accent:#A98BFF; --accent-2:#D2C2FF; --accent-ink:#1A1030; --glow:#2A2146; --sun:#F6C46E; --peach:#FFB199;
+  --ground:#0B1426; --surface:#12203A; --sunk:#0E1A31; --ink:#EAF4FF; --ink-2:#9BB1CC; --line:#223659;
+  --accent:#4DB2FF; --accent-2:#9AD8FF; --accent-ink:#06182E; --glow:#153458; --sun:#F6C46E; --peach:#FF8FC7;
   --fire:#FF8A63; --water:#72A6F2; --grass:#72C483; --lightning:#EEC34A; --ice:#66CFE2;
   --earth:#CFA070; --wind:#6FD0B6; --light:#E8C866; --dark:#B39AF0;
   --good:#62C991; --bad:#F27C86; --neutral:#7C7494;
-  --glass:rgba(30,24,48,.72); --glass-line:rgba(255,255,255,.08);
-  --sky:radial-gradient(1200px 600px at 85% -10%,rgba(255,140,110,.18),transparent 60%),radial-gradient(900px 600px at -10% 10%,rgba(140,110,255,.25),transparent 60%),radial-gradient(900px 700px at 50% 110%,rgba(70,140,220,.18),transparent 60%),linear-gradient(180deg,#171223,#120E1C);
+  --glass:rgba(16,30,56,.74); --glass-line:rgba(255,255,255,.08);
+  --sky:radial-gradient(1200px 600px at 85% -10%,rgba(255,120,190,.14),transparent 60%),radial-gradient(900px 600px at -10% 10%,rgba(60,150,255,.24),transparent 60%),radial-gradient(900px 700px at 50% 110%,rgba(70,200,230,.14),transparent 60%),linear-gradient(180deg,#0B1426,#0D1830);
   --shadow:0 1px 2px rgba(0,0,0,.35),0 8px 24px rgba(0,0,0,.3);
   --shadow-up:0 2px 6px rgba(0,0,0,.4),0 18px 40px rgba(0,0,0,.45);
 }
@@ -855,7 +856,7 @@ h2{font-weight:600;letter-spacing:0}
 /* hero */
 .hero3{position:relative;overflow:hidden;display:grid;grid-template-columns:1.2fr 1fr;gap:18px;align-items:center;padding:34px 36px;border-radius:30px;
   background:radial-gradient(70% 90% at 90% 20%,rgba(255,178,140,.55),transparent 60%),radial-gradient(60% 80% at 10% 100%,rgba(140,120,255,.5),transparent 65%),linear-gradient(135deg,#8C6CF0,#C58BD8 55%,#FFB38E);
-  color:#fff;box-shadow:0 20px 60px rgba(90,60,170,.28)}
+  color:#fff;box-shadow:0 20px 60px rgba(10,70,150,.28)}
 .hero3::after{content:"";position:absolute;inset:0;background:radial-gradient(2px 2px at 20% 30%,rgba(255,255,255,.9),transparent),radial-gradient(1.5px 1.5px at 70% 15%,rgba(255,255,255,.8),transparent),radial-gradient(2px 2px at 85% 70%,rgba(255,255,255,.7),transparent),radial-gradient(1.5px 1.5px at 40% 80%,rgba(255,255,255,.6),transparent),radial-gradient(1.5px 1.5px at 55% 45%,rgba(255,255,255,.7),transparent);pointer-events:none}
 .hero3 .h3text{position:relative;z-index:1;display:grid;gap:12px;align-content:start}
 .h3title{font:700 clamp(2.4rem,6vw,4.2rem)/.95 var(--display);letter-spacing:-.01em;text-shadow:0 4px 24px rgba(60,30,120,.35)}
@@ -1025,7 +1026,7 @@ dialog[open]::backdrop{animation:bdIn .25s ease}
 @keyframes heroZoom{from{transform:scale(1)}to{transform:scale(1.05)}}
 .hero3 .h3text{max-width:540px;gap:14px}
 .hero3::after{opacity:.5}
-.h3eye{font:600 .8rem/1 var(--display);letter-spacing:.28em;text-transform:uppercase;color:#cfbdff}
+.h3eye{font:800 .8rem/1 var(--display);letter-spacing:.28em;text-transform:uppercase;color:#A8E4FF}
 .hero3 .h3title{font:800 clamp(2.2rem,4.2vw,4.2rem)/1.08 var(--display);letter-spacing:-.01em;text-shadow:0 6px 30px rgba(20,10,60,.55)}
 .hero3 .lede{font-size:clamp(1rem,1.5vw,1.2rem);color:rgba(255,255,255,.92);max-width:none}
 .hero3 .hsearch{max-width:520px;padding:16px 20px;font-size:1.05rem;border-radius:18px;margin-top:8px;box-shadow:0 14px 40px rgba(10,5,40,.35)}
@@ -1064,9 +1065,25 @@ kbd{font:600 .78rem var(--mono);border:1px solid var(--line);border-bottom-width
 .panel.sync{display:grid;gap:8px}.panel.sync .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .panel.sync input{flex:1 1 200px;min-width:0;padding:8px 12px;border:1px solid var(--line);border-radius:999px;background:var(--ground);color:var(--ink);font:inherit;font-size:.88rem}
 .seolinks{font-size:.8rem;color:var(--ink-2);line-height:1.9}.seolinks a{color:var(--ink-2)}
+/* =================== v4 skin: AniiGuide (sky blue like the game, rounded type) =================== */
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.wm{font:900 1.12rem/1 "Nunito",var(--display);letter-spacing:.02em;color:var(--ink);display:inline-flex;align-items:baseline;white-space:nowrap}
+.wm .ii{display:inline-flex;gap:.09em;margin:0 .07em 0 .06em;align-items:flex-end}
+.wm .ii i{position:relative;display:inline-block;width:.2em;height:.52em;border-radius:.1em;background:currentColor}
+.wm .ii i::before{content:"";position:absolute;left:50%;bottom:calc(100% + .07em);width:.25em;height:.25em;border-radius:50%;translate:-50% 0;background:linear-gradient(135deg,#FF8AD0,#FF5C93)}
+.wm .ii i+i::before{background:linear-gradient(135deg,#B7FBFF,#3FD3C8)}
+.logo img{border-radius:10px;box-shadow:0 4px 12px rgba(10,110,210,.25)}
+.logo b.wm span{background:none;-webkit-background-clip:border-box;background-clip:border-box;color:inherit}
+#boot .wm{font-size:1.5rem}
+h1,h2,h3,.eyebrow,.h3title{font-family:var(--display)}
+h2,h3{font-weight:800}
+.btn.primary,.seg button[aria-pressed="true"]{background:linear-gradient(135deg,#34B4FF,var(--accent) 55%,#0A63C4);box-shadow:0 6px 16px color-mix(in srgb,var(--accent) 30%,transparent)}
+.mon,.feat>button,.hnow>*,.card,.dpanel{border-color:color-mix(in srgb,var(--accent-2) 35%,var(--glass-line))}
+.navbtn[aria-current="page"]{background:linear-gradient(90deg,color-mix(in srgb,var(--accent) 16%,transparent),transparent);color:var(--accent)}
+.hero3 .hsearch kbd{border-color:#cfe4f5}
 </style>
 
-<div id="boot" role="status" aria-live="polite"><div class="bootin"><img src="icon-192.png" alt=""><b>Aniimo Field Guide</b><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><small id="bootMsg">กำลังโหลดข้อมูล Aniimo…</small></div></div>
+<div id="boot" role="status" aria-live="polite"><div class="bootin"><img src="icon.svg" alt=""><b class="wm"><span aria-hidden="true">AN<span class="ii"><i></i><i></i></span>GUIDE</span><span class="sr">AniiGuide</span></b><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><small id="bootMsg">กำลังโหลดข้อมูล Aniimo…</small></div></div>
 <div id="progress" aria-hidden="true"></div>
 <div id="toast" role="status" aria-live="polite"></div>
 <script>
@@ -1109,7 +1126,7 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
 </svg>
 
 <header class="appbar">
-  <a class="logo" href="#home" data-go="home"><img src="icon-192.png" alt=""><b>Anii<span>mo</span> Guide</b></a>
+  <a class="logo" href="#home" data-go="home"><img src="icon.svg" alt=""><b class="wm"><span aria-hidden="true">AN<span class="ii"><i></i><i></i></span>GUIDE</span><span class="sr">AniiGuide</span></b></a>
   <div class="gsearch">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
     <input type="search" id="gq" placeholder="ค้นหา Aniimo หรือสกิล" aria-label="ค้นหา Aniimo หรือสกิล" autocomplete="off">
@@ -2217,10 +2234,10 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
 </dialog>
 <dialog id="menu" aria-label="เมนูทั้งหมด"><div class="inner" id="menuInner"></div></dialog>
 
-<script src="data.js?v=202609291653"></script>
-<script src="thumbs.js?v=202609291653"></script>
-<script src="content.js?v=202609291653"></script>
-<script src="i18n-en.js?v=202609291653"></script>
+<script src="data.js?v=202609291754"></script>
+<script src="thumbs.js?v=202609291754"></script>
+<script src="content.js?v=202609291754"></script>
+<script src="i18n-en.js?v=202609291754"></script>
 <script>
 /* ===== theme ===== */
 (function(){
@@ -2229,7 +2246,7 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
   let saved=null;try{saved=localStorage.getItem('aniimo-theme')}catch(_){}
   if(saved==='light'||saved==='dark')root.setAttribute('data-theme',saved);
   const isDark=()=>root.getAttribute('data-theme')?root.getAttribute('data-theme')==='dark':mq.matches;
-  const sync=()=>{btn.setAttribute('aria-label',isDark()?'เปลี่ยนเป็นโหมดสว่าง':'เปลี่ยนเป็นโหมดมืด');meta.content=isDark()?'#15111F':'#7A5AD8'};
+  const sync=()=>{btn.setAttribute('aria-label',isDark()?'เปลี่ยนเป็นโหมดสว่าง':'เปลี่ยนเป็นโหมดมืด');meta.content=isDark()?'#0B1426':'#1E9BEB'};
   btn.addEventListener('click',()=>{const n=isDark()?'light':'dark';root.setAttribute('data-theme',n);try{localStorage.setItem('aniimo-theme',n)}catch(_){}sync()});
   mq.addEventListener&&mq.addEventListener('change',sync);sync();
 })();
@@ -2896,7 +2913,7 @@ function renderMap(){
     MAP.count=MAP.layers.map(()=>0);MAP.m.forEach(m=>MAP.count[m[0]]++);
     mapLayersUI();
   };
-  if(window.MAP)boot();else{const sc=document.createElement('script');sc.src='map.js?v=202609291653';sc.onload=boot;sc.onerror=()=>{document.getElementById('mapLoad').textContent='โหลดข้อมูลแผนที่ไม่สำเร็จ'};document.head.appendChild(sc)}
+  if(window.MAP)boot();else{const sc=document.createElement('script');sc.src='map.js?v=202609291754';sc.onload=boot;sc.onerror=()=>{document.getElementById('mapLoad').textContent='โหลดข้อมูลแผนที่ไม่สำเร็จ'};document.head.appendChild(sc)}
 }
 function mapSaveLayers(){try{localStorage.setItem('aniimo-map-layers',JSON.stringify([...MV.on].map(i=>MAP.layers[i].id)))}catch(_){}}
 function mapLayersUI(){
@@ -3546,7 +3563,7 @@ document.addEventListener('click',e=>{
 });
 
 /* ===== Pathfinder duels & Sanctums (from the map data) ===== */
-function withMap(fn){if(window.MAP){fn();return}const sc=document.createElement('script');sc.src='map.js?v=202609291653';sc.onload=fn;sc.onerror=()=>{};document.head.appendChild(sc)}
+function withMap(fn){if(window.MAP){fn();return}const sc=document.createElement('script');sc.src='map.js?v=202609291754';sc.onload=fn;sc.onerror=()=>{};document.head.appendChild(sc)}
 function regionAt(m){const x=m[1]/100,y=m[2]/100;return Object.keys(MAP.regions).find(n=>inPoly(x,y,MAP.regions[n]))||''}
 const mapBtn=i=>`<button type="button" class="chip" data-mapm-go="${i}" style="cursor:pointer">ดูบนแผนที่</button>`;
 const elBadges=a=>(a||[]).map(e=>badge(mEl(e))).join('');
@@ -3602,7 +3619,7 @@ function renderHeist(){
   hvCv=document.getElementById('hvCv');hvCtx=hvCv.getContext('2d');
   if(HV.ready){setTimeout(hvSize,0);return}if(HV.booting)return;HV.booting=true;
   const fail=()=>{document.getElementById('hvLoad').textContent='โหลดแผนที่ไม่สำเร็จ'};
-  const sc=document.createElement('script');sc.src='heist.js?v=202609291653';sc.onerror=fail;
+  const sc=document.createElement('script');sc.src='heist.js?v=202609291754';sc.onerror=fail;
   sc.onload=()=>{const ico=new Image();ico.onerror=fail;ico.onload=()=>{
     HV.ico=ico;HV.ready=true;
     const busy=new Set(['egg_lesser_chest','egg_loot_pile','sanctum_chest','sanctum_loot_pile']); // plain chests and piles crowd the map; off at first
@@ -3998,9 +4015,9 @@ document.addEventListener('click',e=>{if(e.target.closest('#wnX')){try{sessionSt
 whatsNew();
 // calendar files (.ics) the visitor saves to their own calendar
 const icsT=t=>new Date(t).toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
-function icsSave(name,body){const txt=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Aniimo Field Guide//TH','CALSCALE:GREGORIAN',...body,'END:VCALENDAR'].join('\r\n');
+function icsSave(name,body){const txt=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//AniiGuide//TH','CALSCALE:GREGORIAN',...body,'END:VCALENDAR'].join('\r\n');
   const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([txt],{type:'text/calendar'}));a.download=name+'.ics';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500);toast('บันทึกไฟล์ปฏิทินแล้ว เปิดไฟล์เพื่อเพิ่มลงปฏิทิน')}
-const icsEv=(title,s,t,extra=[])=>['BEGIN:VEVENT','UID:'+icsT(s)+'-'+title.replace(/\W/g,'').slice(0,20)+'@aniimo-field-guide','DTSTAMP:'+icsT(Date.now()),'DTSTART:'+icsT(s),'DTEND:'+icsT(t),'SUMMARY:'+title.replace(/[,;]/g,' '),'URL:'+SITE_URL,...extra,'BEGIN:VALARM','TRIGGER:-PT30M','ACTION:DISPLAY','DESCRIPTION:'+title.replace(/[,;]/g,' '),'END:VALARM','END:VEVENT'];
+const icsEv=(title,s,t,extra=[])=>['BEGIN:VEVENT','UID:'+icsT(s)+'-'+title.replace(/\W/g,'').slice(0,20)+'@aniiguide','DTSTAMP:'+icsT(Date.now()),'DTSTART:'+icsT(s),'DTEND:'+icsT(t),'SUMMARY:'+title.replace(/[,;]/g,' '),'URL:'+SITE_URL,...extra,'BEGIN:VALARM','TRIGGER:-PT30M','ACTION:DISPLAY','DESCRIPTION:'+title.replace(/[,;]/g,' '),'END:VALARM','END:VEVENT'];
 document.addEventListener('click',e=>{
   const b=e.target.closest('[data-ics-ev]');if(b){const [n,s,t]=b.dataset.icsEv.split('|');icsSave('aniimo',icsEv(n,+s,+t));return}
   const w=e.target.closest('[data-ics]');if(!w)return;const now=Date.now();
@@ -4009,11 +4026,11 @@ document.addEventListener('click',e=>{
 });
 // share an Aniimo: its own page (with a preview image) when the site has one
 document.addEventListener('click',async e=>{const b=e.target.closest('[data-share]');if(!b)return;const a=BY[b.dataset.share];if(!a)return;
-  const url=SITE_URL+'a/'+a.slug+'/',data={title:a.name+' · Aniimo Field Guide',text:`${a.name} ใน Aniimo: ธาตุ ค่าสถานะ สกิล และที่อยู่`,url};
+  const url=SITE_URL+'a/'+a.slug+'/',data={title:a.name+' · AniiGuide',text:`${a.name} ใน Aniimo: ธาตุ ค่าสถานะ สกิล และที่อยู่`,url};
   try{if(navigator.share){await navigator.share(data);return}}catch(_){return}
   try{await navigator.clipboard.writeText(url);toast('คัดลอกลิงก์แล้ว วางแชร์ได้เลย')}catch(_){toast(url)}});
 // page titles follow the page (nicer tabs, bookmarks and history)
-const setTitle=id=>{const v=VIEWS.find(x=>x.id===id);document.title=(id==='home'||!v?'Aniimo Field Guide — คู่มือเกม Aniimo ภาษาไทย':v.th+' · Aniimo Field Guide')};
+const setTitle=id=>{const v=VIEWS.find(x=>x.id===id);document.title=(id==='home'||!v?'AniiGuide — คู่มือเกม Aniimo ภาษาไทย':v.th+' · AniiGuide')};
 
 /* ===== sync across devices with a sync code (Supabase sync_get / sync_put; tools/admin/sync.sql) =====
    The newer side wins: a device pulls the saved copy when it is newer than its own last change, else pushes. */
@@ -4067,7 +4084,7 @@ function i18nWalk(root){
     else if(n.nodeType===1){if(n.tagName==='SCRIPT'||n.tagName==='STYLE')continue;for(const a of I18N_ATTR){const x=n.getAttribute&&n.getAttribute(a);if(x){const v=i18nText(x);if(v!=null)n.setAttribute(a,v)}}}}while((n=w.nextNode()));
 }
 if(LANG==='en'){
-  document.title='Aniimo Field Guide';
+  document.title='AniiGuide — Aniimo guide';
   i18nWalk(document.body);
   new MutationObserver(ms=>{for(const m of ms){if(m.type==='characterData'){const v=i18nText(m.target.nodeValue);if(v!=null)m.target.nodeValue=v}else m.addedNodes.forEach(x=>i18nWalk(x))}}).observe(document.body,{childList:true,subtree:true,characterData:true});
 }

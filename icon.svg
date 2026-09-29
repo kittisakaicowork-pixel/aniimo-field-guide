@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <title>AniiGuide</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0" stop-color="#66D3FF"/>
+      <stop offset="0.55" stop-color="#1E9BEB"/>
+      <stop offset="1" stop-color="#0A63C4"/>
+    </linearGradient>
+    <radialGradient id="shine" cx="0.28" cy="0.18" r="0.6">
+      <stop offset="0" stop-color="#fff" stop-opacity=".55"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="dotA" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FF8AD0"/>
+      <stop offset="1" stop-color="#FF5C93"/>
+    </linearGradient>
+    <linearGradient id="dotB" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#B7FBFF"/>
+      <stop offset="1" stop-color="#5FE0D8"/>
+    </linearGradient>
+    <linearGradient id="bar" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#E4F3FF"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="116" fill="url(#bg)"/>
+  <rect width="512" height="512" rx="116" fill="url(#shine)"/>
+  <!-- the two "i" of Anii -->
+  <rect x="160" y="198" width="74" height="218" rx="37" fill="url(#bar)"/>
+  <rect x="278" y="198" width="74" height="218" rx="37" fill="url(#bar)"/>
+  <circle cx="197" cy="136" r="41" fill="url(#dotA)"/>
+  <circle cx="315" cy="136" r="41" fill="url(#dotB)"/>
+  <circle cx="184" cy="122" r="11" fill="#fff" fill-opacity=".7"/>
+  <circle cx="302" cy="122" r="11" fill="#fff" fill-opacity=".7"/>
+  <!-- guide sparkle -->
+  <path d="M404 92c4 26 14 36 40 40c-26 4-36 14-40 40c-4-26-14-36-40-40c26-4 36-14 40-40z" fill="#fff"/>
+  <path d="M104 352c3 17 9 23 26 26c-17 3-23 9-26 26c-3-17-9-23-26-26c17-3 23-9 26-26z" fill="#fff" fill-opacity=".8"/>
+</svg>
