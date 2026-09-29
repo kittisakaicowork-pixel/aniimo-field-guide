@@ -17,6 +17,8 @@ import time
 import urllib.parse
 from pathlib import Path
 
+import polite
+
 ROOT = Path(__file__).resolve().parent
 CACHE = ROOT / "cache" / "pages"
 BASE = "https://aniidex.com"
@@ -31,9 +33,10 @@ def fetch(path, dest):
     if dest.exists() and dest.stat().st_size > 5000 and not REFRESH:
         return dest.read_text()
     url = BASE + urllib.parse.quote(path, safe="/-_.~%")
-    subprocess.run(["curl", "-sLg", "-A", UA, "-o", str(dest), url], check=True)
-    time.sleep(0.3)  # be gentle with the fan site
-    return dest.read_text()
+    if dest.exists():
+        dest.unlink()  # --refresh: fetch again
+    polite.get(url, dest)  # low rate, never player profiles (the owner's terms)
+    return dest.read_text() if dest.exists() else ""
 
 
 def text(fragment):

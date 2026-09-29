@@ -1,0 +1,70 @@
+<!doctype html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AniiGuide · โมเดล 3D ทั้งหมด</title>
+<!-- Every model in 3d/ with the site's own viewer (viewer3d.js): pick a creature, a form or a Sparkling type,
+     or let it play through all of them. Open from the repository root: /tools/model/gallery.html -->
+<style>
+:root{--bg:#0e1626;--panel:#16223a;--line:#26344f;--ink:#e8eef8;--muted:#94a3bd;--accent:#4db2ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 "IBM Plex Sans Thai",system-ui,sans-serif;display:grid;grid-template-columns:minmax(0,1fr) 360px;height:100dvh}
+main{display:grid;grid-template-rows:auto minmax(0,1fr) auto;min-height:0}
+header{display:flex;gap:10px;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line)}
+header h1{font-size:18px;margin:0}header .n{color:var(--muted)}
+#stage{position:relative;min-height:0;background:radial-gradient(circle at 50% 55%,#26406a,#0e1626 70%)}
+#view{position:absolute;inset:0}#view canvas{width:100%!important;height:100%!important;cursor:grab}
+#msg{position:absolute;inset:0;display:grid;place-items:center;color:var(--muted);pointer-events:none}
+.bar{display:flex;flex-wrap:wrap;gap:6px;padding:10px 16px;border-top:1px solid var(--line)}
+button{font:inherit;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:99px;padding:5px 12px;cursor:pointer}
+button[aria-pressed="true"]{background:var(--accent);color:#06182e;border-color:transparent}
+aside{border-left:1px solid var(--line);overflow:auto;padding:10px;display:grid;grid-template-columns:repeat(3,1fr);gap:6px;align-content:start}
+aside button{border-radius:12px;padding:6px 4px;display:grid;justify-items:center;gap:2px;font-size:12px}
+aside img{width:72px;height:72px;object-fit:contain}
+@media (max-width:800px){body{grid-template-columns:1fr;grid-template-rows:60dvh 1fr}aside{grid-template-columns:repeat(4,1fr)}}
+</style></head><body>
+<main>
+  <header><h1 id="title">โมเดล 3D</h1><span class="n" id="count"></span><span style="flex:1"></span>
+    <button id="prev">‹ ก่อนหน้า</button><button id="play" aria-pressed="false">▶ เล่นทุกตัว</button><button id="next">ถัดไป ›</button></header>
+  <div id="stage"><div id="view"></div><div id="msg">กำลังโหลด…</div></div>
+  <div><div class="bar" id="forms"></div><div class="bar" id="spark"></div></div>
+</main>
+<aside id="list"></aside>
+<script src="../../data.js"></script>
+<script src="../../thumbs.js"></script>
+<script type="module">
+const B = 'https://cdn.jsdelivr.net/npm/three@0.186.1/';
+const [T, { GLTFLoader }, { MeshoptDecoder }, { OrbitControls }] = await Promise.all(['+esm', 'examples/jsm/loaders/GLTFLoader.js/+esm', 'examples/jsm/libs/meshopt_decoder.module.js/+esm', 'examples/jsm/controls/OrbitControls.js/+esm'].map(p => import(B + p)));
+const { mountViewer } = await import('../../viewer3d.js');
+const libs = { GLTFLoader, MeshoptDecoder, OrbitControls };
+const M3D = window.MODELS || { glow: [], m: {} }, NT = window.NAMES_TH || {}, TH = p => (window.THUMB && window.THUMB[p]) || '../../' + p;
+const list = (window.ANIIMO || []).filter(a => M3D.m[a.slug]);
+const SP = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'Dazzling', 'Shadow'];
+const sparkSet = new Set((window.SPARK && window.SPARK.e || []).map(([s, fi]) => s + '|' + (fi ?? '')));
+let cur = 0, form = null, spark = 0, viewer = null, timer = null;
+document.getElementById('count').textContent = `${list.length} ตัว`;
+document.getElementById('list').innerHTML = list.map((a, i) => `<button data-i="${i}"><img src="${TH(a.i)}" alt="" loading="lazy">${NT[a.slug] || a.name}</button>`).join('');
+const look = () => {
+  const a = list[cur], m = M3D.m[a.slug], f = form == null ? null : a.f[form];
+  const own = f && (m.fg || []).includes(f.id);
+  return { url: own ? `../../3d/f${f.id}.glb` : `../../3d/${a.slug}.glb`, kind: spark ? (spark <= 10 ? 's' : spark === 11 ? 'z' : 'd') : f ? 'n' : '', glow: spark ? M3D.glow[spark - 1] : null, texFid: f && !own ? f.id : null, mats: m.mats || [] };
+};
+async function show() {
+  const a = list[cur], m = M3D.m[a.slug];
+  document.getElementById('title').textContent = `${NT[a.slug] || a.name} · ${a.name}`;
+  document.querySelectorAll('#list button').forEach(b => b.setAttribute('aria-pressed', +b.dataset.i === cur));
+  const forms = a.f.map((f, i) => [f, i]).filter(([f]) => ((m.looks || {})[f.id] || '').includes('n'));
+  document.getElementById('forms').innerHTML = `<button data-f="" aria-pressed="${form == null}">ร่างปกติ</button>` + forms.map(([f, i]) => `<button data-f="${i}" aria-pressed="${form === i}">${f.n}</button>`).join('');
+  const canSpark = sparkSet.has(a.slug + '|' + (form ?? ''));
+  if (!canSpark) spark = 0;
+  document.getElementById('spark').innerHTML = canSpark ? `<button data-s="0" aria-pressed="${!spark}">ไม่เปล่งประกาย</button>` + SP.map((t, i) => `<button data-s="${i + 1}" aria-pressed="${spark === i + 1}">✦ ${t}</button>`).join('') : '<span style="color:var(--muted)">ร่างนี้ไม่มีร่างเปล่งประกาย</span>';
+  viewer && viewer.stop();
+  const el = document.getElementById('view'); el.innerHTML = ''; document.getElementById('msg').hidden = false;
+  const lk = look(); viewer = await mountViewer(el, T, libs, { url: lk.url, base: '../../', look: lk, period: m.p || 3 });
+  document.getElementById('msg').hidden = true;
+}
+document.getElementById('list').onclick = e => { const b = e.target.closest('[data-i]'); if (b) { cur = +b.dataset.i; form = null; spark = 0; show() } };
+document.getElementById('forms').onclick = e => { const b = e.target.closest('[data-f]'); if (b) { form = b.dataset.f === '' ? null : +b.dataset.f; show() } };
+document.getElementById('spark').onclick = e => { const b = e.target.closest('[data-s]'); if (b) { spark = +b.dataset.s; show() } };
+const step = d => { cur = (cur + d + list.length) % list.length; form = null; spark = 0; show() };
+document.getElementById('prev').onclick = () => step(-1); document.getElementById('next').onclick = () => step(1);
+document.getElementById('play').onclick = e => { const on = e.target.getAttribute('aria-pressed') !== 'true'; e.target.setAttribute('aria-pressed', on); e.target.textContent = on ? '⏸ หยุด' : '▶ เล่นทุกตัว'; clearInterval(timer); if (on) timer = setInterval(() => step(1), 7000) };
+addEventListener('keydown', e => { if (e.key === 'ArrowRight') step(1); if (e.key === 'ArrowLeft') step(-1) });
+show();
+</script></body></html>

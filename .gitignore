@@ -11,3 +11,6 @@ tools/compare/
 tools/model/node_modules
 tools/model/picks/
 tools/model/3d
+aniimo/
+move_log.txt
+tools/model/viewer3d.js

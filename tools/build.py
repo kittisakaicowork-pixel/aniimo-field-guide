@@ -22,6 +22,7 @@ from PIL import Image
 
 sys.path.insert(0, str(Path(__file__).resolve().parent / "i18n"))
 from rules import translate  # noqa: E402
+import polite  # noqa: E402
 
 TOOLS = Path(__file__).resolve().parent
 ROOT = TOOLS.parent
@@ -35,17 +36,12 @@ SPARK_TYPES = 12
 
 
 def download(jobs, workers=6):
-    """jobs: list of (url, dest Path). Skips files already cached."""
+    """jobs: list of (url, dest Path). Skips files already cached. AniiDex files go through polite.get
+    (one at a time, spaced out: the owner's terms); others may run in parallel."""
     def one(job):
-        url, dest = job
-        if dest.exists() and dest.stat().st_size > 400:
-            return True
-        dest.parent.mkdir(parents=True, exist_ok=True)
-        subprocess.run(["curl", "-s", "-f", "-A", UA, "-o", str(dest), url])
-        ok = dest.exists() and dest.stat().st_size > 400
-        if not ok and dest.exists():
-            dest.unlink()
-        return ok
+        return polite.get(*job)
+    if any(polite.is_aniidex(u) for u, _ in jobs):
+        return [one(j) for j in jobs]
     with ThreadPoolExecutor(workers) as ex:
         return list(ex.map(one, jobs))
 
@@ -76,7 +72,7 @@ def models3d():
     """3d/variants.json (tools/model/variants.mjs + render.cjs), limited to models that exist."""
     f = ROOT / "3d" / "variants.json"
     man = json.loads(f.read_text()) if f.exists() else {"models": {}}
-    have = {p.stem for p in (ROOT / "3d").glob("*.glb")}
+    have = {p.stem for p in (ROOT / "3d").glob("*.glb") if not re.fullmatch(r"f\d{7}", p.stem)}  # f<formId>.glb: a form's own mesh
     picks = ROOT / "tools" / "model" / "picks.json"
     idle = ROOT / "tools" / "model" / "idle.json"  # in-game Idle clip length per model id -> motion period
     if picks.exists() and idle.exists():
@@ -177,31 +173,32 @@ def main():
     icon_idx = {ic: i for i, ic in enumerate(icons)}
 
     # ------------------------------------------------ sparkling
-    # Our own renders from the stylised 3D models (tools/model/render.cjs) come first; AniiDex's
-    # Sparkling images only fill looks we have no model for.
+    # Sparkling images: AniiDex's renders of the in-game model (used with the owner's permission, credited)
+    # match the game best, so they come first; our renders (tools/model/render.cjs) fill any look they lack.
     listed = set(raw["sparkling"])
     own = CACHE / "spark-own"
     has_own = lambda fid: all((own / f"{fid}_{n:02d}.webp").exists() for n in range(1, SPARK_TYPES + 1))
+    spark_size = 1024 if FULL else 320
+    sp_cache = CACHE / f"spark{spark_size}"
+    has_ref = lambda fid: all((sp_cache / f"{fid}_{n:02d}.webp").exists() for n in range(1, SPARK_TYPES + 1))
     entries = []  # (slug, form index or None, art id)
     for a in A:
         if a["slug"] in listed and a["full_id"]:
             entries.append((a["slug"], None, a["full_id"]))
         for fi, f in enumerate(a["forms"]):
-            if not (f["has_image"] or has_own(f["id"])):
+            if not (f["has_image"] or has_own(f["id"]) or has_ref(f["id"])):
                 continue
             if f["kind"] == "prismana" and a["slug"] in listed:
                 entries.append((a["slug"], fi, f["id"]))
             elif FULL and a["slug"] in listed:
                 entries.append((a["slug"], fi, f["id"]))  # regional/weather Sparkling: full build only
-    spark_size = 1024 if FULL else 320
-    sp_cache = CACHE / f"spark{spark_size}"
     jobs = [(IPX.format(s=spark_size) + f"images/aniimo/full-body-shadow/{fid}/sparkling-{n:02d}.webp", sp_cache / f"{fid}_{n:02d}.webp")
-            for _, _, fid in entries if not has_own(fid) for n in range(1, SPARK_TYPES + 1)]
+            for _, _, fid in entries if not has_own(fid) and not has_ref(fid) for n in range(1, SPARK_TYPES + 1)]
     ok = download(jobs)
     have = {fid for (_, dest), good in zip(jobs, ok) if good for fid in [dest.stem.split("_")[0]]}
-    entries = [e for e in entries if has_own(e[2]) or e[2] in have]
-    spk = lambda fid, n: (own if has_own(fid) else sp_cache) / f"{fid}_{n:02d}.webp"
-    print(f"sparkling: {sum(has_own(e[2]) for e in entries)} forms from our renders, {len(have)} from AniiDex")
+    entries = [e for e in entries if has_ref(e[2]) or has_own(e[2])]
+    spk = lambda fid, n: (sp_cache if has_ref(fid) else own) / f"{fid}_{n:02d}.webp"
+    print(f"sparkling: {sum(has_ref(e[2]) for e in entries)} looks from AniiDex, {sum(not has_ref(e[2]) for e in entries)} from our renders")
     spark = dict(e=[[s, fi] for s, fi, _ in entries], cols=10)
     if FULL:
         (out_dir / "spk").mkdir(exist_ok=True)
@@ -298,7 +295,7 @@ def main():
     if FULL:
         for f in ["index.html", "manifest.webmanifest", "icon-192.png", "icon-512.png", "sw.js"]:
             shutil.copyfile(ROOT / f, out_dir / f)
-    skip = {"tools", "dist-full", ".git", "gamedata"}
+    skip = {"tools", "dist-full", ".git", "gamedata", "aniimo"}
     total = sum(p.stat().st_size for p in out_dir.rglob("*")
                 if p.is_file() and not skip & set(p.relative_to(out_dir).parts))
     print(f"built {out_dir} ({total/1e6:.1f} MB)")

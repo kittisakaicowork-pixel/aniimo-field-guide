@@ -20,18 +20,18 @@
   "mid": "10052",
   "parts": [
    [
-    "models/aexp_chmeshp_parm_parm1005x_asset_0/M_Parmon_10052_Body_-956426033.obj",
+    "models/aexp_chmeshp_parm_parm1005x_asset_0/M_Parmon_10052_Body_LOD1_-2039993020.obj",
     "textures2/aexp_tcpm_10052_firewolf_tga_0/T_Parmon_10052_Body_01a_CA.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1005x_asset_0/M_Parmon_10052_Eye_-956426033.obj",
+    "models/aexp_chmeshp_parm_parm1005x_asset_0/M_Parmon_10052_Eye_LOD1_-2039993020.obj",
     "textures2/aexp_tcpm_10052_firewolf_tga_0/T_Parmon_10052_Eye_01a_C.png"
    ]
   ],
-  "score": 0.6563,
+  "score": 0.6526,
   "yaw": 0,
   "runner_up": 0.6526,
-  "n": 5
+  "n": 4
  },
  "scorchhowl": {
   "mid": "10053",
@@ -145,52 +145,52 @@
   "mid": "10181",
   "parts": [
    [
-    "models/aexp_chmeshp_parm_parm1018x_asset_0/M_Parmon_10181_Body_941285856.obj",
+    "models/aexp_chmeshp_parm_parm1018x_asset_0/M_Parmon_10181_Body_LOD1_-1212365283.obj",
     "textures2/xpt25_aexp_tc_6e5a47a8_aexp_tcpm_10181_seagull_tga_0/T_Parmon_10181_Body_01a_CA.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1018x_asset_0/M_Parmon_10181_Eye_941285856.obj",
+    "models/aexp_chmeshp_parm_parm1018x_asset_0/M_Parmon_10181_Eye_LOD1_-1212365283.obj",
     "textures2/xpt25_aexp_tc_6e5a47a8_aexp_tcpm_10181_seagull_tga_0/T_Parmon_10181_Eye_01a_CA.png"
    ]
   ],
-  "score": 0.4461,
+  "score": 0.4439,
   "yaw": 1.2,
-  "runner_up": 0.4439,
+  "runner_up": 0.4211,
   "n": 3
  },
  "tromber": {
   "mid": "10184",
   "parts": [
    [
-    "models/aexp_chmeshp_parm_parm1018x_asset_0/M_Parmon_10184_Body_652347318.obj",
+    "models/aexp_chmeshp_parm_parm1018x_asset_0/M_Parmon_10184_Body_LOD1_-697801887.obj",
     "textures2/aexp_tcpm_10184_seagull_tga_0/T_Parmon_10184_Body_01a_CA.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1018x_asset_0/M_Parmon_10184_Eye_652347318.obj",
+    "models/aexp_chmeshp_parm_parm1018x_asset_0/M_Parmon_10184_Eye_LOD1_-697801887.obj",
     "textures2/aexp_tcpm_10184_seagull_tga_0/T_Parmon_10184_Eye_01a_C.png"
    ]
   ],
-  "score": 0.52,
+  "score": 0.5186,
   "yaw": -0.6,
-  "runner_up": 0.5186,
-  "n": 5
+  "runner_up": 0.5096,
+  "n": 4
  },
  "cornet": {
   "mid": "10185",
   "parts": [
    [
-    "models/aexp_chmeshp_parm_parm1018x_asset_0/M_Parmon_10185_Body_958465616.obj",
+    "models/aexp_chmeshp_parm_parm1018x_asset_0/M_Parmon_10185_Body_LOD1_-395565947.obj",
     "textures2/aexp_tcpm_10185_seagull_tga_0/T_Parmon_10185_Body_01a_CA.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1018x_asset_0/M_Parmon_10185_Eye_958465616.obj",
+    "models/aexp_chmeshp_parm_parm1018x_asset_0/M_Parmon_10185_Eye_LOD1_-395565947.obj",
     "textures2/aexp_tcpm_10185_seagull_tga_0/T_Parmon_10185_Body_01a_CA.png"
    ]
   ],
   "score": 0.3289,
   "yaw": -0.6,
   "runner_up": 0.3289,
-  "n": 7
+  "n": 6
  },
  "tubster": {
   "mid": "10187",
@@ -213,47 +213,39 @@
   "mid": "10211",
   "parts": [
    [
-    "models/aexp_chmeshp_parm_parm1021x_asset_0/M_Parmon_10211_Body01_1707249232.obj",
+    "models/aexp_chmeshp_parm_parm1021x_asset_0/M_Parmon_10211_Body01_LOD1_270006321.obj",
     "textures2/aexp_tcpm_10211_iris_tga_0/T_Parmon_10211_Body_01a_CA.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1021x_asset_0/M_Parmon_10211_Body_1707249232.obj",
+    "models/aexp_chmeshp_parm_parm1021x_asset_0/M_Parmon_10211_Body_LOD1_270006321.obj",
     "textures2/aexp_tcpm_10211_iris_tga_0/T_Parmon_10211_Body_01a_CA.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1021x_asset_0/M_Parmon_10211_Eye_1707249232.obj",
+    "models/aexp_chmeshp_parm_parm1021x_asset_0/M_Parmon_10211_Eye_LOD1_270006321.obj",
     "textures2/aexp_tcpm_10211_iris_tga_0/T_Parmon_10211_Eye_01a_CA.png"
    ]
   ],
-  "score": 0.5479,
+  "score": 0.5456,
   "yaw": -1.2,
-  "runner_up": 0.5456,
-  "n": 11
+  "runner_up": 0.5356,
+  "n": 7
  },
  "irisal": {
   "mid": "10212",
   "parts": [
    [
-    "models/aexp_chmeshp_parm_parm1021x_asset_0/M_Parmon_10212_Body01_LOD1_-932633423.obj",
+    "models/aexp_chmeshp_parm_parm1021x_asset_0/M_Parmon_10212_Body_LOD1_421645424.obj",
     "textures2/aexp_tcpm_10212_iris_tga_0/T_Parmon_10212_Body_01a_CA.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1021x_asset_0/M_Parmon_10212_Body_LOD1_-932633423.obj",
-    "textures2/aexp_tcpm_10212_iris_tga_0/T_Parmon_10212_Body_01a_CA.png"
-   ],
-   [
-    "models/aexp_chmeshp_parm_parm1021x_asset_0/M_Parmon_10212_Ex_Flower_-772706806.obj",
-    "textures2/aexp_tcpm_10212_iris_tga_0/T_Parmon_10212_Body_01a_CA.png"
-   ],
-   [
-    "models/aexp_chmeshp_parm_parm1021x_asset_0/M_Parmon_10212_Eye_LOD1_-316306121.obj",
+    "models/aexp_chmeshp_parm_parm1021x_asset_0/M_Parmon_10212_Eye_LOD1_421645424.obj",
     "textures2/aexp_tcpm_10212_iris_tga_0/T_Parmon_10212_Eye_01a_CA.png"
    ]
   ],
-  "score": 0.5748,
-  "yaw": -0.6,
-  "runner_up": 0.5379,
-  "n": 4
+  "score": 0.5379,
+  "yaw": 0,
+  "runner_up": 0.5281,
+  "n": 2
  },
  "skippy": {
   "mid": "10041",
@@ -280,38 +272,38 @@
   "mid": "10042",
   "parts": [
    [
-    "models/aexp_chmeshp_parm_parm1004x_asset_0/M_Parmon_10042_Body_825141941.obj",
+    "models/aexp_chmeshp_parm_parm1004x_asset_0/M_Parmon_10042_Body_LOD1_1584911330.obj",
     "textures2/aexp_tcpm_10042_waterdragon_tga_0/T_Parmon_10042_Body_01a_C.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1004x_asset_0/M_Parmon_10042_Eye01_825141941.obj",
+    "models/aexp_chmeshp_parm_parm1004x_asset_0/M_Parmon_10042_Eye01_LOD1_1584911330.obj",
     "textures2/aexp_tcpm_10042_waterdragon_tga_0/T_Parmon_10042_Eye_01a_C.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1004x_asset_0/M_Parmon_10042_Eye02_825141941.obj",
+    "models/aexp_chmeshp_parm_parm1004x_asset_0/M_Parmon_10042_Eye02_LOD1_1584911330.obj",
     "textures2/aexp_tcpm_10042_waterdragon_tga_0/T_Parmon_10042_Eye_01a_C.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1004x_asset_0/M_Parmon_10042_Eye03_825141941.obj",
+    "models/aexp_chmeshp_parm_parm1004x_asset_0/M_Parmon_10042_Eye03_LOD1_1584911330.obj",
     "textures2/aexp_tcpm_10042_waterdragon_tga_0/T_Parmon_10042_Eye_01a_C.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1004x_asset_0/M_Parmon_10042_Eye04_825141941.obj",
+    "models/aexp_chmeshp_parm_parm1004x_asset_0/M_Parmon_10042_Eye04_LOD1_1584911330.obj",
     "textures2/aexp_tcpm_10042_waterdragon_tga_0/T_Parmon_10042_Eye_01a_C.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1004x_asset_0/M_Parmon_10042_Eye05_825141941.obj",
+    "models/aexp_chmeshp_parm_parm1004x_asset_0/M_Parmon_10042_Eye05_LOD1_1584911330.obj",
     "textures2/aexp_tcpm_10042_waterdragon_tga_0/T_Parmon_10042_Eye_01a_C.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1004x_asset_0/M_Parmon_10042_Eye_825141941.obj",
+    "models/aexp_chmeshp_parm_parm1004x_asset_0/M_Parmon_10042_Eye_LOD1_1584911330.obj",
     "textures2/aexp_tcpm_10042_waterdragon_tga_0/T_Parmon_10042_Eye_01a_C.png"
    ]
   ],
-  "score": 0.6095,
+  "score": 0.6076,
   "yaw": 0,
-  "runner_up": 0.6076,
-  "n": 5
+  "runner_up": 0.605,
+  "n": 3
  },
  "glacy": {
   "mid": "10043",
@@ -342,22 +334,22 @@
   "mid": "10045",
   "parts": [
    [
-    "models/aexp_chmeshp_parm_parm1004x_asset_0/M_Parmon_10045_Body01_-2044139607.obj",
+    "models/aexp_chmeshp_parm_parm1004x_asset_0/M_Parmon_10045_Body01_LOD1_124606484.obj",
     "textures2/aexp_tcpm_10045_waterdragon_tga_0/T_Parmon_10045_Body_01a_CA.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1004x_asset_0/M_Parmon_10045_Body_-2044139607.obj",
+    "models/aexp_chmeshp_parm_parm1004x_asset_0/M_Parmon_10045_Body_LOD1_124606484.obj",
     "textures2/aexp_tcpm_10045_waterdragon_tga_0/T_Parmon_10045_Body_01a_CA.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1004x_asset_0/M_Parmon_10045_Eye_-2044139607.obj",
+    "models/aexp_chmeshp_parm_parm1004x_asset_0/M_Parmon_10045_Eye_LOD1_124606484.obj",
     "textures2/aexp_tcpm_10045_waterdragon_tga_0/T_Parmon_10045_Eye_01a_C.png"
    ]
   ],
-  "score": 0.5981,
+  "score": 0.5962,
   "yaw": 0.6,
   "runner_up": 0.5962,
-  "n": 3
+  "n": 2
  },
  "nimbi": {
   "mid": "10261",
@@ -642,39 +634,39 @@
   "mid": "10163",
   "parts": [
    [
-    "models/aexp_chmeshp_parm_parm1016x_asset_0/M_Parmon_10163_Body01_1937871275.obj",
+    "models/aexp_chmeshp_parm_parm1016x_asset_0/M_Parmon_10163_Body01_LOD1_-919327602.obj",
     "textures2/aexp_tcpm_10163_crab_tga_0/T_Parmon_10163_Body_01a_CA.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1016x_asset_0/M_Parmon_10163_Body_1937871275.obj",
+    "models/aexp_chmeshp_parm_parm1016x_asset_0/M_Parmon_10163_Body_LOD1_-825746643.obj",
     "textures2/aexp_tcpm_10163_crab_tga_0/T_Parmon_10163_Body_01a_CA.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1016x_asset_0/M_Parmon_10163_Eye01_1937871275.obj",
+    "models/aexp_chmeshp_parm_parm1016x_asset_0/M_Parmon_10163_Eye01_LOD1_-1268956331.obj",
     "textures2/aexp_tcpm_10163_crab_tga_0/T_Parmon_10163_Eye_01a_CA.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1016x_asset_0/M_Parmon_10163_Eye02_1937871275.obj",
+    "models/aexp_chmeshp_parm_parm1016x_asset_0/M_Parmon_10163_Eye02_LOD1_-1209496394.obj",
     "textures2/aexp_tcpm_10163_crab_tga_0/T_Parmon_10163_Eye_01a_CA.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1016x_asset_0/M_Parmon_10163_Eye03_1937871275.obj",
+    "models/aexp_chmeshp_parm_parm1016x_asset_0/M_Parmon_10163_Eye03_LOD1_675381471.obj",
     "textures2/aexp_tcpm_10163_crab_tga_0/T_Parmon_10163_Eye_01a_CA.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1016x_asset_0/M_Parmon_10163_Eye04_1937871275.obj",
+    "models/aexp_chmeshp_parm_parm1016x_asset_0/M_Parmon_10163_Eye04_LOD1_-1209496394.obj",
     "textures2/aexp_tcpm_10163_crab_tga_0/T_Parmon_10163_Eye_01a_CA.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1016x_asset_0/M_Parmon_10163_Eye05_1937871275.obj",
+    "models/aexp_chmeshp_parm_parm1016x_asset_0/M_Parmon_10163_Eye05_LOD1_-1209496394.obj",
     "textures2/aexp_tcpm_10163_crab_tga_0/T_Parmon_10163_Eye_01a_CA.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1016x_asset_0/M_Parmon_10163_Eye_1937871275.obj",
+    "models/aexp_chmeshp_parm_parm1016x_asset_0/M_Parmon_10163_Eye_LOD1_-1209496394.obj",
     "textures2/aexp_tcpm_10163_crab_tga_0/T_Parmon_10163_Eye_01a_CA.png"
    ]
   ],
-  "score": 0.7138,
+  "score": 0.7114,
   "yaw": 0,
   "runner_up": 0.7113,
   "n": 2
@@ -708,55 +700,51 @@
   "mid": "10333",
   "parts": [
    [
-    "models/aexp_chmeshp_parm_parm1033x_asset_0/M_Parmon_10333_Body01_-1388033024.obj",
+    "models/aexp_chmeshp_parm_parm1033x_asset_0/M_Parmon_10333_Body01_LOD2_-1420994520.obj",
     "textures2/xpt25_aexp_tc_fb236797_aexp_tcpm_10333_flame_tga_0/T_Parmon_10333_Body01_01a_CA.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1033x_asset_0/M_Parmon_10333_Body02_-1388033024.obj",
+    "models/aexp_chmeshp_parm_parm1033x_asset_0/M_Parmon_10333_Body02_LOD2_-1420994520.obj",
     "textures2/xpt25_aexp_tc_fb236797_aexp_tcpm_10333_flame_tga_0/T_Parmon_10333_Body_01a_C.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1033x_asset_0/M_Parmon_10333_Body03_-1388033024.obj",
+    "models/aexp_chmeshp_parm_parm1033x_asset_0/M_Parmon_10333_Body03_LOD2_-1420994520.obj",
     "textures2/xpt25_aexp_tc_fb236797_aexp_tcpm_10333_flame_tga_0/T_Parmon_10333_Body_01a_C.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1033x_asset_0/M_Parmon_10333_Body04_-1388033024.obj",
+    "models/aexp_chmeshp_parm_parm1033x_asset_0/M_Parmon_10333_Body_LOD2_-1420994520.obj",
     "textures2/xpt25_aexp_tc_fb236797_aexp_tcpm_10333_flame_tga_0/T_Parmon_10333_Body_01a_C.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1033x_asset_0/M_Parmon_10333_Body_-1388033024.obj",
-    "textures2/xpt25_aexp_tc_fb236797_aexp_tcpm_10333_flame_tga_0/T_Parmon_10333_Body_01a_C.png"
-   ],
-   [
-    "models/aexp_chmeshp_parm_parm1033x_asset_0/M_Parmon_10333_Eye_-1388033024.obj",
+    "models/aexp_chmeshp_parm_parm1033x_asset_0/M_Parmon_10333_Eye_LOD2_-1420994520.obj",
     "textures2/xpt25_aexp_tc_fb236797_aexp_tcpm_10333_flame_tga_0/T_Parmon_10333_Eye_01a_CA.png"
    ]
   ],
-  "score": 0.4784,
+  "score": 0.4768,
   "yaw": 1.2,
-  "runner_up": 0.4768,
-  "n": 5
+  "runner_up": 0.4749,
+  "n": 4
  },
  "flutternym": {
   "mid": "10231",
   "parts": [
    [
-    "models/aexp_chmeshp_parm_parm1023x_asset_0/M_Parmon_10231_Body01_1692465373.obj",
+    "models/aexp_chmeshp_parm_parm1023x_asset_0/M_Parmon_10231_Body01_LOD1_2052208662.obj",
     "textures2/xpt24_aexp_tc_d61a3b95__tcpm_10231_dreambutterfly_tga_0/T_Parmon_10231_Body_01a_CA.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1023x_asset_0/M_Parmon_10231_Body_1692465373.obj",
+    "models/aexp_chmeshp_parm_parm1023x_asset_0/M_Parmon_10231_Body_LOD1_2052208662.obj",
     "textures2/xpt24_aexp_tc_d61a3b95__tcpm_10231_dreambutterfly_tga_0/T_Parmon_10231_Body_01a_CA.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1023x_asset_0/M_Parmon_10231_Eye_1692465373.obj",
+    "models/aexp_chmeshp_parm_parm1023x_asset_0/M_Parmon_10231_Eye_LOD1_2052208662.obj",
     "textures2/xpt24_aexp_tc_d61a3b95__tcpm_10231_dreambutterfly_tga_0/T_Parmon_10231_Eye_01a_C.png"
    ]
   ],
-  "score": 0.7007,
+  "score": 0.7002,
   "yaw": 0,
-  "runner_up": 0.7002,
-  "n": 7
+  "runner_up": 0.6928,
+  "n": 5
  },
  "gracewing": {
   "mid": "10232",
@@ -837,30 +825,30 @@
   "mid": "10323",
   "parts": [
    [
-    "models/aexp_chmeshp_parm_parm1032x_asset_0/M_Parmon_10323_Body01_-2016224752.obj",
+    "models/aexp_chmeshp_parm_parm1032x_asset_0/M_Parmon_10323_Body01_LOD1_1582612091.obj",
     "textures2/xpt25_aexp_tc_97aecf88_aexp_tcpm_10323_rose_tga_0/T_Parmon_10323_Body01_01a_C.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1032x_asset_0/M_Parmon_10323_Body02_-2016224752.obj",
+    "models/aexp_chmeshp_parm_parm1032x_asset_0/M_Parmon_10323_Body02_LOD1_1582612091.obj",
     "textures2/xpt25_aexp_tc_97aecf88_aexp_tcpm_10323_rose_tga_0/T_Parmon_10323_Body_01a_C.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1032x_asset_0/M_Parmon_10323_Body03_-2016224752.obj",
+    "models/aexp_chmeshp_parm_parm1032x_asset_0/M_Parmon_10323_Body03_LOD1_1582612091.obj",
     "textures2/xpt25_aexp_tc_97aecf88_aexp_tcpm_10323_rose_tga_0/T_Parmon_10323_Body_01a_C.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1032x_asset_0/M_Parmon_10323_Body_-2016224752.obj",
+    "models/aexp_chmeshp_parm_parm1032x_asset_0/M_Parmon_10323_Body_LOD1_1582612091.obj",
     "textures2/xpt25_aexp_tc_97aecf88_aexp_tcpm_10323_rose_tga_0/T_Parmon_10323_Body_01a_C.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1032x_asset_0/M_Parmon_10323_Eye_-2016224752.obj",
+    "models/aexp_chmeshp_parm_parm1032x_asset_0/M_Parmon_10323_Eye_LOD1_1582612091.obj",
     "textures2/xpt25_aexp_tc_97aecf88_aexp_tcpm_10323_rose_tga_0/T_Parmon_10323_Eye_01a_CA.png"
    ]
   ],
-  "score": 0.6112,
+  "score": 0.6111,
   "yaw": 1.2,
-  "runner_up": 0.6111,
-  "n": 8
+  "runner_up": 0.59,
+  "n": 6
  },
  "melloblum": {
   "mid": "10324",
@@ -958,30 +946,30 @@
   "mid": "10352",
   "parts": [
    [
-    "models/aexp_chmeshp_parm_parm1035x_asset_0/M_Parmon_10352_Body01_1211950921.obj",
+    "models/aexp_chmeshp_parm_parm1035x_asset_0/M_Parmon_10352_Body01_LOD1_107286254.obj",
     "textures2/aexp_tcpm_10352_honeybird_tga_0/T_Parmon_10352_Body_01a_CA.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1035x_asset_0/M_Parmon_10352_Body02_1211950921.obj",
+    "models/aexp_chmeshp_parm_parm1035x_asset_0/M_Parmon_10352_Body02_LOD1_107286254.obj",
     "textures2/aexp_tcpm_10352_honeybird_tga_0/T_Parmon_10352_Body_01a_CA.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1035x_asset_0/M_Parmon_10352_Body03_1211950921.obj",
+    "models/aexp_chmeshp_parm_parm1035x_asset_0/M_Parmon_10352_Body03_LOD1_107286254.obj",
     "textures2/aexp_tcpm_10352_honeybird_tga_0/T_Parmon_10352_Body_01a_CA.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1035x_asset_0/M_Parmon_10352_Body_1211950921.obj",
+    "models/aexp_chmeshp_parm_parm1035x_asset_0/M_Parmon_10352_Body_LOD1_107286254.obj",
     "textures2/aexp_tcpm_10352_honeybird_tga_0/T_Parmon_10352_Body_01a_CA.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1035x_asset_0/M_Parmon_10352_eye_1211950921.obj",
+    "models/aexp_chmeshp_parm_parm1035x_asset_0/M_Parmon_10352_eye_LOD1_107286254.obj",
     "textures2/aexp_tcpm_10352_honeybird_tga_0/T_Parmon_10352_eye_01a_CA.png"
    ]
   ],
-  "score": 0.517,
+  "score": 0.5144,
   "yaw": -1.2,
-  "runner_up": 0.5144,
-  "n": 2
+  "runner_up": null,
+  "n": 1
  },
  "wisptis": {
   "mid": "10031",
@@ -1042,47 +1030,47 @@
   "mid": "10132",
   "parts": [
    [
-    "models/aexp_chmeshp_parm_parm1013x_asset_0/M_Parmon_10132_Body01_1813170446.obj",
+    "models/aexp_chmeshp_parm_parm1013x_asset_0/M_Parmon_10132_Body01_LOD1_682557321.obj",
     "textures2/aexp_tcpm_10132_icewolf_tga_0/T_Parmon_10132_Body01_01a_C.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1013x_asset_0/M_Parmon_10132_Body02_1813170446.obj",
+    "models/aexp_chmeshp_parm_parm1013x_asset_0/M_Parmon_10132_Body02_LOD1_682557321.obj",
     "textures2/aexp_tcpm_10132_icewolf_tga_0/T_Parmon_10132_Body_01a_CA.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1013x_asset_0/M_Parmon_10132_Body_1813170446.obj",
+    "models/aexp_chmeshp_parm_parm1013x_asset_0/M_Parmon_10132_Body_LOD1_682557321.obj",
     "textures2/aexp_tcpm_10132_icewolf_tga_0/T_Parmon_10132_Body_01a_CA.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1013x_asset_0/M_Parmon_10132_Eye_1813170446.obj",
+    "models/aexp_chmeshp_parm_parm1013x_asset_0/M_Parmon_10132_Eye_LOD1_682557321.obj",
     "textures2/aexp_tcpm_10132_icewolf_tga_0/T_Parmon_10132_Eye_01a_C.png"
    ]
   ],
-  "score": 0.6321,
+  "score": 0.6297,
   "yaw": 0,
   "runner_up": 0.6297,
-  "n": 3
+  "n": 2
  },
  "glynsera": {
   "mid": "10133",
   "parts": [
    [
-    "models/aexp_chmeshp_parm_parm1013x_asset_0/M_Parmon_10133_Body01_-1224612402.obj",
+    "models/aexp_chmeshp_parm_parm1013x_asset_0/M_Parmon_10133_Body01_LOD1_-747871927.obj",
     "textures2/aexp_tcpm_10133_icewolf_tga_0/T_Parmon_10133_Body_01a_CA.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1013x_asset_0/M_Parmon_10133_Body_-1224612402.obj",
+    "models/aexp_chmeshp_parm_parm1013x_asset_0/M_Parmon_10133_Body_LOD1_-747871927.obj",
     "textures2/aexp_tcpm_10133_icewolf_tga_0/T_Parmon_10133_Body_01a_CA.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1013x_asset_0/M_Parmon_10133_Eye001_-1224612402.obj",
+    "models/aexp_chmeshp_parm_parm1013x_asset_0/M_Parmon_10133_Eye001_LOD1_-747871927.obj",
     "textures2/aexp_tcpm_10133_icewolf_tga_0/T_Parmon_10133_Eye_01a_C.png"
    ]
   ],
-  "score": 0.6096,
+  "score": 0.607,
   "yaw": 0,
-  "runner_up": 0.607,
-  "n": 7
+  "runner_up": 0.5861,
+  "n": 4
  },
  "bolty": {
   "mid": "10221",
@@ -1151,22 +1139,22 @@
   "mid": "10512",
   "parts": [
    [
-    "models/aexp_chmeshp_parm_parm1051x_asset_0/M_Parmon_10512_Body1_-1881346675.obj",
+    "models/aexp_chmeshp_parm_parm1051x_asset_0/M_Parmon_10512_Body1_LOD1_1008484010.obj",
     "textures2/aexp_tcpm_10512_fistail_tga_0/T_Parmon_10512_Body1_01a_CA.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1051x_asset_0/M_Parmon_10512_Body_-1881346675.obj",
+    "models/aexp_chmeshp_parm_parm1051x_asset_0/M_Parmon_10512_Body_LOD1_1008484010.obj",
     "textures2/aexp_tcpm_10512_fistail_tga_0/T_Parmon_10512_Body_01a_CA.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1051x_asset_0/M_Parmon_10512_Eye_-1881346675.obj",
+    "models/aexp_chmeshp_parm_parm1051x_asset_0/M_Parmon_10512_Eye_LOD1_1008484010.obj",
     "textures2/aexp_tcpm_10512_fistail_tga_0/T_Parmon_10512_Eye_01a_CA.png"
    ]
   ],
-  "score": 0.4967,
+  "score": 0.4958,
   "yaw": 0,
   "runner_up": 0.4958,
-  "n": 3
+  "n": 2
  },
  "susuta": {
   "mid": "10171",
@@ -1234,18 +1222,18 @@
   "mid": "10173",
   "parts": [
    [
-    "models/aexp_chmeshp_parm_parm1017x_asset_0/M_Parmon_10173_Body_-896204443.obj",
+    "models/aexp_chmeshp_parm_parm1017x_asset_0/M_Parmon_10173_Body_LOD1_1084266546.obj",
     "textures2/aexp_tcpm_10173_otter_tga_0/T_Parmon_10173_Body_01a_CA.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1017x_asset_0/M_Parmon_10173_Eye_-896204443.obj",
+    "models/aexp_chmeshp_parm_parm1017x_asset_0/M_Parmon_10173_Eye_LOD1_1084266546.obj",
     "textures2/aexp_tcpm_10173_otter_tga_0/T_Parmon_10173_Eye_01a_C.png"
    ]
   ],
-  "score": 0.6881,
+  "score": 0.6841,
   "yaw": -0.6,
-  "runner_up": 0.6841,
-  "n": 3
+  "runner_up": null,
+  "n": 1
  },
  "panpanta": {
   "mid": "10174",
@@ -1407,51 +1395,51 @@
   "mid": "10451",
   "parts": [
    [
-    "models/aexp_chmeshp_parm_parm1045x_asset_0/M_Parmon_10451_Body01_-1815070436.obj",
+    "models/aexp_chmeshp_parm_parm1045x_asset_0/M_Parmon_10451_Body01_LOD1_-43352265.obj",
     "textures2/aexp_tcpm_10451_dungbeetle_tga_0/T_parmon_10451_Body_01a_C.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1045x_asset_0/M_Parmon_10451_Body_-1815070436.obj",
+    "models/aexp_chmeshp_parm_parm1045x_asset_0/M_Parmon_10451_Body_LOD1_-43352265.obj",
     "textures2/aexp_tcpm_10451_dungbeetle_tga_0/T_parmon_10451_Body_01a_C.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1045x_asset_0/M_Parmon_10451_Eye01_-1815070436.obj",
+    "models/aexp_chmeshp_parm_parm1045x_asset_0/M_Parmon_10451_Eye01_LOD1_-43352265.obj",
     "textures2/aexp_tcpm_10451_dungbeetle_tga_0/T_Parmon_10451_Eye_01a_C.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1045x_asset_0/M_Parmon_10451_Eye_-1815070436.obj",
+    "models/aexp_chmeshp_parm_parm1045x_asset_0/M_Parmon_10451_Eye_LOD1_-43352265.obj",
     "textures2/aexp_tcpm_10451_dungbeetle_tga_0/T_Parmon_10451_Eye_01a_C.png"
    ]
   ],
-  "score": 0.643,
+  "score": 0.6415,
   "yaw": 0,
-  "runner_up": 0.6415,
-  "n": 5
+  "runner_up": 0.6217,
+  "n": 4
  },
  "waleetle": {
   "mid": "10453",
   "parts": [
    [
-    "models/aexp_chmeshp_parm_parm1045x_asset_0/M_Parmon_10453_Body01_1853344412.obj",
+    "models/aexp_chmeshp_parm_parm1045x_asset_0/M_Parmon_10453_Body01_LOD1_-1716218313.obj",
     "textures2/aexp_tcpm_10453_dungbeetle_tga_0/T_Parmon_10453_Body_01a_C.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1045x_asset_0/M_Parmon_10453_Body_1853344412.obj",
+    "models/aexp_chmeshp_parm_parm1045x_asset_0/M_Parmon_10453_Body_LOD1_1612816887.obj",
     "textures2/aexp_tcpm_10453_dungbeetle_tga_0/T_Parmon_10453_Body_01a_C.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1045x_asset_0/M_Parmon_10453_Eye01_1853344412.obj",
+    "models/aexp_chmeshp_parm_parm1045x_asset_0/M_Parmon_10453_Eye01_LOD1_-1716218313.obj",
     "textures2/aexp_tcpm_10453_dungbeetle_tga_0/T_Parmon_10453_Eye_01a_CA.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1045x_asset_0/M_Parmon_10453_Eye_1853344412.obj",
+    "models/aexp_chmeshp_parm_parm1045x_asset_0/M_Parmon_10453_Eye_LOD1_-248771251.obj",
     "textures2/aexp_tcpm_10453_dungbeetle_tga_0/T_Parmon_10453_Eye_01a_CA.png"
    ]
   ],
-  "score": 0.4873,
+  "score": 0.4899,
   "yaw": 0,
   "runner_up": 0.4853,
-  "n": 7
+  "n": 4
  },
  "bouldus": {
   "mid": "10454",
@@ -1581,62 +1569,30 @@
   "mid": "10026",
   "parts": [
    [
-    "models/aexp_chmeshp_parm_parm1002x_asset_0/M_Parmon_10026_Body01_LOD2_931175901.obj",
+    "models/aexp_chmeshp_parm_parm1002x_asset_0/M_Parmon_10026_Body01_LOD1_375817316.obj",
     "textures2/aexp_tcpm_10026_helm_tga_0/T_Parmon_10026_Body01_01a_CA.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1002x_asset_0/M_Parmon_10026_Body02_LOD2_931175901.obj",
+    "models/aexp_chmeshp_parm_parm1002x_asset_0/M_Parmon_10026_Body02_LOD1_375817316.obj",
     "textures2/aexp_tcpm_10026_helm_tga_0/T_Parmon_10026_Body_01a_C.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1002x_asset_0/M_Parmon_10026_Body03_931175901.obj",
+    "models/aexp_chmeshp_parm_parm1002x_asset_0/M_Parmon_10026_Body03_LOD1_375817316.obj",
     "textures2/aexp_tcpm_10026_helm_tga_0/T_Parmon_10026_Body_01a_C.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1002x_asset_0/M_Parmon_10026_Body04_LOD2_931175901.obj",
+    "models/aexp_chmeshp_parm_parm1002x_asset_0/M_Parmon_10026_Body_LOD1_375817316.obj",
     "textures2/aexp_tcpm_10026_helm_tga_0/T_Parmon_10026_Body_01a_C.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1002x_asset_0/M_Parmon_10026_Body05_LOD2_931175901.obj",
-    "textures2/aexp_tcpm_10026_helm_tga_0/T_Parmon_10026_Body_01a_C.png"
-   ],
-   [
-    "models/aexp_chmeshp_parm_parm1002x_asset_0/M_Parmon_10026_Body06_LOD2_931175901.obj",
-    "textures2/aexp_tcpm_10026_helm_tga_0/T_Parmon_10026_Body_01a_C.png"
-   ],
-   [
-    "models/aexp_chmeshp_parm_parm1002x_asset_0/M_Parmon_10026_Body07_LOD2_931175901.obj",
-    "textures2/aexp_tcpm_10026_helm_tga_0/T_Parmon_10026_Body_01a_C.png"
-   ],
-   [
-    "models/aexp_chmeshp_parm_parm1002x_asset_0/M_Parmon_10026_Body08_LOD2_931175901.obj",
-    "textures2/aexp_tcpm_10026_helm_tga_0/T_Parmon_10026_Body_01a_C.png"
-   ],
-   [
-    "models/aexp_chmeshp_parm_parm1002x_asset_0/M_Parmon_10026_Body09_LOD2_931175901.obj",
-    "textures2/aexp_tcpm_10026_helm_tga_0/T_Parmon_10026_Body_01a_C.png"
-   ],
-   [
-    "models/aexp_chmeshp_parm_parm1002x_asset_0/M_Parmon_10026_Body10_LOD2_931175901.obj",
-    "textures2/aexp_tcpm_10026_helm_tga_0/T_Parmon_10026_Body_01a_C.png"
-   ],
-   [
-    "models/aexp_chmeshp_parm_parm1002x_asset_0/M_Parmon_10026_Body11_LOD2_931175901.obj",
-    "textures2/aexp_tcpm_10026_helm_tga_0/T_Parmon_10026_Body_01a_C.png"
-   ],
-   [
-    "models/aexp_chmeshp_parm_parm1002x_asset_0/M_Parmon_10026_Body_LOD2_931175901.obj",
-    "textures2/aexp_tcpm_10026_helm_tga_0/T_Parmon_10026_Body_01a_C.png"
-   ],
-   [
-    "models/aexp_chmeshp_parm_parm1002x_asset_0/M_Parmon_10026_Eye_LOD2_931175901.obj",
+    "models/aexp_chmeshp_parm_parm1002x_asset_0/M_Parmon_10026_Eye_LOD1_375817316.obj",
     "textures2/aexp_tcpm_10026_helm_tga_0/T_Parmon_10026_Eye_01a_CA.png"
    ]
   ],
-  "score": 0.3268,
+  "score": 0.315,
   "yaw": -1.2,
-  "runner_up": 0.315,
-  "n": 6
+  "runner_up": 0.2755,
+  "n": 4
  },
  "rookey": {
   "mid": "10027",
@@ -2110,15 +2066,15 @@
   "mid": "10474",
   "parts": [
    [
-    "models/aexp_chmeshp_parm_parm1047x_asset_0/M_Parmon_10474_Body_-1857288787.obj",
+    "models/aexp_chmeshp_parm_parm1047x_asset_0/M_Parmon_10474_Body_LOD1_-2018246810.obj",
     "textures2/aexp_tcpm_10474_cheeregg_tga_0/T_Parmon_10474_Body_01a_C.png"
    ],
    [
-    "models/aexp_chmeshp_parm_parm1047x_asset_0/M_Parmon_10474_Eye_-1857288787.obj",
+    "models/aexp_chmeshp_parm_parm1047x_asset_0/M_Parmon_10474_Eye_LOD1_-2018246810.obj",
     "textures2/aexp_tcpm_10474_cheeregg_tga_0/T_Parmon_10474_Eye_01a_CA.png"
    ]
   ],
-  "score": 0.5835,
+  "score": 0.5829,
   "yaw": 0.6,
   "runner_up": 0.5829,
   "n": 2
@@ -2239,5 +2195,285 @@
   "yaw": -0.6,
   "runner_up": null,
   "n": 1
+ },
+ "f1026101": {
+  "mid": "1026101",
+  "parts": [
+   [
+    "models/aexp_chmeshp_parm_parm1026x_asset_0/M_Pamon_1026101_Body_LOD1_-903463332.obj",
+    "textures2/aexp_tcpm_1026101_cloudsheep_tga_0/T_Parmon_1026101_Body_01a_C.png"
+   ],
+   [
+    "models/aexp_chmeshp_parm_parm1026x_asset_0/M_Pamon_1026101_Eye_LOD1_-903463332.obj",
+    "textures2/aexp_tcpm_1026101_cloudsheep_tga_0/T_Parmon_1026101_Body_01a_C.png"
+   ]
+  ],
+  "form_of": "nimbi"
+ },
+ "f1026105": {
+  "mid": "1026105",
+  "parts": [
+   [
+    "models/aexp_chmeshp_parm_parm1026x_asset_0/M_Pamon_1026105_Body_LOD1_1324516311.obj",
+    "textures2/aexp_tcpm_1026105_cloudsheep_tga_0/T_Parmon_1026105_Body_01a_CA.png"
+   ],
+   [
+    "models/aexp_chmeshp_parm_parm1026x_asset_0/M_Pamon_1026105_Body01_LOD1_739685212.obj",
+    "textures2/aexp_tcpm_1026105_cloudsheep_tga_0/T_Parmon_1026105_Body_01a_CA.png"
+   ],
+   [
+    "models/aexp_chmeshp_parm_parm1026x_asset_0/M_Pamon_1026105_Eye_LOD1_1324516311.obj",
+    "textures2/aexp_tcpm_1026105_cloudsheep_tga_0/T_Parmon_1026105_Eye_01a_CA.png"
+   ]
+  ],
+  "form_of": "nimbi"
+ },
+ "f1026204": {
+  "mid": "1026204",
+  "parts": [
+   [
+    "models/aexp_chmeshp_parm_parm1026x_asset_0/M_Parmon_1026204_Body_LOD2_-798537833.obj",
+    "textures2/xpt25_aexp_tc_30eada4b_xp_tcpm_1026204_cloudsheep_tga_0/T_Parmon_1026204_Body_01a_CA.png"
+   ],
+   [
+    "models/aexp_chmeshp_parm_parm1026x_asset_0/M_Parmon_1026204_Eye_LOD1_-798537833.obj",
+    "textures2/xpt25_aexp_tc_30eada4b_xp_tcpm_1026204_cloudsheep_tga_0/T_Parmon_1026204_Eye_01a_CA.png"
+   ]
+  ],
+  "form_of": "turbo"
+ },
+ "f1026205": {
+  "mid": "1026205",
+  "parts": [
+   [
+    "models/aexp_chmeshp_parm_parm1026x_asset_0/M_Parmon_1026205_Body_LOD1_-1520031657.obj",
+    "textures2/aexp_tcpm_1026205_cloudsheep_tga_0/T_Parmon_1026205_Body_01a_CA.png"
+   ],
+   [
+    "models/aexp_chmeshp_parm_parm1026x_asset_0/M_Parmon_1026205_Body01_LOD1_-1520031657.obj",
+    "textures2/aexp_tcpm_1026205_cloudsheep_tga_0/T_Parmon_1026205_Body_01a_CA.png"
+   ],
+   [
+    "models/aexp_chmeshp_parm_parm1026x_asset_0/M_Parmon_1026205_Body02_LOD1_-1520031657.obj",
+    "textures2/aexp_tcpm_1026205_cloudsheep_tga_0/T_Parmon_1026205_Body_01a_CA.png"
+   ],
+   [
+    "models/aexp_chmeshp_parm_parm1026x_asset_0/M_Parmon_1026205_Eye_LOD1_-1520031657.obj",
+    "textures2/aexp_tcpm_1026205_cloudsheep_tga_0/T_Parmon_1026205_Eye_01a_CA.png"
+   ]
+  ],
+  "form_of": "turbo"
+ },
+ "f1016202": {
+  "mid": "1016202",
+  "parts": [
+   [
+    "models/aexp_chmeshp_parm_parm1016x_asset_0/M_Parmon_1016202_Body_LOD1_1699533611.obj",
+    "textures2/aexp_tcpm_1016202_crab_tga_0/T_Parmon_1016202_Body_01a_CA.png"
+   ],
+   [
+    "models/aexp_chmeshp_parm_parm1016x_asset_0/M_Parmon_1016202_Eye_LOD1_1699533611.obj",
+    "textures2/aexp_tcpm_1016202_crab_tga_0/T_Parmon_1016202_Eye_01a_CA.png"
+   ],
+   [
+    "models/aexp_chmeshp_parm_parm1016x_asset_0/M_Parmon_1016202_Eye01_LOD1_1699533611.obj",
+    "textures2/aexp_tcpm_1016202_crab_tga_0/T_Parmon_1016202_Eye_01a_CA.png"
+   ],
+   [
+    "models/aexp_chmeshp_parm_parm1016x_asset_0/M_Parmon_1016202_Eye02_LOD1_1699533611.obj",
+    "textures2/aexp_tcpm_1016202_crab_tga_0/T_Parmon_1016202_Eye_01a_CA.png"
+   ],
+   [
+    "models/aexp_chmeshp_parm_parm1016x_asset_0/M_Parmon_1016202_Eye03_LOD1_1699533611.obj",
+    "textures2/aexp_tcpm_1016202_crab_tga_0/T_Parmon_1016202_Eye_01a_CA.png"
+   ],
+   [
+    "models/aexp_chmeshp_parm_parm1016x_asset_0/M_Parmon_1016202_Eye04_LOD1_1699533611.obj",
+    "textures2/aexp_tcpm_1016202_crab_tga_0/T_Parmon_1016202_Eye_01a_CA.png"
+   ],
+   [
+    "models/aexp_chmeshp_parm_parm1016x_asset_0/M_Parmon_1016202_Eye05_LOD1_1699533611.obj",
+    "textures2/aexp_tcpm_1016202_crab_tga_0/T_Parmon_1016202_Eye_01a_CA.png"
+   ]
+  ],
+  "form_of": "shrubclaw"
+ },
+ "f1033302": {
+  "mid": "1033302",
+  "parts": [
+   [
+    "models/aexp_chmeshp_parm_parm1033x_asset_0/M_Parmon_1033302_Body_LOD1_-1388033024.obj",
+    "textures2/aexp_tcpm_1033302_flame_tga_0/T_Parmon_1033302_Body_01a_CA.png"
+   ],
+   [
+    "models/aexp_chmeshp_parm_parm1033x_asset_0/M_Parmon_1033302_Body01_LOD1_-1388033024.obj",
+    "textures2/aexp_tcpm_1033302_flame_tga_0/T_Parmon_1033302_Body01_01a_CA.png"
+   ],
+   [
+    "models/aexp_chmeshp_parm_parm1033x_asset_0/M_Parmon_1033302_Body02_LOD1_-1388033024.obj",
+    "textures2/aexp_tcpm_1033302_flame_tga_0/T_Parmon_1033302_Body_01a_CA.png"
+   ],
+   [
+    "models/aexp_chmeshp_parm_parm1033x_asset_0/M_Parmon_1033302_Body03_LOD1_-1388033024.obj",
+    "textures2/aexp_tcpm_1033302_flame_tga_0/T_Parmon_1033302_Body_01a_CA.png"
+   ],
+   [
+    "models/aexp_chmeshp_parm_parm1033x_asset_0/M_Parmon_1033302_Body04_LOD1_-1388033024.obj",
+    "textures2/aexp_tcpm_1033302_flame_tga_0/T_Parmon_1033302_Body_01a_CA.png"
+   ],
+   [
+    "models/aexp_chmeshp_parm_parm1033x_asset_0/M_Parmon_1033302_Eye_LOD1_-1388033024.obj",
+    "textures2/aexp_tcpm_1033302_flame_tga_0/T_Parmon_1033302_Eye_01a_CA.png"
+   ]
+  ],
+  "form_of": "flamerion"
+ },
+ "f1023203": {
+  "mid": "1023203",
+  "parts": [
+   [
+    "models/aexp_chmeshp_parm_parm1023x_asset_0/M_Parmon_1023203_Body_-1031852387.obj",
+    "textures2/aexp_tcpm_1023203_dreambutterfly_tga_0/T_Parmon_1023203_Body_01a_CA.png"
+   ],
+   [
+    "models/aexp_chmeshp_parm_parm1023x_asset_0/M_Parmon_1023203_Body01_-1031852387.obj",
+    "textures2/aexp_tcpm_1023203_dreambutterfly_tga_0/T_Parmon_1023203_Body_01a_CA.png"
+   ],
+   [
+    "models/aexp_chmeshp_parm_parm1023x_asset_0/M_Parmon_1023203_Eye_-1031852387.obj",
+    "textures2/aexp_tcpm_1023203_dreambutterfly_tga_0/T_Parmon_1023203_Eye_01a_CA.png"
+   ]
+  ],
+  "form_of": "gracewing"
+ },
+ "f1003201": {
+  "mid": "1003201",
+  "parts": [
+   [
+    "models/aexp_chmeshp_parm_parm1003x_asset_0/M_Parmon_1003201_Body_LOD1_-2008460199.obj",
+    "textures2/aexp_tcpm_1003201_mantis_tga_0/T_Parmon_1003201_Body_01a_CA.png"
+   ],
+   [
+    "models/aexp_chmeshp_parm_parm1003x_asset_0/M_Parmon_1003201_Eye_LOD1_-2008460199.obj",
+    "textures2/aexp_tcpm_1003201_mantis_tga_0/T_Parmon_1003201_Eye_01a_CA.png"
+   ],
+   [
+    "models/aexp_chmeshp_parm_parm1003x_asset_0/M_Parmon_1003201_Eye01_LOD1_-2008460199.obj",
+    "textures2/aexp_tcpm_1003201_mantis_tga_0/T_Parmon_1003201_Eye01_01a_CA.png"
+   ]
+  ],
+  "form_of": "ignitis"
+ },
+ "f1045101": {
+  "mid": "1045101",
+  "parts": [
+   [
+    "models/aexp_chmeshp_parm_parm1045x_asset_0/M_Parmon_1045101_Body_LOD1_-1815070436.obj",
+    "textures2/aexp_tcpm_1045101_dungbeetle_tga_0/T_Parmon_1045101_Body_01a_CA.png"
+   ],
+   [
+    "models/aexp_chmeshp_parm_parm1045x_asset_0/M_Parmon_1045101_Body01_LOD1_-1815070436.obj",
+    "textures2/aexp_tcpm_1045101_dungbeetle_tga_0/T_Parmon_1045101_Body_01a_CA.png"
+   ],
+   [
+    "models/aexp_chmeshp_parm_parm1045x_asset_0/M_Parmon_1045101_Eye_LOD1_-1815070436.obj",
+    "textures2/aexp_tcpm_1045101_dungbeetle_tga_0/T_Parmon_1045101_Eye_01a_C.png"
+   ],
+   [
+    "models/aexp_chmeshp_parm_parm1045x_asset_0/M_Parmon_1045101_Eye01_LOD1_-1815070436.obj",
+    "textures2/aexp_tcpm_1045101_dungbeetle_tga_0/T_Parmon_1045101_Eye_01a_C.png"
+   ]
+  ],
+  "form_of": "baleetle"
+ },
+ "f1050301": {
+  "mid": "1050301",
+  "parts": [
+   [
+    "models/aexp_chmeshp_parm_parm1050x_asset_0/M_Parmon_1050301_Body01_Default_LOD1_1287491919.obj",
+    "textures2/xpt25_aexp_tc_b24b19b2_xp_tcpm_1050301_sleepybear_tga_0/T_Parmon_1050301_Body01_Default_01a_CA.png"
+   ],
+   [
+    "models/aexp_chmeshp_parm_parm1050x_asset_0/M_Parmon_1050301_Body01_Rampage_LOD1_1287491919.obj",
+    "textures2/xpt25_aexp_tc_b24b19b2_xp_tcpm_1050301_sleepybear_tga_0/T_Parmon_1050301_Body01_Rampage_01a_CA.png"
+   ],
+   [
+    "models/aexp_chmeshp_parm_parm1050x_asset_0/M_Parmon_1050301_Body02_Default_LOD1_1287491919.obj",
+    "textures2/xpt25_aexp_tc_b24b19b2_xp_tcpm_1050301_sleepybear_tga_0/T_Parmon_1050301_Body02_Default_01a_CA.png"
+   ],
+   [
+    "models/aexp_chmeshp_parm_parm1050x_asset_0/M_Parmon_1050301_Body02_Rampage_LOD1_1287491919.obj",
+    "textures2/xpt25_aexp_tc_b24b19b2_xp_tcpm_1050301_sleepybear_tga_0/T_Parmon_1050301_Body02_Rampage_01a_CA.png"
+   ],
+   [
+    "models/aexp_chmeshp_parm_parm1050x_asset_0/M_Parmon_1050301_Body03_Default_LOD1_1287491919.obj",
+    "textures2/aexp_tcpm_10503_sleepybear_tga_0/T_Parmon_10503_Body_01a_CA.png"
+   ],
+   [
+    "models/aexp_chmeshp_parm_parm1050x_asset_0/M_Parmon_1050301_Body03_Rampage_LOD1_1287491919.obj",
+    "textures2/aexp_tcpm_10503_sleepybear_tga_0/T_Parmon_10503_Body_01a_CA.png"
+   ],
+   [
+    "models/aexp_chmeshp_parm_parm1050x_asset_0/M_Parmon_1050301_Body04_Default_LOD1_1287491919.obj",
+    "textures2/aexp_tcpm_10503_sleepybear_tga_0/T_Parmon_10503_Body_01a_CA.png"
+   ],
+   [
+    "models/aexp_chmeshp_parm_parm1050x_asset_0/M_Parmon_1050301_Body04_Rampage_LOD1_1287491919.obj",
+    "textures2/aexp_tcpm_10503_sleepybear_tga_0/T_Parmon_10503_Body_01a_CA.png"
+   ],
+   [
+    "models/aexp_chmeshp_parm_parm1050x_asset_0/M_Parmon_1050301_Body05_Default_LOD1_1287491919.obj",
+    "textures2/aexp_tcpm_10503_sleepybear_tga_0/T_Parmon_10503_Body_01a_CA.png"
+   ],
+   [
+    "models/aexp_chmeshp_parm_parm1050x_asset_0/M_Parmon_1050301_Body05_Rampage_LOD1_1287491919.obj",
+    "textures2/aexp_tcpm_10503_sleepybear_tga_0/T_Parmon_10503_Body_01a_CA.png"
+   ],
+   [
+    "models/aexp_chmeshp_parm_parm1050x_asset_0/M_Parmon_1050301_Body06_Default_LOD1_1287491919.obj",
+    "textures2/aexp_tcpm_10503_sleepybear_tga_0/T_Parmon_10503_Body_01a_CA.png"
+   ],
+   [
+    "models/aexp_chmeshp_parm_parm1050x_asset_0/M_Parmon_1050301_Body06_Rampage_LOD1_1287491919.obj",
+    "textures2/aexp_tcpm_10503_sleepybear_tga_0/T_Parmon_10503_Body_01a_CA.png"
+   ],
+   [
+    "models/aexp_chmeshp_parm_parm1050x_asset_0/M_Parmon_1050301_Body07_Default_LOD1_1287491919.obj",
+    "textures2/aexp_tcpm_10503_sleepybear_tga_0/T_Parmon_10503_Body_01a_CA.png"
+   ],
+   [
+    "models/aexp_chmeshp_parm_parm1050x_asset_0/M_Parmon_1050301_Body07_Rampage_LOD1_1287491919.obj",
+    "textures2/aexp_tcpm_10503_sleepybear_tga_0/T_Parmon_10503_Body_01a_CA.png"
+   ],
+   [
+    "models/aexp_chmeshp_parm_parm1050x_asset_0/M_Parmon_1050301_Body08_Default_LOD1_1287491919.obj",
+    "textures2/aexp_tcpm_10503_sleepybear_tga_0/T_Parmon_10503_Body_01a_CA.png"
+   ],
+   [
+    "models/aexp_chmeshp_parm_parm1050x_asset_0/M_Parmon_1050301_Body08_Rampage_LOD1_1287491919.obj",
+    "textures2/aexp_tcpm_10503_sleepybear_tga_0/T_Parmon_10503_Body_01a_CA.png"
+   ],
+   [
+    "models/aexp_chmeshp_parm_parm1050x_asset_0/M_Parmon_1050301_Body09_Rampage_LOD1_1287491919.obj",
+    "textures2/aexp_tcpm_10503_sleepybear_tga_0/T_Parmon_10503_Body_01a_CA.png"
+   ],
+   [
+    "models/aexp_chmeshp_parm_parm1050x_asset_0/M_Parmon_1050301_Body_Default_LOD1_1287491919.obj",
+    "textures2/xpt25_aexp_tc_b24b19b2_xp_tcpm_1050301_sleepybear_tga_0/T_Parmon_1050301_Body_Default_01a_CA.png"
+   ],
+   [
+    "models/aexp_chmeshp_parm_parm1050x_asset_0/M_Parmon_1050301_Body_Rampage_LOD1_1287491919.obj",
+    "textures2/xpt25_aexp_tc_b24b19b2_xp_tcpm_1050301_sleepybear_tga_0/T_Parmon_1050301_Body_Rampage_01a_CA.png"
+   ],
+   [
+    "models/aexp_chmeshp_parm_parm1050x_asset_0/M_Parmon_1050301_Eye_Default_LOD1_1287491919.obj",
+    "textures2/xpt25_aexp_tc_b24b19b2_xp_tcpm_1050301_sleepybear_tga_0/T_Parmon_1050301_Eye_Default_01a_CA.png"
+   ],
+   [
+    "models/aexp_chmeshp_parm_parm1050x_asset_0/M_Parmon_1050301_Eye_Rampage_LOD1_1287491919.obj",
+    "textures2/xpt25_aexp_tc_b24b19b2_xp_tcpm_1050301_sleepybear_tga_0/T_Parmon_1050301_Eye_Rampage_01a_CA.png"
+   ]
+  ],
+  "form_of": "grizbo"
  }
 }

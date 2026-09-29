@@ -4,24 +4,20 @@
 // toon shading and an outline.
 //
 //   cd tools/model && npm install
-//   node obj2glb.mjs picks.json <slug> ../../3d/<slug>.glb [export root, default /Volumes/Kittisak/aniimo/out]
+//   node obj2glb.mjs picks.json <slug> ../../3d/<slug>.glb [export root, default ../../aniimo/out (git-ignored copy of the export)]
 //
 // picks.json comes from candidates.py + score.cjs: for each Aniimo, the part set (mesh + texture per part)
 // whose render is closest to the site's art.
 import fs from 'fs';
 import path from 'path';
 import { DETAIL, toonTex } from './toon.mjs';
-import { recolorWith } from './colour.mjs';
 import { Document, NodeIO } from '@gltf-transform/core';
 import { ALL_EXTENSIONS, EXTTextureWebP } from '@gltf-transform/extensions';
 import { weld, simplify, dedup, prune, meshopt, reorder } from '@gltf-transform/functions';
 import { MeshoptSimplifier, MeshoptEncoder } from 'meshoptimizer';
 
-const [picksFile, slug, out, root = '/Volumes/Kittisak/aniimo/out'] = process.argv.slice(2);
+const [picksFile, slug, out, root = new URL('../../aniimo/out', import.meta.url).pathname] = process.argv.slice(2);
 const pick = JSON.parse(fs.readFileSync(picksFile, 'utf8'))[slug];
-// colour match to the in-game art (match.mjs), body textures only
-const matchFile = path.join(path.dirname(picksFile), 'match.json');
-const match = fs.existsSync(matchFile) ? JSON.parse(fs.readFileSync(matchFile, 'utf8'))[slug] : null;
 if (!pick || !pick.parts) { console.error('no pick for', slug); process.exit(1) }
 
 function readObj(file) {
@@ -50,7 +46,7 @@ const mats = {};
 async function mat(tex) {
   if (mats[tex]) return mats[tex];
   const eye = /_Eye/i.test(tex);
-  const img = doc.createTexture(path.basename(tex)).setImage(await toonTex(path.join(root, tex), eye ? DETAIL.eye : DETAIL.body, !eye && match ? recolorWith(match) : null)).setMimeType('image/webp');
+  const img = doc.createTexture(path.basename(tex)).setImage(await toonTex(path.join(root, tex), eye ? DETAIL.eye : DETAIL.body)).setMimeType('image/webp');
   return mats[tex] = doc.createMaterial(eye ? 'eye' : 'body:' + path.basename(tex).toLowerCase()).setBaseColorTexture(img).setAlphaMode('MASK').setAlphaCutoff(0.4)
     .setDoubleSided(true).setRoughnessFactor(1).setMetallicFactor(0);
 }

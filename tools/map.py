@@ -12,6 +12,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+import polite
+
 from PIL import Image
 
 sys.path.insert(0, str(Path(__file__).resolve().parent / "i18n"))
@@ -49,7 +51,9 @@ def curl(url, dest):
     dest.parent.mkdir(parents=True, exist_ok=True)
     if dest.exists() and dest.stat().st_size > 0 and not REFRESH:
         return dest
-    subprocess.run(["curl", "-sLg", "-A", UA, "-o", str(dest), url], check=True)
+    if dest.exists():
+        dest.unlink()
+    polite.get(url, dest)  # low rate, never player profiles (the owner's terms)
     return dest
 
 

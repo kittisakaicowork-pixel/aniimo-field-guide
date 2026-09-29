@@ -1,12 +1,14 @@
-// Shared texture look for everything in 3d/.
-// The game's colour maps (CA) are meant to be combined with the occlusion channel of the matching MOHR map
-// and the game's lighting; on their own they read pale and flat. So: bake the occlusion in, keep the colour
-// depth, then posterize lightly in HSL (hue kept) so the result is still not the game's texture 1:1.
+// Shared texture treatment for everything in 3d/: the game's own colours, kept as they are.
+// The colour maps (CA) are meant to be combined with the occlusion channel of the matching MOHR map, so half of
+// it is baked in (without it they read pale and flat). A very light HSL posterize (hue untouched) plus the
+// viewer's toon light and outline are the small change that keeps this from being the game's texture 1:1.
+// No colour shifting: an earlier per-model colour match drifted hues, especially on forms.
 import fs from 'fs';
 import path from 'path';
 import sharp from 'sharp';
 
-export const DETAIL = { ratio: 0.85, error: 0.0008, body: 1024, eye: 256, variant: 512, light: 20, sat: 12, hue: 5, satBoost: 1.1, ao: 0.45 };
+export const DETAIL = { ratio: 0.85, error: 0.0008, body: 1024, eye: 256, variant: 512, light: 32, sat: 16, hue: 3, satBoost: 1.0, ao: 0.45,
+  ...(process.env.TOON ? JSON.parse(process.env.TOON) : {}) };  // TOON='{"light":0}' for experiments
 
 export function rgb2hsl(r, g, b) {
   const mx = Math.max(r, g, b), mn = Math.min(r, g, b), l = (mx + mn) / 2, d = mx - mn;
@@ -60,6 +62,6 @@ export async function toonTex(file, size, recolor) {
     }
   }
   if (recolor) recolor(data);
-  posterize(data);
+  if (DETAIL.light) posterize(data);
   return sharp(data, { raw: info }).webp({ quality: 88, alphaQuality: 90 }).toBuffer();
 }

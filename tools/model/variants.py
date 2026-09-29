@@ -20,7 +20,7 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 
-OUT = Path("/Volumes/Kittisak/aniimo/out")
+OUT = Path(__file__).resolve().parents[2] / "aniimo" / "out"
 ROOT = Path(__file__).resolve().parents[2]
 REF = ROOT / "tools" / "cache" / "img"
 TEX = re.compile(r"t_parmon_(\d+)_([a-z]+\d*)_(?:(shiny|whiteshiny|darkshiny|demonic)_)?(\d\d[a-z])_(?:(shiny|whiteshiny|darkshiny)_)?(c|ca)\.png$")

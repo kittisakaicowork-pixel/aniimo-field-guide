@@ -1,59 +1,28 @@
 <!doctype html><html><head><meta charset="utf-8">
-<!-- Renders 2D images from 3d/<slug>.glb in the site's toon look: Sparkling types (variant texture + accent
-     rim glow + sparkles) and plain art where the game has none. Driven by render.cjs; serve tools/model with
-     3d/ reachable at ./3d/ (symlink). Must match mount3d() in index.html. -->
+<!-- 2D images from 3d/<slug>.glb with exactly the site's viewer (viewer3d.js): Sparkling types and plain art
+     where the game has none. Driven by render.cjs; serve tools/model with 3d/ and viewer3d.js reachable
+     next to this file (symlinks). -->
 <script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
 </head><body style="margin:0">
 <script type="module">
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
+import { buildModel, sceneLights, frame } from './viewer3d.js';
 const S = 640;
 const r = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true }); r.setSize(S, S); r.setPixelRatio(1);
 r.outputColorSpace = THREE.SRGBColorSpace; document.body.appendChild(r.domElement);
-const ramp = new THREE.DataTexture(new Uint8Array([120, 120, 120, 255, 200, 200, 200, 255, 255, 255, 255, 255]), 3, 1); ramp.minFilter = ramp.magFilter = THREE.NearestFilter; ramp.needsUpdate = true;
-const outline = new THREE.ShaderMaterial({ side: THREE.BackSide, vertexShader: 'void main(){gl_Position=projectionMatrix*modelViewMatrix*vec4(position+normal*0.008,1.);}', fragmentShader: 'void main(){gl_FragColor=vec4(0.12,0.1,0.18,1.);}' });
-const rimMat = c => new THREE.ShaderMaterial({ transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, uniforms: { c: { value: new THREE.Color(c) } },
-  vertexShader: 'varying vec3 n;varying vec3 v;void main(){vec4 p=modelViewMatrix*vec4(position,1.);n=normalize(normalMatrix*normal);v=normalize(-p.xyz);gl_Position=projectionMatrix*p;}',
-  fragmentShader: 'uniform vec3 c;varying vec3 n;varying vec3 v;void main(){float f=pow(1.-abs(dot(n,v)),4.);gl_FragColor=vec4(c*f*0.75,1.);}' });
-const sheen = rimMat('#5a5048');  // faint warm edge light, like fur in the game
-const loader = new GLTFLoader().setMeshoptDecoder(MeshoptDecoder), tl = new THREE.TextureLoader();
-const cache = {};
-// look: {slug, mats:[names], fid, kind ('' plain | n s z d), accent:'#rrggbb'|null, yaw}
+// look: {slug, kind ('' | s z d), glow, texFid, mats, t (idle time for the pose)}
 window.renderLook = async (look) => {
-  const g = await (cache[look.slug] ||= loader.loadAsync(`3d/${look.slug}.glb`));
-  const root = g.scene.clone(true), meshes = [];
-  root.traverse(o => o.isMesh && meshes.push(o));
-  for (const o of meshes) {
-    let map = o.material.map;
-    const i = look.kind && o.material.name.startsWith('body:') ? look.mats.indexOf(o.material.name.slice(5)) : -1;
-    if (i >= 0) { map = await tl.loadAsync(`3d/v/${look.fid}-${look.kind}-${i}.webp`); map.flipY = false; map.colorSpace = THREE.SRGBColorSpace }
-    o.material = new THREE.MeshToonMaterial({ map, gradientMap: ramp, alphaTest: 0.4, side: THREE.DoubleSide });
-    o.add(new THREE.Mesh(o.geometry, outline));
-    o.add(new THREE.Mesh(o.geometry, sheen));
-    if (look.accent) o.add(new THREE.Mesh(o.geometry, rimMat(look.accent)));
-  }
-  const scene = new THREE.Scene();
-  scene.add(new THREE.AmbientLight(0xffffff, 1.0), new THREE.HemisphereLight(0xfff4e8, 0x40385a, 0.6)); const sun = new THREE.DirectionalLight(0xffffff, 2.4); sun.position.set(2, 3, 2); scene.add(sun);
-  const box = new THREE.Box3().setFromObject(root), c = box.getCenter(new THREE.Vector3()), size = box.getSize(new THREE.Vector3());
-  const pivot = new THREE.Group(); root.position.sub(c); pivot.add(root); pivot.rotation.y = look.yaw ?? 0.6; scene.add(pivot);
-  if (look.accent) {  // a few four-point sparkles around the body, same spots every time
-    let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
-    const cv = document.createElement('canvas'); cv.width = cv.height = 64; const x = cv.getContext('2d');
-    const gr = x.createRadialGradient(32, 32, 0, 32, 32, 32); gr.addColorStop(0, '#fff'); gr.addColorStop(0.25, look.accent); gr.addColorStop(1, 'rgba(0,0,0,0)');
-    x.fillStyle = gr; x.beginPath(); x.moveTo(32, 0); x.quadraticCurveTo(36, 28, 64, 32); x.quadraticCurveTo(36, 36, 32, 64); x.quadraticCurveTo(28, 36, 0, 32); x.quadraticCurveTo(28, 28, 32, 0); x.fill();
-    const sm = new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(cv), blending: THREE.AdditiveBlending, depthWrite: false });
-    const R = size.length() / 2;
-    for (let k = 0; k < 14; k++) {
-      const sp = new THREE.Sprite(sm), a = rnd() * Math.PI * 2, h = (rnd() - 0.4) * size.y;
-      sp.position.set(Math.cos(a) * R * (0.55 + rnd() * 0.35), h, Math.sin(a) * R * 0.5); sp.scale.setScalar(R * (0.06 + rnd() * 0.08)); scene.add(sp);
-    }
-  }
-  const d = size.length();
-  const cam = new THREE.PerspectiveCamera(30, 1, 0.01, 100); cam.position.set(0, d * 0.16, d * 1.45); cam.lookAt(0, 0, 0);
+  const scene = new THREE.Scene(); sceneLights(THREE, scene);
+  const m = await buildModel(THREE, { GLTFLoader, MeshoptDecoder }, { url: `3d/${look.slug}.glb`, look, period: look.period || 3 });
+  m.update(look.t ?? 0.6);
+  m.root.position.sub(m.box.getCenter(new THREE.Vector3())); m.root.rotation.y = 0.6; scene.add(m.root);
+  if (m.points) m.points.material.uniforms.uPx.value = S / 400;
+  const cam = new THREE.PerspectiveCamera(30, 1, 0.01, 100); frame(THREE, cam, m.box, 0.6, 0.9);
   r.setClearColor(0, 0); r.render(scene, cam);
   const url = r.domElement.toDataURL('image/png');
-  scene.traverse(o => { if (o.isMesh && o.material.map && o.material.map !== g.scene) o.material.dispose() });
+  m.dispose();
   return url;
 };
 document.title = 'ready';

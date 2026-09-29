@@ -16,7 +16,7 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 
-OUT = Path(sys.argv[1] if len(sys.argv) > 1 else "/Volumes/Kittisak/aniimo/out")
+OUT = Path(sys.argv[1] if __name__ == "__main__" and len(sys.argv) > 1 else str(Path(__file__).resolve().parents[2] / "aniimo" / "out"))
 ROOT = Path(__file__).resolve().parents[2]
 MESH = re.compile(r"M_Pa?r?mon_(\d+)_(.+?)(?:_(LOD\d))?_(-?\d+)\.obj$")
 SKIP = re.compile(r"shiny|spark|demonic|voxel|collider|dark", re.I)
@@ -92,6 +92,10 @@ def main():
             if parts and key not in seen:
                 seen.add(key)
                 cands.append(dict(name=name, parts=parts))
+        # the top-detail meshes without an LOD tag carry the game's stacked fur shells, which look messy without
+        # its fur shader: when an all-LOD1 set exists, keep only sets whose meshes all have an LOD tag
+        if any(all("_LOD1_" in p for p, _ in c["parts"]) for c in cands):
+            cands = [c for c in cands if all(re.search(r"_LOD\d_", p) for p, _ in c["parts"])]
         if cands:
             # reference to score against: a full-body render of the in-game model when we have one (compared only,
             # never copied), else the in-game painting
