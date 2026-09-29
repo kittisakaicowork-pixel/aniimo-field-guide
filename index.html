@@ -210,10 +210,6 @@ dialog::backdrop{background:color-mix(in srgb,#04101c 55%,transparent);}
 .dlg .hero-pic img{width:100%;max-width:300px;aspect-ratio:1;object-fit:contain}
 .dlg .hero-pic img.cut{border-radius:50%;object-fit:cover;width:80%}
 .dlg .hero-pic .fname{font-size:.8rem;color:var(--ink-2)}
-.dlg .hero-pic .m3d{width:100%;max-width:300px;aspect-ratio:1;display:grid;place-items:center;touch-action:none}
-.dlg .hero-pic .m3d canvas{width:100%!important;height:100%!important;cursor:grab}
-.m3d-btn{position:absolute;left:14px;top:14px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:99px;padding:6px 12px;font:inherit;font-size:.8rem;font-weight:600;cursor:pointer}
-.m3d-btn[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:transparent}
 .dlg .body{padding:22px 24px 28px;display:grid;gap:14px;align-content:start;overflow:auto}
 .dlg h3{font-size:1.8rem}
 .x{position:absolute;top:12px;right:12px;z-index:3;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--surface);cursor:pointer;font-size:1.3rem;line-height:1}
@@ -2201,7 +2197,7 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
       <ul class="sources" id="g-sources">
         <li><a href="https://www.aniimo.com/" target="_blank" rel="noopener">เว็บไซต์ทางการ aniimo.com</a></li>
         <li><a href="https://store.steampowered.com/app/4126040/Aniimo/" target="_blank" rel="noopener">Steam</a></li>
-        <li><a href="https://aniidex.com/" target="_blank" rel="noopener">AniiDex — แผนที่ อีเวนต์ บอส และภาพบางส่วน (ได้รับอนุญาต)</a></li>
+        <li><a href="https://aniidex.com/" target="_blank" rel="noopener">AniiDex — ภาพตัวละคร ร่างเปล่งประกาย แผนที่ อีเวนต์ และบอส (ได้รับอนุญาต)</a></li>
         <li><a href="https://game8.co/games/Aniimo" target="_blank" rel="noopener">Game8 Aniimo Wiki</a></li>
         <li><a href="https://game8.co/games/Aniimo/archives/621098" target="_blank" rel="noopener">Game8 Tier List</a></li>
         <li><a href="https://game8.co/games/Aniimo/archives/619365" target="_blank" rel="noopener">Game8 Redeem Codes</a></li>
@@ -2213,7 +2209,7 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
         <li><a href="https://game8.co/games/Aniimo/archives/623315" target="_blank" rel="noopener">Game8 — List of Controls</a></li>
         <li><a href="https://game8.co/games/Aniimo/archives/623345" target="_blank" rel="noopener">Game8 — Best and Recommended Settings</a></li>
       </ul>
-      <p class="small muted">เว็บแฟนเมด ไม่เกี่ยวข้องกับ Pawprint Studio · ภาพ โมเดล และชื่อ Aniimo เป็นลิขสิทธิ์ของผู้พัฒนาเกม · ข้อมูล ภาพ และโมเดลส่วนใหญ่มาจากไฟล์เกมโดยได้รับอนุญาต · แผนที่ อีเวนต์ บอส และภาพบางส่วนใช้โดยได้รับอนุญาตจาก <a href="https://aniidex.com/" target="_blank" rel="noopener">AniiDex</a> ขอบคุณมาก · แผนที่ Egg Heist จาก <a href="https://aniilog.gg/" target="_blank" rel="noopener">AniiLog</a> · ข่าวสรุปจากประกาศทางการ</p>
+      <p class="small muted">เว็บแฟนเมด ไม่เกี่ยวข้องกับ Pawprint Studio · ภาพและชื่อ Aniimo เป็นลิขสิทธิ์ของผู้พัฒนาเกม · ข้อมูลและคำแปลไทยจากไฟล์เกมโดยได้รับอนุญาต · ภาพตัวละคร ร่างเปล่งประกาย แผนที่ อีเวนต์ และบอสใช้โดยได้รับอนุญาตจาก <a href="https://aniidex.com/" target="_blank" rel="noopener">AniiDex</a> ขอบคุณมาก · แผนที่ Egg Heist จาก <a href="https://aniilog.gg/" target="_blank" rel="noopener">AniiLog</a> · ข่าวสรุปจากประกาศทางการ</p>
     </section>
   </main>
 </div>
@@ -2292,15 +2288,6 @@ const numLabel=a=>(+a.no>9000?'พิเศษ':'#'+a.no);
 const skillsOf=slug=>((SK[slug]||{}).s||[]).map(s=>({n:s[0],k:s[1],e:s[2],t:s[3],mi:s[4],cost:s[5],cd:s[6],r:s[7],ix:s[8],d:s[9],g:s[10]||[]}));
 const skColors=slug=>{const c=[];skillsOf(slug).forEach(s=>{if(s.e&&!c.includes(s.e))c.push(s.e)});return c};
 const SPK=window.SPARK||{cols:10,rows:1,e:[]};
-const M3D=window.MODELS&&window.MODELS.m?window.MODELS:{glow:[],m:{}};
-// which 3D look fits the sheet's current form/Sparkling choice: {fid, kind ('' plain, n form, s/z/d Sparkling), glow}
-function look3d(a,form,spark){
-  const m=M3D.m[a.slug];if(!m)return null;
-  const f=form==null?null:a.f[form];
-  if(f&&!((m.looks||{})[f.id]||'').includes('n'))return null;  // no game texture for this form: show the art instead
-  const own=f&&(m.fg||[]).includes(f.id);  // this form has its own mesh
-  return {url:own?`3d/f${f.id}.glb`:`3d/${a.slug}.glb`,kind:spark?(spark<=10?'s':spark===11?'z':'d'):f?'n':'',glow:spark?M3D.glow[spark-1]:null,texFid:f&&!own?f.id:null,mats:m.mats||[]};
-}
 
 const SPK_IDX={};SPK.e.forEach(([s,fi],i)=>{SPK_IDX[s+'|'+(fi==null?'':fi)]=i});
 const hasSpark=slug=>(slug+'|') in SPK_IDX;
@@ -2495,18 +2482,6 @@ function itemsInfo(a){
   if(!a.it||!a.it.length)return '';
   return `<div><p class="eyebrow" style="margin-bottom:8px">Held Item แนะนำ</p><ul class="infolist">${a.it.map(([n,e])=>`<li><b>${itemRef(n)}</b>${e?`<div class="small muted" style="margin-top:2px">${esc(tr(e))}</div>`:''}</li>`).join('')}</ul></div>`;
 }
-/* ===== 3D model: viewer3d.js (shared with the model tools); three.js from the CDN, only when opened ===== */
-const THREE_CDN='https://cdn.jsdelivr.net/npm/three@0.186.1/';
-async function mount3d(slug,look){
-  const el=document.getElementById('m3d');if(!el)return;
-  let T,libs,V;
-  try{const [t,{GLTFLoader},{MeshoptDecoder},{OrbitControls},{RoomEnvironment},v]=await Promise.all(['+esm','examples/jsm/loaders/GLTFLoader.js/+esm','examples/jsm/libs/meshopt_decoder.module.js/+esm','examples/jsm/controls/OrbitControls.js/+esm','examples/jsm/environments/RoomEnvironment.js/+esm'].map(p=>import(THREE_CDN+p)).concat(import('./viewer3d.js')));T=t;libs={GLTFLoader,MeshoptDecoder,OrbitControls,RoomEnvironment};V=v}
-  catch(_){el.innerHTML='<span class="muted small">โหลดตัวแสดงผล 3D ไม่ได้ ลองเชื่อมต่อเน็ตแล้วเปิดใหม่</span>';return}
-  if(!el.isConnected)return;
-  const mv=((BY[slug]||{}).b||{}).mv||{};
-  try{await V.mountViewer(el,T,libs,{url:look.url,look,period:(M3D.m[slug]||{}).p||3,motion:{fly:!!(mv.fly||mv.glide),fold:(M3D.m[slug]||{}).fold||0},still:matchMedia('(prefers-reduced-motion: reduce)').matches})}
-  catch(_){el.innerHTML='<span class="muted small">โหลดโมเดลไม่ได้</span>'}
-}
 function renderDetail(){
   const a=BY[dState.slug],cur=dState.form==null?null:a.f[dState.form];
   const img=cur?(cur.i||a.i):a.i,els=cur?cur.e:a.e,line=LINES[a.slug]||[a];
@@ -2538,7 +2513,7 @@ function renderDetail(){
       ${a.f.length?'':'<p class="muted">Aniimo ตัวนี้ยังไม่มีร่างพิเศษ</p>'}`;
   }
   dlgBody.innerHTML=`<div class="dlg">
-   <div class="hero-pic">${dState.m3d&&look3d(a,dState.form,dState.spark)?'<div class="m3d" id="m3d"><span class="muted small">กำลังโหลดโมเดล…</span></div>':dState.spark&&spIdx!=null?(META.full&&SPK.ids?`<img src="spk/${SPK.ids[spIdx]}_${String(dState.spark).padStart(2,'0')}.webp" alt="${esc(a.name)} ${STYPES[dState.spark-1]}">`:`<span class="spr" style="${sprStyle(dState.spark,spIdx,1)}" role="img" aria-label="${esc(a.name)} ${STYPES[dState.spark-1]}"></span>`):`<img src="${img}" alt="${esc(a.name)}" class="${!cur&&a.cut?'cut':''}">`}<span class="fname">${cur?KIND[cur.k]+' · '+esc(cur.n):'ร่างปกติ'}${dState.spark?' · ✦ '+STYPES[dState.spark-1]:''}${dState.m3d?' · ลากเพื่อหมุน':''}</span>${look3d(a,dState.form,dState.spark)?`<button type="button" class="m3d-btn" data-m3d aria-pressed="${!!dState.m3d}">${dState.m3d?'ภาพ 2D':'ดู 3D'}</button>`:''}</div>
+   <div class="hero-pic">${dState.spark&&spIdx!=null?(META.full&&SPK.ids?`<img src="spk/${SPK.ids[spIdx]}_${String(dState.spark).padStart(2,'0')}.webp" alt="${esc(a.name)} ${STYPES[dState.spark-1]}">`:`<span class="spr" style="${sprStyle(dState.spark,spIdx,1)}" role="img" aria-label="${esc(a.name)} ${STYPES[dState.spark-1]}"></span>`):`<img src="${img}" alt="${esc(a.name)}" class="${!cur&&a.cut?'cut':''}">`}<span class="fname">${cur?KIND[cur.k]+' · '+esc(cur.n):'ร่างปกติ'}${dState.spark?' · ✦ '+STYPES[dState.spark-1]:''}</span></div>
    <div class="body">
     <div><p class="eyebrow">${numLabel(a)} · ${a.st}${a.u?' · ยังไม่เปิดให้จับ':''}</p><h3 id="dlgTitle">${esc(a.name)}</h3>${a.th&&a.th!==a.en?`<p class="muted small">${esc(LANG==='th'?a.en:a.th)}</p>`:''}</div>
     <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">${els.map(badge).join('')}<span class="chip">${a.r}</span><span class="dots" style="margin-left:4px" title="สีสกิล">${cols.map(k=>`<i style="background:var(--${k})"></i>`).join('')}</span></div>
@@ -2546,12 +2521,10 @@ function renderDetail(){
     <div class="dtabs" role="tablist">${tabs.map(([k,l])=>`<button type="button" role="tab" data-dtab="${k}" aria-selected="${dState.tab===k}">${l}</button>`).join('')}</div>
     ${pane}
    </div></div>`;
-  const lk=dState.m3d&&look3d(a,dState.form,dState.spark);if(lk)mount3d(a.slug,lk);
   const b=dlg.querySelector('.body');if(b)b.scrollTop=0;dlg.querySelector('.dlg').scrollTop=0;
 }
 document.addEventListener('click',e=>{
   const t=e.target.closest('[data-dtab]');if(t){dState.tab=t.dataset.dtab;renderDetail();return}
-  if(e.target.closest('[data-m3d]')){dState.m3d=!dState.m3d;renderDetail();return}
   const sk=e.target.closest('[data-spk]');if(sk){dState.spark=+sk.dataset.spk||null;renderDetail();return}
   const b=e.target.closest('[data-open]');if(!b)return;
   const slug=b.dataset.open;const same=dState.slug===slug&&dlg.open;
@@ -2559,7 +2532,7 @@ document.addEventListener('click',e=>{
 });
 document.getElementById('dlgClose').addEventListener('click',()=>dlg.close());
 dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close()});
-dlg.addEventListener('close',()=>{dState.tab='overview';delete dState.boss;dState.m3d=false});
+dlg.addEventListener('close',()=>{dState.tab='overview';delete dState.boss});
 
 /* ===== skills view ===== */
 let skMode='by',skEl='',skLimit=60;

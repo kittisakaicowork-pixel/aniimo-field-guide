@@ -68,21 +68,6 @@ def icons_from_game():
     return find
 
 
-def models3d():
-    """3d/variants.json (tools/model/variants.mjs + render.cjs), limited to models that exist."""
-    f = ROOT / "3d" / "variants.json"
-    man = json.loads(f.read_text()) if f.exists() else {"models": {}}
-    have = {p.stem for p in (ROOT / "3d").glob("*.glb") if not re.fullmatch(r"f\d{7}", p.stem)}  # f<formId>.glb: a form's own mesh
-    picks = ROOT / "tools" / "model" / "picks.json"
-    idle = ROOT / "tools" / "model" / "idle.json"  # in-game Idle clip length per model id -> motion period
-    if picks.exists() and idle.exists():
-        pk, il = json.loads(picks.read_text()), json.loads(idle.read_text())
-        for s, m in man["models"].items():
-            if s in pk and pk[s]["mid"] in il:
-                m["p"] = il[pk[s]["mid"]]
-    return dict(glow=man.get("glow", []), m={s: m for s, m in man["models"].items() if s in have})
-
-
 def pack_sheet(paths, cell, cols, out, quality=86):
     rows = (len(paths) + cols - 1) // cols
     sheet = Image.new("RGBA", (cols * cell, rows * cell), (0, 0, 0, 0))
@@ -110,10 +95,10 @@ def main():
     out_dir.mkdir(exist_ok=True)
 
     # ------------------------------------------------ creature + form art
-    # The game's own Research Book art wins (lightly restyled, see game.stylize); AniiDex art only
-    # fills in what the game files lack. Only creatures and forms already listed on the site get art,
-    # so nothing unannounced leaks from the game files.
-    img_jobs, art, from_game = [], {}, set()
+    # Full-body renders of the in-game models, the way AniiDex shows them (owner's permission, credited;
+    # fetched politely and cached). The game's Research Book art only fills what AniiDex lacks. Only creatures
+    # and forms already listed on the site get art, so nothing unannounced leaks from the game files.
+    img_jobs, art = [], {}
     for a in A:
         name = f"img/{a['slug']}.webp"
         art[(a["slug"], None)] = name
@@ -127,8 +112,14 @@ def main():
     cache = CACHE / f"full{size}"
     gcache = CACHE / "game-art"
     gcache.mkdir(parents=True, exist_ok=True)
-    srcs, urls = {}, []
+    urls = [((RAW_URL if FULL else IPX.format(s=size)) + art_path(a, f), cache / Path(n).name)
+            for a, f, n in img_jobs if (f is None or f["has_image"])]
+    ok = download(urls)
+    srcs, from_game = {}, set()
     for a, f, n in img_jobs:
+        srcs[n] = cache / Path(n).name
+        if srcs[n].exists():
+            continue
         gid = f["id"] if f else (re.search(r"(\d+)", a["head"]).group(1) if a["head"] else "")
         g = game and not a["unreleased"] and game.art(gid)
         if g:
@@ -137,14 +128,7 @@ def main():
                 game.stylize(g).save(dest, "WEBP", quality=88, method=4)
             srcs[n] = dest
             from_game.add(n)
-        elif (CACHE / "own-art" / f"{a['slug']}.webp").exists() and not f:
-            srcs[n] = CACHE / "own-art" / f"{a['slug']}.webp"  # rendered from our 3D model
-            from_game.add(n)
-        else:
-            urls.append(((RAW_URL if FULL else IPX.format(s=size)) + art_path(a, f), cache / Path(n).name))
-            srcs[n] = cache / Path(n).name
-    ok = download(urls)
-    print(f"art: {len(from_game)} from the game or our renders, {sum(ok)}/{len(ok)} from AniiDex")
+    print(f"art: {sum(ok)}/{len(ok)} full-body renders (AniiDex), {len(from_game)} from the game's Research Book")
     (out_dir / "img").mkdir(exist_ok=True)
     for _, _, name in img_jobs:
         if srcs[name].exists():
@@ -287,7 +271,7 @@ def main():
         ("ANIIMO", aniimo), ("SKILLS", skills), ("SPRITE", sprite), ("PARTNERS", partners), ("SPARK", spark),
         ("EVO", evo), ("BOSSES", bosses), ("REGIONS", regions), ("TH", th_used), ("NAMES_TH", names_th), ("CODES", manual),
         ("ITEMS", dict(cols=item_cols, rows=item_rows, list=items)), ("EVENTS", events), ("UPCOMING", raw.get("upcoming", [])),
-        ("TERR", raw.get("territories", [])), ("MODELS", models3d()), ("RUSH", raw.get("boss_rush", [])),
+        ("TERR", raw.get("territories", [])),  ("RUSH", raw.get("boss_rush", [])),
         ("META", dict(scraped=raw["scraped"], scraped_at=raw.get("scraped_at", ""), full=FULL, server="Asia-Pacific"))])
     (out_dir / "data.js").write_text(js)
     print(f"data.js {len(js)/1e6:.2f} MB · Thai strings {len(th_used)} · untranslated {len(missing)}")
