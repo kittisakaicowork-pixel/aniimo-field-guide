@@ -1,7 +1,8 @@
 """Draw the AniiGuide brand images: app icons (icon-192.png, icon-512.png) and the link preview (og.png).
 
-The app icon says "anii" over "guide" in white on a sky-blue tile, with a pink and a mint dot on the ii;
-the header wordmark and og.png use the same two dots. (mark() keeps the older text-free "ii" symbol.) Wordmark font: Nunito
+The site shows only the "aniiguide" wordmark (pink and mint dots on the ii). Browsers and phones still need
+an icon file, so icon-*.png / favicon.png use the text-free "ii" symbol from mark(); mark_text() is an
+unused variant with the name on the tile. Wordmark font: Nunito
 (SIL Open Font License, tools/fonts/). Thai text uses the macOS Sukhumvit Set font, so run this on a Mac:
     python3 tools/brand.py
 """
@@ -148,9 +149,7 @@ def og():
     fade = fade.point(lambda v: min(255, int(v * 1.6)))
     img.paste(crop, (W - 620, 0), fade)
     d = ImageDraw.Draw(img)
-    icon = mark_text(120, rounded=True)
-    img.paste(icon, (64, 70), icon)
-    wordmark(d, img, 206, 76, 84, NAVY)
+    wordmark(d, img, 62, 70, 104, NAVY)
     th = ImageFont.truetype(THAI, 58, index=5)
     d.text((66, 250), "คู่มือเกม Aniimo", font=th, fill=NAVY)
     d.text((66, 322), "ภาษาไทย ครบในที่เดียว", font=th, fill=(10, 110, 210))
@@ -163,9 +162,9 @@ def og():
 
 def main():
     for s in (192, 512):
-        mark_text(s, rounded=False).convert("RGB").save(ROOT / f"icon-{s}.png", optimize=True)  # phones apply their own mask
-    mark_text(64, rounded=True).save(ROOT / "favicon.png", optimize=True)
-    mark_text(180, rounded=False).convert("RGB").save(ROOT / "apple-touch-icon.png", optimize=True)
+        mark(s, rounded=False).save(ROOT / f"icon-{s}.png", optimize=True)  # phones apply their own mask
+    mark(64, rounded=True).save(ROOT / "favicon.png", optimize=True)
+    mark(180, rounded=False).save(ROOT / "apple-touch-icon.png", optimize=True)
     og()
     print("icon-192.png, icon-512.png, favicon.png, apple-touch-icon.png, og.png")
 
