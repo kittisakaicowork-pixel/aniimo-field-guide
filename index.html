@@ -110,7 +110,10 @@ button{font:inherit;color:inherit}
 .navbtn[aria-current="page"]{background:var(--glow);color:var(--accent);font-weight:600}
 .side .foot{margin-top:auto;font-size:.75rem;color:var(--ink-2);padding:10px 14px}
 main{padding:24px 24px 64px;min-width:0}
-.view{display:grid;gap:22px;animation:fade .2s ease}
+.view{display:grid;gap:22px}
+.view>*{animation:viewIn .45s cubic-bezier(.2,.75,.25,1) backwards}
+.view>*:nth-child(2){animation-delay:.05s}.view>*:nth-child(3){animation-delay:.1s}.view>*:nth-child(4){animation-delay:.15s}.view>*:nth-child(5){animation-delay:.2s}.view>*:nth-child(n+6){animation-delay:.24s}
+@keyframes viewIn{from{opacity:0;transform:translateY(14px)}}
 @keyframes fade{from{opacity:.4;transform:translateY(4px)}}
 .vhead{display:grid;gap:6px;max-width:52em}
 
@@ -953,7 +956,42 @@ h2{font-weight:600;letter-spacing:0}
   .h3cta{flex-wrap:nowrap}.h3cta .cta{flex:1;justify-content:center;padding:11px 10px;font-size:.9rem}
   [data-view="home"]{gap:28px}
 }
+/* loading & motion */
+#boot{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;background:var(--ground);transition:opacity .4s ease,visibility .4s}
+#boot.done{opacity:0;visibility:hidden}
+#boot .bootin{display:grid;justify-items:center;gap:12px;animation:bootIn .4s .12s both}
+#boot img{width:76px;height:76px;border-radius:20px;box-shadow:0 14px 36px color-mix(in srgb,var(--accent) 35%,transparent);animation:bob 1.6s ease-in-out infinite}
+#boot b{font:600 1.15rem var(--display);color:var(--ink)}
+#boot small{font-size:.85rem;color:var(--ink-2)}
+.dots{display:flex;gap:6px}
+.dots i{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:dot 1s ease-in-out infinite}
+.dots i:nth-child(2){animation-delay:.15s}.dots i:nth-child(3){animation-delay:.3s}
+@keyframes dot{0%,80%,100%{transform:scale(.5);opacity:.35}40%{transform:scale(1);opacity:1}}
+@keyframes bootIn{from{opacity:0;transform:scale(.94)}}
+#progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;pointer-events:none;background:linear-gradient(90deg,var(--accent),var(--peach));box-shadow:0 0 10px var(--accent);opacity:0}
+#progress.go{animation:prog .6s cubic-bezier(.3,.7,.3,1) forwards}
+@keyframes prog{0%{width:0;opacity:1}60%{width:78%;opacity:1}85%{width:100%;opacity:1}100%{width:100%;opacity:0}}
+.spin{width:34px;height:34px;border-radius:50%;border:3px solid color-mix(in srgb,currentColor 25%,transparent);border-top-color:currentColor;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.maploading{gap:12px;align-content:center;justify-items:center}
+.loadrow{display:flex;align-items:center;gap:10px}.loadrow .spin{width:18px;height:18px;border-width:2px;color:var(--accent)}
+main img[loading="lazy"]{opacity:0;transform:scale(.96);transition:opacity .35s ease,transform .35s ease}
+main img[loading="lazy"].in{opacity:1;transform:none}
+.pic:has(img[loading="lazy"]:not(.in)){background:linear-gradient(90deg,var(--sunk),var(--glow),var(--sunk));background-size:200% 100%;animation:sk 1.2s linear infinite}
+dialog[open]{animation:pop .28s cubic-bezier(.2,.8,.25,1)}
+dialog#menu[open]{animation:sheet .3s cubic-bezier(.2,.8,.25,1)}
+dialog[open]::backdrop{animation:bdIn .25s ease}
+@keyframes pop{from{opacity:0;transform:translateY(12px) scale(.97)}}
+@keyframes sheet{from{transform:translateY(100%)}}
+@keyframes bdIn{from{opacity:0}}
 </style>
+
+<div id="boot" role="status" aria-live="polite"><div class="bootin"><img src="icon-192.png" alt=""><b>Aniimo Field Guide</b><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><small id="bootMsg">กำลังโหลดข้อมูล Aniimo…</small></div></div>
+<div id="progress" aria-hidden="true"></div>
+<script>
+(function(){var en=false;try{en=localStorage.getItem('aniimo-lang')==='en';var t=localStorage.getItem('aniimo-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(_){}var m=document.getElementById('bootMsg');if(en)m.textContent='Loading Aniimo data…';
+setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.contains('done'))m.textContent=en?'Taking longer than usual. Try refreshing the page.':'โหลดนานกว่าปกติ ลองรีเฟรชหน้าเว็บ'},15000)})();
+</script>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></symbol>
@@ -1546,7 +1584,7 @@ h2{font-weight:600;letter-spacing:0}
         <label for="duSort">เรียงตาม<select id="duSort"><option value="lv">เลเวลแนะนำ</option><option value="region">ภูมิภาค</option></select></label>
       </div>
       <span class="count" id="duCount"></span>
-      <div class="dugrid" id="duGrid"><p class="muted">กำลังโหลด…</p></div>
+      <div class="dugrid" id="duGrid"><p class="muted loadrow"><span class="spin"></span>กำลังโหลด…</p></div>
     </section>
 
     <!-- SANCTUMS -->
@@ -1556,7 +1594,7 @@ h2{font-weight:600;letter-spacing:0}
         <h2>Sanctum ทั้ง 17 แห่ง</h2>
         <p class="muted">Sanctum คือซากวิหารโบราณที่มีปริศนาและผู้พิทักษ์ เข้าได้ 1–2 คน ในแต่ละแห่งมีหีบซ่อนอยู่ เคลียร์ครั้งแรกได้ EXP 500 ห้องที่ล็อกต้องใช้กุญแจ (Sanctum ระดับมือใหม่ใช้ Rusted Iron Key ระดับยากใช้ Silver-Plated Key)</p>
       </div>
-      <div class="scgrid" id="scGrid"><p class="muted">กำลังโหลด…</p></div>
+      <div class="scgrid" id="scGrid"><p class="muted loadrow"><span class="spin"></span>กำลังโหลด…</p></div>
       <div class="gsec">
         <h3>Lost Sanctum ต่างจาก Sanctum ยังไง</h3>
         <div class="grid g2">
@@ -1716,7 +1754,7 @@ h2{font-weight:600;letter-spacing:0}
         </aside>
         <div class="mapstage" id="mapStage">
           <canvas id="mapCv" aria-label="แผนที่ Idyll แบบโต้ตอบ"></canvas>
-          <div class="maploading" id="mapLoad">กำลังโหลดแผนที่…</div>
+          <div class="maploading" id="mapLoad"><span class="spin"></span>กำลังโหลดแผนที่…</div>
           <div class="mapzoom"><button type="button" id="mapIn" aria-label="ซูมเข้า">+</button><button type="button" id="mapOut" aria-label="ซูมออก">−</button><button type="button" id="mapFit" aria-label="ดูทั้งแผนที่">⤢</button></div>
           <div class="mapinfo" id="mapInfo" hidden></div>
         </div>
@@ -1930,10 +1968,10 @@ h2{font-weight:600;letter-spacing:0}
 </dialog>
 <dialog id="menu" aria-label="เมนูทั้งหมด"><div class="inner" id="menuInner"></div></dialog>
 
-<script src="data.js?v=202609290721"></script>
-<script src="thumbs.js?v=202609290721"></script>
-<script src="content.js?v=202609290721"></script>
-<script src="i18n-en.js?v=202609290721"></script>
+<script src="data.js?v=202609290740"></script>
+<script src="thumbs.js?v=202609290740"></script>
+<script src="content.js?v=202609290740"></script>
+<script src="i18n-en.js?v=202609290740"></script>
 <script>
 /* ===== theme ===== */
 (function(){
@@ -1946,6 +1984,9 @@ h2{font-weight:600;letter-spacing:0}
   btn.addEventListener('click',()=>{const n=isDark()?'light':'dark';root.setAttribute('data-theme',n);try{localStorage.setItem('aniimo-theme',n)}catch(_){}sync()});
   mq.addEventListener&&mq.addEventListener('change',sync);sync();
 })();
+
+/* images: mark loaded (or failed) so CSS can fade them in */
+{const mark=e=>{const t=e.target;if(t&&t.tagName==='IMG')t.classList.add('in')};document.addEventListener('load',mark,true);document.addEventListener('error',mark,true)}
 
 /* ===== data ===== */
 const LOC=(()=>{try{return localStorage.getItem('aniimo-lang')==='en'?'en-GB':'th-TH'}catch(_){return 'th-TH'}})();
@@ -2062,6 +2103,7 @@ const RENDERED=new Set();
 function ensureRendered(id){if(RENDERED.has(id))return;RENDERED.add(id);const f={dex:()=>renderDex(),skills:()=>renderSkills(),sparkling:()=>renderSpark(),forms:()=>renderForms(),tier:()=>renderTiers(),team:()=>renderTeam(),collection:()=>renderCollection(),compare:()=>renderCompare(),bosses:()=>renderBosses(),regions:()=>renderRegions(),whisperwake:()=>renderWW(),map:()=>renderMap(),events:()=>renderEvents(),items:()=>renderItems(),systems:()=>renderSystems(),planner:()=>renderPlanner(),history:()=>renderHistory(),news:()=>renderNews(),duels:()=>withMap(renderDuels),sanctums:()=>withMap(renderSanctums),media:()=>renderMedia(),faq:()=>renderFaq(),glossary:()=>renderGloss(),admin:()=>renderAdmin()}[id];f&&f()}
 function go(id,push){
   if(!VIEWS.some(v=>v.id===id))id='home';
+  if(id!==current){const pg=document.getElementById('progress');if(pg){pg.classList.remove('go');void pg.offsetWidth;pg.classList.add('go')}}
   if(id!=='admin'){histAdd('views',id);track('view',id)}if(id!=='feedback'&&id!=='admin'&&typeof fbLastPage!=='undefined')fbLastPage=id;if(id==='history'||id==='admin'||id==='news')RENDERED.delete(id);if(id==='home'&&typeof renderHomeRecent==='function')renderHomeRecent();
   ensureRendered(id);
   current=id;
@@ -2595,7 +2637,7 @@ function renderMap(){
     MAP.count=MAP.layers.map(()=>0);MAP.m.forEach(m=>MAP.count[m[0]]++);
     mapLayersUI();
   };
-  if(window.MAP)boot();else{const sc=document.createElement('script');sc.src='map.js?v=202609290721';sc.onload=boot;sc.onerror=()=>{document.getElementById('mapLoad').textContent='โหลดข้อมูลแผนที่ไม่สำเร็จ'};document.head.appendChild(sc)}
+  if(window.MAP)boot();else{const sc=document.createElement('script');sc.src='map.js?v=202609290740';sc.onload=boot;sc.onerror=()=>{document.getElementById('mapLoad').textContent='โหลดข้อมูลแผนที่ไม่สำเร็จ'};document.head.appendChild(sc)}
 }
 function mapSaveLayers(){try{localStorage.setItem('aniimo-map-layers',JSON.stringify([...MV.on].map(i=>MAP.layers[i].id)))}catch(_){}}
 function mapLayersUI(){
@@ -3158,7 +3200,7 @@ document.addEventListener('click',e=>{
 });
 
 /* ===== Pathfinder duels & Sanctums (from the map data) ===== */
-function withMap(fn){if(window.MAP){fn();return}const sc=document.createElement('script');sc.src='map.js?v=202609290721';sc.onload=fn;sc.onerror=()=>{};document.head.appendChild(sc)}
+function withMap(fn){if(window.MAP){fn();return}const sc=document.createElement('script');sc.src='map.js?v=202609290740';sc.onload=fn;sc.onerror=()=>{};document.head.appendChild(sc)}
 function regionAt(m){const x=m[1]/100,y=m[2]/100;return Object.keys(MAP.regions).find(n=>inPoly(x,y,MAP.regions[n]))||''}
 const mapBtn=i=>`<button type="button" class="chip" data-mapm-go="${i}" style="cursor:pointer">ดูบนแผนที่</button>`;
 const elBadges=a=>(a||[]).map(e=>badge(mEl(e))).join('');
@@ -3344,4 +3386,5 @@ if(LANG==='en'){
 /* dev helper: list Thai phrases on screen that have no English yet */
 window.__i18nMissing=()=>{const out=new Set();const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT|NodeFilter.SHOW_ELEMENT);let n;while((n=w.nextNode())){if(n.nodeType===3){if(HAS_TH.test(n.nodeValue)&&n.parentElement&&!/SCRIPT|STYLE/.test(n.parentElement.tagName)){const [k]=i18nKey(n.nodeValue);if(!(k in UI_EN))out.add(k)}}else for(const a of I18N_ATTR){const x=n.getAttribute(a);if(x&&HAS_TH.test(x)){const [k]=i18nKey(x);if(!(k in UI_EN))out.add(k)}}}return [...out]};
 route();
+{const hide=()=>{const b=document.getElementById('boot');if(!b||b.classList.contains('done'))return;b.classList.add('done');setTimeout(()=>b.remove(),500)};requestAnimationFrame(hide);setTimeout(hide,400)} // splash off once the first page is drawn (timer covers background tabs)
 </script>
