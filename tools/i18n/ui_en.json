@@ -1483,5 +1483,16 @@
 "ค้นหาตัวละคร คู่มือ และเรื่องที่กำลังเกิดขึ้นในเกมได้จากที่เดียว": "Find Aniimo, guides and what's happening in the game, all in one place",
 "สำรวจ {}": "Explore {}",
 "ดูอีเวนต์": "See events",
-"เปิดแผนที่": "Open the map"
+"เปิดแผนที่": "Open the map",
+"อัปเดต {} · รีเฟรชเองทุก {} นาที": "Updated {} · refreshes every {} minute",
+"เฉลี่ย {} หน้าต่อรอบ · ประมาณจากข้อมูลเก่า {}": "{} pages per visit on average · {} estimated from old data",
+"{}: ใช้งานจริง {} · กดเข้ามาเฉยๆ {} (ประมาณจากข้อมูลเก่า {} รอบ)": "{}: real use {} · quick exits {} ({} visits estimated from old data)",
+"กดเข้ามาเฉยๆ · สีจางคือค่าประมาณจากข้อมูลเก่า · ชี้ที่แท่งเพื่อดูตัวเลข": "quick exits · faded = estimated from old data · hover a bar for numbers",
+"ไม่ทราบ (ข้อมูลเก่า เปิดหน้าเดียว)": "Unknown (old data, one page)",
+"อยู่ในเว็บ {} นาทีขึ้นไป": "Stayed {}+ minutes",
+"รวมค่าประมาณจากข้อมูลเก่า {} รอบ (ใช้งานจริง {} ก่อน {} ข้อมูลเก่าไม่มีเวลาที่อยู่ในหน้า จึงดูจากหน้าที่เปิด การค้นหา และช่วงเวลาระหว่างการกดครั้งแรกถึงครั้งสุดท้าย คนที่เปิดหน้าเดียวแล้วอ่านนานอาจถูกนับเป็นกดเข้ามาเฉยๆ และช่วงนั้นยังนับการเข้าเว็บของเจ้าของด้วย": "Includes {} visits estimated from old data (real use {} before {}. Old data has no time-on-page, so it is judged by pages opened, searches and the time between the first and last action. Someone who read one page for a long time may count as a quick exit, and the owner's own visits are still counted in that period",
+"\"ใช้งานจริง\" คือรอบที่เปิดมากกว่า {} หน้า (ไม่นับการรีเฟรช) เปิดดู {} หรือไอเท็ม ค้นหา อยู่ {} วินาทีขึ้นไปและมีการกด เลื่อน หรือพิมพ์ หรืออยู่ในเว็บ {} นาทีขึ้นไปแม้อ่านหน้าเดียว นอกนั้นนับเป็น \"กดเข้ามาเฉยๆ\" · รอบการเข้าเว็บหมดเมื่อไม่มีการใช้งาน {} นาที · ไม่นับเครื่องที่ล็อกอินหลังบ้าน · เริ่มเก็บแบบใหม่ {}": "\"Real use\" is a visit that opened more than {} page (reloads don't count), opened an {} or item, searched, stayed {}+ seconds and tapped, scrolled or typed, or stayed {}+ minutes even on one page. Anything else is a \"quick exit\" · a visit ends after {} minutes without activity · devices logged in to the back office are not counted · new tracking since {}",
+"ผู้ใช้ ตั้งแต่เริ่มเก็บข้อมูล": "Users since tracking began",
+"นับเป็นรอบการเข้าเว็บ · ตั้งแต่เริ่มเก็บข้อมูล": "counted per visit · since tracking began",
+"ตั้งแต่เริ่มเก็บข้อมูล · แท่งสีอ่อนคือวันนี้ · ชี้ที่แท่งเพื่อดูจำนวนคน": "since tracking began · the light bar is today · hover a bar for people"
 }
