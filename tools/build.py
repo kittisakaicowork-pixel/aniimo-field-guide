@@ -208,7 +208,7 @@ def main():
         hid = int(re.search(r"(\d+)", a["head"]).group(1)) if a["head"] else 0
         aniimo.append(dict(
             no=a["no"], name=a["name"], slug=a["slug"], e=a["elements"], st=a["stage"], r=a["role"], d=a["desc"],
-            s=a["stats"], i=art[(a["slug"], None)], cut=art[(a["slug"], None)] not in from_game and not a["full_id"], u=a["unreleased"], ord=hid,
+            s=a["stats"], i=art[(a["slug"], None)], cut=art[(a["slug"], None)] not in from_game and not a["full_id"], u=a["unreleased"], ord=hid, b=a.get("bio"),
             f=[dict(n=f["name"], k=f["kind"], e=f["elements"], i=art.get((a["slug"], fi), "")) for fi, f in enumerate(a["forms"])],
             w=a["work"], it=[[x["name"], x["effect"]] for x in a["items"]],
             sp=dict(c=a["spawn"]["conditions"], r=[[g["name"], g["level"]] for g in a["spawn"]["regions"]]),

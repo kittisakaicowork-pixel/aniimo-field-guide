@@ -2469,6 +2469,15 @@ function spawnInfo(a){
   const sp=a.sp||{};if(!sp.r||!sp.r.length)return '';
   return `<div><p class="eyebrow" style="margin-bottom:8px">จุดเกิด</p>${sp.c?`<p class="small" style="margin-bottom:8px"><b>เงื่อนไข:</b> ${esc(tr(sp.c))}</p>`:''}<ul class="infolist">${sp.r.map(([n,lv])=>`<li><button type="button" class="region-btn" data-region="${esc(n)}">${esc(n)}</button> <span class="chip">Lv. ${esc(lv)}</span></li>`).join('')}</ul></div>`;
 }
+function bioInfo(a){
+  const b=a.b;if(!b)return '';
+  const mv={fly:'บินได้',climb:'ปีนได้',glide:'ร่อนได้'},rows=[];
+  if(b.h)rows.push(['ส่วนสูง',`${b.h} ม.`]);if(b.w)rows.push(['น้ำหนัก',`${b.w} กก.`]);
+  rows.push(['เพศ',b.g?`♂ ${b.g[0]}% · ♀ ${b.g[1]}%`:'ไม่มีเพศ']);
+  const m=Object.keys(b.mv||{});if(m.length)rows.push(['การเคลื่อนที่',m.map(k=>mv[k]).join(' · ')]);
+  if(b.sr)rows.push(['โอกาสเจอร่างเปล่งประกาย',`1 ใน ${b.sr.toLocaleString(LOC)}`]);
+  return `<div><p class="eyebrow" style="margin-bottom:8px">ข้อมูลตัว</p><table class="plain">${rows.map(([k,v])=>`<tr><td class="muted">${k}</td><td>${v}</td></tr>`).join('')}</table></div>`;
+}
 function homeInfo(a){
   if(!a.w||!a.w.length)return '';
   return `<div><p class="eyebrow" style="margin-bottom:8px">งานใน Homeland</p><div style="display:flex;gap:6px;flex-wrap:wrap">${a.w.map(w=>`<span class="chip">${workLabel(w)}</span>`).join('')}</div></div>`;
@@ -2518,7 +2527,7 @@ function renderDetail(){
     ${a.s&&a.s.HP?`<div><p class="eyebrow" style="margin-bottom:8px">ค่าสถานะพื้นฐาน</p><div class="stats">${STAT.map(k=>`<div class="stat"><span>${STAT_L[k]||k}</span><span class="bar"><i style="width:${Math.min(100,a.s[k]/130*100)}%"></i></span><b>${a.s[k]}</b></div>`).join('')}</div></div>`:''}
     ${line.length>1?`<div><p class="eyebrow" style="margin-bottom:8px">สายวิวัฒนาการ</p><div class="thumbs">${line.map(x=>`<button type="button" data-open="${x.slug}" aria-current="${x===a}"><img decoding="async" src="${TH(x.i)}" alt="" class="${x.cut?'cut':''}">${esc(x.name)}<small class="muted">${x.st}</small></button>`).join('')}</div></div>`:''}
     ${traits.length?`<div style="display:grid;gap:8px"><p class="eyebrow">Trait</p>${traits.map(t=>`<div class="trait"><h4>${esc(t[0])} <span class="chip" style="font-family:var(--body)">${esc(t[1])}</span></h4><p>${esc(tr(t[2]))}</p></div>`).join('')}</div>`:''}
-    ${evoInfo(a)}${spawnInfo(a)}${homeInfo(a)}${itemsInfo(a)}`;
+    ${bioInfo(a)}${evoInfo(a)}${spawnInfo(a)}${homeInfo(a)}${itemsInfo(a)}`;
   }else if(dState.tab==='skills'){
     pane=`<div><p class="eyebrow" style="margin-bottom:8px">สีสกิลของ ${esc(a.name)}</p><div class="palette">${cols.map(k=>`<span class="swatch"><i style="background:var(--${k})"></i>${EK[k].th} · ${sks.filter(s=>s.e===k).length} สกิล</span>`).join('')}</div></div>
     <div style="display:grid;gap:10px">${sks.map(skillCard).join('')}</div>`;

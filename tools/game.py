@@ -271,6 +271,12 @@ def apply(raw, th):
         if not g:
             continue
         names[a["slug"]] = th_norm(loc(g["name"], "th_TH"))
+        gr, mv, sr = g["raw"].get("genderRatio"), g["move"], g["raw"].get("shiny_rate")
+        a["bio"] = dict(  # body facts the site had no source for before
+            h=g["size"].get("height"), w=g["size"].get("weight"),
+            g=[round(gr[0] * 100), round(gr[1] * 100)] if isinstance(gr, list) and len(gr) == 2 else None,  # None: genderless
+            mv={k: v for k, v in (("fly", mv.get("canFly")), ("climb", mv.get("canClimb")), ("glide", mv.get("canGlide"))) if v},
+            sr=round(1 / sr) if sr else None)
         for k, gk in STAT_MAP.items():
             if g["stats"].get(gk) is not None:
                 a["stats"][k] = g["stats"][gk]
