@@ -34,6 +34,7 @@
 | `tools/i18n/ui_en.json`, `tools/i18n/ui_en.py` | คำแปลภาษาอังกฤษของหน้าเว็บ (ไทย → อังกฤษ) และสคริปต์สร้าง `i18n-en.js` |
 | `content.js` | เนื้อหาที่เขียนเอง: ข่าว FAQ อภิธานศัพท์ Roadmap วันสำคัญที่เพิ่มในตารางอีเวนต์ (`UPCOMING_EXTRA`) และข้อมูลหน้า Whisperwake Isles |
 | `og.png`, `tools/og.py` | ภาพตัวอย่างเวลาแชร์ลิงก์ (Facebook, LINE, X) และสคริปต์สร้างภาพ |
+| `tools/admin/*.sql` | ฐานข้อมูล Supabase ของหลังบ้าน (รันใน SQL Editor ครั้งเดียวต่อไฟล์): `supabase.sql` สถิติ, `engagement.sql` ใช้งานจริงกับกดเข้ามาเฉยๆ, `feedback.sql` คำแนะนำ, `tiervote.sql` โหวต Tier |
 | `tools/manual.json` | ข้อมูลที่ดูแลเอง ได้แก่ โค้ดแลกของ |
 | `tools/items.json` | รายชื่อไอเท็มที่ดึงข้อมูลมาแสดง (เพิ่ม slug จาก AniiDex ได้) |
 | `tools/cache/` | หน้าเว็บและภาพที่ดาวน์โหลดไว้ ทำให้สร้างซ้ำได้โดยไม่ต้องต่อเน็ต (ไม่เก็บใน git) |

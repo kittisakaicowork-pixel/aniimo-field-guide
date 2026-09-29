@@ -170,13 +170,7 @@ select,input[type=search]{font:inherit;font-size:.92rem;color:var(--ink);backgro
 .hero h1 span{color:var(--accent)}
 .hero .lede{font-size:1.05rem;max-width:34em;margin-top:14px}
 .hero .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
-.stage{position:relative;aspect-ratio:1.15;max-width:400px;width:100%;margin-inline:auto}
-.stage button{position:absolute;border:0;background:none;padding:0;cursor:pointer;transition:transform .25s}
-.stage button:hover{transform:translateY(-6px)}
-.stage img{width:100%;display:block;filter:drop-shadow(0 10px 16px color-mix(in srgb,var(--ink) 18%,transparent))}
-.stage .s1{width:44%;left:0;top:26%}.stage .s2{width:52%;left:24%;top:4%;z-index:1}.stage .s3{width:44%;right:0;top:28%}
 @keyframes bob{50%{transform:translateY(-8px)}}
-.stage .s2 img{animation:bob 5s ease-in-out infinite}
 .facts{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:16px;background:var(--surface);overflow:hidden;margin:0}
 .facts div{padding:14px 16px;border-right:1px solid var(--line)}
 .facts div:last-child{border-right:0}
@@ -587,7 +581,6 @@ dialog#menu .grab{width:40px;height:4px;border-radius:4px;background:var(--line)
 @media (max-width:1100px){.quick{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:959px){
   .hero{grid-template-columns:1fr;padding:22px}
-  .stage{max-width:320px}
   .facts{grid-template-columns:repeat(2,1fr)}
   .facts div:nth-child(2){border-right:0}
   .facts div:nth-child(-n+2){border-bottom:1px solid var(--line)}
@@ -699,7 +692,6 @@ dialog#dlg,dialog#pick{border:0;box-shadow:0 30px 80px rgba(10,25,20,.35)}
 .hsearch{margin-top:18px;display:flex;align-items:center;gap:10px;width:100%;max-width:440px;border:1px solid var(--line);background:var(--ground);border-radius:999px;padding:11px 16px;color:var(--ink-2);cursor:text;font-size:.95rem;text-align:left}
 .hsearch:hover{border-color:var(--accent)}
 .hsearch svg{width:18px;height:18px}
-.welcome .stage{max-width:340px}
 .hgroup h3{font-size:1rem;margin-bottom:10px;display:flex;align-items:baseline;gap:10px}
 .hgroup h3 small{font:400 .8rem var(--body);color:var(--ink-2)}
 
@@ -866,8 +858,6 @@ h2{font-weight:600;letter-spacing:0}
   color:#fff;box-shadow:0 20px 60px rgba(90,60,170,.28)}
 .hero3::after{content:"";position:absolute;inset:0;background:radial-gradient(2px 2px at 20% 30%,rgba(255,255,255,.9),transparent),radial-gradient(1.5px 1.5px at 70% 15%,rgba(255,255,255,.8),transparent),radial-gradient(2px 2px at 85% 70%,rgba(255,255,255,.7),transparent),radial-gradient(1.5px 1.5px at 40% 80%,rgba(255,255,255,.6),transparent),radial-gradient(1.5px 1.5px at 55% 45%,rgba(255,255,255,.7),transparent);pointer-events:none}
 .hero3 .h3text{position:relative;z-index:1;display:grid;gap:12px;align-content:start}
-.h3live{display:flex;align-items:center;gap:8px;font-size:.82rem;opacity:.95}
-.h3live i{width:8px;height:8px;border-radius:50%;background:#7CF2B0;box-shadow:0 0 0 4px rgba(124,242,176,.3)}
 .h3title{font:700 clamp(2.4rem,6vw,4.2rem)/.95 var(--display);letter-spacing:-.01em;text-shadow:0 4px 24px rgba(60,30,120,.35)}
 .h3title span{display:block;font-size:.42em;font-weight:500;letter-spacing:.14em;text-transform:uppercase;opacity:.9;margin-top:8px}
 .hero3 .lede{color:rgba(255,255,255,.92);max-width:34em;font-size:1rem}
@@ -877,12 +867,9 @@ h2{font-weight:600;letter-spacing:0}
 .cta.ghost{background:rgba(255,255,255,.18);color:#fff;border:1px solid rgba(255,255,255,.6);box-shadow:none}
 .cta:hover{transform:translateY(-1px)}
 .hero3 .hsearch{background:rgba(255,255,255,.95);border:0;color:#6A6284;max-width:420px;margin-top:2px}
-.hero3 .stage{position:relative;z-index:1;max-width:380px}
-.hero3 .stage img{filter:drop-shadow(0 16px 24px rgba(40,20,90,.45))}
 .hgroup h3{font-size:1.05rem}
 @media (max-width:959px){
   .hero3{grid-template-columns:1fr;padding:24px 20px;border-radius:24px}
-  .hero3 .stage{display:block;max-width:260px;margin:-4px auto 0;order:-1}
   .h3title{font-size:2.5rem}
 }
 
@@ -913,7 +900,6 @@ h2{font-weight:600;letter-spacing:0}
   .welcome h1{font-size:1.8rem}
   .welcome h1 br{display:none}
   .hsearch{max-width:none}
-  .welcome .stage{display:none}
   .gnav{top:calc(59px + env(safe-area-inset-top,0px));overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none}
   .gnav a{white-space:nowrap}
   .bar-tools{padding:12px}
@@ -947,13 +933,11 @@ h2{font-weight:600;letter-spacing:0}
 .hall button{display:block;border:0;background:none;padding:5px 0;color:var(--ink);font:inherit;font-size:.92rem;cursor:pointer;text-align:left}
 .hall button:hover{color:var(--accent)}
 @media (max-width:1180px){.hnow{grid-template-columns:1fr 1fr}}
-@media (max-width:959px){.feat{grid-template-columns:1fr 1fr}.hero3 .stage{max-width:200px}}
+@media (max-width:959px){.feat{grid-template-columns:1fr 1fr}}
 @media (max-width:560px){
   .hnow{grid-template-columns:1fr 1fr;gap:10px}.hnow>*{padding:14px}.hnow b{font-size:.95rem}
   .feat{gap:10px}.feat button{padding:16px}.feat .ic{width:38px;height:38px;border-radius:12px}.feat b{font-size:.98rem}.feat small{font-size:.8rem}
   .hall{grid-template-columns:1fr 1fr;padding:14px 16px}
-  .hero3 .stage{max-width:170px;margin:-10px auto -34px}
-  .h3cta{flex-wrap:nowrap}.h3cta .cta{flex:1;justify-content:center;padding:11px 10px;font-size:.9rem}
   [data-view="home"]{gap:28px}
 }
 /* loading & motion */
@@ -1010,8 +994,6 @@ dialog[open]::backdrop{animation:bdIn .25s ease}
 .spks i:nth-child(1){left:62%;top:18%}.spks i:nth-child(2){left:78%;top:12%;animation-delay:.6s}.spks i:nth-child(3){left:88%;top:44%;animation-delay:1.2s}.spks i:nth-child(4){left:56%;top:70%;animation-delay:1.8s}
 .spks i:nth-child(5){left:70%;top:84%;animation-delay:.9s}.spks i:nth-child(6){left:94%;top:78%;animation-delay:2.2s}.spks i:nth-child(7){left:48%;top:36%;animation-delay:2.6s}.spks i:nth-child(8){left:82%;top:30%;animation-delay:1.5s;width:4px;height:4px}
 @keyframes twinkle{0%,100%{opacity:0;transform:scale(.4)}50%{opacity:1;transform:scale(1)}}
-.hero3 .stage button{transition:transform .25s,translate .5s cubic-bezier(.2,.7,.2,1)}
-.hero3 .stage .s1 img{animation:bob 6s ease-in-out -2s infinite}.hero3 .stage .s3 img{animation:bob 5.5s ease-in-out -4s infinite}
 .daily{display:grid;grid-template-columns:220px 1fr;gap:22px;align-items:center;padding:18px 22px;border:1px solid var(--line);border-radius:22px;background:radial-gradient(120% 140% at 0% 0%,var(--glow),var(--surface) 60%)}
 .daily .dart{position:relative;border:0;padding:0;background:radial-gradient(circle at 50% 60%,color-mix(in srgb,var(--accent-2) 40%,transparent),transparent 70%);border-radius:50%;aspect-ratio:1;cursor:pointer;display:grid;place-items:center}
 .daily .dart img{width:92%;height:92%;object-fit:contain;filter:drop-shadow(0 12px 18px color-mix(in srgb,var(--ink) 25%,transparent));animation:bob 5s ease-in-out infinite}
@@ -1027,6 +1009,38 @@ dialog[open]::backdrop{animation:bdIn .25s ease}
 @keyframes parade{to{left:calc(100vw + 90px)}}
 @keyframes hop{to{margin-bottom:22px}}
 @media (max-width:560px){.daily{grid-template-columns:1fr;justify-items:center;text-align:center;padding:16px}.daily .dart{width:170px}.daily .row,.daily .dbtns{justify-content:center}}
+.kpi.good b{color:var(--good)}.kpi.bad b{color:var(--bad)}
+.esplit{height:12px;border-radius:99px;overflow:hidden;background:color-mix(in srgb,var(--bad) 45%,transparent)}
+.esplit i{display:block;height:100%;background:var(--good);border-radius:99px}
+.trend .ee{fill:var(--good)}.trend .eb{fill:color-mix(in srgb,var(--bad) 50%,transparent)}
+.lg{display:inline-block;width:10px;height:10px;border-radius:3px;margin:0 4px 0 10px;vertical-align:-1px}.lg:first-child{margin-left:0}
+.lg.ee{background:var(--good)}.lg.eb{background:color-mix(in srgb,var(--bad) 50%,transparent)}
+.dpanel.flat{box-shadow:none;border:1px solid var(--line)}
+.rrow .t i.bad{background:var(--bad)}
+/* hero: the picture fills the whole frame */
+.hero3{background:#1c1440;grid-template-columns:minmax(0,1fr);aspect-ratio:2.2/1;min-height:440px;padding:clamp(28px,4.5vw,64px);align-items:center;border:1px solid rgba(255,255,255,.12)}
+.hero3 .hbg{position:absolute;inset:0;overflow:hidden;z-index:0;border-radius:inherit}
+.hero3 .hbg img{position:absolute;inset:-12px;width:calc(100% + 24px);height:calc(100% + 24px);object-fit:cover;object-position:right center;transition:translate .6s cubic-bezier(.2,.7,.2,1);animation:heroZoom 18s ease-in-out infinite alternate}
+.hero3 .hbg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(22,14,58,.82) 0%,rgba(22,14,58,.55) 34%,rgba(22,14,58,.12) 60%,transparent 76%)}
+@keyframes heroZoom{from{transform:scale(1)}to{transform:scale(1.05)}}
+.hero3 .h3text{max-width:540px;gap:14px}
+.hero3::after{opacity:.5}
+.h3eye{font:600 .8rem/1 var(--display);letter-spacing:.28em;text-transform:uppercase;color:#cfbdff}
+.hero3 .h3title{font:800 clamp(2.2rem,4.2vw,4.2rem)/1.08 var(--display);letter-spacing:-.01em;text-shadow:0 6px 30px rgba(20,10,60,.55)}
+.hero3 .lede{font-size:clamp(1rem,1.5vw,1.2rem);color:rgba(255,255,255,.92);max-width:none}
+.hero3 .hsearch{max-width:520px;padding:16px 20px;font-size:1.05rem;border-radius:18px;margin-top:8px;box-shadow:0 14px 40px rgba(10,5,40,.35)}
+.hero3 .hsearch span{flex:1}
+.hero3 .hsearch kbd{font:600 .8rem var(--mono);border:1px solid #d6cdea;border-radius:6px;padding:2px 8px;color:#6A6284}
+.hero3 .cta{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.35);box-shadow:none;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:11px 22px}
+.hero3 .cta:hover{background:rgba(255,255,255,.2)}
+@media (max-width:959px){
+  .hero3{aspect-ratio:auto;min-height:560px;padding:24px 20px;align-items:end;border-radius:24px}
+  .hero3 .hbg img{object-position:72% top}
+  .hero3 .hbg::after{background:linear-gradient(0deg,rgba(22,14,58,.96) 0%,rgba(22,14,58,.78) 42%,rgba(22,14,58,.15) 70%,transparent 85%)}
+  .hero3 .h3text{gap:12px}
+  .h3eye{font-size:.68rem;letter-spacing:.2em}
+}
+@media (max-width:560px){.hero3{min-height:600px}.hero3 .hsearch{padding:14px 16px;font-size:.98rem}.hero3 .cta{padding:10px 14px;font-size:.88rem}.h3cta{flex-wrap:wrap}}
 </style>
 
 <div id="boot" role="status" aria-live="polite"><div class="bootin"><img src="icon-192.png" alt=""><b>Aniimo Field Guide</b><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><small id="bootMsg">กำลังโหลดข้อมูล Aniimo…</small></div></div>
@@ -1092,19 +1106,15 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
     <!-- HOME -->
     <section class="view" data-view="home">
       <div class="hero3">
+        <div class="hbg" aria-hidden="true"><img src="img/hero.webp" alt="" fetchpriority="high"></div>
         <div class="h3text">
-          <p class="h3live"><i></i>เซิร์ฟเวอร์เอเชีย · อัปเดตข้อมูลทุกสัปดาห์</p>
-          <h1 class="h3title">Aniimo<span>Field Guide</span></h1>
-          <p class="lede">คู่มือ Aniimo ภาษาไทยที่รวมทุกอย่างไว้ในที่เดียว ใช้ฟรี ไม่มีโฆษณา</p>
-          <button type="button" class="hsearch" id="hsearch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>ค้นหา Aniimo หรือสกิล</button>
-          <div class="h3cta"><button type="button" class="cta" data-go="dex"><svg><use href="#i-dex"/></svg>รายชื่อ Aniimo</button><button type="button" class="cta ghost" data-go="map"><svg><use href="#i-map"/></svg>แผนที่ทวีป</button></div>
+          <p class="h3eye">The world is yours to explore</p>
+          <h1 class="h3title">ออกสำรวจโลก<br>Aniimo กันเลย</h1>
+          <p class="lede">ค้นหาตัวละคร คู่มือ และเรื่องที่กำลังเกิดขึ้นในเกมได้จากที่เดียว</p>
+          <button type="button" class="hsearch" id="hsearch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span>ค้นหา Aniimo หรือสกิล</span><kbd aria-hidden="true">/</kbd></button>
+          <div class="h3cta"><button type="button" class="cta" data-go="dex">สำรวจ Aniimo</button><button type="button" class="cta" data-go="events">ดูอีเวนต์</button><button type="button" class="cta" data-go="map">เปิดแผนที่</button></div>
         </div>
         <div class="spks" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-        <div class="stage">
-          <button class="s1" type="button" data-open="helion" aria-label="ดู Helion"><img src="img/helion.webp" alt="Helion"></button>
-          <button class="s2" type="button" data-open="stellarys" aria-label="ดู Stellarys"><img src="img/stellarys.webp" alt="Stellarys"></button>
-          <button class="s3" type="button" data-open="lunara" aria-label="ดู Lunara"><img src="img/lunara.webp" alt="Lunara"></button>
-        </div>
       </div>
       <section class="hsec"><h2>ตอนนี้ในเกม</h2><div class="hnow" id="homeNow" aria-live="polite"></div></section>
       <section class="hsec"><h2>Aniimo ประจำวัน<small>เปลี่ยนทุกวัน</small></h2><div class="daily" id="homeDaily"></div></section>
@@ -2102,10 +2112,10 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
 </dialog>
 <dialog id="menu" aria-label="เมนูทั้งหมด"><div class="inner" id="menuInner"></div></dialog>
 
-<script src="data.js?v=202609291255"></script>
-<script src="thumbs.js?v=202609291255"></script>
-<script src="content.js?v=202609291255"></script>
-<script src="i18n-en.js?v=202609291255"></script>
+<script src="data.js?v=202609291334"></script>
+<script src="thumbs.js?v=202609291334"></script>
+<script src="content.js?v=202609291334"></script>
+<script src="i18n-en.js?v=202609291334"></script>
 <script>
 /* ===== theme ===== */
 (function(){
@@ -2230,6 +2240,7 @@ const FEAT=[
  {id:'beginner',d:'สิ่งที่ห้ามพลาดก่อนเริ่มเล่น'}];
 document.getElementById('homeFeat').innerHTML=FEAT.map(f=>{const v=VIEWS.find(x=>x.id===f.id);return `<button type="button" data-go="${v.id}"><span class="ic"><svg><use href="#i-${v.ic}"/></svg></span><b>${v.th}</b><small>${f.d}</small></button>`}).join('');
 document.getElementById('homeGroups').innerHTML=GROUPS.map(g=>{const vs=VIEWS.filter(v=>v.g===g.id&&!FEAT.some(f=>f.id===v.id));return vs.length?`<div><h3>${g.th}</h3>${vs.map(v=>`<button type="button" data-go="${v.id}">${v.th}</button>`).join('')}</div>`:''}).join('');
+addEventListener('keydown',e=>{if(e.key!=='/'||e.ctrlKey||e.metaKey||e.altKey)return;const t=e.target;if(t&&(t.isContentEditable||/INPUT|TEXTAREA|SELECT/.test(t.tagName)))return;e.preventDefault();const g=document.getElementById('gq');g.focus();g.scrollIntoView({block:'nearest'})});
 document.getElementById('hsearch').addEventListener('click',()=>{const g=document.getElementById('gq');g.focus();g.scrollIntoView({block:'nearest'})});
 const menu=document.getElementById('menu');
 document.getElementById('moreBtn').addEventListener('click',()=>menu.showModal());
@@ -2773,7 +2784,7 @@ function renderMap(){
     MAP.count=MAP.layers.map(()=>0);MAP.m.forEach(m=>MAP.count[m[0]]++);
     mapLayersUI();
   };
-  if(window.MAP)boot();else{const sc=document.createElement('script');sc.src='map.js?v=202609291255';sc.onload=boot;sc.onerror=()=>{document.getElementById('mapLoad').textContent='โหลดข้อมูลแผนที่ไม่สำเร็จ'};document.head.appendChild(sc)}
+  if(window.MAP)boot();else{const sc=document.createElement('script');sc.src='map.js?v=202609291334';sc.onload=boot;sc.onerror=()=>{document.getElementById('mapLoad').textContent='โหลดข้อมูลแผนที่ไม่สำเร็จ'};document.head.appendChild(sc)}
 }
 function mapSaveLayers(){try{localStorage.setItem('aniimo-map-layers',JSON.stringify([...MV.on].map(i=>MAP.layers[i].id)))}catch(_){}}
 function mapLayersUI(){
@@ -3173,10 +3184,35 @@ const SB_ON=!!SB.url&&/\.github\.io$/.test(location.hostname);
 let VISITOR='';try{VISITOR=localStorage.getItem('aniimo-visitor')||'';if(!VISITOR){VISITOR=(crypto.randomUUID?crypto.randomUUID():String(Math.random()).slice(2)).slice(0,36);localStorage.setItem('aniimo-visitor',VISITOR)}}catch(_){}
 const DEVICE=/iPad|Tablet/i.test(navigator.userAgent)||(navigator.maxTouchPoints>1&&innerWidth>=768&&innerWidth<1100)?'tablet':/Mobi|Android|iPhone/i.test(navigator.userAgent)?'phone':'desktop';
 let TZ='';try{TZ=Intl.DateTimeFormat().resolvedOptions().timeZone||''}catch(_){}
+/* A visit (session) is one tab; it ends after 30 minutes without activity. It counts as "used" once the
+   visitor opens 2+ different pages, opens an Aniimo/item, searches, or stays 10+ s on a visible page after tapping,
+   scrolling or typing; that sends one 'engage' row. 'leave' rows carry the visit's active seconds so far.
+   The owner's own device (logged in to the back office) is not counted. */
+const SES=(()=>{let s=null;try{s=JSON.parse(sessionStorage.getItem('aniimo-ses')||'null')}catch(_){}
+  if(!s||!Array.isArray(s.pages)||Date.now()-s.last>30*60000)s={id:(crypto.randomUUID?crypto.randomUUID():String(Math.random()).slice(2)).slice(0,36),pages:[],active:0,engaged:'',touched:false};
+  s.last=Date.now();return s})();
+const sesSave=()=>{SES.last=Date.now();try{sessionStorage.setItem('aniimo-ses',JSON.stringify(SES))}catch(_){}};
+let SB_SESS=true; // false once the database turns out not to have the session column yet (engagement.sql not run)
+const isOwner=()=>typeof AD!=='undefined'&&!!AD.s;
+function sbInsert(row){return fetch(SB.url+'/rest/v1/events',{method:'POST',keepalive:true,headers:{apikey:SB.key,Authorization:'Bearer '+SB.key,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify(row)})}
 function track(kind,key){
-  if(!SB_ON||!key)return;
-  try{fetch(SB.url+'/rest/v1/events',{method:'POST',keepalive:true,headers:{apikey:SB.key,Authorization:'Bearer '+SB.key,'Content-Type':'application/json',Prefer:'return=minimal'},
-    body:JSON.stringify({kind,key:String(key).slice(0,80),visitor:VISITOR||null,device:DEVICE,lang:(navigator.language||'').slice(0,12),tz:TZ.slice(0,40)})}).catch(()=>{})}catch(_){}
+  if(kind==='view'){if(!SES.pages.includes(key))SES.pages.push(key);if(SES.pages.length>=2)engage('pages')} // distinct pages, so a reload is not a second page
+  else if(kind==='mon'||kind==='item')engage('open');else if(kind==='search')engage('search');
+  sesSave();
+  if(!SB_ON||!key||isOwner())return;
+  if(!SB_SESS&&(kind==='engage'||kind==='leave'))return;
+  const row={kind,key:String(key).slice(0,80),visitor:VISITOR||null,device:DEVICE,lang:(navigator.language||'').slice(0,12),tz:TZ.slice(0,40)};
+  if(SB_SESS)row.session=SES.id;
+  try{sbInsert(row).then(r=>{if(r.status===400&&row.session){SB_SESS=false;if(kind!=='engage'&&kind!=='leave'){delete row.session;sbInsert(row).catch(()=>{})}}}).catch(()=>{})}catch(_){}
+}
+function engage(reason){if(SES.engaged)return;SES.engaged=reason;sesSave();track('engage',reason)}
+{ // active time: seconds with the tab visible; any tap, key, wheel or scroll marks the visit as touched
+  const touch=()=>{if(!SES.touched){SES.touched=true;sesSave()}};
+  ['pointerdown','keydown','wheel'].forEach(t=>addEventListener(t,touch,{passive:true,capture:true}));
+  addEventListener('scroll',()=>{if(scrollY>120)touch()},{passive:true});
+  setInterval(()=>{if(document.hidden||SES.active>=10800)return;SES.active++;if(SES.touched&&SES.active>=10)engage('active');if(SES.active%5===0)sesSave()},1000);
+  let sent=-1;const leave=()=>{if(SES.active!==sent){sent=SES.active;sesSave();track('leave',String(SES.active))}};
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)leave()});addEventListener('pagehide',leave);
 }
 
 renderHomeRecent();
@@ -3234,6 +3270,58 @@ async function sbStats(days){
   if(!r.ok){if(j&&j.code==='42501')throw new Error('notowner');throw new Error('net')}
   return j;
 }
+async function sbEngage(days){
+  const tok=await sbSession();
+  const r=await fetch(SB.url+'/rest/v1/rpc/stats_engagement',{method:'POST',headers:{apikey:SB.key,Authorization:'Bearer '+tok,'Content-Type':'application/json'},body:JSON.stringify({days})});
+  const j=await r.json().catch(()=>null);
+  if(!r.ok)throw new Error(r.status===404||(j&&j.code==='PGRST202')?'missing':'net');
+  return j;
+}
+function demoEngage(days,d){
+  const daily=d.daily.map(x=>{const s=Math.round(x.n*.55),e=Math.round(s*(.56+seed(x.day+'e')*.14));return {day:x.day,s,e}});
+  const S=daily.reduce((a,x)=>a+x.s,0),E=daily.reduce((a,x)=>a+x.e,0);
+  const land=[['home',.46,.58],['dex',.14,.74],['codes',.12,.31],['map',.09,.81],['events',.06,.52],['tier',.05,.63],['beginner',.04,.7],['whisperwake',.04,.45]];
+  return {since:new Date(Date.now()-days*86400000).toISOString(),sessions:S,engaged:E,avg_pages:3.4,avg_secs_engaged:262,median_secs_engaged:148,daily,
+    devices:[['phone',.66,.57],['desktop',.26,.74],['tablet',.08,.61]].map(([k,f,r])=>({key:k,s:Math.round(S*f),e:Math.round(S*f*r)})),
+    landing:land.map(([k,f,r])=>({key:k,s:Math.round(S*f),e:Math.round(S*f*r)})),
+    reasons:[{key:'pages',n:Math.round(E*.52)},{key:'open',n:Math.round(E*.24)},{key:'active',n:Math.round(E*.17)},{key:'search',n:Math.round(E*.07)}],
+    time:[[1,.31],[2,.14],[3,.11],[4,.18],[5,.16],[6,.1]].map(([k,f])=>({key:k,n:Math.round(S*f)}))};
+}
+const fmtSecs=n=>{n=Math.round(n||0);const en=LOC==='en-GB';if(n<60)return en?`${n}s`:`${n} วินาที`;const m=Math.floor(n/60),s=n%60;return en?`${m}m ${s}s`:`${m} นาที${s?` ${s} วินาที`:''}`};
+const pct=(a,b)=>b?Math.round(a/b*100):0;
+const pctRow=(label,p)=>`<div class="rrow" style="grid-template-columns:minmax(0,1fr) 110px 52px;cursor:default"><span class="nm">${esc(label)}</span><span class="t"><i style="width:${p}%"></i></span><b>${p}%</b></div>`;
+const ENG_WHY={pages:'เปิดมากกว่า 1 หน้า',open:'เปิดดู Aniimo หรือไอเท็ม',search:'ค้นหา',active:'อยู่ 10 วินาทีขึ้นไปและมีการกด เลื่อน หรือพิมพ์'};
+const TIME_TH={1:'ไม่ถึง 10 วินาที',2:'10–30 วินาที',3:'30 วินาที–1 นาที',4:'1–3 นาที',5:'3–10 นาที',6:'มากกว่า 10 นาที'};
+function engSvg(days){
+  const W=640,H=190,L=40,B=26,T=14,mx=Math.max(1,...days.map(d=>d.s)),step=Math.pow(10,Math.floor(Math.log10(mx))),top=Math.ceil(mx/step)*step||1;
+  const bw=(W-L-8)/days.length,y=v=>T+(H-T-B)*(1-v/top),every=days.length>16?Math.ceil(days.length/10):1;
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="ใช้งานจริงกับกดเข้ามาเฉยๆ รายวัน">${[0,top/2,top].map(t=>`<line class="gl" x1="${L}" x2="${W-4}" y1="${y(t)}" y2="${y(t)}"/><text class="ax" x="${L-6}" y="${y(t)+4}" text-anchor="end">${fmtN(Math.round(t))}</text>`).join('')}
+   ${days.map((d,i)=>{const x=L+i*bw+bw*.16,w=bw*.68,dt=new Date(d.day+'T00:00:00Z'),hb=(H-T-B)*(d.s-d.e)/top,he=(H-T-B)*d.e/top;
+     return `<g><title>${dt.toLocaleDateString(LOC,{weekday:'short',day:'numeric',month:'short'})}: ใช้งานจริง ${fmtN(d.e)} · กดเข้ามาเฉยๆ ${fmtN(d.s-d.e)}</title><rect class="eb" x="${x}" y="${y(d.s)}" width="${w}" height="${Math.max(0,hb)}" rx="3"/><rect class="ee" x="${x}" y="${y(d.e)}" width="${w}" height="${Math.max(0,he)}" rx="3"/></g>${(days.length-1-i)%every===0?`<text class="ax" x="${x+w/2}" y="${H-8}" text-anchor="middle">${dt.getUTCDate()}</text>`:''}`}).join('')}</svg>`;
+}
+function engagePanel(e,rl){
+  if(!e||e.err==='missing')return `<div class="dpanel"><h3>ใช้งานจริง vs กดเข้ามาเฉยๆ</h3><p class="muted">ยังไม่ได้ติดตั้งในฐานข้อมูล เปิด Supabase → SQL Editor แล้วรันไฟล์ <code>tools/admin/engagement.sql</code> ครั้งเดียว ตัวเลขจะเริ่มนับตั้งแต่ตอนนั้น</p></div>`;
+  if(e.err)return `<div class="dpanel"><h3>ใช้งานจริง vs กดเข้ามาเฉยๆ</h3><p class="muted">โหลดข้อมูลส่วนนี้ไม่สำเร็จ กดรีเฟรชเพื่อลองใหม่</p></div>`;
+  const S=e.sessions||0,E=e.engaged||0,Bn=S-E,days=AD.demo?e.daily:fillDays((e.daily||[]).map(d=>({day:d.day,n:d.s,u:d.e})),AD.range).map(d=>({day:d.day,s:d.n,e:d.u}));
+  const landing=(e.landing||[]).filter(r=>VIEWS.some(v=>v.id===r.key));
+  return `<div class="dpanel engage"><h3>ใช้งานจริง vs กดเข้ามาเฉยๆ<small>นับเป็นรอบการเข้าเว็บ · ${rl}</small></h3>
+    <div class="kpis">
+      <div class="kpi"><small>รอบการเข้าเว็บ</small><b>${fmtN(S)}</b><span>เฉลี่ย ${e.avg_pages||0} หน้าต่อรอบ</span></div>
+      <div class="kpi good"><small>ใช้งานจริง</small><b>${fmtN(E)}</b><span>${pct(E,S)}% ของทุกรอบ</span></div>
+      <div class="kpi bad"><small>กดเข้ามาเฉยๆ</small><b>${fmtN(Bn)}</b><span>${pct(Bn,S)}% ออกไปโดยไม่ได้ใช้งาน</span></div>
+      <div class="kpi"><small>เวลาใช้งานของคนที่ใช้จริง</small><b>${e.median_secs_engaged!=null?fmtSecs(e.median_secs_engaged):'—'}</b><span>ค่ากลาง · เฉลี่ย ${e.avg_secs_engaged!=null?fmtSecs(e.avg_secs_engaged):'—'}</span></div>
+    </div>
+    <div class="esplit" role="img" aria-label="ใช้งานจริง ${pct(E,S)}%"><i style="width:${pct(E,S)}%"></i></div>
+    <div class="trend">${engSvg(days)}<p class="dnote"><span class="lg ee"></span>ใช้งานจริง <span class="lg eb"></span>กดเข้ามาเฉยๆ · ชี้ที่แท่งเพื่อดูตัวเลข</p></div>
+    <div class="dgrid">
+      <div class="dpanel flat"><h3>หน้าแรกที่เข้ามา<small>% ที่กดเข้ามาเฉยๆ</small></h3><div class="rank">${rankList(landing.map(r=>({...r,n:r.s})),r=>{const v=VIEWS.find(x=>x.id===r.key),bp=pct(r.s-r.e,r.s);return `<button type="button" class="rrow" data-go="${r.key}" style="grid-template-columns:28px minmax(0,1fr) 110px 70px"><span class="ico"><svg><use href="#i-${v.ic}"/></svg></span><span class="nm">${esc(v.th)} <small class="muted">${fmtN(r.s)} รอบ</small></span><span class="t"><i class="bad" style="width:${bp}%"></i></span><b>${bp}%</b></button>`})}</div></div>
+      <div class="dpanel flat"><h3>อยู่ในเว็บนานแค่ไหน<small>จำนวนรอบ</small></h3><div class="rank">${rankList((e.time||[]).map(r=>({...r})),(r,p)=>plainRow(TIME_TH[r.key]||r.key,p,r.n))}</div></div>
+      <div class="dpanel flat"><h3>ใช้งานจริงแยกตามอุปกรณ์</h3><div class="rank">${rankList((e.devices||[]).map(r=>({...r,n:r.s})),r=>pctRow(`${DEV_TH[r.key]||r.key} · ${fmtN(r.s)} รอบ`,pct(r.e,r.s)))}</div></div>
+      <div class="dpanel flat"><h3>นับว่าใช้งานจริงเพราะ<small>สิ่งแรกที่ทำ</small></h3><div class="rank">${rankList(e.reasons||[],(r,p)=>plainRow(ENG_WHY[r.key]||r.key,p,r.n))}</div></div>
+    </div>
+    <p class="dnote">"ใช้งานจริง" คือรอบที่เปิดมากกว่า 1 หน้า (ไม่นับการรีเฟรช) เปิดดู Aniimo หรือไอเท็ม ค้นหา หรืออยู่ 10 วินาทีขึ้นไปและมีการกด เลื่อน หรือพิมพ์ นอกนั้นนับเป็น "กดเข้ามาเฉยๆ" · รอบการเข้าเว็บหมดเมื่อไม่มีการใช้งาน 30 นาที · ไม่นับเครื่องที่ล็อกอินหลังบ้าน${e.since?` · เริ่มเก็บ ${new Date(e.since).toLocaleDateString(LOC,{day:'numeric',month:'short',year:'numeric'})}`:''}</p>
+  </div>`;
+}
 const DEV_TH={phone:'มือถือ',tablet:'แท็บเล็ต',desktop:'คอมพิวเตอร์',unknown:'ไม่ทราบ'};
 const LANG_TH={th:'ไทย',en:'อังกฤษ',ja:'ญี่ปุ่น',zh:'จีน',ko:'เกาหลี',lo:'ลาว',vi:'เวียดนาม',ms:'มาเลย์',id:'อินโดนีเซีย'};
 
@@ -3286,6 +3374,7 @@ async function renderAdmin(){
   out.innerHTML=`<div class="kpis">${[1,2,3,4].map(()=>`<div class="kpi">${sk}${sk}</div>`).join('')}</div><div class="dpanel">${sk}</div>`;
   try{
     const d=AD.demo?demoData(AD.range):await sbStats(AD.range);await loadFeedback();
+    const eg=AD.demo?demoEngage(AD.range,d):await sbEngage(AD.range).catch(e=>({err:e.message}));
     const days=AD.demo?d.daily:fillDays(d.daily,AD.range);
     const rl={7:'7 วันล่าสุด',30:'30 วันล่าสุด',90:'90 วันล่าสุด'}[AD.range];
     const views=(d.top_views||[]).filter(r=>VIEWS.some(v=>v.id===r.key)&&r.key!=='admin').slice(0,10);
@@ -3299,6 +3388,7 @@ async function renderAdmin(){
       <div class="kpi"><small>วันนี้ (เวลาไทย)</small><b>${fmtN(d.today_visitors)}</b><span>คน · ${fmtN(d.today)} ครั้ง</span></div>
       <div class="kpi"><small>เปิดดู Aniimo</small><b>${fmtN(d.mon_views)}</b><span>${mons.length?'อันดับ 1: '+esc(BY[mons[0].key].name):'—'}</span></div>
       <div class="kpi"><small>การค้นหา</small><b>${fmtN(d.searches)}</b><span>${(d.top_searches||[]).length?'คำยอดฮิต: '+esc(d.top_searches[0].key):'—'}</span></div></div>
+     ${engagePanel(eg,rl)}
      <div class="dpanel trend"><h3>การเข้าชมรายวัน<small>${rl} · แท่งสีอ่อนคือวันนี้ · ชี้ที่แท่งเพื่อดูจำนวนคน</small></h3>${trendSvg(days)}</div>
      <div class="dgrid">
       <div class="dpanel"><h3>หน้าที่เปิดมากที่สุด</h3><div class="rank">${rankList(views,(r,pct)=>{const v=VIEWS.find(x=>x.id===r.key);return `<button type="button" class="rrow" data-go="${r.key}"><span class="ico"><svg><use href="#i-${v.ic}"/></svg></span><span class="nm">${esc(v.th)}</span>${bar(pct,r.n)}</button>`})}</div></div>
@@ -3336,7 +3426,7 @@ document.addEventListener('click',e=>{
 });
 
 /* ===== Pathfinder duels & Sanctums (from the map data) ===== */
-function withMap(fn){if(window.MAP){fn();return}const sc=document.createElement('script');sc.src='map.js?v=202609291255';sc.onload=fn;sc.onerror=()=>{};document.head.appendChild(sc)}
+function withMap(fn){if(window.MAP){fn();return}const sc=document.createElement('script');sc.src='map.js?v=202609291334';sc.onload=fn;sc.onerror=()=>{};document.head.appendChild(sc)}
 function regionAt(m){const x=m[1]/100,y=m[2]/100;return Object.keys(MAP.regions).find(n=>inPoly(x,y,MAP.regions[n]))||''}
 const mapBtn=i=>`<button type="button" class="chip" data-mapm-go="${i}" style="cursor:pointer">ดูบนแผนที่</button>`;
 const elBadges=a=>(a||[]).map(e=>badge(mEl(e))).join('');
@@ -3390,7 +3480,7 @@ function renderHeist(){
   hvCv=document.getElementById('hvCv');hvCtx=hvCv.getContext('2d');
   if(HV.ready){setTimeout(hvSize,0);return}if(HV.booting)return;HV.booting=true;
   const fail=()=>{document.getElementById('hvLoad').textContent='โหลดแผนที่ไม่สำเร็จ'};
-  const sc=document.createElement('script');sc.src='heist.js?v=202609291255';sc.onerror=fail;
+  const sc=document.createElement('script');sc.src='heist.js?v=202609291334';sc.onerror=fail;
   sc.onload=()=>{const ico=new Image();ico.onerror=fail;ico.onload=()=>{
     HV.ico=ico;HV.ready=true;
     const busy=new Set(['egg_lesser_chest','egg_loot_pile','sanctum_chest','sanctum_loot_pile']); // plain chests and piles crowd the map; off at first
@@ -3650,13 +3740,9 @@ function countUp(el){if(RM||el.dataset.counted)return;el.dataset.counted=1;
   const step=t=>{const k=Math.min(1,(t-t0)/800),v=Math.round(to*(1-Math.pow(1-k,3)));node.nodeValue=before+(comma?v.toLocaleString('en-US'):v)+after;if(k<1)requestAnimationFrame(step)};requestAnimationFrame(step)}
 const cuIO='IntersectionObserver' in window?new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){cuIO.unobserve(en.target);countUp(en.target)}}),{threshold:.6}):null;
 function countAll(){if(!cuIO)return;document.querySelectorAll('.hnow b,.feat small,#egTotal,#dcount').forEach(el=>{if(!el.dataset.cuo){el.dataset.cuo=1;cuIO.observe(el)}})}
-// hero: a different trio each visit, drifting with the mouse
-{const pool=['helion','stellarys','lunara','inferlupa','fulmintis','luminelle','emberpup','sparkelf','somniwing','glacy','gracewing','celestis','hexxin','flamerion','soleon','dazmand','pomawk','fragrancier'].filter(s=>BY[s]&&!BY[s].u);
-  const pick=pool.sort(()=>Math.random()-.5).slice(0,3);
-  document.querySelectorAll('.hero3 .stage button').forEach((b,i)=>{const a=BY[pick[i]];if(!a)return;b.dataset.open=a.slug;b.setAttribute('aria-label','ดู '+a.name);const im=b.querySelector('img');im.src=a.i;im.alt=a.name});
-  const hero=document.querySelector('.hero3');
-  if(hero&&FINE&&!RM)hero.addEventListener('pointermove',e=>{const r=hero.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
-    hero.querySelectorAll('.stage button').forEach((b,i)=>{const d=[14,24,18][i];b.style.translate=`${(-x*d).toFixed(1)}px ${(-y*d).toFixed(1)}px`})});
+// hero: the background picture drifts a little with the mouse
+{const hero=document.querySelector('.hero3'),bg=hero&&hero.querySelector('.hbg img');
+  if(bg&&FINE&&!RM)hero.addEventListener('pointermove',e=>{const r=hero.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;bg.style.translate=`${(-x*16).toFixed(1)}px ${(-y*10).toFixed(1)}px`});
 }
 // Aniimo of the day, with a slot-machine reroll
 function dailyPick(){const d=new Date(Date.now()+7*3600e3).toISOString().slice(0,10);let h=0;for(const c of d)h=(h*31+c.charCodeAt(0))>>>0;return RELEASED[h%RELEASED.length]}
