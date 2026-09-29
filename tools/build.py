@@ -76,6 +76,10 @@ def main():
     raw = json.loads((TOOLS / "raw.json").read_text())
     th = json.loads((TOOLS / "i18n" / "th.json").read_text())
     manual = json.loads((TOOLS / "manual.json").read_text())  # hand-kept data: redeem codes
+    names_th = json.loads((TOOLS / "i18n" / "names_th.json").read_text())
+    if (ROOT / "gamedata").exists():  # the game's own data wins over the scrape (see tools/game.py)
+        import game
+        names_th.update(game.apply(raw, th))
     A = raw["aniimo"]
     out_dir = ROOT / "dist-full" if FULL else ROOT
     out_dir.mkdir(exist_ok=True)
@@ -229,7 +233,7 @@ def main():
         miss_file.unlink()
     js = "".join(f"window.{k}={json.dumps(v, ensure_ascii=False, separators=(',', ':'))};\n" for k, v in [
         ("ANIIMO", aniimo), ("SKILLS", skills), ("SPRITE", sprite), ("PARTNERS", partners), ("SPARK", spark),
-        ("EVO", evo), ("BOSSES", bosses), ("REGIONS", regions), ("TH", th_used), ("NAMES_TH", json.loads((TOOLS / "i18n" / "names_th.json").read_text())), ("CODES", manual),
+        ("EVO", evo), ("BOSSES", bosses), ("REGIONS", regions), ("TH", th_used), ("NAMES_TH", names_th), ("CODES", manual),
         ("ITEMS", dict(cols=item_cols, rows=item_rows, list=items)), ("EVENTS", events), ("UPCOMING", raw.get("upcoming", [])),
         ("TERR", raw.get("territories", [])), ("RUSH", raw.get("boss_rush", [])),
         ("META", dict(scraped=raw["scraped"], scraped_at=raw.get("scraped_at", ""), full=FULL, server="Asia-Pacific"))])
@@ -239,7 +243,7 @@ def main():
     if FULL:
         for f in ["index.html", "manifest.webmanifest", "icon-192.png", "icon-512.png", "sw.js"]:
             shutil.copyfile(ROOT / f, out_dir / f)
-    skip = {"tools", "dist-full", ".git"}
+    skip = {"tools", "dist-full", ".git", "gamedata"}
     total = sum(p.stat().st_size for p in out_dir.rglob("*")
                 if p.is_file() and not skip & set(p.relative_to(out_dir).parts))
     print(f"built {out_dir} ({total/1e6:.1f} MB)")

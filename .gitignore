@@ -6,3 +6,5 @@ tools/build-full.log
 tools/scrape.log
 tools/raw.json
 tools/items_all.json
+gamedata/
+tools/compare/

@@ -92,7 +92,7 @@ def page(path, title, desc, body, image=None, jsonld=None, prefix="../../"):
 <link rel="icon" href="{prefix}favicon.png" type="image/png"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@900&family=Mitr:wght@500&display=swap">{ld}<style>{CSS}</style></head><body>
 <header><a href="{prefix}" class="wm">an<span class="ii"><i>ı</i><i>ı</i></span>guide</a></header>
 <main>{body}</main>
-<footer>คู่มือเกม Aniimo ภาษาไทย (แฟนเมด ไม่เกี่ยวข้องกับ Pawprint Studio) · ข้อมูลเกมใช้โดยได้รับอนุญาตจาก AniiDex · <a href="{prefix}">เปิดคู่มือเต็ม</a></footer>
+<footer>คู่มือเกม Aniimo ภาษาไทย (แฟนเมด ไม่เกี่ยวข้องกับ Pawprint Studio) · ข้อมูลและคำแปลไทยจากข้อมูลในเกม · ภาพจาก AniiDex · <a href="{prefix}">เปิดคู่มือเต็ม</a></footer>
 </body></html>"""
     out = ROOT / path / "index.html"
     out.parent.mkdir(parents=True, exist_ok=True)
