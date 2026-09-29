@@ -14,7 +14,7 @@
 <meta property="og:locale" content="th_TH">
 <meta property="og:locale:alternate" content="en_GB">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#1E9BEB">
+<meta name="theme-color" content="#10A7E6">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Aniimo">
 <link rel="manifest" href="manifest.webmanifest">
@@ -1082,6 +1082,27 @@ h2,h3{font-weight:800}
 .mon,.feat>button,.hnow>*,.card,.dpanel{border-color:color-mix(in srgb,var(--accent-2) 35%,var(--glass-line))}
 .navbtn[aria-current="page"]{background:linear-gradient(90deg,color-mix(in srgb,var(--accent) 16%,transparent),transparent);color:var(--accent)}
 .hero3 .hsearch kbd{border-color:#cfe4f5}
+
+/* ===== CI from the official site (aniimo.com): sky blue + violet, deep slate ink, pale sky ground, heavy rounded
+   headings, glossy pill buttons. Colours and feel only: no official logo or artwork, so it still reads as a fan site. */
+:root{
+  --ground:#EAF7FF; --surface:#FFFFFF; --sunk:#DFF4FF; --ink:#3D3D50; --ink-2:#6B6F88; --line:#D2E6F5;
+  --accent:#10A7E6; --accent-2:#73DBFF; --accent-ink:#FFFFFF; --glow:#DFF4FF; --violet:#7561CB; --slate:#30384A;
+  --sky:radial-gradient(1000px 520px at 88% -8%,rgba(117,97,203,.16),transparent 62%),radial-gradient(900px 600px at -8% 6%,rgba(115,219,255,.50),transparent 60%),radial-gradient(1000px 700px at 50% 112%,rgba(255,255,255,.95),transparent 60%),linear-gradient(180deg,#CFEFFF 0%,#EAF7FF 38%,#F6FBFF 100%);
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--accent:#3DC0F5;--accent-2:#8FE4FF;--accent-ink:#06182E;--violet:#A594F0;--slate:#1B2436}}
+:root[data-theme="dark"]{--accent:#3DC0F5;--accent-2:#8FE4FF;--accent-ink:#06182E;--violet:#A594F0;--slate:#1B2436}
+h1,h2,h3{font-weight:800;letter-spacing:-.01em}
+h2{color:var(--ink)}
+.eyebrow{color:var(--violet)!important;font-weight:700}
+.hero h1{color:#fff;font-weight:900;text-shadow:0 2px 0 var(--accent),2px 0 0 var(--accent),-2px 0 0 var(--accent),0 -2px 0 var(--accent),0 6px 18px rgba(16,167,230,.45)}
+.hero h1 span{color:#fff}
+.btn,.chip,.dactions button{border-radius:999px}
+.btn.primary,button.primary,.dactions button[aria-pressed="true"]{background:linear-gradient(180deg,#3BC4F2,var(--accent));border-color:transparent;color:#fff;box-shadow:0 4px 12px rgba(16,167,230,.35),inset 0 1px 0 rgba(255,255,255,.45)}
+.btn.dark{background:var(--slate);color:#fff;border-color:transparent}
+.card,.panel{border-color:var(--line);box-shadow:0 1px 0 rgba(255,255,255,.8) inset,0 6px 18px rgba(16,120,190,.08)}
+.navbtn[aria-current="page"]{background:linear-gradient(180deg,#3BC4F2,var(--accent))!important;color:#fff!important;box-shadow:0 4px 12px rgba(16,167,230,.3)}
+.navbtn[aria-current="page"] svg{color:#fff}
 </style>
 
 <div id="boot" role="status" aria-live="polite"><div class="bootin"><b class="wm"><span aria-hidden="true">an<span class="ii"><i>ı</i><i>ı</i></span>guide</span><span class="sr">aniiguide</span></b><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><small id="bootMsg">กำลังโหลดข้อมูล Aniimo…</small></div></div>
