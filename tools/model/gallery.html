@@ -30,9 +30,9 @@ aside img{width:72px;height:72px;object-fit:contain}
 <script src="../../thumbs.js"></script>
 <script type="module">
 const B = 'https://cdn.jsdelivr.net/npm/three@0.186.1/';
-const [T, { GLTFLoader }, { MeshoptDecoder }, { OrbitControls }] = await Promise.all(['+esm', 'examples/jsm/loaders/GLTFLoader.js/+esm', 'examples/jsm/libs/meshopt_decoder.module.js/+esm', 'examples/jsm/controls/OrbitControls.js/+esm'].map(p => import(B + p)));
+const [T, { GLTFLoader }, { MeshoptDecoder }, { OrbitControls }, { RoomEnvironment }] = await Promise.all(['+esm', 'examples/jsm/loaders/GLTFLoader.js/+esm', 'examples/jsm/libs/meshopt_decoder.module.js/+esm', 'examples/jsm/controls/OrbitControls.js/+esm', 'examples/jsm/environments/RoomEnvironment.js/+esm'].map(p => import(B + p)));
 const { mountViewer } = await import('../../viewer3d.js');
-const libs = { GLTFLoader, MeshoptDecoder, OrbitControls };
+const libs = { GLTFLoader, MeshoptDecoder, OrbitControls, RoomEnvironment };
 const M3D = window.MODELS || { glow: [], m: {} }, NT = window.NAMES_TH || {}, TH = p => (window.THUMB && window.THUMB[p]) || '../../' + p;
 const list = (window.ANIIMO || []).filter(a => M3D.m[a.slug]);
 const SP = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'Dazzling', 'Shadow'];
@@ -56,7 +56,8 @@ async function show() {
   document.getElementById('spark').innerHTML = canSpark ? `<button data-s="0" aria-pressed="${!spark}">ไม่เปล่งประกาย</button>` + SP.map((t, i) => `<button data-s="${i + 1}" aria-pressed="${spark === i + 1}">✦ ${t}</button>`).join('') : '<span style="color:var(--muted)">ร่างนี้ไม่มีร่างเปล่งประกาย</span>';
   viewer && viewer.stop();
   const el = document.getElementById('view'); el.innerHTML = ''; document.getElementById('msg').hidden = false;
-  const lk = look(); viewer = await mountViewer(el, T, libs, { url: lk.url, base: '../../', look: lk, period: m.p || 3 });
+  const lk = look(); const mv = (a.b || {}).mv || {};
+  viewer = await mountViewer(el, T, libs, { url: lk.url, base: '../../', look: lk, period: m.p || 3, motion: { fly: !!(mv.fly || mv.glide) } });
   document.getElementById('msg').hidden = true;
 }
 document.getElementById('list').onclick = e => { const b = e.target.closest('[data-i]'); if (b) { cur = +b.dataset.i; form = null; spark = 0; show() } };

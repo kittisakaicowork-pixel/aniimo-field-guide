@@ -10,7 +10,7 @@
 // whose render is closest to the site's art.
 import fs from 'fs';
 import path from 'path';
-import { DETAIL, toonTex } from './toon.mjs';
+import { DETAIL, toonTex, normalTex, ormTex } from './toon.mjs';
 import { Document, NodeIO } from '@gltf-transform/core';
 import { ALL_EXTENSIONS, EXTTextureWebP } from '@gltf-transform/extensions';
 import { weld, simplify, dedup, prune, meshopt, reorder } from '@gltf-transform/functions';
@@ -45,10 +45,19 @@ const scene = doc.createScene('Aniimo');
 const mats = {};
 async function mat(tex) {
   if (mats[tex]) return mats[tex];
-  const eye = /_Eye/i.test(tex);
-  const img = doc.createTexture(path.basename(tex)).setImage(await toonTex(path.join(root, tex), eye ? DETAIL.eye : DETAIL.body)).setMimeType('image/webp');
-  return mats[tex] = doc.createMaterial(eye ? 'eye' : 'body:' + path.basename(tex).toLowerCase()).setBaseColorTexture(img).setAlphaMode('MASK').setAlphaCutoff(0.4)
+  const eye = /_Eye/i.test(tex), file = path.join(root, tex);
+  const img = doc.createTexture(path.basename(tex)).setImage(await toonTex(file, eye ? DETAIL.eye : DETAIL.body)).setMimeType('image/webp');
+  const m = doc.createMaterial(eye ? 'eye' : 'body:' + path.basename(tex).toLowerCase()).setBaseColorTexture(img).setAlphaMode('MASK').setAlphaCutoff(0.4)
     .setDoubleSided(true).setRoughnessFactor(1).setMetallicFactor(0);
+  const size = eye ? DETAIL.eye : DETAIL.maps;
+  const nrm = await normalTex(file, size);
+  if (nrm) m.setNormalTexture(doc.createTexture('n:' + path.basename(tex)).setImage(nrm).setMimeType('image/webp'));
+  const orm = await ormTex(file, size);
+  if (orm) {
+    const t = doc.createTexture('orm:' + path.basename(tex)).setImage(orm).setMimeType('image/webp');
+    m.setOcclusionTexture(t).setMetallicRoughnessTexture(t).setMetallicFactor(1);
+  }
+  return mats[tex] = m;
 }
 for (const [obj, tex] of pick.parts) {
   const { P, U, N } = readObj(path.join(root, obj));

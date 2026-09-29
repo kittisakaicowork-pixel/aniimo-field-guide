@@ -2500,10 +2500,11 @@ const THREE_CDN='https://cdn.jsdelivr.net/npm/three@0.186.1/';
 async function mount3d(slug,look){
   const el=document.getElementById('m3d');if(!el)return;
   let T,libs,V;
-  try{const [t,{GLTFLoader},{MeshoptDecoder},{OrbitControls},v]=await Promise.all(['+esm','examples/jsm/loaders/GLTFLoader.js/+esm','examples/jsm/libs/meshopt_decoder.module.js/+esm','examples/jsm/controls/OrbitControls.js/+esm'].map(p=>import(THREE_CDN+p)).concat(import('./viewer3d.js')));T=t;libs={GLTFLoader,MeshoptDecoder,OrbitControls};V=v}
+  try{const [t,{GLTFLoader},{MeshoptDecoder},{OrbitControls},{RoomEnvironment},v]=await Promise.all(['+esm','examples/jsm/loaders/GLTFLoader.js/+esm','examples/jsm/libs/meshopt_decoder.module.js/+esm','examples/jsm/controls/OrbitControls.js/+esm','examples/jsm/environments/RoomEnvironment.js/+esm'].map(p=>import(THREE_CDN+p)).concat(import('./viewer3d.js')));T=t;libs={GLTFLoader,MeshoptDecoder,OrbitControls,RoomEnvironment};V=v}
   catch(_){el.innerHTML='<span class="muted small">โหลดตัวแสดงผล 3D ไม่ได้ ลองเชื่อมต่อเน็ตแล้วเปิดใหม่</span>';return}
   if(!el.isConnected)return;
-  try{await V.mountViewer(el,T,libs,{url:look.url,look,period:(M3D.m[slug]||{}).p||3,still:matchMedia('(prefers-reduced-motion: reduce)').matches})}
+  const mv=((BY[slug]||{}).b||{}).mv||{};
+  try{await V.mountViewer(el,T,libs,{url:look.url,look,period:(M3D.m[slug]||{}).p||3,motion:{fly:!!(mv.fly||mv.glide)},still:matchMedia('(prefers-reduced-motion: reduce)').matches})}
   catch(_){el.innerHTML='<span class="muted small">โหลดโมเดลไม่ได้</span>'}
 }
 function renderDetail(){

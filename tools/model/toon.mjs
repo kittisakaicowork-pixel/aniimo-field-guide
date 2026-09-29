@@ -1,13 +1,12 @@
-// Shared texture treatment for everything in 3d/: the game's own colours, kept as they are.
-// The colour maps (CA) are meant to be combined with the occlusion channel of the matching MOHR map, so half of
-// it is baked in (without it they read pale and flat). A very light HSL posterize (hue untouched) plus the
-// viewer's toon light and outline are the small change that keeps this from being the game's texture 1:1.
-// No colour shifting: an earlier per-model colour match drifted hues, especially on forms.
+// Textures for everything in 3d/, as close to the game as the export allows (the licensor is fine with an
+// unmodified look): the colour map as is, plus the game's normal map and its MOHR map repacked for glTF
+// (occlusion/roughness/metalness), which the viewer renders with physically based light.
+// posterize()/ao are kept for the older toon look (TOON='{"light":32,"ao":0.45}').
 import fs from 'fs';
 import path from 'path';
 import sharp from 'sharp';
 
-export const DETAIL = { ratio: 0.85, error: 0.0008, body: 1024, eye: 256, variant: 512, light: 32, sat: 16, hue: 3, satBoost: 1.0, ao: 0.45,
+export const DETAIL = { ratio: 0.85, error: 0.0008, body: 1024, eye: 256, variant: 512, light: 0, sat: 16, hue: 3, satBoost: 1.0, ao: 0, maps: 1024,
   ...(process.env.TOON ? JSON.parse(process.env.TOON) : {}) };  // TOON='{"light":0}' for experiments
 
 export function rgb2hsl(r, g, b) {
@@ -33,28 +32,52 @@ export function posterize(data) {
   return data;
 }
 
-// T_..._CA.png -> T_..._MOHR.png next to it, or anywhere in the export (the maps are split across folders)
-let mohrIndex = null;
-function findMohr(file) {
-  const name = path.basename(file).replace(/_(CA|C)\.png$/i, '_MOHR.png').toLowerCase();
-  const same = path.join(path.dirname(file), path.basename(file).replace(/_(CA|C)\.png$/i, '_MOHR.png'));
+// T_..._CA.png -> T_..._<suffix>.png next to it, or anywhere in the export (the maps are split across folders)
+let sibIndex = null;
+export function findSibling(file, suffix) {
+  const swap = n => n.replace(/_(CA|C)\.png$/i, `_${suffix}.png`);
+  const same = path.join(path.dirname(file), swap(path.basename(file)));
   if (fs.existsSync(same)) return same;
-  if (!mohrIndex) {
-    mohrIndex = {};
-    const t2 = path.join(file.slice(0, file.indexOf('textures2') + 9));
+  if (!sibIndex) {
+    sibIndex = {};
+    const t2 = file.slice(0, file.indexOf('textures2') + 9);
     for (const d of fs.readdirSync(t2)) {
       let fs2; try { fs2 = fs.readdirSync(path.join(t2, d)) } catch { continue }
-      for (const f of fs2) if (/_mohr\.png$/i.test(f)) mohrIndex[f.toLowerCase()] ||= path.join(t2, d, f);
+      for (const f of fs2) if (/_(mohr|n)\.png$/i.test(f)) sibIndex[f.toLowerCase()] ||= path.join(t2, d, f);
     }
   }
-  return mohrIndex[name] || null;
+  return sibIndex[swap(path.basename(file)).toLowerCase()] || null;
+}
+const findMohr = file => findSibling(file, 'MOHR');
+
+// Unity normal maps keep X in alpha and Y in green; rebuild a standard RGB tangent-space normal map.
+export async function normalTex(file, size) {
+  const n = findSibling(file, 'N');
+  if (!n) return null;
+  const { data, info } = await sharp(n).resize(size, size).raw().ensureAlpha().toBuffer({ resolveWithObject: true });
+  const out = Buffer.alloc(size * size * 3);
+  for (let i = 0, j = 0; i < data.length; i += 4, j += 3) {
+    const x = data[i + 3] / 127.5 - 1, y = data[i + 1] / 127.5 - 1, z = Math.sqrt(Math.max(0, 1 - x * x - y * y));
+    out[j] = (x * 0.5 + 0.5) * 255; out[j + 1] = (y * 0.5 + 0.5) * 255; out[j + 2] = (z * 0.5 + 0.5) * 255;
+  }
+  return sharp(out, { raw: { width: info.width, height: info.height, channels: 3 } }).webp({ quality: 90 }).toBuffer();
+}
+
+// MOHR (R metallic, G occlusion, B height, A roughness) -> glTF ORM (R occlusion, G roughness, B metalness)
+export async function ormTex(file, size) {
+  const m = findMohr(file);
+  if (!m) return null;
+  const { data, info } = await sharp(m).resize(size, size).raw().ensureAlpha().toBuffer({ resolveWithObject: true });
+  const out = Buffer.alloc(size * size * 3);
+  for (let i = 0, j = 0; i < data.length; i += 4, j += 3) { out[j] = data[i + 1]; out[j + 1] = data[i + 3]; out[j + 2] = data[i] }
+  return sharp(out, { raw: { width: info.width, height: info.height, channels: 3 } }).webp({ quality: 90 }).toBuffer();
 }
 
 // file -> toon webp; `recolor(data)` may change the raw pixels first (derived Sparkling/form looks)
 export async function toonTex(file, size, recolor) {
   const { data, info } = await sharp(file).resize(size, size).raw().ensureAlpha().toBuffer({ resolveWithObject: true });
   const mohr = findMohr(file);
-  if (mohr) {  // occlusion lives in the green channel
+  if (mohr && DETAIL.ao) {  // occlusion lives in the green channel (toon look only; PBR uses the ORM map)
     const ao = await sharp(mohr).resize(size, size).extractChannel(1).raw().toBuffer();
     for (let i = 0, j = 0; i < data.length; i += 4, j++) {
       const k = 1 - DETAIL.ao * (1 - ao[j] / 255);

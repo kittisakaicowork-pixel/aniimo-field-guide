@@ -8,14 +8,15 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
-import { buildModel, sceneLights, frame } from './viewer3d.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+import { buildModel, setupScene, frame } from './viewer3d.js';
 const S = 640;
 const r = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true }); r.setSize(S, S); r.setPixelRatio(1);
 r.outputColorSpace = THREE.SRGBColorSpace; document.body.appendChild(r.domElement);
 // look: {slug, kind ('' | s z d), glow, texFid, mats, t (idle time for the pose)}
 window.renderLook = async (look) => {
-  const scene = new THREE.Scene(); sceneLights(THREE, scene);
-  const m = await buildModel(THREE, { GLTFLoader, MeshoptDecoder }, { url: `3d/${look.slug}.glb`, look, period: look.period || 3 });
+  const scene = setupScene(THREE, r, { RoomEnvironment });
+  const m = await buildModel(THREE, { GLTFLoader, MeshoptDecoder }, { url: look.url || `3d/${look.slug}.glb`, look, period: look.period || 3, motion: look.motion || {} });
   m.update(look.t ?? 0.6);
   m.root.position.sub(m.box.getCenter(new THREE.Vector3())); m.root.rotation.y = 0.6; scene.add(m.root);
   if (m.points) m.points.material.uniforms.uPx.value = S / 400;
