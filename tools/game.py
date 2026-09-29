@@ -233,7 +233,12 @@ def stylize(path):
     if touches((w - 2, 0, w, h)):
         mask.paste(ImageChops.multiply(mask.crop((w - fade, 0, w, h)), side.transpose(Image.FLIP_LEFT_RIGHT)), (w - fade, 0))
     out = Image.merge("RGBA", (*rgb.split(), ImageChops.multiply(a, mask)))
-    s = max(w, h)
+    # the paintings sit at the bottom of a tall transparent canvas: crop to the creature, then square it
+    box = out.getchannel("A").point(lambda v: 255 if v > 24 else 0).getbbox()
+    if box:
+        out = out.crop(box)
+    w, h = out.size
+    s = int(max(w, h) * 1.04)
     sq = Image.new("RGBA", (s, s), (0, 0, 0, 0))
     sq.alpha_composite(out, ((s - w) // 2, (s - h) // 2))
     return sq

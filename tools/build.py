@@ -116,7 +116,7 @@ def main():
         art[(a["slug"], None)] = name
         img_jobs.append((a, None, name))
         for fi, f in enumerate(a["forms"]):
-            if f["has_image"] or (game and game.art(f["id"])):
+            if f["has_image"] or (game and not a["unreleased"] and game.art(f["id"])):
                 name = f"img/f{f['id']}.webp"
                 art[(a["slug"], fi)] = name
                 img_jobs.append((a, f, name))
