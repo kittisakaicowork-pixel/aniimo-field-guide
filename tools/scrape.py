@@ -6,6 +6,7 @@ Pages are cached under tools/cache/pages; pass --refresh to re-download them
 
     python3 tools/scrape.py            # parse from cache, fetch only what is missing
     python3 tools/scrape.py --refresh  # re-download every page first
+    python3 tools/scrape.py --check    # only check for new redeem codes and official news
 """
 import html
 import json
@@ -356,7 +357,31 @@ def check_codes():
     print(f"codes (Game8, {m.group(2)}): {len(live)} active" + (f" · NEW: {', '.join(new)}" if new else "") + (f" · no longer listed: {', '.join(gone)}" if gone else " · manual.json is up to date"))
 
 
+OFFICIAL_NEWS = "https://worldx-office-api.aniimo.com/api/information/new_center_data?region=en"
+
+
+def check_news():
+    """List official aniimo.com announcements that are not in tools/manual.json "news_seen" yet.
+    News is summarised by hand in content.js; add the id to news_seen once it is covered (or skipped)."""
+    try:
+        out = subprocess.run(["curl", "-sL", "-A", UA, OFFICIAL_NEWS], capture_output=True, text=True, timeout=60).stdout
+        posts = {x["id"]: x for g in json.loads(out)["data"] for x in g["list"]}
+    except Exception as e:  # network trouble or an API change should not stop a data build
+        print("news: could not read the official news list:", e)
+        return
+    seen = set(json.loads((ROOT / "manual.json").read_text()).get("news_seen", []))
+    new = sorted((x for i, x in posts.items() if i not in seen), key=lambda x: x["showTime"], reverse=True)
+    print(f"news (aniimo.com): {len(posts)} posts" + (f" · NEW: {len(new)}" if new else " · content.js is up to date"))
+    for x in new:
+        title = " ".join(x["title"].split())
+        print(f"  {x['showTime'][:10]}  {title}\n             https://www.aniimo.com/newslist/detail/{x['id']}")
+
+
 def main():
+    if "--check" in sys.argv:
+        check_codes()
+        check_news()
+        return
     list_page = fetch("/aniimo/", CACHE / "list.html")
     base = parse_list(list_page)
     names = {a["slug"]: a["name"] for a in base}
@@ -408,6 +433,7 @@ def main():
                territories=territories, boss_rush=boss_rush, scraped_at=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
                scraped=time.strftime("%Y-%m-%d"))
     check_codes()
+    check_news()
     (ROOT / "raw.json").write_text(json.dumps(raw, ensure_ascii=False, indent=1))
     print(f"{len(base)} Aniimo, {sum(len(a['forms']) for a in base)} forms, "
           f"{sum(len(a['skills']) for a in base)} skills, {len(sparkling)} with Sparkling, {len(bosses)} bosses, "

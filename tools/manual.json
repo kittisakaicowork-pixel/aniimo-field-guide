@@ -1,5 +1,5 @@
 {
- "codes_checked": "2026-09-25",
+ "codes_checked": "2026-09-29",
  "codes": [
   {
    "code": "twinewithaniimo",
@@ -19,7 +19,7 @@
   {
    "code": "aniimowelcome",
    "reward": "Glimmer ×50, Growth Flower ×5, Aniipod Pro ×5",
-   "expired": false
+   "expired": true
   },
   {
    "code": "anyoneaniimo",
@@ -91,5 +91,17 @@
   "alpha-scorchhowl-boss-rush-1005301",
   "alpha-tubster-boss-rush-1018701"
  ],
- "boss_rush_note": "Boss Rush stage slugs are only linked from a client-side tab on aniidex.com/bosses/, so they are listed here by hand."
+ "boss_rush_note": "Boss Rush stage slugs are only linked from a client-side tab on aniidex.com/bosses/, so they are listed here by hand.",
+ "news_seen": [
+  "100147",
+  "100145",
+  "100137",
+  "100115",
+  "100111",
+  "100100",
+  "100089",
+  "100067",
+  "100064",
+  "100051"
+ ]
 }

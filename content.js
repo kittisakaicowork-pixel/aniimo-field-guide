@@ -3,6 +3,55 @@
    src tags: official = from an official announcement; community = gathered from player guides. */
 window.NEWS = [
   {
+    id: 'whisperwake-preview', date: '2026-09-29', type: 'news', tag: 'community',
+    title: 'เตรียมตัวก่อน Whisperwake Isles เปิด 29 ต.ค.',
+    lede: 'พื้นที่ใหม่แห่งแรกหลังเปิดเกม มาพร้อม Season 1 ภาค 2 และ Aniimo ใหม่ 10 ชนิด สรุปสิ่งที่ยืนยันแล้วกับสิ่งที่มาจากไฟล์เกม',
+    source: 'https://aniimoguide.com/news/aniimo-where-is-gachapus-whisperwake-isles',
+    sections: [
+      { h: 'ยืนยันแล้ว', items: [
+        'Whisperwake Isles เปิด 29 ต.ค. 2026 เวลา 11:00 น. เวลาไทย (12:00 น. เวลาเซิร์ฟเวอร์ Asia-Pacific) หลังปิดปรับปรุง',
+        'Season 1 ภาค 1 จบ 29 ต.ค. 06:59 น. เวลาไทย แล้วเริ่มภาค 2 ต่อเนื่องถึง 10 ธ.ค.',
+        'ประกาศทางการเดือน ก.ค. ระบุว่า Aniimo ที่อาศัยบนเกาะนี้มี Reefish, Coraliz, Cheekie, Wavwal, Bubbeep, Glameep, Popapus, Gachapus, Malangel และ Malevsera'
+      ]},
+      { h: 'จากไฟล์เกมและช่วงเบต้า (อาจเปลี่ยน)', items: [
+        'โซน Crescent Bay เลเวล 54–56 เป็นเกาะทางใต้ของทวีป (เห็นเป็นเงาบนแผนที่โลกแล้ว)',
+        'มี Branch, Dewdrop Crystal, Whisperwake Coral และอีเวนต์ First Visit ของเกาะนี้',
+        'บันทึกนิเวศบอกว่าน้ำขึ้นน้ำลงของเกาะทำให้ Aniimo บางตัวออกมาตอนกลางคืนและหลบตอนกลางวัน',
+        'Reefish และ Coraliz มีร่าง Rainstorm ส่วน Glameep มีร่าง Prismana'
+      ]},
+      { h: 'ควรเตรียมอะไร', items: [
+        'ดันยศและเลเวลให้ถึงช่วง 54 ขึ้นไปก่อนวันเปิด',
+        'เก็บ Aniipod Ultra และ Sparkling Cube ไว้จับตัวใหม่ในวันแรก',
+        'Aniimo ใหม่ส่วนใหญ่เป็นธาตุน้ำ น้ำแข็ง ดิน และพืช สกิลพืชได้เปรียบโดยไม่โดนต้านเลย ส่วนสกิลน้ำโดนต้านเกือบทุกตัว',
+        'ดูรายชื่อ ค่าสถานะ และธาตุที่ควรเตรียมได้ในหน้า Whisperwake Isles ของเว็บนี้'
+      ]}
+    ]
+  },
+  {
+    id: 'mobile-live', date: '2026-09-23', type: 'news', tag: 'official',
+    title: 'Aniimo เปิดบน iOS และ Android แล้ว เล่นต่อจาก PC และคอนโซลได้ทันที',
+    lede: 'เวอร์ชันมือถือเปิดพร้อมกันทั่วโลก ใช้บัญชีเดียวกันบนเซิร์ฟเวอร์เดียวกัน ความคืบหน้าจะซิงก์ทั้งหมด',
+    source: 'https://www.aniimo.com/newslist/detail/100147',
+    sections: [
+      { h: 'เล่นข้ามแพลตฟอร์ม', items: [
+        'มือถือซิงก์ความคืบหน้ากับ PC และคอนโซลเต็มรูปแบบ ทั้งเนื้อเรื่อง ทรัพยากร และทีม',
+        'ต้องล็อกอินด้วยบัญชีเดียวกันและเลือกเซิร์ฟเวอร์เดียวกัน ถ้ามีตัวละครบน PC แล้วไม่ต้องเริ่มใหม่',
+        'เซิร์ฟเวอร์ Apac เปิดมือถือ 23 ก.ย. 09:00 น. เวลาไทย'
+      ]},
+      { h: 'รางวัลช่วงเปิดเกม', items: [
+        'เลือก Aniimo ร่าง Prismana ได้ 1 ตัวเมื่อถึงยศ Wayfarer I',
+        'สะสม Aniimo ครบตามเป้าใน Aniilog เพื่อรับเครื่องประดับ',
+        'ล็อกอินสะสมรับไข่ Random Perfect Aniimo Egg และชุดฟรีอีก 4 ชุดจากเนื้อเรื่อง บ้าน และการล็อกอิน',
+        'ยอดลงทะเบียนล่วงหน้าเกิน 40 ล้าน ได้รางวัลครบ 4 ขั้น: ชุด Sunlit Meadow กรอบอวาตาร์ Aniipod Ultra ×2 และ Glimmer ×200',
+        'ลงทะเบียนล่วงหน้าผ่านเว็บทางการ ได้ Susuta Egg ×1',
+        'ล็อกอินทั้ง PC และมือถือ รับ Sparkling Crystal ×90 จากอีเวนต์ Boundless Twining'
+      ]},
+      { h: 'ผู้ทดสอบเบต้า', items: [
+        'เช็กไข่ที่ได้คืนจากอีเวนต์ "Bonded Promise" ได้ที่หน้า Playtest Rebate ของเว็บทางการ (aniimo.com/act/rebate/en/)'
+      ]}
+    ]
+  },
+  {
     id: 'update-1-1', date: '2026-09-21', type: 'update', tag: 'official',
     title: 'อัปเดตเวอร์ชัน 1.1: เปิดมือถือทั่วโลก + Irisalis ตำนานตัวแรก',
     lede: 'อัปเดตใหญ่ครั้งแรกหลังเปิดเกม มาพร้อมการเปิดเวอร์ชันมือถือ เนื้อเรื่อง Legendary Journey ของ Irisalis โหมดใหม่ 2 โหมด อีเวนต์ 4 รายการ และการปรับปรุงอีกหลายสิบจุด',
@@ -112,6 +161,58 @@ window.NEWS = [
       'ระวังมิจฉาชีพ: ของรางวัลทั้งหมดส่งผ่านอีเวนต์และจดหมายในเกมเท่านั้น ทีมงานไม่ขอรหัสยืนยันหรือเงินโอน',
       'แจ้งปัญหาในเกม: เมนู → Support หรือกด F10 · อีเมล support_en@aniimo.com'
     ]}]
+  },
+  {
+    id: 'beta-rewards', date: '2026-09-15', type: 'news', tag: 'official',
+    title: 'วิธีรับรางวัลคืนของผู้ทดสอบเบต้า',
+    lede: 'ต้องล็อกอินด้วยอีเมลที่ใช้ตอนทดสอบ ถ้าใช้ Google หรือบัญชีอื่นต้องผูกอีเมลก่อน',
+    source: 'https://www.aniimo.com/newslist/detail/100111',
+    sections: [
+      { h: 'วิธีรับ', items: [
+        'ล็อกอินด้วยอีเมลที่ใช้สมัครทดสอบโดยตรง ไม่ใช้การล็อกอินผ่านบัญชีอื่น เช่น Google',
+        'ถ้าล็อกอินผ่านบัญชีอื่นไปแล้วแต่ยังไม่สร้างตัวละคร ให้ผูกอีเมลที่หน้าเข้าเกม: Account Center → Account Management → Email',
+        'ถ้าสร้างตัวละครไปแล้ว ให้ติดต่อ Support ในเกม',
+        'หลัง 23 ก.ย. ถ้าล็อกอินครั้งแรกผ่านบัญชีอื่นบนมือถือ จะผูกอีเมลได้เฉพาะตอนล็อกอินครั้งแรกเท่านั้น'
+      ]}
+    ]
+  },
+  {
+    id: 'intel-cpu', date: '2026-09-14', type: 'news', tag: 'official',
+    title: 'เกมเด้งบน Intel Core รุ่น 13 และ 14: วิธีแก้',
+    lede: 'ซีพียู Intel เดสก์ท็อปบางรุ่นเสื่อมตามเวลา ทำให้เกมเด้งหรือจอฟ้า ทีมงานแนะนำให้อัป BIOS และลดตัวคูณ',
+    source: 'https://www.aniimo.com/newslist/detail/100100',
+    sections: [
+      { h: 'รุ่นที่ได้รับผลกระทบ', items: [
+        'Gen 13: i5-13600K/KF, i7-13700/F/K/KF, i9-13900/F/K/KF',
+        'Gen 14: i5-14600K, i7-14700/F/K/KF, i9-14900/F/K/KF',
+        'อาการ: เกมเด้งบ่อย จอฟ้า shader error หรือหน่วยความจำการ์ดจอผิดพลาด'
+      ]},
+      { h: 'วิธีแก้', items: [
+        'อัป BIOS ตามคู่มือของเมนบอร์ด ให้ได้ microcode 0x12B หรือใหม่กว่า',
+        'ติดตั้ง Intel XTU จากเว็บ Intel',
+        'ลดตัวคูณ Performance Core ลง 2–3 ขั้น (เช่น 55x เป็น 53x) กด Apply แล้วเปิดเกมใหม่',
+        'ถ้ายังเด้งอยู่ ให้ติดต่อ Support ในเกม'
+      ]}
+    ]
+  },
+  {
+    id: 'fair-play', date: '2026-09-11', type: 'news', tag: 'official',
+    title: 'ประกาศเล่นอย่างยุติธรรม: สิ่งที่ห้ามทำและบทลงโทษ',
+    lede: 'ห้ามใช้โปรแกรมช่วยเล่น ห้ามใช้บั๊กหาของ และห้ามซื้อขายหรือแชร์บัญชี',
+    source: 'https://www.aniimo.com/newslist/detail/100067',
+    sections: [
+      { h: 'สิ่งที่ห้ามทำ', items: [
+        'ใช้โปรแกรมภายนอก เช่น โปรแกรมโกง สคริปต์จับอัตโนมัติ หรือแก้ไขตัวเกม',
+        'ใช้บั๊กเพื่อหา Aniimo วัตถุดิบ หรือทรัพยากร',
+        'ซื้อขายหรือแชร์บัญชีทุกรูปแบบ',
+        'เติมเงินผ่านช่องทางที่ไม่ใช่ของทางการ',
+        'โฆษณา หลอกลวง ใช้คำหยาบ หรือชวนคนอื่นไปใช้โปรแกรมโกง'
+      ]},
+      { h: 'บทลงโทษและการแจ้ง', items: [
+        'ตั้งแต่ยึดของที่ได้มาโดยมิชอบ แบนชั่วคราว ไปจนถึงแบนถาวร และอาจดำเนินคดีกับผู้ทำหรือเผยแพร่โปรแกรมโกง',
+        'แจ้งผ่าน Support ในเกมหรือช่องทางโซเชียลทางการ พร้อม ID ตัวละคร ภาพหน้าจอ หรือวิดีโอ'
+      ]}
+    ]
   },
   {
     id: 'dev-letter', date: '2026-09-03', type: 'news', tag: 'official',
@@ -230,8 +331,45 @@ window.ROADMAP = [
   { d: '2026-09-14', t: 'เปิดดาวน์โหลดล่วงหน้า', done: 1 },
   { d: '2026-09-16', t: 'เปิดเกมบน PC, PS5, Xbox', done: 1 },
   { d: '2026-09-23', t: 'อัปเดต 1.1 และเปิดเวอร์ชันมือถือทั่วโลก', done: 1 },
+  { d: '2026-09-24', t: 'Operation: Egg Heist โหมด Chaos เปิด', done: 1 },
   { d: '2026-09-25', t: 'Legendary Journey: Irisalis เริ่ม (ถึง 10 ธ.ค.)', done: 1 },
   { d: '2026-10-01', t: 'อีเวนต์ Journey Chronicles (ถึง 29 ต.ค.)' },
-  { d: '2026-10-05', t: 'Vein Abundance: Prismana Waleetle ที่ Berylline Vale' },
-  { d: '2026-12-10', t: 'Legendary Journey: Irisalis สิ้นสุด' }
+  { d: '2026-10-05', t: 'Vein Abundance: Prismana Waleetle ที่ Berylline Causeway' },
+  { d: '2026-10-19', t: 'Vein Abundance: Prismana Carnival' },
+  { d: '2026-10-29', t: 'Season 1 ภาค 2 และพื้นที่ใหม่ Whisperwake Isles' },
+  { d: '2026-12-10', t: 'Legendary Journey: Irisalis และ Season 1 สิ้นสุด' }
 ];
+
+/* Dates the scraped event data does not carry yet (season milestones, new areas). Same format as
+   window.UPCOMING in data.js; merged into the events timeline. at = exact start, when known. */
+window.UPCOMING_EXTRA = [
+  { name: 'Season 1 Part Two + Whisperwake Isles', dates: '29 Oct – 10 Dec', at: '2026-10-29T12:00:00+08:00' },
+  { name: 'Legendary Journey: Irisalis', dates: '25 Sept – 10 Dec' }
+];
+
+/* Whisperwake Isles page. slugs = Aniimo from the July 2026 official notice (unreleased in data.js). */
+window.WHISPERWAKE = {
+  opens: '2026-10-29T12:00:00+08:00',
+  slugs: ['reefish', 'coraliz', 'cheekie', 'wavwal', 'bubbeep', 'glameep', 'popapus', 'gachapus', 'malangel', 'malevsera'],
+  confirmed: [
+    'เปิด 29 ต.ค. 2026 เวลา 11:00 น. เวลาไทย หลังปิดปรับปรุง พร้อม Season 1 ภาค 2',
+    'Aniimo ทั้ง 10 ชนิดด้านล่างอยู่ในประกาศทางการเดือน ก.ค. และมีข้อมูลอยู่ในไฟล์เกมแล้ว'
+  ],
+  datamined: [
+    'โซน Crescent Bay เลเวล 54–56 อยู่บนเกาะทางใต้ของทวีป',
+    'มี Branch, Dewdrop Crystal, Whisperwake Coral และอีเวนต์ First Visit',
+    'น้ำขึ้นน้ำลงทำให้ Aniimo บางตัวออกมาเฉพาะตอนกลางคืน',
+    'Reefish และ Coraliz มีร่าง Rainstorm · Glameep มีร่าง Prismana'
+  ],
+  prep: [
+    ['ดันเลเวลให้ถึง 54', 'เลเวลของโซนใหม่อยู่ราว 54–56 ทำเนื้อเรื่องและ Elite Training ให้ยศพร้อม'],
+    ['เก็บ Aniipod ไว้', 'Aniipod Ultra ได้ศักยภาพ Elite ขึ้นไป ส่วน Sparkling Cube ได้ Perfect และร่างเปล่งประกาย'],
+    ['เตรียมสกิลพืช', 'ตัวใหม่ส่วนใหญ่เป็นน้ำ น้ำแข็ง ดิน และพืช สกิลพืชได้เปรียบโดยไม่โดนต้าน ส่วนสกิลน้ำโดนต้านเกือบทุกตัว ดูกราฟธาตุด้านบน'],
+    ['เคลียร์ Legendary Journey', 'Irisalis เปิดถึง 10 ธ.ค. ทำเควสต์และเก็บ Iris Petal ให้ทันก่อนภาค 2 จะดึงเวลาไป']
+  ],
+  sources: [
+    ['Game8 Roadmap', 'https://game8.co/games/Aniimo/archives/623889'],
+    ['AniimoGuide: Whisperwake Isles', 'https://aniimoguide.com/news/aniimo-where-is-gachapus-whisperwake-isles'],
+    ['aniimo.guide: ตารางอีเวนต์ Season 1', 'https://aniimo.guide/en/news/season-1-schedule']
+  ]
+};

@@ -1,6 +1,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Aniimo Field Guide</title>
+<meta name="description" content="คู่มือเกม Aniimo ภาษาไทย รายชื่อ Aniimo ทุกตัว สกิล ร่างพิเศษ แผนที่ Idyll 4,334 จุด อีเวนต์นับถอยหลัง จัดทีม Tier List และโค้ดแลกของ">
+<link rel="canonical" href="https://kittisakaicowork-pixel.github.io/aniimo-field-guide/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Aniimo Field Guide">
+<meta property="og:title" content="Aniimo Field Guide — คู่มือเกม Aniimo ภาษาไทย">
+<meta property="og:description" content="รายชื่อ Aniimo สกิล ร่างพิเศษ แผนที่ อีเวนต์ จัดทีม Tier List และโค้ดแลกของ อัปเดตตามเวอร์ชันล่าสุด">
+<meta property="og:url" content="https://kittisakaicowork-pixel.github.io/aniimo-field-guide/">
+<meta property="og:image" content="https://kittisakaicowork-pixel.github.io/aniimo-field-guide/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="th_TH">
+<meta property="og:locale:alternate" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#7A5AD8">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Aniimo">
@@ -560,7 +573,7 @@ table.plain th{background:var(--sunk);color:var(--ink-2);font-weight:500}
 @media (max-width:959px){.dodont{grid-template-columns:1fr}.tl{grid-template-columns:1fr}}
 
 .evstrip{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px}
-.evstrip .chip{font-size:.82rem;padding:6px 12px}
+.evstrip .chip{display:block;font-size:.82rem;padding:6px 12px;max-width:100%;white-space:normal}
 .panel h3 img{flex:none}
 
 /* ---------- menu sheet ---------- */
@@ -751,6 +764,15 @@ dialog#menu .mtiles svg{width:22px;height:22px;color:var(--accent)}
 .adlogin .ic svg{width:22px;height:22px}
 .adlogin input[type=email],.adlogin input[type=password]{font:inherit;font-size:.95rem;border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--surface);color:var(--ink)}
 /* news / media / faq / glossary */
+.wwcd{display:grid;gap:4px;padding:22px 24px;margin-bottom:14px;border-radius:20px;border:1px solid var(--line);background:radial-gradient(120% 140% at 100% 0%,color-mix(in srgb,var(--water) 22%,transparent),var(--surface) 65%)}
+.wwcd .eyebrow{margin:0}
+.wwcd b{font:600 clamp(1.8rem,6vw,2.8rem)/1.1 var(--display);color:var(--ink)}
+.wwcd span{color:var(--ink-2);font-size:.92rem}
+.wwel{display:grid;gap:8px;margin-bottom:14px}
+.wwel .row{display:grid;grid-template-columns:78px 1fr auto;gap:10px;align-items:center}
+.wwel .bar{height:8px;border-radius:99px;background:var(--sunk);overflow:hidden}
+.wwel .bar i{display:block;height:100%;border-radius:99px}
+.wwel small{color:var(--ink-2);white-space:nowrap}
 .rtag{display:inline-flex;align-items:center;gap:4px;font:600 .68rem/1 var(--display);padding:4px 8px;border-radius:999px;vertical-align:middle;white-space:nowrap}
 .rtag.official{background:color-mix(in srgb,var(--good) 16%,transparent);color:var(--good)}
 .rtag.official::before{content:"✓"}
@@ -1018,7 +1040,7 @@ h2{font-weight:600;letter-spacing:0}
         <label for="dc" style="display:flex;flex-direction:row;gap:6px;color:var(--ink)"><select id="dc" style="width:auto;padding:4px 8px"><option value="">ทั้งหมด</option><option value="have">จับแล้ว</option><option value="need">ยังไม่ได้จับ</option></select></label>
         <label for="dp" style="display:flex;flex-direction:row;gap:6px;color:var(--ink)"><input type="checkbox" id="dp"> เฉพาะตัวที่มีร่าง Prismana</label>
         <label for="dsp" style="display:flex;flex-direction:row;gap:6px;color:var(--ink)"><input type="checkbox" id="dsp"> เฉพาะตัวที่มีร่างเปล่งประกาย</label>
-        <label for="du" style="display:flex;flex-direction:row;gap:6px;color:var(--ink)"><input type="checkbox" id="du" checked> แสดงตัวที่ยังไม่เปิด</label>
+        <button type="button" class="itemlink" data-go="whisperwake">Aniimo ที่กำลังจะมา 10 ตัว →</button>
         <span class="count" id="dcount" style="margin-left:auto"></span>
       </div>
       <div class="dex" id="dexGrid"></div>
@@ -1352,7 +1374,7 @@ h2{font-weight:600;letter-spacing:0}
         <h2>ยศ บ้าน ไข่ ร้านค้า และดันเจี้ยน</h2>
         <p class="muted">ข้อมูลอ้างอิงเซิร์ฟเวอร์ Asia-Pacific (UTC+8) รีเซ็ตรายวัน 04:00 เวลาเซิร์ฟเวอร์ ตรงกับ <b>03:00 เวลาไทย</b></p>
       </div>
-      <div class="gnav"><a href="#s-rank">ยศและเพดานเลเวล</a><a href="#s-home">Homeland / RV</a><a href="#s-egg">ไข่และการฟัก</a><a href="#s-shop">ร้านค้า</a><a href="#s-terr">ดันเจี้ยน (Territory)</a><a href="#s-rush">Boss Rush</a></div>
+      <div class="gnav"><a href="#s-rank">ยศและเพดานเลเวล</a><a href="#s-home">Homeland / RV</a><a href="#s-egg">ไข่และการฟัก</a><a href="#s-shop">ร้านค้า</a><a href="#s-terr">ดันเจี้ยน (Territory)</a><a href="#s-rush">Boss Rush</a><a href="#s-interlink">Holo-Battle Interlink</a><a href="#s-chaos">Egg Heist: Chaos</a></div>
 
       <div class="gsec" id="s-rank">
         <h3><span class="n">1</span>ยศ (Title) และเพดานเลเวล</h3>
@@ -1366,7 +1388,7 @@ h2{font-weight:600;letter-spacing:0}
           <tr><td>Wayfarer I (Junior Wayfarer)</td><td>40</td><td>Senior Loulla ตอนกลางคืนที่ Berylline Causeway</td><td>เพดานเลเวล 45 · Revive (ชุบ Aniimo ในการต่อสู้), Research Expert (Credits จากการจับเพิ่ม), Report Card 6 ใบ · Capability Awakening · รับตัว Prismana Pact</td></tr>
           <tr><td>Wayfarer II</td><td>45</td><td>Aster ที่ Rosetower Woods</td><td>Bubble Gun, Nimble Dodge</td></tr>
           <tr><td>Wayfarer III</td><td>50</td><td>Wendell และ Mysterious Figure ที่ Zephyrus Landbridge</td><td>Measured Strike, Sure Shot · Operation: Egg Heist</td></tr>
-          <tr><td>Trailblazer I</td><td colspan="3">ยังไม่มีข้อมูลยืนยันเงื่อนไข</td></tr>
+          <tr><td>Trailblazer I</td><td colspan="2">ยังไม่มีข้อมูลยืนยันเงื่อนไข</td><td>Holo-Battle Interlink</td></tr>
         </table></div>
         <div class="grid g2">
           <article class="card"><span class="tag">EXP ผู้เล่นมาจากไหน</span><ul>
@@ -1425,6 +1447,63 @@ h2{font-weight:600;letter-spacing:0}
         <h3><span class="n">6</span>Boss Rush</h3>
         <p class="small muted">ด่านบอสเลเวล 60 ที่หมุนเวียนตามรอบ แต่ละด่านมีเงื่อนไขพิเศษและสไตล์การเล่นที่ได้เปรียบ</p>
         <div class="bgrid" id="rushGrid"></div>
+      </div>
+
+      <div class="gsec" id="s-interlink">
+        <h3><span class="n">7</span>Holo-Battle Interlink (ใหม่ในเวอร์ชัน 1.1)</h3>
+        <p class="small muted">โหมดทีม 4 คนสู้ Alpha ที่จำลองจากข้อมูลจริง เปิดทุกสัปดาห์ <b>พฤหัส 03:00 – จันทร์ 02:59 น. เวลาไทย</b> ดูว่าตอนนี้เปิดอยู่หรือไม่ได้ที่หน้า <a href="#events" data-go="events">อีเวนต์</a></p>
+        <div class="grid g2">
+          <article class="card"><p><span class="rtag official">ทางการ</span></p><ul>
+            <li>ปลดล็อกเมื่อถึงยศ Trailblazer I</li>
+            <li>ทีม 4 คน จะจับคู่กับผู้เล่นอื่นหรือชวนเพื่อนก็ได้</li>
+            <li>มี 3 เส้นทาง แต่ละเส้นมี Alpha และกลไกของฉากต่างกัน</li>
+            <li>เล่นซ้ำได้ไม่จำกัด ระบบเก็บดาวสูงสุดของแต่ละเส้นในรอบนั้น แล้วให้รางวัลตามดาวตอนออกจากโหมด</li>
+            <li>ช่วยคนอื่นเพิ่มดาวได้รางวัลช่วยเหลือ รางวัลทั้งสองแบบรีเซ็ตทุกสัปดาห์</li>
+          </ul></article>
+          <article class="card"><p><span class="rtag community">จากผู้เล่น</span></p><ul>
+            <li>เส้นทางซ้าย กลาง ขวา แต่ละเส้นเป็น Alpha เลเวล 60</li>
+            <li>ดาวคิดจากดาเมจที่ทำได้ก่อนหมดเวลา ดาวของทั้ง 3 เส้นรวมกันเพื่อปลดรางวัล</li>
+            <li>เล่นคนเดียวได้ ช่องที่ว่างจะเติมด้วยเพื่อนร่วมทีม AI</li>
+            <li>รางวัลช่วยเหลือมี Voxel Coin และ Season Stamp มีโอกาสได้ Credit, Aniipod Mega หรือ Tumbler สูงสุด 12 ครั้งต่อสัปดาห์</li>
+            <li>แต่ละสัปดาห์มี Lucky Aniimo ชนะโดยใช้ตัวนั้นได้ Credit เพิ่ม 10,000</li>
+          </ul></article>
+          <article class="card"><span class="tag">เคล็ดลับ</span><ul>
+            <li>ดาวมาจากดาเมจ ให้เลือกตัว DPS ที่มีสกิลตีแพ้ทาง Alpha ของเส้นนั้น ดูจุดอ่อนได้ที่หน้า <a href="#bosses" data-go="bosses">บอส Alpha / Omega</a></li>
+            <li>ลองเส้นที่ง่ายที่สุดก่อนเพื่อเก็บดาวขั้นต่ำให้ครบ แล้วค่อยกลับมาเก็บดาวเพิ่มทีละเส้น</li>
+            <li>เล่นให้จบก่อนจันทร์ 02:59 น. เพราะดาวจะเริ่มนับใหม่ทุกสัปดาห์</li>
+          </ul><button type="button" class="itemlink" data-go="team">จัดทีมและดูจุดอ่อนของทีม</button></article>
+        </div>
+      </div>
+
+      <div class="gsec" id="s-chaos">
+        <h3><span class="n">8</span>Operation: Egg Heist โหมด Chaos</h3>
+        <p class="small muted">ระดับยากที่สุดของ Egg Heist เปิดตั้งแต่ 24 ก.ย. 2026 เวลา 03:00 น. เวลาไทย ของดีกว่าระดับอื่น แต่ทุกครั้งที่เข้าต้องใช้ตั๋ว</p>
+        <div class="grid g2">
+          <article class="card"><p><span class="rtag official">ทางการ</span></p><ul>
+            <li>ต้องถึงระดับ IV "Elite Egg Seeker" ของ Egg Heist</li>
+            <li>เข้าแต่ละครั้งใช้ <button type="button" class="itemlink" data-item="Chaos Ticket">Chaos Ticket</button> 1 ใบ</li>
+            <li>ได้ไข่ Prismana และ Prismatic Collectible บ่อยขึ้นมาก และมีโอกาสเจอ Secret Collectible ที่หายากมาก</li>
+          </ul></article>
+          <article class="card"><p><span class="rtag community">จากผู้เล่น</span></p><ul>
+            <li>ซื้อ Chaos Ticket ในร้าน Egg Heist แท็บ Hot ใบแรก 20,000 Eggshell Coin ราคาขึ้นทีละขั้นจนถึง 400,000 ซื้อได้ 20 ใบต่อวัน</li>
+            <li>ถึงระดับ Elite Egg Seeker IV ได้ตั๋วฟรี 3 ใบ ระดับที่สูงขึ้นให้เพิ่มอีก</li>
+            <li>เงื่อนไขหนีมีข้อเดียว: ทีมต้องเก็บ Eggshell Coin รวม 300,000</li>
+            <li>ทีมสูงสุด 3 คน ใช้แผนที่แบบ Nightmare แต่มี Elite ได้สูงสุด 5 ตัวต่อรอบ</li>
+            <li>หนีสำเร็จครั้งแรกของวันได้คะแนนระดับ 2 เท่า และระดับจะรีเซ็ตทุกซีซัน</li>
+          </ul></article>
+          <article class="card"><span class="tag">เปรียบเทียบเงื่อนไขหนี</span><div class="scroll-x"><table class="plain">
+            <tr><th>ระดับ</th><th>ส่งไข่</th><th>Eggshell Coin ของทีม</th></tr>
+            <tr><td>Beginner</td><td>1 ใบ</td><td>20,000</td></tr>
+            <tr><td>Hard</td><td>1 ใบ</td><td>60,000</td></tr>
+            <tr><td>Nightmare</td><td>1 ใบ</td><td>150,000</td></tr>
+            <tr><td>Chaos</td><td>—</td><td>300,000</td></tr>
+          </table></div><p class="small muted">ข้อมูลจากผู้เล่น เช็กเงื่อนไขในเกมก่อนใช้ตั๋วทุกครั้ง</p></article>
+          <article class="card"><span class="tag">เคล็ดลับ</span><ul>
+            <li>เข้าเมื่อทีมพร้อมเท่านั้น ถ้าหนีไม่สำเร็จจะเสียตั๋วไปฟรี ๆ</li>
+            <li>เก็บ Eggshell Coin ให้ครบ 300,000 ก่อน แล้วค่อยเสี่ยงหาไข่หรือของหายากต่อ</li>
+            <li>ใบแรกของวันถูกที่สุด ซื้อทุกวันดีกว่าซื้อรวดเดียวหลายใบ</li>
+          </ul></article>
+        </div>
       </div>
     </section>
 
@@ -1643,6 +1722,24 @@ h2{font-weight:600;letter-spacing:0}
       <div class="rgrid" id="regionGrid"></div>
     </section>
 
+    <!-- WHISPERWAKE ISLES (coming area; content.js WHISPERWAKE) -->
+    <section class="view" data-view="whisperwake" hidden>
+      <div class="vhead">
+        <p class="eyebrow">พื้นที่ใหม่ · Season 1 ภาค 2</p>
+        <h2>Whisperwake Isles</h2>
+        <p class="muted">เกาะใหม่ทางใต้ของทวีป Idyll เปิดพร้อม Season 1 ภาค 2 ข้อมูลในหน้านี้แยกชัดเจนว่าอะไรยืนยันแล้ว และอะไรมาจากไฟล์เกมหรือช่วงเบต้าซึ่งอาจเปลี่ยนได้</p>
+      </div>
+      <div class="wwcd" id="wwCountdown"></div>
+      <div class="grid g2">
+        <article class="card"><p><span class="rtag official">ทางการ</span></p><h3>ยืนยันแล้ว</h3><ul id="wwConfirmed"></ul></article>
+        <article class="card"><p><span class="rtag community">จากไฟล์เกม</span></p><h3>จากไฟล์เกมและช่วงเบต้า (อาจเปลี่ยน)</h3><ul id="wwDatamined"></ul></article>
+      </div>
+      <div class="gsec"><h3>Aniimo ที่จะมา</h3><p class="small muted">ยังจับไม่ได้จนกว่าเกาะจะเปิด กดที่ตัวเพื่อดูค่าสถานะและสกิลจากไฟล์เกม</p><div class="dex" id="wwGrid"></div></div>
+      <div class="gsec"><h3>ธาตุที่ควรเตรียม</h3><p class="small muted" id="wwElNote"></p><div class="wwel" id="wwEl"></div><div class="sugs" id="wwSugs"></div></div>
+      <div class="gsec"><h3>ควรเตรียมอะไรก่อนวันเปิด</h3><div class="grid g2" id="wwPrep"></div></div>
+      <ul class="sources" id="wwSources"></ul>
+    </section>
+
     <!-- FORMS -->
     <section class="view" data-view="forms" hidden>
       <div class="vhead">
@@ -1717,14 +1814,14 @@ h2{font-weight:600;letter-spacing:0}
         <p class="eyebrow">คู่มือ</p>
         <h2>ข้อมูลเกมและระบบ</h2>
       </div>
-      <div class="gnav"><a href="#g-about">ข้อมูลเกม</a><a href="#g-systems">ระบบเกม</a><a href="#g-tips">มือใหม่</a><a href="#g-world">ภูมิภาค</a><a href="#g-pc">สเปคคอม</a><a href="#g-sources">อ้างอิง</a></div>
+      <div class="gnav"><a href="#g-about">ข้อมูลเกม</a><a href="#g-systems">ระบบเกม</a><a href="#g-tips">มือใหม่</a><a href="#g-world">ภูมิภาค</a><a href="#g-pc">สเปคคอม</a><a href="#g-mobile">มือถือและข้ามแพลตฟอร์ม</a><a href="#g-sources">อ้างอิง</a></div>
       <table class="spec" id="g-about">
         <tr><th>ผู้พัฒนา</th><td>Pawprint Studio</td></tr>
         <tr><th>ผู้จัดจำหน่าย</th><td>Kingsglory (ตามรายงานของสื่อ) · หน้า Steam ระบุ Pawprint Studio</td></tr>
         <tr><th>แนวเกม</th><td>Open-World RPG, Creature Collector, Co-op, PvP, MMO</td></tr>
         <tr><th>วันวางจำหน่าย</th><td>PC / PS5 / Xbox Series X|S — 16 ก.ย. 2026 เวลา 09:00 น. (เวลาไทย) · iOS / Android — 23 ก.ย. 2026</td></tr>
         <tr><th>แพลตฟอร์ม</th><td>Windows (Launcher ทางการ, Steam, Epic), PS5, Xbox Series X|S, iOS, Android · เว็บทางการแสดง Nintendo Switch แต่ยังไม่พบวันวางจำหน่ายที่ยืนยัน</td></tr>
-        <tr><th>Cross-play</th><td>เล่นข้ามแพลตฟอร์มได้ ส่วนการย้ายเซฟข้ามแพลตฟอร์มจะมีในภายหลัง</td></tr>
+        <tr><th>Cross-play</th><td>เล่นข้ามแพลตฟอร์มได้ และใช้เซฟเดียวกันระหว่างมือถือกับ PC / คอนโซล (บัญชีเดียวกัน เซิร์ฟเวอร์เดียวกัน) · <a href="#g-mobile">รายละเอียด</a></td></tr>
         <tr><th>ราคา</th><td>เล่นฟรี มี Monthly Pass และ Companion Pass · ไม่ใช่เกมกาชาสุ่มตัวละคร</td></tr>
         <tr><th>ภาษา</th><td>13 ภาษา รวม<b>ภาษาไทย</b></td></tr>
         <tr><th>รางวัลลงทะเบียนล่วงหน้า</th><td>ชุด “Sunlit Meadow”, กรอบอวาตาร์, Glimmer, Aniipod Ultra · เลือก Aniimo ร่าง Prismana ฟรี 1 ตัว เมื่อถึงยศ Junior Wayfarer</td></tr>
@@ -1759,6 +1856,30 @@ h2{font-weight:600;letter-spacing:0}
           <tr><th>พื้นที่</th><td>40 GB</td><td>40 GB</td></tr>
         </table>
       </div>
+      <div class="gsec" id="g-mobile">
+        <h3>มือถือและการเล่นข้ามแพลตฟอร์ม</h3>
+        <div class="grid g2">
+          <article class="card"><p><span class="rtag official">ทางการ</span></p><h3>เซฟเดียว เล่นได้ทุกเครื่อง</h3><ul>
+            <li>iOS และ Android เปิดพร้อมกันทั่วโลก 23 ก.ย. 2026 (เซิร์ฟเวอร์ Apac 09:00 น. เวลาไทย)</li>
+            <li>ความคืบหน้า ทรัพยากร และทีมซิงก์กับ PC และคอนโซลทั้งหมด ถ้ามีตัวละครอยู่แล้วไม่ต้องเริ่มใหม่</li>
+            <li>ต้องล็อกอินด้วย<b>บัญชีเดียวกัน</b>และเลือก<b>เซิร์ฟเวอร์เดียวกัน</b> ถ้าล็อกอินผ่าน Google หรือบัญชีอื่น ให้ใช้วิธีเดิมทุกเครื่อง</li>
+            <li>ถ้าเครื่องกระตุกหรือเด้ง แจ้งได้ที่ เมนู → Support ในเกม</li>
+          </ul></article>
+          <article class="card"><p><span class="rtag official">ทางการ</span></p><h3>รางวัลจากการเล่นหลายเครื่อง</h3><ul>
+            <li><b>Boundless Twining:</b> ล็อกอินบัญชีเดียวกันทั้งบนมือถือและ PC / คอนโซล ทำเควสต์ Cross-Platform Play แล้วรับ Sparkling Crystal ×90 (ครั้งเดียวต่อบัญชี)</li>
+            <li><b>Polaris Liaison Station:</b> ผูกบัญชีหรือแพลตฟอร์มที่กำหนดในหน้าอีเวนต์ รางวัลส่งเข้าจดหมายในเกม ตัวเลือกที่ผูกได้ต่างกันตามภูมิภาค</li>
+          </ul><button type="button" class="itemlink" data-go="events">ดูอีเวนต์ที่เปิดอยู่</button></article>
+        </div>
+        <div class="scroll-x" style="margin-top:14px">
+          <table class="spec" style="border:0;min-width:520px">
+            <tr><th>สเปกมือถือ <span class="rtag community">จากผู้เล่น</span></th><td><b>ขั้นต่ำ</b></td><td><b>แนะนำ</b></td></tr>
+            <tr><th>iOS</th><td>iPhone 12 · iOS 16 · RAM 6 GB</td><td>iPhone 14 Pro ขึ้นไป</td></tr>
+            <tr><th>Android</th><td>Snapdragon 7 Gen 2 / Dimensity 9000 · Android 10 · RAM 6 GB</td><td>Snapdragon 8 Gen 2 / Dimensity 9200 ขึ้นไป · RAM 8 GB</td></tr>
+            <tr><th>พื้นที่</th><td>25 GB</td><td>25 GB ขึ้นไป (เผื่ออัปเดต)</td></tr>
+          </table>
+        </div>
+        <p class="small muted">ทางการยังไม่ได้ประกาศสเปกมือถือของเวอร์ชันเต็ม ตัวเลขนี้มาจากสื่อเกม และแต่ละแหล่งยังไม่ตรงกัน จึงใช้ค่าที่สูงกว่าไว้ก่อน (ช่วงทดสอบ iOS ทางการกำหนดขั้นต่ำ iPhone 14 Pro) · PC ที่ใช้ Intel Core รุ่น 13 หรือ 14 แล้วเกมเด้ง ดู<button type="button" class="itemlink" data-news="intel-cpu">วิธีแก้จากทีมงาน</button></p>
+      </div>
       <ul class="sources" id="g-sources">
         <li><a href="https://www.aniimo.com/" target="_blank" rel="noopener">เว็บไซต์ทางการ aniimo.com</a></li>
         <li><a href="https://store.steampowered.com/app/4126040/Aniimo/" target="_blank" rel="noopener">Steam</a></li>
@@ -1769,6 +1890,9 @@ h2{font-weight:600;letter-spacing:0}
         <li><a href="https://aniimotools.dev/type-chart/" target="_blank" rel="noopener">AniimoTools Type Chart</a></li>
         <li><a href="https://www.thegamer.com/aniimo-beginner-tips-tricks-guide/" target="_blank" rel="noopener">TheGamer — Beginner Tips</a></li>
         <li><a href="https://gamerant.com/aniimo-operation-egg-heist-guide-how-to-play-rewards-ranks/" target="_blank" rel="noopener">GameRant — Egg Heist</a></li>
+        <li><a href="https://aniimotools.dev/systems/egg-heist/" target="_blank" rel="noopener">AniimoTools — Egg Heist และโหมด Chaos</a></li>
+        <li><a href="https://aniimocentral.com/guides/holo-battle-interlink/" target="_blank" rel="noopener">Aniimo Central — Holo-Battle Interlink</a></li>
+        <li><a href="https://mobilematters.gg/guides/gaming/aniimo-system-requirements-ios-android-pc" target="_blank" rel="noopener">Mobile Matters — สเปกมือถือ</a></li>
       </ul>
       <p class="small muted">เว็บแฟนเมด ไม่เกี่ยวข้องกับ Pawprint Studio · ภาพและชื่อ Aniimo เป็นลิขสิทธิ์ของผู้พัฒนาเกม · ข้อมูลเกม ภาพ และแผนที่ส่วนใหญ่ใช้โดยได้รับอนุญาตจาก <a href="https://aniidex.com/" target="_blank" rel="noopener">AniiDex</a> · ข่าวสรุปจากประกาศทางการ</p>
     </section>
@@ -1795,10 +1919,10 @@ h2{font-weight:600;letter-spacing:0}
 </dialog>
 <dialog id="menu" aria-label="เมนูทั้งหมด"><div class="inner" id="menuInner"></div></dialog>
 
-<script src="data.js?v=202609290627"></script>
-<script src="thumbs.js?v=202609290627"></script>
-<script src="content.js?v=202609290627"></script>
-<script src="i18n-en.js?v=202609290627"></script>
+<script src="data.js?v=202609290644"></script>
+<script src="thumbs.js?v=202609290644"></script>
+<script src="content.js?v=202609290644"></script>
+<script src="i18n-en.js?v=202609290644"></script>
 <script>
 /* ===== theme ===== */
 (function(){
@@ -1831,7 +1955,8 @@ const NAMES_TH=window.NAMES_TH||{};
 (window.ANIIMO||[]).forEach(a=>{a.en=a.name;a.th=NAMES_TH[a.slug]||'';if(LANG==='th'&&a.th)a.name=a.th});
 const nameHit=(a,q)=>(a.en+' '+a.th).toLowerCase().includes(q);
 const A=(window.ANIIMO||[]).filter(a=>!a.u).sort((a,b)=>{const na=+a.no,nb=+b.no;return (na>9000)-(nb>9000)||na-nb});
-const BY=Object.fromEntries(A.map(a=>[a.slug,a]));
+const UNREL=(window.ANIIMO||[]).filter(a=>a.u);
+const BY=Object.fromEntries(A.concat(UNREL).map(a=>[a.slug,a]));
 const SK=window.SKILLS||{};const SPR=window.SPRITE||{cols:15,rows:15};
 const EVO=(window.EVO||[]).filter(([s,d])=>BY[s]&&BY[d]);
 /* evolution lines: real routes first; creatures with no recorded route fall back to their art-id family */
@@ -1880,7 +2005,7 @@ const VIEWS=[
  {id:'glossary',th:'อภิธานศัพท์',ic:'book',g:'info',d:'คำศัพท์ในเกม'},
  {id:'beginner',th:'มือใหม่',ic:'star',g:'start',d:'ตัวเลือกที่ย้อนไม่ได้ ควรทำ/ไม่ควรทำ'},
  {id:'growth',th:'แนวทางพัฒนา',ic:'up',g:'start',d:'พัฒนา Aniimo และใช้ทรัพยากรให้คุ้ม'},
- {id:'guide',th:'ข้อมูลเกม',ic:'book',g:'start',d:'ระบบหลัก สเปกเครื่อง แหล่งอ้างอิง'},
+ {id:'guide',th:'ข้อมูลเกม',ic:'book',g:'start',d:'ระบบหลัก สเปกเครื่อง มือถือ แหล่งอ้างอิง'},
  {id:'dex',th:'รายชื่อ Aniimo',ic:'dex',g:'mon',tab:1,tabTh:'Aniimo',d:A.length+' ตัว ค่าสถานะ สายวิวัฒนาการ'},
  {id:'skills',th:'สกิลและสีธาตุ',ic:'skill',g:'mon',d:'สกิลทุกตัวแยกตามสีธาตุ'},
  {id:'forms',th:'ร่างพิเศษ',ic:'forms',g:'mon',d:'ร่างตามพื้นที่ สภาพอากาศ Prismana'},
@@ -1889,12 +2014,13 @@ const VIEWS=[
  {id:'elements',th:'ตารางธาตุ',ic:'elem',g:'mon',d:'แพ้ทาง ×1.6 และเครื่องคิด'},
  {id:'map',th:'แผนที่ทวีป',ic:'map',g:'world',tab:1,tabTh:'แผนที่',d:'หีบ ไข่ วัตถุดิบ บอส 4,334 จุด'},
  {id:'regions',th:'ภูมิภาค',ic:'pin',g:'world',d:'14 ภูมิภาคและจุดเกิด'},
+ {id:'whisperwake',th:'Whisperwake Isles',ic:'star',g:'world',d:'พื้นที่ใหม่ 29 ต.ค. · Aniimo 10 ตัว'},
  {id:'bosses',th:'บอส Alpha / Omega',ic:'boss',g:'world',d:'จุดอ่อนและตัวที่ควรใช้'},
  {id:'duels',th:'ดวล Pathfinder',ic:'team',g:'world',d:'62 จุด เลเวลและรางวัล'},
  {id:'sanctums',th:'Sanctum',ic:'layers',g:'world',d:'17 แห่ง และ Lost Sanctum'},
  {id:'events',th:'อีเวนต์',ic:'cal',g:'world',d:'นับถอยหลังตามเวลาไทย'},
  {id:'items',th:'ไอเท็ม',ic:'bag',g:'world',d:'658 ชิ้นพร้อมวิธีหา'},
- {id:'systems',th:'ระบบเชิงลึก',ic:'layers',g:'world',d:'ยศ บ้าน ไข่ ร้านค้า ดันเจี้ยน'},
+ {id:'systems',th:'ระบบเชิงลึก',ic:'layers',g:'world',d:'ยศ บ้าน ไข่ ร้านค้า ดันเจี้ยน Interlink'},
  {id:'team',th:'จัดทีม',ic:'team',g:'tools',tab:1,d:'วิเคราะห์จุดแข็งจุดอ่อนของทีม'},
  {id:'planner',th:'วางแผนวัสดุ',ic:'calc',g:'tools',d:'รวมวัสดุที่ต้องใช้'},
  {id:'compare',th:'เปรียบเทียบ',ic:'compare',g:'tools',d:'เทียบ 3 ตัวแบบเคียงกัน'},
@@ -1914,7 +2040,7 @@ document.getElementById('moreBtn').addEventListener('click',()=>menu.showModal()
 menu.addEventListener('click',e=>{if(e.target===menu)menu.close()});
 let current='home';
 const RENDERED=new Set();
-function ensureRendered(id){if(RENDERED.has(id))return;RENDERED.add(id);const f={dex:()=>renderDex(),skills:()=>renderSkills(),sparkling:()=>renderSpark(),forms:()=>renderForms(),tier:()=>renderTiers(),team:()=>renderTeam(),collection:()=>renderCollection(),compare:()=>renderCompare(),bosses:()=>renderBosses(),regions:()=>renderRegions(),map:()=>renderMap(),events:()=>renderEvents(),items:()=>renderItems(),systems:()=>renderSystems(),planner:()=>renderPlanner(),history:()=>renderHistory(),news:()=>renderNews(),duels:()=>withMap(renderDuels),sanctums:()=>withMap(renderSanctums),media:()=>renderMedia(),faq:()=>renderFaq(),glossary:()=>renderGloss(),admin:()=>renderAdmin()}[id];f&&f()}
+function ensureRendered(id){if(RENDERED.has(id))return;RENDERED.add(id);const f={dex:()=>renderDex(),skills:()=>renderSkills(),sparkling:()=>renderSpark(),forms:()=>renderForms(),tier:()=>renderTiers(),team:()=>renderTeam(),collection:()=>renderCollection(),compare:()=>renderCompare(),bosses:()=>renderBosses(),regions:()=>renderRegions(),whisperwake:()=>renderWW(),map:()=>renderMap(),events:()=>renderEvents(),items:()=>renderItems(),systems:()=>renderSystems(),planner:()=>renderPlanner(),history:()=>renderHistory(),news:()=>renderNews(),duels:()=>withMap(renderDuels),sanctums:()=>withMap(renderSanctums),media:()=>renderMedia(),faq:()=>renderFaq(),glossary:()=>renderGloss(),admin:()=>renderAdmin()}[id];f&&f()}
 function go(id,push){
   if(!VIEWS.some(v=>v.id===id))id='home';
   if(id!=='admin'){histAdd('views',id);track('view',id)}if(id!=='feedback'&&id!=='admin'&&typeof fbLastPage!=='undefined')fbLastPage=id;if(id==='history'||id==='admin'||id==='news')RENDERED.delete(id);if(id==='home'&&typeof renderHomeRecent==='function')renderHomeRecent();
@@ -1961,13 +2087,13 @@ gq.addEventListener('keydown',e=>{if(e.key==='Escape'){gq.value='';gres.hidden=t
 
 /* ===== dex ===== */
 const de=document.getElementById('de');de.innerHTML+=E.map(e=>`<option value="${e.k}">${e.th}</option>`).join('');
-const dq=document.getElementById('dq'),dr=document.getElementById('dr'),ds=document.getElementById('ds'),dp=document.getElementById('dp'),du=document.getElementById('du'),dsp=document.getElementById('dsp');
+const dq=document.getElementById('dq'),dr=document.getElementById('dr'),ds=document.getElementById('ds'),dp=document.getElementById('dp'),dsp=document.getElementById('dsp');
 const hasPr=a=>a.f.some(f=>f.k==='prismana');
 const dw=document.getElementById('dw'),dc=document.getElementById('dc');
 dw.innerHTML+=['Hauling','Artisanship','Leisure','Perfumery'].map(k=>`<option value="${k}">${WORK_TH[k]}</option>`).join('')+E.map(e=>`<option value="${e.en}">งานธาตุ${e.th}</option>`).join('');
 function renderDex(){
   const q=dq.value.trim().toLowerCase().replace(/^#/,'');
-  const list=A.filter(a=>(!q||nameHit(a,q)||a.no.includes(q))&&(!de.value||a.e.includes(de.value))&&(!dr.value||a.r===dr.value)&&(!ds.value||a.st===ds.value)&&(!dp.checked||hasPr(a))&&(!dsp.checked||hasSpark(a.slug))&&(du.checked||!a.u)&&(!dw.value||(a.w||[]).some(w=>w[0]===dw.value))&&(!dc.value||(dc.value==='have')===!!COL.d.c[a.slug]));
+  const list=A.filter(a=>(!q||nameHit(a,q)||a.no.includes(q))&&(!de.value||a.e.includes(de.value))&&(!dr.value||a.r===dr.value)&&(!ds.value||a.st===ds.value)&&(!dp.checked||hasPr(a))&&(!dsp.checked||hasSpark(a.slug))&&(!dw.value||(a.w||[]).some(w=>w[0]===dw.value))&&(!dc.value||(dc.value==='have')===!!COL.d.c[a.slug]));
   document.getElementById('dcount').textContent=`แสดง ${list.length} จาก ${A.length} ตัว`;
   document.getElementById('dexGrid').innerHTML=list.map(a=>`<button class="mon" type="button" data-open="${a.slug}">
     ${hasPr(a)?'<span class="flag pr">Prismana</span>':''}${hasSpark(a.slug)?'<span class="flag sp">✦</span>':''}${a.u?'<span class="flag un">ยังไม่เปิด</span>':a.f.length?`<span class="flag fc">${a.f.length+1} ร่าง</span>`:''}
@@ -1976,7 +2102,7 @@ function renderDex(){
     <span class="row">${a.e.map(badge).join('')}</span>
     <span class="meta"><span>${a.r} · ${a.st}</span><span class="dots" title="สีสกิล">${skColors(a.slug).map(k=>`<i style="background:var(--${k})"></i>`).join('')}</span></span></span></button>`).join('')||'<p class="muted">ไม่พบ Aniimo ที่ตรงกับตัวกรอง</p>';
 }
-[dq,de,dr,ds,dp,du,dsp,dw,dc].forEach(el=>el.addEventListener(el.type==='search'?'input':'change',renderDex));
+[dq,de,dr,ds,dp,dsp,dw,dc].forEach(el=>el.addEventListener(el.type==='search'?'input':'change',renderDex));
 
 /* ===== detail sheet ===== */
 const dlg=document.getElementById('dlg'),dlgBody=document.getElementById('dlgBody');
@@ -2450,7 +2576,7 @@ function renderMap(){
     MAP.count=MAP.layers.map(()=>0);MAP.m.forEach(m=>MAP.count[m[0]]++);
     mapLayersUI();
   };
-  if(window.MAP)boot();else{const sc=document.createElement('script');sc.src='map.js?v=202609290627';sc.onload=boot;sc.onerror=()=>{document.getElementById('mapLoad').textContent='โหลดข้อมูลแผนที่ไม่สำเร็จ'};document.head.appendChild(sc)}
+  if(window.MAP)boot();else{const sc=document.createElement('script');sc.src='map.js?v=202609290644';sc.onload=boot;sc.onerror=()=>{document.getElementById('mapLoad').textContent='โหลดข้อมูลแผนที่ไม่สำเร็จ'};document.head.appendChild(sc)}
 }
 function mapSaveLayers(){try{localStorage.setItem('aniimo-map-layers',JSON.stringify([...MV.on].map(i=>MAP.layers[i].id)))}catch(_){}}
 function mapLayersUI(){
@@ -2673,6 +2799,11 @@ function nextHatchHaste(now){ // Friday 04:00 → Monday 04:00, server time
   const fri=Date.UTC(d.getUTCFullYear(),d.getUTCMonth(),d.getUTCDate()-((dow+2)%7),SRV.reset)-SRV.tz*3600000;
   const end=fri+3*86400000;if(now<end&&now>=fri)return {live:true,start:fri,end};return {live:false,start:fri+7*86400000,end:end+7*86400000};
 }
+function nextInterlink(now){ // Holo-Battle Interlink: Thursday 04:00 → Monday 04:00, server time
+  const d=new Date(now+SRV.tz*3600000);const dow=d.getUTCDay();
+  const thu=Date.UTC(d.getUTCFullYear(),d.getUTCMonth(),d.getUTCDate()-((dow+3)%7),SRV.reset)-SRV.tz*3600000;
+  const end=thu+4*86400000;if(now<end&&now>=thu)return {live:true,start:thu,end};return {live:false,start:thu+7*86400000,end:end+7*86400000};
+}
 function eventWindow(e,now){
   if(e.dates&&e.dates.length){
     const runs=e.dates.map(x=>{const [s,t]=parseRange(x.dates);return {name:x.name,s,t}}).filter(r=>r.s&&r.t);
@@ -2689,9 +2820,9 @@ function eventWindow(e,now){
 /* ===== events (replaces the Europe-time version) ===== */
 function renderEvents(){
   const now=Date.now();
-  const rs=nextDailyReset(now),hh=nextHatchHaste(now);
+  const rs=nextDailyReset(now),hh=nextHatchHaste(now),hi=nextInterlink(now);
   document.getElementById('evNote').innerHTML=`อ้างอิงเซิร์ฟเวอร์ <b>${SRV.name}</b> (UTC+8) · อีเวนต์เปลี่ยนตอนรีเซ็ต 04:00 เวลาเซิร์ฟเวอร์ = <b>03:00 น. เวลาไทย</b> · ข้อมูล ณ ${esc(META.scraped||'')} ควรเช็กในเกมอีกครั้ง`;
-  const strip=`<div class="evstrip"><div class="chip">รีเซ็ตรายวันถัดไป <b>${thTime(rs)}</b> · อีก ${fmtLeft(rs-now)}</div><div class="chip">Hatch Haste ${hh.live?`<b style="color:var(--good)">กำลังจัด</b> ถึง ${thTime(hh.end)}`:`รอบถัดไป <b>${thTime(hh.start)}</b> (อีก ${fmtLeft(hh.start-now)})`}</div><div class="chip">Mysterious Vendor เติมของ ${thTime(rs)}</div></div>`;
+  const strip=`<div class="evstrip"><div class="chip">รีเซ็ตรายวันถัดไป <b>${thTime(rs)}</b> · อีก ${fmtLeft(rs-now)}</div><div class="chip">Hatch Haste ${hh.live?`<b style="color:var(--good)">กำลังจัด</b> ถึง ${thTime(hh.end)}`:`รอบถัดไป <b>${thTime(hh.start)}</b> (อีก ${fmtLeft(hh.start-now)})`}</div><div class="chip">Holo-Battle Interlink ${hi.live?`<b style="color:var(--good)">เปิดอยู่</b> ถึง ${thTime(hi.end)}`:`เปิดรอบถัดไป <b>${thTime(hi.start)}</b> (อีก ${fmtLeft(hi.start-now)})`}</div><div class="chip">Mysterious Vendor เติมของ ${thTime(rs)}</div></div>`;
   const rows=EVENTS.map(e=>({e,w:eventWindow(e,now)}));
   const want={event:r=>r.e.kind!=='gameplay'&&r.w.state==='live'||(r.e.kind==='event'&&r.w.state==='always'),upcoming:r=>r.w.state==='upcoming',gameplay:r=>r.e.kind==='gameplay'&&r.w.state!=='ended'&&r.w.state!=='upcoming',ended:r=>r.w.state==='ended'}[evKind];
   const list=rows.filter(want).sort((a,b)=>(a.w.end||9e15)-(b.w.end||9e15));
@@ -2703,8 +2834,14 @@ function renderEvents(){
     ${e.rules.length?`<details><summary>กติกา (${e.rules.length} ข้อ)</summary><ol>${e.rules.map(r=>`<li>${esc(tr(r).replace(/^\d+\.\s*/,''))}</li>`).join('')}</ol></details>`:''}
     ${e.dates&&e.dates.length?`<details><summary>รอบของอีเวนต์ (เวลาไทย)</summary><ul style="margin:6px 0 0;padding-left:1.1em">${e.dates.map(x=>{const [s,t]=parseRange(x.dates);const st=now>=t?'จบแล้ว':now>=s?'<b style="color:var(--good)">กำลังจัด</b>':'รอบถัดไป';return `<li>${esc(x.name)} · ${s?thTime(s):''} – ${t?thTime(t):''} · ${st}</li>`}).join('')}</ul></details>`:''}
     <a class="small" href="https://aniidex.com/events/${esc(e.slug)}/" target="_blank" rel="noopener">รายละเอียดบน AniiDex ↗</a></article>`).join('')+(list.length?'':'<p class="muted">ไม่มีรายการในหมวดนี้</p>');
-  const up=UPCOMING.map(u=>{const [s,t]=parseRange(u.dates);return {u,s,t}}).filter(x=>x.s).sort((a,b)=>a.s-b.s);
-  document.getElementById('evTimeline').innerHTML=up.map(({u,s,t})=>`<div class="tl"><b>${thTime(s)}</b><span>${esc(u.name)} · ถึง ${t?thTime(t):'—'} · ${now>=s?(now<t?'<b style="color:var(--good)">กำลังจัด</b>':'จบแล้ว'):'อีก '+fmtLeft(s-now)}</span></div>`).join('')||'<p class="muted">ไม่มีข้อมูลตาราง</p>';
+  // timeline = scraped upcoming list + every scheduled run in the event data + editorial dates (content.js), not yet ended
+  const seen=new Set(),up=[];
+  const add=(name,dates,at)=>{const [s0,t]=parseRange(dates);const s=at?Date.parse(at):s0;const key=name+'|'+dates;if(!s||seen.has(key)||(t&&now>=t))return;seen.add(key);up.push({name,s,t})};
+  UPCOMING.forEach(u=>add(u.name,u.dates));
+  EVENTS.forEach(e=>(e.dates||[]).forEach(x=>add(x.name==='Stage'?e.t:x.name,x.dates)));
+  (window.UPCOMING_EXTRA||[]).forEach(u=>add(u.name,u.dates,u.at));
+  up.sort((a,b)=>a.s-b.s);
+  document.getElementById('evTimeline').innerHTML=up.map(({name,s,t})=>`<div class="tl"><b>${thTime(s)}</b><span>${esc(name)} · ถึง ${t?thTime(t):'—'} · ${now>=s?'<b style="color:var(--good)">กำลังจัด</b>':'อีก '+fmtLeft(s-now)}</span></div>`).join('')||'<p class="muted">ไม่มีข้อมูลตาราง</p>';
 }
 setInterval(()=>{if(current==='events'&&!document.hidden)renderEvents()},60000);
 
@@ -3002,7 +3139,7 @@ document.addEventListener('click',e=>{
 });
 
 /* ===== Pathfinder duels & Sanctums (from the map data) ===== */
-function withMap(fn){if(window.MAP){fn();return}const sc=document.createElement('script');sc.src='map.js?v=202609290627';sc.onload=fn;sc.onerror=()=>{};document.head.appendChild(sc)}
+function withMap(fn){if(window.MAP){fn();return}const sc=document.createElement('script');sc.src='map.js?v=202609290644';sc.onload=fn;sc.onerror=()=>{};document.head.appendChild(sc)}
 function regionAt(m){const x=m[1]/100,y=m[2]/100;return Object.keys(MAP.regions).find(n=>inPoly(x,y,MAP.regions[n]))||''}
 const mapBtn=i=>`<button type="button" class="chip" data-mapm-go="${i}" style="cursor:pointer">ดูบนแผนที่</button>`;
 const elBadges=a=>(a||[]).map(e=>badge(mEl(e))).join('');
@@ -3027,8 +3164,36 @@ function renderSanctums(){
 document.addEventListener('click',e=>{const b=e.target.closest('[data-mapm-go]');if(!b)return;const m=MAP.m[+b.dataset.mapmGo];go('map');
   const f=()=>{MV.on.add(m[0]);mapLayersUI();const r=mapCv.getBoundingClientRect();mapCenter(m[1]/1e4,m[2]/1e4,fitScale()*4);mapShow(m)};if(MV.ready)f();else MV.pending=f});
 
+/* ===== Whisperwake Isles (coming area; content.js WHISPERWAKE) ===== */
+const WW=window.WHISPERWAKE||{slugs:[],confirmed:[],datamined:[],prep:[],sources:[]};
+const WW_OPEN=WW.opens?Date.parse(WW.opens):0;
+function renderWWCountdown(){
+  const now=Date.now(),el=document.getElementById('wwCountdown');if(!el||!WW_OPEN)return;
+  el.innerHTML=now<WW_OPEN?`<p class="eyebrow">เปิดในอีก</p><b>${fmtLeft(WW_OPEN-now)}</b><span>${thTime(WW_OPEN)} เวลาไทย · หลังปิดปรับปรุง</span>`
+    :`<p class="eyebrow">เปิดแล้ว</p><b>Whisperwake Isles</b><span>เปิดเมื่อ ${thTime(WW_OPEN)} เวลาไทย ข้อมูลในหน้านี้อาจยังไม่ตรงกับเกม</span>`;
+}
+function renderWW(){
+  renderWWCountdown();
+  const li=t=>`<li>${esc(t)}</li>`;
+  document.getElementById('wwConfirmed').innerHTML=WW.confirmed.map(li).join('');
+  document.getElementById('wwDatamined').innerHTML=WW.datamined.map(li).join('');
+  const roster=WW.slugs.map(s=>BY[s]).filter(Boolean);
+  document.getElementById('wwGrid').innerHTML=roster.map(a=>`<button class="mon" type="button" data-open="${a.slug}"><span class="flag un">${a.u?'เร็ว ๆ นี้':'เปิดแล้ว'}</span>
+    <span class="pic"><img decoding="async" src="${TH(a.i)}" alt="${esc(a.name)}" loading="lazy" class="${a.cut?'cut':''}"></span>
+    <span class="info"><span class="no">${numLabel(a)}</span><span class="nm">${esc(a.name)}</span><span class="row">${a.e.map(badge).join('')}</span></span></button>`).join('');
+  // how many of the new species each attacking element hits for more than ×1
+  const els=E.map(({k})=>({k,hit:roster.filter(a=>a.e.reduce((v,d)=>v*mult(k,d),1)>1).length,res:roster.filter(a=>a.e.reduce((v,d)=>v*mult(k,d),1)<1).length})).sort((x,y)=>y.hit-x.hit||x.res-y.res);
+  const best=els.filter(x=>x.hit).slice(0,3).map(x=>x.k);
+  document.getElementById('wwElNote').textContent=`นับจาก Aniimo ใหม่ ${roster.length} ชนิด ว่าสกิลแต่ละธาตุตีแรงขึ้น (×1.6 ขึ้นไป) หรือโดนต้าน กี่ชนิด`;
+  document.getElementById('wwEl').innerHTML=els.map(x=>`<div class="row"><span>${badge(x.k)}</span><span class="bar"><i style="width:${roster.length?x.hit/roster.length*100:0}%;background:var(--${x.k})"></i></span><small>ได้เปรียบ ${x.hit} · โดนต้าน ${x.res}</small></div>`).join('');
+  document.getElementById('wwSugs').innerHTML=best.length?`<p class="eyebrow" style="grid-column:1/-1;margin:6px 0 0">Aniimo ที่มีตอนนี้และมีสกิล${best.map(k=>EK[k].th).join(' / ')}</p>`+counterList(null,best):'';
+  document.getElementById('wwPrep').innerHTML=WW.prep.map(([h,t])=>`<article class="card"><h3>${esc(h)}</h3><p>${esc(t)}</p></article>`).join('');
+  document.getElementById('wwSources').innerHTML=WW.sources.map(([t,u])=>`<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a></li>`).join('');
+}
+setInterval(()=>{if(current==='whisperwake'&&!document.hidden)renderWWCountdown()},60000);
+
 /* ===== news, media, FAQ, glossary (content.js) ===== */
-const NEWS=window.NEWS||[],FAQ=window.FAQ||[],GLOSS=window.GLOSSARY||[],VIDEOS=window.VIDEOS||[],ROAD=window.ROADMAP||[],OLINKS=window.LINKS||[];
+const NEWS=(window.NEWS||[]).slice().sort((a,b)=>b.date.localeCompare(a.date)),FAQ=window.FAQ||[],GLOSS=window.GLOSSARY||[],VIDEOS=window.VIDEOS||[],ROAD=window.ROADMAP||[],OLINKS=window.LINKS||[];
 const NTYPE={update:'อัปเดตใหญ่',patch:'แพตช์โน้ต',news:'ประกาศ'};
 const RTAG={official:'<span class="rtag official">ทางการ</span>',community:'<span class="rtag community">จากผู้เล่น</span>'};
 const thDate=(iso,o)=>new Date(iso+'T00:00:00+07:00').toLocaleDateString(LOC,o||{day:'numeric',month:'short',year:'numeric'});
@@ -3129,7 +3294,7 @@ document.getElementById('fbForm').addEventListener('submit',async e=>{
 function renderHero(){
   const now=Date.now(),live=EVENTS.map(e=>({e,w:eventWindow(e,now)})).filter(x=>x.e.kind!=='gameplay'&&x.w.state==='live').sort((a,b)=>(a.w.end||9e15)-(b.w.end||9e15)).slice(0,2);
   const chips=live.map(({e,w})=>`<button type="button" data-go="events"><b>อีเวนต์</b>${esc(e.t)}${w.end?` · เหลือ ${fmtLeft(w.end-now)}`:''}</button>`)
-   ;const up=NEWS.find(n=>n.type==='update');if(up)chips.unshift(`<button type="button" data-news="${up.id}"><b>อัปเดต</b>${esc(up.title.split(':')[0])}</button>`);chips.push(...[`<button type="button" data-go="map"><b>ใหม่</b>แผนที่ทวีป Idyll 4,334 จุด</button>`,`<button type="button" data-go="beginner"><b>มือใหม่</b>สิ่งที่ต้องรู้ก่อนเริ่มเล่น</button>`]);
+   ;const up=NEWS.find(n=>n.type==='update');if(WW_OPEN&&now<WW_OPEN)chips.unshift(`<button type="button" data-go="whisperwake"><b>เร็ว ๆ นี้</b>Whisperwake Isles · อีก ${fmtLeft(WW_OPEN-now)}</button>`);if(up)chips.unshift(`<button type="button" data-news="${up.id}"><b>อัปเดต</b>${esc(up.title.split(':')[0])}</button>`);chips.push(...[`<button type="button" data-go="map"><b>ใหม่</b>แผนที่ทวีป Idyll 4,334 จุด</button>`,`<button type="button" data-go="beginner"><b>มือใหม่</b>สิ่งที่ต้องรู้ก่อนเริ่มเล่น</button>`]);
   document.getElementById('heroChips').innerHTML=chips.slice(0,3).join('');
   const code=C.find(c=>!c[2]);
   document.getElementById('heroCode').innerHTML=code?`<span>โค้ดของขวัญ</span><code>${esc(code[0])}</code><button type="button" id="heroCopy">คัดลอก</button><a href="#codes" data-go="codes" style="color:#fff;opacity:.9">ดูทั้งหมด</a>`:'';
