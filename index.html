@@ -697,22 +697,8 @@ dialog#dlg,dialog#pick{border:0;box-shadow:0 30px 80px rgba(10,25,20,.35)}
 .hsearch:hover{border-color:var(--accent)}
 .hsearch svg{width:18px;height:18px}
 .welcome .stage{max-width:340px}
-.today{display:flex;flex-wrap:wrap;gap:10px}
-.today button,.today div{display:flex;align-items:center;gap:10px;border:0;background:var(--surface);box-shadow:var(--shadow);border-radius:14px;padding:10px 14px;font-size:.88rem;cursor:pointer;color:var(--ink);text-align:left}
-.today div{cursor:default}
-.today b{font-family:var(--display);font-weight:600;font-variant-numeric:tabular-nums}
-.today i{width:9px;height:9px;border-radius:50%;background:var(--good);box-shadow:0 0 0 4px color-mix(in srgb,var(--good) 20%,transparent);flex:none}
-.today i.amber{background:var(--sun);box-shadow:0 0 0 4px color-mix(in srgb,var(--sun) 22%,transparent)}
-.hgroups{display:grid;gap:26px}
 .hgroup h3{font-size:1rem;margin-bottom:10px;display:flex;align-items:baseline;gap:10px}
 .hgroup h3 small{font:400 .8rem var(--body);color:var(--ink-2)}
-.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
-.tile{display:grid;grid-template-columns:40px 1fr;gap:12px;align-items:center;text-align:left;border:0;background:var(--surface);box-shadow:var(--shadow);border-radius:16px;padding:12px 14px;cursor:pointer;transition:box-shadow .15s,transform .15s}
-.tile:hover{box-shadow:var(--shadow-up);transform:translateY(-2px)}
-.tile span.ic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--glow);color:var(--accent)}
-.tile svg{width:20px;height:20px}
-.tile b{display:block;font-family:var(--display);font-weight:600;font-size:.95rem;line-height:1.25}
-.tile small{display:block;color:var(--ink-2);font-size:.78rem;line-height:1.35;margin-top:2px}
 
 /* mobile menu sheet: grouped tiles */
 dialog#menu{background:var(--ground);max-height:86dvh;overflow:auto}
@@ -866,7 +852,6 @@ h2{font-weight:600;letter-spacing:0}
   background:var(--glass);backdrop-filter:blur(14px) saturate(1.2);-webkit-backdrop-filter:blur(14px) saturate(1.2);border-color:var(--glass-line)}
 .mon,.fcard,.scard,.tile,.bcard{border:1px solid var(--glass-line)}
 .pic{background:radial-gradient(circle at 50% 60%,color-mix(in srgb,var(--accent-2) 30%,transparent),transparent 72%)}
-.tile span.ic{background:linear-gradient(135deg,var(--glow),color-mix(in srgb,var(--peach) 25%,var(--glow)));color:var(--accent)}
 .btn.primary,.seg button[aria-pressed="true"]{background:linear-gradient(135deg,var(--accent),color-mix(in srgb,var(--accent) 60%,var(--peach)));border-color:transparent;color:#fff}
 .chip{background:color-mix(in srgb,var(--glow) 70%,transparent)}
 .tabbar{background:var(--glass)}
@@ -878,10 +863,6 @@ h2{font-weight:600;letter-spacing:0}
   color:#fff;box-shadow:0 20px 60px rgba(90,60,170,.28)}
 .hero3::after{content:"";position:absolute;inset:0;background:radial-gradient(2px 2px at 20% 30%,rgba(255,255,255,.9),transparent),radial-gradient(1.5px 1.5px at 70% 15%,rgba(255,255,255,.8),transparent),radial-gradient(2px 2px at 85% 70%,rgba(255,255,255,.7),transparent),radial-gradient(1.5px 1.5px at 40% 80%,rgba(255,255,255,.6),transparent),radial-gradient(1.5px 1.5px at 55% 45%,rgba(255,255,255,.7),transparent);pointer-events:none}
 .hero3 .h3text{position:relative;z-index:1;display:grid;gap:12px;align-content:start}
-.h3chips{display:flex;flex-wrap:wrap;gap:8px}
-.h3chips button{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.55);background:rgba(255,255,255,.2);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#fff;border-radius:999px;padding:5px 12px 5px 6px;font-size:.8rem;cursor:pointer;text-align:left}
-.h3chips button:hover{background:rgba(255,255,255,.32)}
-.h3chips b{background:#fff;color:#7A5AD8;border-radius:999px;padding:1px 8px;font-size:.68rem;font-family:var(--display)}
 .h3live{display:flex;align-items:center;gap:8px;font-size:.82rem;opacity:.95}
 .h3live i{width:8px;height:8px;border-radius:50%;background:#7CF2B0;box-shadow:0 0 0 4px rgba(124,242,176,.3)}
 .h3title{font:700 clamp(2.4rem,6vw,4.2rem)/.95 var(--display);letter-spacing:-.01em;text-shadow:0 4px 24px rgba(60,30,120,.35)}
@@ -893,9 +874,6 @@ h2{font-weight:600;letter-spacing:0}
 .cta.ghost{background:rgba(255,255,255,.18);color:#fff;border:1px solid rgba(255,255,255,.6);box-shadow:none}
 .cta:hover{transform:translateY(-1px)}
 .hero3 .hsearch{background:rgba(255,255,255,.95);border:0;color:#6A6284;max-width:420px;margin-top:2px}
-.h3code{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:.84rem}
-.h3code code{font:600 .9rem var(--mono);background:rgba(20,10,50,.35);border:1px dashed rgba(255,255,255,.6);border-radius:10px;padding:4px 10px;letter-spacing:.04em}
-.h3code button{border:0;background:#fff;color:#5B3DC2;border-radius:999px;padding:4px 12px;font-size:.78rem;font-weight:600;cursor:pointer}
 .hero3 .stage{position:relative;z-index:1;max-width:380px}
 .hero3 .stage img{filter:drop-shadow(0 16px 24px rgba(40,20,90,.45))}
 .hgroup h3{font-size:1.05rem}
@@ -932,15 +910,49 @@ h2{font-weight:600;letter-spacing:0}
   .welcome h1{font-size:1.8rem}
   .welcome h1 br{display:none}
   .hsearch{max-width:none}
-  .today{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-  .today>*{font-size:.8rem;padding:10px 12px;align-items:flex-start}
-  .today i{margin-top:6px}
   .welcome .stage{display:none}
   .gnav{top:calc(59px + env(safe-area-inset-top,0px));overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none}
   .gnav a{white-space:nowrap}
   .bar-tools{padding:12px}
 }
-@media (max-width:560px){.tiles{grid-template-columns:1fr 1fr}.tile{grid-template-columns:1fr;justify-items:start;gap:8px}.tile small{display:none}}
+/* home sections */
+[data-view="home"]{display:grid;gap:34px}
+[data-view="home"][hidden]{display:none}
+.hsec{display:grid;gap:14px}
+.hsec>h2{font:600 1.2rem/1.2 var(--display);display:flex;align-items:baseline;gap:10px}
+.hsec>h2 small{font:400 .82rem var(--body);color:var(--ink-2)}
+.hnow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.hnow>*{display:grid;gap:5px;align-content:start;text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:18px;padding:16px 18px;color:var(--ink);font:inherit;cursor:pointer;transition:border-color .15s,transform .15s}
+.hnow>button:hover{border-color:var(--accent);transform:translateY(-2px)}
+.hnow>.hcode{cursor:default}
+.hnow .k{font:600 .72rem/1 var(--display);letter-spacing:.08em;color:var(--accent)}
+.hnow b{font:600 1.05rem/1.3 var(--display)}
+.hnow small{color:var(--ink-2);font-size:.82rem;line-height:1.4}
+.hnow small a{color:inherit}
+.hnow .row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.hnow code{font:600 .9rem var(--mono);word-break:break-all;letter-spacing:.03em;background:var(--sunk);border:1px dashed var(--line);border-radius:8px;padding:3px 8px}
+.hnow .hcode button{border:0;background:var(--accent);color:var(--accent-ink);border-radius:999px;padding:4px 12px;font-size:.78rem;font-weight:600;cursor:pointer}
+.feat{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.feat button{display:grid;gap:6px;align-content:start;text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:20px;padding:20px;color:var(--ink);font:inherit;cursor:pointer;transition:border-color .15s,box-shadow .15s,transform .15s}
+.feat button:hover{border-color:var(--accent);box-shadow:var(--shadow-up);transform:translateY(-2px)}
+.feat .ic{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;margin-bottom:6px;background:linear-gradient(135deg,var(--glow),color-mix(in srgb,var(--peach) 25%,var(--glow)));color:var(--accent)}
+.feat svg{width:22px;height:22px}
+.feat b{font:600 1.08rem/1.25 var(--display)}
+.feat small{color:var(--ink-2);font-size:.86rem;line-height:1.45}
+.hall{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:18px 24px;padding:18px 20px;border:1px solid var(--line);border-radius:20px}
+.hall h3{font:600 .72rem/1 var(--display);letter-spacing:.1em;color:var(--ink-2);margin:0 0 8px}
+.hall button{display:block;border:0;background:none;padding:5px 0;color:var(--ink);font:inherit;font-size:.92rem;cursor:pointer;text-align:left}
+.hall button:hover{color:var(--accent)}
+@media (max-width:1180px){.hnow{grid-template-columns:1fr 1fr}}
+@media (max-width:959px){.feat{grid-template-columns:1fr 1fr}.hero3 .stage{max-width:200px}}
+@media (max-width:560px){
+  .hnow{grid-template-columns:1fr 1fr;gap:10px}.hnow>*{padding:14px}.hnow b{font-size:.95rem}
+  .feat{gap:10px}.feat button{padding:16px}.feat .ic{width:38px;height:38px;border-radius:12px}.feat b{font-size:.98rem}.feat small{font-size:.8rem}
+  .hall{grid-template-columns:1fr 1fr;padding:14px 16px}
+  .hero3 .stage{max-width:170px;margin:-10px auto -34px}
+  .h3cta{flex-wrap:nowrap}.h3cta .cta{flex:1;justify-content:center;padding:11px 10px;font-size:.9rem}
+  [data-view="home"]{gap:28px}
+}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -998,13 +1010,11 @@ h2{font-weight:600;letter-spacing:0}
     <section class="view" data-view="home">
       <div class="hero3">
         <div class="h3text">
-          <div class="h3chips" id="heroChips"></div>
           <p class="h3live"><i></i>เซิร์ฟเวอร์เอเชีย · อัปเดตข้อมูลทุกสัปดาห์</p>
           <h1 class="h3title">Aniimo<span>Field Guide</span></h1>
-          <p class="lede">คู่มือ Aniimo ภาษาไทยที่ครบที่สุด ข้อมูล Aniimo <span id="monTotal">—</span> ตัว สกิล <span id="skTotal">—</span> สกิล แผนที่ทวีป อีเวนต์ และเครื่องมือจัดทีม ใช้ฟรี ไม่มีโฆษณา</p>
-          <div class="h3cta"><button type="button" class="cta" data-go="map"><svg><use href="#i-map"/></svg>สำรวจแผนที่</button><button type="button" class="cta ghost" data-go="dex"><svg><use href="#i-dex"/></svg>รายชื่อ Aniimo</button></div>
+          <p class="lede">คู่มือ Aniimo ภาษาไทยที่รวมทุกอย่างไว้ในที่เดียว ใช้ฟรี ไม่มีโฆษณา</p>
           <button type="button" class="hsearch" id="hsearch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>ค้นหา Aniimo หรือสกิล</button>
-          <div class="h3code" id="heroCode"></div>
+          <div class="h3cta"><button type="button" class="cta" data-go="dex"><svg><use href="#i-dex"/></svg>รายชื่อ Aniimo</button><button type="button" class="cta ghost" data-go="map"><svg><use href="#i-map"/></svg>แผนที่ทวีป</button></div>
         </div>
         <div class="stage">
           <button class="s1" type="button" data-open="helion" aria-label="ดู Helion"><img src="img/helion.webp" alt="Helion"></button>
@@ -1012,9 +1022,10 @@ h2{font-weight:600;letter-spacing:0}
           <button class="s3" type="button" data-open="lunara" aria-label="ดู Lunara"><img src="img/lunara.webp" alt="Lunara"></button>
         </div>
       </div>
-      <div class="today" id="homeToday" aria-live="polite"></div>
-      <div class="hgroup" id="homeRecent" hidden><h3>ดูล่าสุด<small><a href="#history" data-go="history">ประวัติทั้งหมด</a></small></h3><div class="recent" id="homeRecentList"></div></div>
-      <div class="hgroups" id="homeGroups"></div>
+      <section class="hsec"><h2>ตอนนี้ในเกม</h2><div class="hnow" id="homeNow" aria-live="polite"></div></section>
+      <section class="hsec"><h2>เว็บนี้มีอะไรบ้าง<small>เริ่มจากตรงนี้</small></h2><div class="feat" id="homeFeat"></div></section>
+      <section class="hsec" id="homeRecent" hidden><h2>ดูล่าสุด<small><a href="#history" data-go="history">ประวัติทั้งหมด</a></small></h2><div class="recent" id="homeRecentList"></div></section>
+      <section class="hsec"><h2>หน้าอื่น ๆ ทั้งหมด</h2><div class="hall" id="homeGroups"></div></section>
             <div class="install" id="installBox" hidden>
         <img src="icon-192.png" alt="">
         <div><b style="font-family:var(--display);font-weight:500">ติดตั้งเป็นแอป</b><p class="small muted">เปิดจากหน้าจอหลักได้เหมือนแอป และใช้งานออฟไลน์ได้หลังเปิดครั้งแรก</p></div>
@@ -1919,10 +1930,10 @@ h2{font-weight:600;letter-spacing:0}
 </dialog>
 <dialog id="menu" aria-label="เมนูทั้งหมด"><div class="inner" id="menuInner"></div></dialog>
 
-<script src="data.js?v=202609290644"></script>
-<script src="thumbs.js?v=202609290644"></script>
-<script src="content.js?v=202609290644"></script>
-<script src="i18n-en.js?v=202609290644"></script>
+<script src="data.js?v=202609290721"></script>
+<script src="thumbs.js?v=202609290721"></script>
+<script src="content.js?v=202609290721"></script>
+<script src="i18n-en.js?v=202609290721"></script>
 <script>
 /* ===== theme ===== */
 (function(){
@@ -1987,7 +1998,7 @@ const workLabel=w=>(WORK_TH[w[0]]||('งานธาตุ'+(EK[w[0].toLowerCase
 const BOSSES=window.BOSSES||[];const REGIONS=window.REGIONS||{};
 const TIERMAP={};
 const ALLSK=[];A.forEach(a=>skillsOf(a.slug).forEach(s=>ALLSK.push({a,s})));
-document.getElementById('skTotal').textContent=ALLSK.length;{const m=document.getElementById('monTotal');if(m)m.textContent=A.length}
+
 
 /* ===== navigation ===== */
 const GROUPS=[
@@ -2033,7 +2044,15 @@ const navItem=(v,cls)=>`<button type="button" class="${cls}" data-go="${v.id}"><
 document.getElementById('side').innerHTML=navItem(VIEWS[0],'navbtn')+GROUPS.map(g=>`<p class="grp">${g.th}</p>`+VIEWS.filter(v=>v.g===g.id).map(v=>navItem(v,'navbtn')).join('')).join('')+`<div class="foot"><button type="button" class="adentry" data-go="admin"><svg><use href="#i-lock"/></svg>หลังบ้าน</button><span>แฟนเมด · ข้อมูลจาก <a href="https://aniidex.com/" target="_blank" rel="noopener">AniiDex</a> · ${esc(META.scraped||'')}</span></div>`;
 document.getElementById('tabbar').innerHTML=VIEWS.filter(v=>v.tab).map(v=>navItem({...v,th:v.tabTh||v.th},'')).join('')+`<button type="button" id="moreBtn"><svg><use href="#i-more"/></svg><span>เพิ่มเติม</span></button>`;
 document.getElementById('menuInner').innerHTML='<div class="grab"></div>'+GROUPS.map(g=>`<div class="mgrp"><p>${g.th}</p><div class="mtiles">${VIEWS.filter(v=>v.g===g.id).map(v=>`<button type="button" data-go="${v.id}"><svg><use href="#i-${v.ic}"/></svg>${v.th}</button>`).join('')}</div></div>`).join('')+'<button type="button" class="adentry" data-go="admin" style="justify-self:center"><svg><use href="#i-lock"/></svg>หลังบ้าน</button>';
-document.getElementById('homeGroups').innerHTML=GROUPS.map(g=>`<div class="hgroup"><h3>${g.th}${g.d?`<small>${g.d}</small>`:''}</h3><div class="tiles">${VIEWS.filter(v=>v.g===g.id).map(v=>`<button type="button" class="tile" data-go="${v.id}"><span class="ic"><svg><use href="#i-${v.ic}"/></svg></span><span><b>${v.th}</b><small>${v.d||''}</small></span></button>`).join('')}</div></div>`).join('');
+const FEAT=[
+ {id:'dex',d:`${A.length} ตัว พร้อมค่าสถานะ สกิล และสายวิวัฒนาการ`},
+ {id:'map',d:'หีบ ไข่ วัตถุดิบ และบอส 4,334 จุด'},
+ {id:'team',d:'จัดทีม ดูจุดอ่อน แล้วแชร์เป็นลิงก์'},
+ {id:'tier',d:'อันดับความแรง และโหวตจากผู้เล่น'},
+ {id:'events',d:'อีเวนต์ที่เปิดอยู่ นับถอยหลังตามเวลาไทย'},
+ {id:'beginner',d:'สิ่งที่ห้ามพลาดก่อนเริ่มเล่น'}];
+document.getElementById('homeFeat').innerHTML=FEAT.map(f=>{const v=VIEWS.find(x=>x.id===f.id);return `<button type="button" data-go="${v.id}"><span class="ic"><svg><use href="#i-${v.ic}"/></svg></span><b>${v.th}</b><small>${f.d}</small></button>`}).join('');
+document.getElementById('homeGroups').innerHTML=GROUPS.map(g=>{const vs=VIEWS.filter(v=>v.g===g.id&&!FEAT.some(f=>f.id===v.id));return vs.length?`<div><h3>${g.th}</h3>${vs.map(v=>`<button type="button" data-go="${v.id}">${v.th}</button>`).join('')}</div>`:''}).join('');
 document.getElementById('hsearch').addEventListener('click',()=>{const g=document.getElementById('gq');g.focus();g.scrollIntoView({block:'nearest'})});
 const menu=document.getElementById('menu');
 document.getElementById('moreBtn').addEventListener('click',()=>menu.showModal());
@@ -2576,7 +2595,7 @@ function renderMap(){
     MAP.count=MAP.layers.map(()=>0);MAP.m.forEach(m=>MAP.count[m[0]]++);
     mapLayersUI();
   };
-  if(window.MAP)boot();else{const sc=document.createElement('script');sc.src='map.js?v=202609290644';sc.onload=boot;sc.onerror=()=>{document.getElementById('mapLoad').textContent='โหลดข้อมูลแผนที่ไม่สำเร็จ'};document.head.appendChild(sc)}
+  if(window.MAP)boot();else{const sc=document.createElement('script');sc.src='map.js?v=202609290721';sc.onload=boot;sc.onerror=()=>{document.getElementById('mapLoad').textContent='โหลดข้อมูลแผนที่ไม่สำเร็จ'};document.head.appendChild(sc)}
 }
 function mapSaveLayers(){try{localStorage.setItem('aniimo-map-layers',JSON.stringify([...MV.on].map(i=>MAP.layers[i].id)))}catch(_){}}
 function mapLayersUI(){
@@ -3139,7 +3158,7 @@ document.addEventListener('click',e=>{
 });
 
 /* ===== Pathfinder duels & Sanctums (from the map data) ===== */
-function withMap(fn){if(window.MAP){fn();return}const sc=document.createElement('script');sc.src='map.js?v=202609290644';sc.onload=fn;sc.onerror=()=>{};document.head.appendChild(sc)}
+function withMap(fn){if(window.MAP){fn();return}const sc=document.createElement('script');sc.src='map.js?v=202609290721';sc.onload=fn;sc.onerror=()=>{};document.head.appendChild(sc)}
 function regionAt(m){const x=m[1]/100,y=m[2]/100;return Object.keys(MAP.regions).find(n=>inPoly(x,y,MAP.regions[n]))||''}
 const mapBtn=i=>`<button type="button" class="chip" data-mapm-go="${i}" style="cursor:pointer">ดูบนแผนที่</button>`;
 const elBadges=a=>(a||[]).map(e=>badge(mEl(e))).join('');
@@ -3290,29 +3309,21 @@ document.getElementById('fbForm').addEventListener('submit',async e=>{
 });
 
 
-/* ===== hero: what's new chips + newest code ===== */
-function renderHero(){
-  const now=Date.now(),live=EVENTS.map(e=>({e,w:eventWindow(e,now)})).filter(x=>x.e.kind!=='gameplay'&&x.w.state==='live').sort((a,b)=>(a.w.end||9e15)-(b.w.end||9e15)).slice(0,2);
-  const chips=live.map(({e,w})=>`<button type="button" data-go="events"><b>อีเวนต์</b>${esc(e.t)}${w.end?` · เหลือ ${fmtLeft(w.end-now)}`:''}</button>`)
-   ;const up=NEWS.find(n=>n.type==='update');if(WW_OPEN&&now<WW_OPEN)chips.unshift(`<button type="button" data-go="whisperwake"><b>เร็ว ๆ นี้</b>Whisperwake Isles · อีก ${fmtLeft(WW_OPEN-now)}</button>`);if(up)chips.unshift(`<button type="button" data-news="${up.id}"><b>อัปเดต</b>${esc(up.title.split(':')[0])}</button>`);chips.push(...[`<button type="button" data-go="map"><b>ใหม่</b>แผนที่ทวีป Idyll 4,334 จุด</button>`,`<button type="button" data-go="beginner"><b>มือใหม่</b>สิ่งที่ต้องรู้ก่อนเริ่มเล่น</button>`]);
-  document.getElementById('heroChips').innerHTML=chips.slice(0,3).join('');
-  const code=C.find(c=>!c[2]);
-  document.getElementById('heroCode').innerHTML=code?`<span>โค้ดของขวัญ</span><code>${esc(code[0])}</code><button type="button" id="heroCopy">คัดลอก</button><a href="#codes" data-go="codes" style="color:#fff;opacity:.9">ดูทั้งหมด</a>`:'';
+/* ===== home: now in game (latest update, live events, next area, newest code) ===== */
+function renderHomeNow(){
+  const el=document.getElementById('homeNow');if(!el)return;const now=Date.now(),cards=[];
+  const up=NEWS.find(n=>n.type==='update');
+  if(up)cards.push(`<button type="button" data-news="${up.id}"><span class="k">อัปเดตล่าสุด</span><b>${esc(up.title.split(':')[0])}</b><small>${thDate(up.date)} · อ่านสรุป</small></button>`);
+  const live=EVENTS.map(e=>({e,w:eventWindow(e,now)})).filter(x=>x.e.kind!=='gameplay'&&x.w.state==='live').sort((a,b)=>(a.w.end||9e15)-(b.w.end||9e15));
+  const soon=live.find(x=>x.w.end);
+  cards.push(`<button type="button" data-go="events"><span class="k">อีเวนต์</span><b>เปิดอยู่ ${live.length} อีเวนต์</b><small>${soon?`${esc(soon.e.t)} จบในอีก ${fmtLeft(soon.w.end-now)}`:'ดูตารางอีเวนต์'}</small></button>`);
+  if(WW_OPEN&&now<WW_OPEN)cards.push(`<button type="button" data-go="whisperwake"><span class="k">พื้นที่ใหม่</span><b>Whisperwake Isles</b><small>เปิดในอีก ${fmtLeft(WW_OPEN-now)}</small></button>`);
+  const codes=C.filter(c=>!c[2]);
+  if(codes.length)cards.push(`<div class="hcode"><span class="k">โค้ดของขวัญ</span><span class="row"><code>${esc(codes[0][0])}</code><button type="button" id="heroCopy">คัดลอก</button></span><small><a href="#codes" data-go="codes">ใช้ได้อีก ${codes.length} โค้ด ดูทั้งหมด</a></small></div>`);
+  el.innerHTML=cards.join('');
 }
-document.addEventListener('click',e=>{const b=e.target.closest('#heroCopy');if(!b)return;const code=document.querySelector('#heroCode code').textContent;try{navigator.clipboard.writeText(code).then(()=>{b.textContent='คัดลอกแล้ว'},()=>{b.textContent=code})}catch(_){b.textContent=code}});
-renderHero();
-
-/* ===== home: today at a glance ===== */
-function renderHomeToday(){
-  const el=document.getElementById('homeToday');if(!el)return;const now=Date.now(),rs=nextDailyReset(now),hh=nextHatchHaste(now);
-  const live=EVENTS.filter(e=>{const w=eventWindow(e,now);return e.kind!=='gameplay'&&w.state==='live'}).length;
-  const codes=C.filter(c=>!c[2]).length;
-  el.innerHTML=`<div><i class="amber"></i><span>รีเซ็ตรายวันอีก <b>${fmtLeft(rs-now)}</b> <span class="muted">(03:00 น.)</span></span></div>`
-   +`<button type="button" data-go="events"><i></i><span>อีเวนต์ที่เปิดอยู่ <b>${live}</b></span></button>`
-   +`<button type="button" data-go="events"><i class="${hh.live?'':'amber'}"></i><span>Hatch Haste ${hh.live?'<b>กำลังจัด</b>':`อีก <b>${fmtLeft(hh.start-now)}</b>`}</span></button>`
-   +(codes?`<button type="button" data-go="codes"><i></i><span>โค้ดที่ยังใช้ได้ <b>${codes}</b></span></button>`:'');
-}
-renderHomeToday();setInterval(()=>{if(current==='home'&&!document.hidden)renderHomeToday()},60000);
+document.addEventListener('click',e=>{const b=e.target.closest('#heroCopy');if(!b)return;const code=document.querySelector('#homeNow code').textContent;try{navigator.clipboard.writeText(code).then(()=>{b.textContent='คัดลอกแล้ว'},()=>{b.textContent=code})}catch(_){b.textContent=code}});
+renderHomeNow();setInterval(()=>{if(current==='home'&&!document.hidden)renderHomeNow()},60000);
 /* ===== whole-site English (i18n-en.js) ===== */
 const UI_EN=window.UI_EN||{};
 const HAS_TH=/[฀-๿]/,LATIN=/[A-Za-z0-9][A-Za-z0-9 .,'’%×+\-\/:&!?#()"“”]*[A-Za-z0-9%)"”]|[A-Za-z0-9]/g;
