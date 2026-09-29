@@ -17,7 +17,7 @@ create or replace function public.stats_engagement(days int default 7)
 returns json language plpgsql stable security definer set search_path = public as $$
 declare
   since timestamptz := now() - make_interval(days => greatest(1, least(days, 365)));
-  out json;
+  result json;
 begin
   if not is_owner() then
     raise exception 'owner only' using errcode = '42501';
@@ -56,8 +56,8 @@ begin
              from (select case when secs < 10 then 1 when secs < 30 then 2 when secs < 60 then 3
                                when secs < 180 then 4 when secs < 600 then 5 else 6 end b, count(*) n
                    from s group by 1) x)
-  ) into out;
-  return out;
+  ) into result;
+  return result;
 end $$;
 
 revoke all on function public.stats_engagement(int) from public, anon;
