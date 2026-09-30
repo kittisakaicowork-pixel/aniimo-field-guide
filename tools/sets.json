@@ -1,0 +1,646 @@
+[
+ {
+  "slug": "irisalis",
+  "colours": [
+   {
+    "id": 117,
+    "t": 1,
+    "tn": "สี",
+    "th": "ผลิดอกแรก",
+    "en": "First Bloom",
+    "q": 3,
+    "o": [
+     12.9,
+     12.2,
+     11.19,
+     9.67
+    ]
+   },
+   {
+    "id": 102,
+    "t": 1,
+    "tn": "สี",
+    "th": "ขาวพีช",
+    "en": "Peach White",
+    "q": 3,
+    "o": [
+     12.9,
+     12.2,
+     11.19,
+     9.67
+    ]
+   },
+   {
+    "id": 103,
+    "t": 1,
+    "tn": "สี",
+    "th": "เปลวเพลิงสีชาด",
+    "en": "Crimson Flame",
+    "q": 3,
+    "o": [
+     12.9,
+     12.2,
+     11.19,
+     9.67
+    ]
+   },
+   {
+    "id": 104,
+    "t": 1,
+    "tn": "สี",
+    "th": "ส้มอำพันรุ่งอรุณ",
+    "en": "Amber Dawn",
+    "q": 3,
+    "o": [
+     12.9,
+     12.2,
+     11.19,
+     9.67
+    ]
+   },
+   {
+    "id": 105,
+    "t": 1,
+    "tn": "สี",
+    "th": "แดงถ่านไฟ",
+    "en": "Ember",
+    "q": 3,
+    "o": [
+     12.9,
+     12.2,
+     11.19,
+     9.67
+    ]
+   },
+   {
+    "id": 106,
+    "t": 1,
+    "tn": "สี",
+    "th": "เขียวแกมน้ำเงินเข้ม",
+    "en": "Deep Teal",
+    "q": 3,
+    "o": [
+     12.9,
+     12.2,
+     11.19,
+     9.67
+    ]
+   },
+   {
+    "id": 107,
+    "t": 1,
+    "tn": "สี",
+    "th": "แสงเย็นดอกซากุระ",
+    "en": "Cherry-Blossom Afterglow",
+    "q": 4,
+    "o": [
+     3.87,
+     4.5,
+     5.37,
+     6.63
+    ]
+   },
+   {
+    "id": 108,
+    "t": 1,
+    "tn": "สี",
+    "th": "ม่วงเข้มลึก",
+    "en": "Deep Violet",
+    "q": 4,
+    "o": [
+     3.87,
+     4.5,
+     5.37,
+     6.63
+    ]
+   },
+   {
+    "id": 109,
+    "t": 1,
+    "tn": "สี",
+    "th": "สีน้ำเงินเจิดจรัส",
+    "en": "Brilliant Blue",
+    "q": 4,
+    "o": [
+     3.87,
+     4.5,
+     5.37,
+     6.63
+    ]
+   },
+   {
+    "id": 110,
+    "t": 1,
+    "tn": "สี",
+    "th": "สีน้ำเงินกระแสน้ำ",
+    "en": "Tidal Blue",
+    "q": 4,
+    "o": [
+     3.87,
+     4.5,
+     5.37,
+     6.63
+    ]
+   },
+   {
+    "id": 111,
+    "t": 1,
+    "tn": "สี",
+    "th": "สีม่วงประกายวาว",
+    "en": "Violet Gleam",
+    "q": 4,
+    "o": [
+     3.87,
+     4.5,
+     5.37,
+     6.63
+    ]
+   },
+   {
+    "id": 112,
+    "t": 1,
+    "tn": "สี",
+    "th": "ทองเจิดจรัส",
+    "en": "Radiant Gold",
+    "q": 5,
+    "o": [
+     0.65,
+     0.86,
+     1.19,
+     1.77
+    ]
+   },
+   {
+    "id": 113,
+    "t": 1,
+    "tn": "สี",
+    "th": "ราตรีเรืองรอง",
+    "en": "Nightglow",
+    "q": 5,
+    "o": [
+     0.65,
+     0.86,
+     1.19,
+     1.77
+    ]
+   },
+   {
+    "id": 114,
+    "t": 1,
+    "tn": "สี",
+    "th": "ลูกปัดเงิน",
+    "en": "Silver Bead",
+    "q": 5,
+    "o": [
+     0.65,
+     0.86,
+     1.19,
+     1.77
+    ]
+   },
+   {
+    "id": 115,
+    "t": 1,
+    "tn": "สี",
+    "th": "ดอกไม้สีชาด",
+    "en": "Crimson Bloom",
+    "q": 5,
+    "o": [
+     0.65,
+     0.86,
+     1.19,
+     1.77
+    ]
+   },
+   {
+    "id": 116,
+    "t": 1,
+    "tn": "สี",
+    "th": "ประกายเหมันต์",
+    "en": "Frostluster",
+    "q": 5,
+    "o": [
+     0.65,
+     0.86,
+     1.19,
+     1.77
+    ]
+   }
+  ],
+  "sets": [
+   {
+    "k": "starbloom-moonlight",
+    "en": "Starbloom Moonlight",
+    "th": "แสงจันทร์ดาราสะพรั่ง",
+    "q": 5,
+    "base": false,
+    "bust": "img/sets/starbloom-moonlight/bust.webp",
+    "pieces": [
+     {
+      "id": 113,
+      "t": 1,
+      "tn": "สี",
+      "th": "ราตรีเรืองรอง",
+      "en": "Nightglow",
+      "q": 5,
+      "o": [
+       0.65,
+       0.86,
+       1.19,
+       1.77
+      ]
+     },
+     {
+      "id": 205,
+      "t": 2,
+      "tn": "ปีก",
+      "th": "แสงจันทร์ดาราสะพรั่ง",
+      "en": "Starbloom Moonlight",
+      "q": 5,
+      "o": [
+       1.61,
+       2.14,
+       2.99,
+       4.42
+      ]
+     },
+     {
+      "id": 305,
+      "t": 3,
+      "tn": "เครื่องประดับศีรษะ",
+      "th": "แสงจันทร์ดาราสะพรั่ง",
+      "en": "Starbloom Moonlight",
+      "q": 5,
+      "o": [
+       1.61,
+       2.14,
+       2.99,
+       4.42
+      ]
+     },
+     {
+      "id": 405,
+      "t": 4,
+      "tn": "ร่างกาย",
+      "th": "แสงจันทร์ดาราสะพรั่ง",
+      "en": "Starbloom Moonlight",
+      "q": 5,
+      "o": [
+       1.61,
+       2.14,
+       2.99,
+       4.42
+      ]
+     }
+    ],
+    "imgs": {
+     "117": "img/sets/starbloom-moonlight/117.webp",
+     "102": "img/sets/starbloom-moonlight/102.webp",
+     "103": "img/sets/starbloom-moonlight/103.webp",
+     "104": "img/sets/starbloom-moonlight/104.webp",
+     "105": "img/sets/starbloom-moonlight/105.webp",
+     "106": "img/sets/starbloom-moonlight/106.webp",
+     "107": "img/sets/starbloom-moonlight/107.webp",
+     "108": "img/sets/starbloom-moonlight/108.webp",
+     "109": "img/sets/starbloom-moonlight/109.webp",
+     "110": "img/sets/starbloom-moonlight/110.webp",
+     "111": "img/sets/starbloom-moonlight/111.webp",
+     "112": "img/sets/starbloom-moonlight/112.webp",
+     "113": "img/sets/starbloom-moonlight/113.webp",
+     "114": "img/sets/starbloom-moonlight/114.webp",
+     "115": "img/sets/starbloom-moonlight/115.webp",
+     "116": "img/sets/starbloom-moonlight/116.webp"
+    }
+   },
+   {
+    "k": "sunflare-rose",
+    "en": "Sunflare Rose",
+    "th": "กุหลาบสุริยะ",
+    "q": 5,
+    "base": false,
+    "bust": "img/sets/sunflare-rose/bust.webp",
+    "pieces": [
+     {
+      "id": 112,
+      "t": 1,
+      "tn": "สี",
+      "th": "ทองเจิดจรัส",
+      "en": "Radiant Gold",
+      "q": 5,
+      "o": [
+       0.65,
+       0.86,
+       1.19,
+       1.77
+      ]
+     },
+     {
+      "id": 206,
+      "t": 2,
+      "tn": "ปีก",
+      "th": "กุหลาบสุริยะ",
+      "en": "Sunflare Rose",
+      "q": 5,
+      "o": [
+       1.61,
+       2.14,
+       2.99,
+       4.42
+      ]
+     },
+     {
+      "id": 306,
+      "t": 3,
+      "tn": "เครื่องประดับศีรษะ",
+      "th": "กุหลาบสุริยะ",
+      "en": "Sunflare Rose",
+      "q": 5,
+      "o": [
+       1.61,
+       2.14,
+       2.99,
+       4.42
+      ]
+     },
+     {
+      "id": 406,
+      "t": 4,
+      "tn": "ร่างกาย",
+      "th": "กุหลาบสุริยะ",
+      "en": "Sunflare Rose",
+      "q": 5,
+      "o": [
+       1.61,
+       2.14,
+       2.99,
+       4.42
+      ]
+     }
+    ],
+    "imgs": {
+     "117": "img/sets/sunflare-rose/117.webp",
+     "102": "img/sets/sunflare-rose/102.webp",
+     "103": "img/sets/sunflare-rose/103.webp",
+     "104": "img/sets/sunflare-rose/104.webp",
+     "105": "img/sets/sunflare-rose/105.webp",
+     "106": "img/sets/sunflare-rose/106.webp",
+     "107": "img/sets/sunflare-rose/107.webp",
+     "108": "img/sets/sunflare-rose/108.webp",
+     "109": "img/sets/sunflare-rose/109.webp",
+     "110": "img/sets/sunflare-rose/110.webp",
+     "111": "img/sets/sunflare-rose/111.webp",
+     "112": "img/sets/sunflare-rose/112.webp",
+     "113": "img/sets/sunflare-rose/113.webp",
+     "114": "img/sets/sunflare-rose/114.webp",
+     "115": "img/sets/sunflare-rose/115.webp",
+     "116": "img/sets/sunflare-rose/116.webp"
+    }
+   },
+   {
+    "k": "floral-glow",
+    "en": "Floral Glow",
+    "th": "บุปผาเรืองแสง",
+    "q": 4,
+    "base": false,
+    "bust": "img/sets/floral-glow/bust.webp",
+    "pieces": [
+     {
+      "id": 107,
+      "t": 1,
+      "tn": "สี",
+      "th": "แสงเย็นดอกซากุระ",
+      "en": "Cherry-Blossom Afterglow",
+      "q": 4,
+      "o": [
+       3.87,
+       4.5,
+       5.37,
+       6.63
+      ]
+     },
+     {
+      "id": 203,
+      "t": 2,
+      "tn": "ปีก",
+      "th": "บุปผาเรืองแสง",
+      "en": "Floral Glow",
+      "q": 4,
+      "o": [
+       9.68,
+       11.26,
+       13.43,
+       16.57
+      ]
+     },
+     {
+      "id": 303,
+      "t": 3,
+      "tn": "เครื่องประดับศีรษะ",
+      "th": "บุปผาเรืองแสง",
+      "en": "Floral Glow",
+      "q": 4,
+      "o": [
+       9.68,
+       11.26,
+       13.43,
+       16.57
+      ]
+     },
+     {
+      "id": 403,
+      "t": 4,
+      "tn": "ร่างกาย",
+      "th": "บุปผาเรืองแสง",
+      "en": "Floral Glow",
+      "q": 4,
+      "o": [
+       9.68,
+       11.26,
+       13.43,
+       16.57
+      ]
+     }
+    ],
+    "imgs": {
+     "117": "img/sets/floral-glow/117.webp",
+     "102": "img/sets/floral-glow/102.webp",
+     "103": "img/sets/floral-glow/103.webp",
+     "104": "img/sets/floral-glow/104.webp",
+     "105": "img/sets/floral-glow/105.webp",
+     "106": "img/sets/floral-glow/106.webp",
+     "107": "img/sets/floral-glow/107.webp",
+     "108": "img/sets/floral-glow/108.webp",
+     "109": "img/sets/floral-glow/109.webp",
+     "110": "img/sets/floral-glow/110.webp",
+     "111": "img/sets/floral-glow/111.webp",
+     "112": "img/sets/floral-glow/112.webp",
+     "113": "img/sets/floral-glow/113.webp",
+     "114": "img/sets/floral-glow/114.webp",
+     "115": "img/sets/floral-glow/115.webp",
+     "116": "img/sets/floral-glow/116.webp"
+    }
+   },
+   {
+    "k": "shadowthorn-phantom",
+    "en": "Shadowthorn Phantom",
+    "th": "เงาพรายหนามทมิฬ",
+    "q": 4,
+    "base": false,
+    "bust": "img/sets/shadowthorn-phantom/bust.webp",
+    "pieces": [
+     {
+      "id": 108,
+      "t": 1,
+      "tn": "สี",
+      "th": "ม่วงเข้มลึก",
+      "en": "Deep Violet",
+      "q": 4,
+      "o": [
+       3.87,
+       4.5,
+       5.37,
+       6.63
+      ]
+     },
+     {
+      "id": 204,
+      "t": 2,
+      "tn": "ปีก",
+      "th": "เงาพรายหนามทมิฬ",
+      "en": "Shadowthorn Phantom",
+      "q": 4,
+      "o": [
+       9.68,
+       11.26,
+       13.43,
+       16.57
+      ]
+     },
+     {
+      "id": 304,
+      "t": 3,
+      "tn": "เครื่องประดับศีรษะ",
+      "th": "เงาพรายหนามทมิฬ",
+      "en": "Shadowthorn Phantom",
+      "q": 4,
+      "o": [
+       9.68,
+       11.26,
+       13.43,
+       16.57
+      ]
+     },
+     {
+      "id": 404,
+      "t": 4,
+      "tn": "ร่างกาย",
+      "th": "เงาพรายหนามทมิฬ",
+      "en": "Shadowthorn Phantom",
+      "q": 4,
+      "o": [
+       9.68,
+       11.26,
+       13.43,
+       16.57
+      ]
+     }
+    ],
+    "imgs": {
+     "117": "img/sets/shadowthorn-phantom/117.webp",
+     "102": "img/sets/shadowthorn-phantom/102.webp",
+     "103": "img/sets/shadowthorn-phantom/103.webp",
+     "104": "img/sets/shadowthorn-phantom/104.webp",
+     "105": "img/sets/shadowthorn-phantom/105.webp",
+     "106": "img/sets/shadowthorn-phantom/106.webp",
+     "107": "img/sets/shadowthorn-phantom/107.webp",
+     "108": "img/sets/shadowthorn-phantom/108.webp",
+     "109": "img/sets/shadowthorn-phantom/109.webp",
+     "110": "img/sets/shadowthorn-phantom/110.webp",
+     "111": "img/sets/shadowthorn-phantom/111.webp",
+     "112": "img/sets/shadowthorn-phantom/112.webp",
+     "113": "img/sets/shadowthorn-phantom/113.webp",
+     "114": "img/sets/shadowthorn-phantom/114.webp",
+     "115": "img/sets/shadowthorn-phantom/115.webp",
+     "116": "img/sets/shadowthorn-phantom/116.webp"
+    }
+   },
+   {
+    "k": "iris-in-first-bloom",
+    "en": "Iris in First Bloom",
+    "th": "ไอริสน้อยผลิดอกแรก",
+    "q": 2,
+    "base": true,
+    "bust": "img/sets/iris-in-first-bloom/bust.webp",
+    "pieces": [
+     {
+      "id": 101,
+      "t": 1,
+      "tn": "สี",
+      "th": "ค่าเริ่มต้น",
+      "en": "Default",
+      "q": 3,
+      "o": []
+     },
+     {
+      "id": 201,
+      "t": 2,
+      "tn": "ปีก",
+      "th": "ค่าเริ่มต้น",
+      "en": "Default",
+      "q": 3,
+      "o": []
+     },
+     {
+      "id": 301,
+      "t": 3,
+      "tn": "เครื่องประดับศีรษะ",
+      "th": "ค่าเริ่มต้น",
+      "en": "Default",
+      "q": 3,
+      "o": []
+     },
+     {
+      "id": 401,
+      "t": 4,
+      "tn": "ร่างกาย",
+      "th": "ค่าเริ่มต้น",
+      "en": "Default",
+      "q": 3,
+      "o": []
+     }
+    ],
+    "imgs": {
+     "117": "img/sets/iris-in-first-bloom/117.webp",
+     "102": "img/sets/iris-in-first-bloom/102.webp",
+     "103": "img/sets/iris-in-first-bloom/103.webp",
+     "104": "img/sets/iris-in-first-bloom/104.webp",
+     "105": "img/sets/iris-in-first-bloom/105.webp",
+     "106": "img/sets/iris-in-first-bloom/106.webp",
+     "107": "img/sets/iris-in-first-bloom/107.webp",
+     "108": "img/sets/iris-in-first-bloom/108.webp",
+     "109": "img/sets/iris-in-first-bloom/109.webp",
+     "110": "img/sets/iris-in-first-bloom/110.webp",
+     "111": "img/sets/iris-in-first-bloom/111.webp",
+     "112": "img/sets/iris-in-first-bloom/112.webp",
+     "113": "img/sets/iris-in-first-bloom/113.webp",
+     "114": "img/sets/iris-in-first-bloom/114.webp",
+     "115": "img/sets/iris-in-first-bloom/115.webp",
+     "116": "img/sets/iris-in-first-bloom/116.webp"
+    }
+   }
+  ],
+  "rule": {
+   "item": [
+    "เงาฝันเจิดจรัส",
+    "Radiant Dreamshadow"
+   ],
+   "lock": [
+    1,
+    2,
+    4,
+    8
+   ],
+   "max": 3
+  }
+ }
+]

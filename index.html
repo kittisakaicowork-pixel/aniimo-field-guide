@@ -1176,6 +1176,22 @@ h2{color:var(--ink)}
 .bcard2{display:grid;grid-template-columns:84px 1fr;gap:10px;border:1px solid var(--line);background:var(--surface);border-radius:16px;padding:10px}
 .bpic{border:0;background:var(--glow);border-radius:12px;padding:0;cursor:pointer}.bpic img{width:84px;height:84px;object-fit:contain}
 @media (max-width:959px){.bld{grid-template-columns:1fr}.bld-sk{grid-template-columns:1fr}}
+.sset{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:16px;border:1px solid var(--line);background:var(--surface);border-radius:20px;padding:14px;margin-bottom:16px}
+.sstage{position:relative;background:radial-gradient(circle at 50% 45%,var(--glow),transparent 70%);border-radius:16px;aspect-ratio:1;display:grid;place-items:center;overflow:hidden}
+.sstage img{width:100%;height:100%;object-fit:contain}
+.sstage figcaption{position:absolute;left:10px;bottom:8px;right:10px;font-size:.85rem;color:var(--muted)}
+.stabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.stab{display:flex;align-items:center;gap:6px;border:2px solid var(--line);background:var(--surface);border-radius:999px;padding:3px 10px 3px 3px;cursor:pointer;font:inherit;color:inherit}
+.stab img{width:30px;height:30px;border-radius:50%;object-fit:cover;background:var(--glow)}
+.stab[aria-pressed="true"],.sw[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 20%,transparent)}
+.swrow{display:flex;gap:5px;flex-wrap:wrap;margin:4px 0 10px}
+.sw{border:2px solid var(--line);background:var(--glow);border-radius:10px;padding:0;width:46px;height:46px;cursor:pointer;overflow:hidden}
+.sw img{width:100%;height:100%;object-fit:cover;object-position:50% 35%}
+.q3{--qc:#4a9be0}.q4{--qc:#9a6ad8}.q5{--qc:#e0a020}.q2{--qc:#4a9be0}
+.qtag{display:inline-block;font-size:.72rem;padding:1px 7px;border-radius:999px;background:color-mix(in srgb,var(--qc) 18%,transparent);color:var(--qc);font-weight:600}
+.sw.q4,.sw.q5,.sw.q3{border-bottom:4px solid var(--qc)}
+.spieces td,.spieces th{padding:5px 6px}
+@media (max-width:759px){.sset{grid-template-columns:1fr}}
 </style>
 
 <div id="boot" role="status" aria-live="polite"><div class="bootin"><b class="wm"><span aria-hidden="true">an<span class="ii"><i>ı</i><i>ı</i></span>guide</span><span class="sr">aniiguide</span></b><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><small id="bootMsg">กำลังโหลดข้อมูล Aniimo…</small></div></div>
@@ -1335,6 +1351,10 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
       <div class="vhead"><p class="eyebrow">Builds</p><h2>บิลด์แนะนำ</h2><p class="muted">Held Item และ Rune ที่เกมแนะนำให้ Aniimo แต่ละตัว (จากข้อมูลในเกม) กดเพื่อเปิดในตัวจัดบิลด์แล้วปรับต่อได้</p></div>
       <div class="bfilter"><input type="search" id="bq" placeholder="ค้นหาชื่อ Aniimo" aria-label="ค้นหาชื่อ Aniimo"><select id="be" aria-label="ธาตุ"></select></div>
       <div class="bgrid" id="bgrid"></div>
+    </section>
+    <section class="view" data-view="sets" hidden>
+      <div class="vhead"><p class="eyebrow">Transmog</p><h2>ชุดแต่งตัว Aniimo</h2><p class="muted">แปลงรูปลักษณ์ (Transmog) สุ่มได้ 4 ช่อง คือ สี ปีก เครื่องประดับศีรษะ และร่างกาย ได้ครบ 4 ชิ้นของเซ็ตเดียวกันจะเป็นชุดเต็ม เลือกเซ็ตและสีเพื่อดูภาพ ชื่อ ระดับ และโอกาสสุ่มมาจากข้อมูลในเกม</p></div>
+      <div id="setsBody"></div>
     </section>
     <section class="view" data-view="team" hidden>
       <div class="vhead">
@@ -2466,6 +2486,7 @@ const VIEWS=[
  {id:'systems',th:'ระบบเชิงลึก',ic:'layers',g:'world',d:'ยศ บ้าน ไข่ ร้านค้า ดันเจี้ยน Interlink'},
  {id:'builder',th:'ตัวจัดบิลด์',ic:'calc',g:'tools',d:'สกิล Held Item และ Rune ของแต่ละตัว'},
  {id:'builds',th:'บิลด์แนะนำ',ic:'star',g:'mon',d:'ไอเท็มและ Rune ที่เกมแนะนำ'},
+ {id:'sets',th:'ชุดแต่งตัว',ic:'layers',g:'mon',d:'Transmog ทุกเซ็ตและทุกสี'},
  {id:'team',th:'จัดทีม',ic:'team',g:'tools',tab:1,d:'วิเคราะห์จุดแข็งจุดอ่อนของทีม'},
  {id:'planner',th:'วางแผนวัสดุ',ic:'calc',g:'tools',d:'รวมวัสดุที่ต้องใช้'},
  {id:'compare',th:'เปรียบเทียบ',ic:'compare',g:'tools',d:'เทียบ 3 ตัวแบบเคียงกัน'},
@@ -2504,6 +2525,7 @@ function go(id,push){
   ensureRendered(id);
   if(id==='builder'&&typeof renderBuilder==='function')renderBuilder();
   if(id==='builds'&&typeof renderBuilds==='function')renderBuilds();
+  if(id==='sets'&&typeof renderSets==='function')renderSets();
   current=id;if(typeof setTitle==='function'&&LANG!=='en')setTitle(id);
   document.querySelectorAll('.view').forEach(s=>s.hidden=s.dataset.view!==id);
   if(id==='map'&&MV.ready)setTimeout(mapSize,0);
@@ -2639,7 +2661,7 @@ function renderDetail(){
     ${a.s&&a.s.HP?`<div><p class="eyebrow" style="margin-bottom:8px">ค่าสถานะพื้นฐาน</p><div class="stats">${STAT.map(k=>`<div class="stat"><span>${STAT_L[k]||k}</span><span class="bar"><i style="width:${Math.min(100,a.s[k]/130*100)}%"></i></span><b>${a.s[k]}</b></div>`).join('')}</div></div>`:''}
     ${line.length>1?`<div><p class="eyebrow" style="margin-bottom:8px">สายวิวัฒนาการ</p><div class="thumbs">${line.map(x=>`<button type="button" data-open="${x.slug}" aria-current="${x===a}"><img decoding="async" src="${TH(x.i)}" alt="" class="${x.cut?'cut':''}">${esc(x.name)}<small class="muted">${x.st}</small></button>`).join('')}</div></div>`:''}
     ${traits.length?`<div style="display:grid;gap:8px"><p class="eyebrow">Trait</p>${traits.map(t=>`<div class="trait"><h4>${esc(t[0])} <span class="chip" style="font-family:var(--body)">${esc(t[1])}</span></h4><p>${esc(tr(t[2]))}</p></div>`).join('')}</div>`:''}
-    ${radarsInfo(a,els)}${bioInfo(a)}${evoInfo(a)}${spawnInfo(a)}${homeInfo(a)}${foodInfo(a)}${itemsInfo(a)}`;
+    ${radarsInfo(a,els)}${bioInfo(a)}${evoInfo(a)}${spawnInfo(a)}${homeInfo(a)}${foodInfo(a)}${setsInfo(a)}${itemsInfo(a)}`;
   }else if(dState.tab==='skills'){
     pane=`<div><p class="eyebrow" style="margin-bottom:8px">สีสกิลของ ${esc(a.name)}</p><div class="palette">${cols.map(k=>`<span class="swatch"><i style="background:var(--${k})"></i>${EK[k].th} · ${sks.filter(s=>s.e===k).length} สกิล</span>`).join('')}</div></div>
     <div style="display:grid;gap:10px">${sks.map(skillCard).join('')}</div>`;
@@ -4316,6 +4338,39 @@ document.addEventListener('click',e=>{
   const bd=t.closest('[data-bdel]');if(bd){const l=bldSaved();l.splice(+bd.dataset.bdel,1);try{localStorage.setItem('aniimo-builds',JSON.stringify(l))}catch(_){}renderBuilder();return}
   const ob=t.closest('[data-bbuild]');if(ob){const a=BY[ob.dataset.bbuild];BLD.slug=a.slug;BLD.sk=[];bldUseRec(a);go('builder');renderBuilder();return}
 });
+// var: the first route can render this view before the script reaches these lines
+var SQ,SPICK;
+function renderSets(){
+  SQ=SQ||{2:'หายาก',3:'หายาก',4:'มหากาพย์',5:'ตำนาน'};SPICK=SPICK||{};
+  const b=document.getElementById('setsBody');if(!b)return;
+  const L=window.SETS||[];
+  b.innerHTML=L.map(x=>{
+    const a=BY[x.slug];if(!a)return '';
+    const pk=SPICK[x.slug]||(SPICK[x.slug]={k:x.sets[0].k,c:x.sets[0].pieces[0]&&x.sets[0].imgs[x.sets[0].pieces[0].id]?x.sets[0].pieces[0].id:x.colours[0].id});
+    const st=x.sets.find(s=>s.k===pk.k)||x.sets[0],col=x.colours.find(c=>c.id===pk.c)||x.colours[0];
+    const nm=o=>esc(LANG==='en'?o.en:o.th),pct=o=>o.o.length?o.o.map(v=>v+'%').join(' / '):'—';
+    const groups=[3,4,5].map(q=>{const cs=x.colours.filter(c=>c.q===q);return cs.length?`<p class="small"><span class="qtag q${q}">${SQ[q]}</span> <span class="muted">${cs.length} สี · สุ่มได้สีละ ${cs[0].o[0]}%</span></p><div class="swrow">${cs.map(c=>`<button type="button" class="sw q${c.q}" data-sset="${x.slug}" data-sc="${c.id}" aria-pressed="${c.id===col.id}" title="${nm(c)}" aria-label="${nm(c)}">${st.imgs[c.id]?`<img src="${st.imgs[c.id]}" alt="" loading="lazy">`:''}</button>`).join('')}</div>`:''}).join('');
+    return `<div class="sset"><div>
+      <div class="stabs">${x.sets.map(s=>`<button type="button" class="stab" data-sset="${x.slug}" data-sk="${s.k}" aria-pressed="${s.k===st.k}">${s.bust?`<img src="${s.bust}" alt="">`:''}${nm(s)}</button>`).join('')}</div>
+      <figure class="sstage" style="margin:0"><img src="${st.imgs[col.id]||''}" alt="${esc((a.th||a.name)+' '+st.th+' · '+col.th)}"><figcaption><b>${nm(st)}</b> · ${nm(col)}</figcaption></figure>
+    </div><div>
+      <h3 style="margin:0 0 4px"><button type="button" style="border:0;background:none;padding:0;font:inherit;color:var(--accent);cursor:pointer" data-open="${x.slug}">${esc(a.th||a.name)}</button></h3>
+      <p class="small muted" style="margin:0 0 10px">${x.sets.length} เซ็ต · ${x.colours.length} สี</p>
+      <p class="eyebrow" style="margin-bottom:6px">${nm(st)} <span class="qtag q${st.q}">${st.base?'ร่างเริ่มต้น':'เซ็ต'+SQ[st.q]}</span></p>
+      ${st.base?'<p class="small muted">รูปลักษณ์ตั้งต้นของ '+esc(a.th||a.name)+' ไม่ต้องสุ่ม</p>':`<table class="plain spieces"><thead><tr><th>ช่อง</th><th>ชิ้น</th><th style="text-align:right">โอกาสสุ่ม (ล็อก 0/1/2/3 ช่อง)</th></tr></thead><tbody>${st.pieces.map(p=>`<tr><td>${esc(p.tn)}</td><td>${nm(p)} <span class="qtag q${p.q}">${SQ[p.q]}</span></td><td style="text-align:right" class="small">${pct(p)}</td></tr>`).join('')}</tbody></table>`}
+      <p class="eyebrow" style="margin:14px 0 4px">สี</p>${groups}
+      ${x.rule?`<p class="small muted">สุ่มแต่ละครั้งใช้ ${esc(LANG==='en'?x.rule.item[1]:x.rule.item[0])} ${x.rule.lock.map((n,i)=>i?`ล็อก ${i} ช่อง ${n} ชิ้น`:`${n} ชิ้น`).join(' · ')} ล็อกได้สูงสุด ${x.rule.max} ช่อง ยิ่งล็อกมากโอกาสได้ชิ้นระดับสูงยิ่งเพิ่ม</p>`:''}
+    </div></div>`}).join('')||'<p class="muted">ยังไม่มีชุดแต่งตัว</p>';
+}
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-sset]');if(!t)return;
+  const p=SPICK[t.dataset.sset]||(SPICK[t.dataset.sset]={});
+  if(t.dataset.sk)p.k=t.dataset.sk;if(t.dataset.sc)p.c=+t.dataset.sc;renderSets();
+});
+function setsInfo(a){
+  const x=(window.SETS||[]).find(s=>s.slug===a.slug);if(!x)return '';
+  return `<div><p class="eyebrow" style="margin-bottom:8px">ชุดแต่งตัว · ${x.sets.length} เซ็ต ${x.colours.length} สี</p><div class="stabs">${x.sets.map(s=>`<span class="stab" style="cursor:default">${s.bust?`<img src="${s.bust}" alt="">`:''}${esc(LANG==='en'?s.en:s.th)}</span>`).join('')}</div><button type="button" class="btn" onclick="document.getElementById('dlg').close();go('sets')">ดูทุกชุดและทุกสี</button></div>`;
+}
 function renderBuilds(){
   const g=document.getElementById('bgrid');if(!g)return;
   const be=document.getElementById('be');if(!be.options.length)be.innerHTML='<option value="">ทุกธาตุ</option>'+E.map(x=>`<option value="${x.k}">${x.th}</option>`).join('');
