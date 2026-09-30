@@ -1148,6 +1148,34 @@ h2{color:var(--ink)}
 .sf-h{font:800 .85rem/1 var(--display);margin:0 0 8px}
 .sf-brand .wm{font:900 1.3rem/1 var(--display)}
 @media (max-width:959px){.wiki{grid-template-columns:repeat(2,minmax(0,1fr))}.picks{grid-template-columns:repeat(3,minmax(0,1fr))}.hnews,.about .agrid{grid-template-columns:1fr}.sitefoot{grid-template-columns:repeat(2,minmax(0,1fr))}.sf-brand{grid-column:1/-1}}
+
+.radars{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.rbox{border:1px solid var(--line);border-radius:16px;padding:12px;background:var(--surface)}
+.radar{width:100%;height:auto;display:block;overflow:visible}
+.radar .rd-g{fill:none;stroke:var(--line);stroke-width:1}
+.radar .rd-v{fill:color-mix(in srgb,var(--accent) 28%,transparent);stroke:var(--accent);stroke-width:2;stroke-linejoin:round}
+.radar text{font:600 9px var(--body);fill:var(--ink-2)}
+.radar .rn{font:800 10px var(--display);fill:var(--ink)}
+.ftable{max-height:260px;overflow:auto;border:1px solid var(--line);border-radius:12px}
+.ftable table{width:100%;font-size:.85rem}.ftable th{position:sticky;top:0;background:var(--sunk);text-align:left}
+@media (max-width:520px){.radars{grid-template-columns:1fr}}
+
+.bld{display:grid;grid-template-columns:340px minmax(0,1fr);gap:18px;align-items:start}
+.bld-l,.bld-r{display:grid;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px}
+.bld-l label{display:grid;gap:4px;font-size:.85rem;color:var(--ink-2)}
+.bld-l select,.bfilter input,.bfilter select{font:inherit;padding:8px 10px;border:1px solid var(--line);border-radius:12px;background:var(--ground);color:var(--ink)}
+.bld-pic{display:flex;gap:12px;align-items:center}.bld-pic img{width:84px;height:84px;object-fit:contain;background:var(--glow);border-radius:14px}
+.bld-runes,.bld-act,.bld-saved{display:flex;flex-wrap:wrap;gap:6px}
+.chip .x{border:0;background:none;cursor:pointer;color:var(--ink-2);padding:0 0 0 4px}
+.bld-sk{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.bsk{border:2px solid transparent;background:none;padding:0;text-align:left;border-radius:16px;cursor:pointer}
+.bsk[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 20%,transparent)}
+.plus{font-style:normal;color:var(--good);font-size:.8rem}
+.bfilter{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.bgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px}
+.bcard2{display:grid;grid-template-columns:84px 1fr;gap:10px;border:1px solid var(--line);background:var(--surface);border-radius:16px;padding:10px}
+.bpic{border:0;background:var(--glow);border-radius:12px;padding:0;cursor:pointer}.bpic img{width:84px;height:84px;object-fit:contain}
+@media (max-width:959px){.bld{grid-template-columns:1fr}.bld-sk{grid-template-columns:1fr}}
 </style>
 
 <div id="boot" role="status" aria-live="polite"><div class="bootin"><b class="wm"><span aria-hidden="true">an<span class="ii"><i>ı</i><i>ı</i></span>guide</span><span class="sr">aniiguide</span></b><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><small id="bootMsg">กำลังโหลดข้อมูล Aniimo…</small></div></div>
@@ -1299,6 +1327,15 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
     </section>
 
     <!-- TEAM -->
+    <section class="view" data-view="builder" hidden>
+      <div class="vhead"><p class="eyebrow">Builder</p><h2>ตัวจัดบิลด์</h2><p class="muted">เลือก Aniimo แล้วจัดสกิล 4 สกิล Held Item และ Rune ดูค่าที่ได้เพิ่มตามเลเวล และแชร์บิลด์เป็นลิงก์ บิลด์ที่บันทึกไว้เก็บในเบราว์เซอร์นี้</p></div>
+      <div class="bld" id="bld"></div>
+    </section>
+    <section class="view" data-view="builds" hidden>
+      <div class="vhead"><p class="eyebrow">Builds</p><h2>บิลด์แนะนำ</h2><p class="muted">Held Item และ Rune ที่เกมแนะนำให้ Aniimo แต่ละตัว (จากข้อมูลในเกม) กดเพื่อเปิดในตัวจัดบิลด์แล้วปรับต่อได้</p></div>
+      <div class="bfilter"><input type="search" id="bq" placeholder="ค้นหาชื่อ Aniimo" aria-label="ค้นหาชื่อ Aniimo"><select id="be" aria-label="ธาตุ"></select></div>
+      <div class="bgrid" id="bgrid"></div>
+    </section>
     <section class="view" data-view="team" hidden>
       <div class="vhead">
         <p class="eyebrow">Team Builder</p>
@@ -2427,6 +2464,8 @@ const VIEWS=[
  {id:'buffs',th:'ของกินและบัฟ',ic:'up',g:'world',d:'บัฟดาเมจ ป้องกัน ฮีล ซื้อที่ไหน'},
  {id:'cosmetics',th:'ชุดแต่งตัว',ic:'spark',g:'world',d:'ชุด เครื่องประดับ และวิธีได้'},
  {id:'systems',th:'ระบบเชิงลึก',ic:'layers',g:'world',d:'ยศ บ้าน ไข่ ร้านค้า ดันเจี้ยน Interlink'},
+ {id:'builder',th:'ตัวจัดบิลด์',ic:'calc',g:'tools',d:'สกิล Held Item และ Rune ของแต่ละตัว'},
+ {id:'builds',th:'บิลด์แนะนำ',ic:'star',g:'mon',d:'ไอเท็มและ Rune ที่เกมแนะนำ'},
  {id:'team',th:'จัดทีม',ic:'team',g:'tools',tab:1,d:'วิเคราะห์จุดแข็งจุดอ่อนของทีม'},
  {id:'planner',th:'วางแผนวัสดุ',ic:'calc',g:'tools',d:'รวมวัสดุที่ต้องใช้'},
  {id:'compare',th:'เปรียบเทียบ',ic:'compare',g:'tools',d:'เทียบ 3 ตัวแบบเคียงกัน'},
@@ -2463,6 +2502,8 @@ function go(id,push){
   if(id!==current){const pg=document.getElementById('progress');if(pg){pg.classList.remove('go');void pg.offsetWidth;pg.classList.add('go')}}
   if(id!=='admin'){histAdd('views',id);track('view',id)}if(id!=='feedback'&&id!=='admin'&&typeof fbLastPage!=='undefined')fbLastPage=id;if(id==='history'||id==='admin'||id==='news')RENDERED.delete(id);if(id==='home'&&typeof renderHomeRecent==='function')renderHomeRecent();
   ensureRendered(id);
+  if(id==='builder'&&typeof renderBuilder==='function')renderBuilder();
+  if(id==='builds'&&typeof renderBuilds==='function')renderBuilds();
   current=id;if(typeof setTitle==='function'&&LANG!=='en')setTitle(id);
   document.querySelectorAll('.view').forEach(s=>s.hidden=s.dataset.view!==id);
   if(id==='map'&&MV.ready)setTimeout(mapSize,0);
@@ -2485,6 +2526,7 @@ function route(){
   if(h.startsWith('team-')){loadTeamCode(h);go('team',false);return}
   if(h.startsWith('region-')){go('regions',false);setTimeout(()=>{const el=document.getElementById(h);el&&el.scrollIntoView()},0);return}
   if(BY[h]){go('dex',false);openMon(h);return}
+  if(h.startsWith('builder-')){bldLoad(h);go('builder',false);if(typeof renderBuilder==='function')renderBuilder();return}
   if(VIEWS.some(v=>v.id===h)){go(h,false);return}
   let last=null;try{last=localStorage.getItem('aniimo-view')}catch(_){}
   go(last||'home',false);
@@ -2556,6 +2598,23 @@ function bioInfo(a){
   if(b.sr)rows.push(['โอกาสเจอร่างเปล่งประกาย',`1 ใน ${b.sr.toLocaleString(LOC)}`]);
   return `<div><p class="eyebrow" style="margin-bottom:8px">ข้อมูลตัว</p><table class="plain">${rows.map(([k,v])=>`<tr><td class="muted">${k}</td><td>${v}</td></tr>`).join('')}</table></div>`;
 }
+function radar(vals,labels,max,colors,fmt){
+  const n=vals.length,R=74,cx=110,cy=100,pt=(i,r)=>[cx+r*Math.sin(2*Math.PI*i/n),cy-r*Math.cos(2*Math.PI*i/n)];
+  const ring=f=>vals.map((_,i)=>pt(i,R*f).join(',')).join(' ');
+  const shape=vals.map((v,i)=>pt(i,R*Math.min(1,v/max)).join(',')).join(' ');
+  return `<svg class="radar" viewBox="0 0 220 200" role="img" aria-label="${labels.map((l,i)=>l+' '+fmt(vals[i])).join(', ')}">${[.25,.5,.75,1].map(f=>`<polygon points="${ring(f)}" class="rd-g"/>`).join('')}${vals.map((_,i)=>`<line x1="${cx}" y1="${cy}" x2="${pt(i,R)[0]}" y2="${pt(i,R)[1]}" class="rd-g"/>`).join('')}<polygon points="${shape}" class="rd-v"/>${vals.map((v,i)=>{const [x,y]=pt(i,R+17);return `<text x="${x}" y="${y}" text-anchor="middle" dominant-baseline="middle"${colors?` fill="var(--${colors[i]})"`:''}><tspan x="${x}" dy="-.45em" class="rl">${labels[i]}</tspan><tspan x="${x}" dy="1.15em" class="rn">${fmt(v)}</tspan></text>`}).join('')}</svg>`;
+}
+function radarsInfo(a,els){
+  const st=a.s&&a.s.HP?`<div class="rbox"><p class="eyebrow">ค่าสถานะ</p>${radar(STAT.map(k=>a.s[k]),STAT.map(k=>STAT_L[k]||k),130,null,v=>v)}</div>`:'';
+  const m=E.map(x=>els.reduce((v,d)=>v*mult(x.k,d),1));
+  const df=`<div class="rbox"><p class="eyebrow">การป้องกัน · ยิ่งห่างจากกลางยิ่งแพ้ทาง</p>${radar(m,E.map(x=>x.th),1.6*1.6>Math.max(...m)?Math.max(1.6,...m):Math.max(...m),E.map(x=>x.k),v=>'×'+(Math.round(v*1000)/1000))}</div>`;
+  return `<div class="radars">${st}${df}</div>`;
+}
+function foodInfo(a){
+  const fs=a.b&&a.b.fs,F=window.FOOD||[];if(!fs||!F.length)return '';
+  const dur=m=>{const d=Math.floor(m/1440),h=Math.floor(m%1440/60),mi=Math.round(m%60);return [d&&d+' วัน',h&&h+' ชม.',!d&&mi&&mi+' นาที'].filter(Boolean).join(' ')||'< 1 นาที'};
+  return `<div><p class="eyebrow" style="margin-bottom:8px">อาหารในบ้าน · กิน ${fs} พลังงาน/นาที</p><div class="ftable"><table class="plain"><thead><tr><th>อาหาร</th><th>อิ่มได้นาน</th><th style="text-align:right">พลังงาน</th></tr></thead><tbody>${F.map(([th,en,e])=>`<tr><td>${esc(LANG==='en'?en:th)}</td><td>${dur(e/fs)}</td><td style="text-align:right">${e.toLocaleString(LOC)}</td></tr>`).join('')}</tbody></table></div></div>`;
+}
 function homeInfo(a){
   if(!a.w||!a.w.length)return '';
   return `<div><p class="eyebrow" style="margin-bottom:8px">งานใน Homeland</p><div style="display:flex;gap:6px;flex-wrap:wrap">${a.w.map(w=>`<span class="chip">${workLabel(w)}</span>`).join('')}</div></div>`;
@@ -2580,7 +2639,7 @@ function renderDetail(){
     ${a.s&&a.s.HP?`<div><p class="eyebrow" style="margin-bottom:8px">ค่าสถานะพื้นฐาน</p><div class="stats">${STAT.map(k=>`<div class="stat"><span>${STAT_L[k]||k}</span><span class="bar"><i style="width:${Math.min(100,a.s[k]/130*100)}%"></i></span><b>${a.s[k]}</b></div>`).join('')}</div></div>`:''}
     ${line.length>1?`<div><p class="eyebrow" style="margin-bottom:8px">สายวิวัฒนาการ</p><div class="thumbs">${line.map(x=>`<button type="button" data-open="${x.slug}" aria-current="${x===a}"><img decoding="async" src="${TH(x.i)}" alt="" class="${x.cut?'cut':''}">${esc(x.name)}<small class="muted">${x.st}</small></button>`).join('')}</div></div>`:''}
     ${traits.length?`<div style="display:grid;gap:8px"><p class="eyebrow">Trait</p>${traits.map(t=>`<div class="trait"><h4>${esc(t[0])} <span class="chip" style="font-family:var(--body)">${esc(t[1])}</span></h4><p>${esc(tr(t[2]))}</p></div>`).join('')}</div>`:''}
-    ${bioInfo(a)}${evoInfo(a)}${spawnInfo(a)}${homeInfo(a)}${itemsInfo(a)}`;
+    ${radarsInfo(a,els)}${bioInfo(a)}${evoInfo(a)}${spawnInfo(a)}${homeInfo(a)}${foodInfo(a)}${itemsInfo(a)}`;
   }else if(dState.tab==='skills'){
     pane=`<div><p class="eyebrow" style="margin-bottom:8px">สีสกิลของ ${esc(a.name)}</p><div class="palette">${cols.map(k=>`<span class="swatch"><i style="background:var(--${k})"></i>${EK[k].th} · ${sks.filter(s=>s.e===k).length} สกิล</span>`).join('')}</div></div>
     <div style="display:grid;gap:10px">${sks.map(skillCard).join('')}</div>`;
@@ -4204,4 +4263,67 @@ route();
   document.getElementById('homeNews').innerHTML=N.map(n=>`<a class="hncard" href="#news-${n.id}"><small class="muted">${new Date(n.date+'T00:00:00+07:00').toLocaleDateString(LOC,{day:'numeric',month:'long',year:'numeric'})}</small><b>${esc(n.title)}</b><span class="small muted">${esc(n.lede||'')}</span></a>`).join('');
   document.getElementById('sitefoot').innerHTML=`<div class="sf-brand"><b class="wm">aniiguide</b><p class="small muted">คู่มือเกม Aniimo ภาษาไทย แฟนเมด ไม่เกี่ยวข้องกับ Pawprint Studio · ภาพตัวละคร แผนที่ อีเวนต์ และบอสใช้โดยได้รับอนุญาตจาก <a href="https://aniidex.com/" target="_blank" rel="noopener">AniiDex</a></p></div>`+GROUPS.map(g=>{const vs=VIEWS.filter(v=>v.g===g.id);return vs.length?`<div><p class="sf-h">${g.th}</p>${vs.map(v=>`<a href="#${v.id}" data-go="${v.id}">${v.th}</a>`).join('')}</div>`:''}).join('');
 })();
+
+/* ===== builder + recommended builds ===== */
+const BLD_RUNES=ITEMS.filter(i=>i.c==='Held Item - Rune').map(i=>i.n);
+const BLD_HELD=[...new Set(A.flatMap(a=>(a.it||[]).map(x=>x[0]).concat(a.rec&&a.rec.h?[a.rec.h[0]]:[])))].sort();
+const BLD_FX=Object.fromEntries(A.flatMap(a=>(a.it||[]).map(x=>[x[0],x[1]])));
+const BLD={slug:'',lv:60,sk:[],held:'',runes:[]};
+const bldSaved=()=>{try{return JSON.parse(localStorage.getItem('aniimo-builds')||'[]')}catch(_){return []}};
+function bldCode(){return 'builder-'+[BLD.slug,BLD.lv,BLD.sk.join('.'),BLD_HELD.indexOf(BLD.held),BLD.runes.map(r=>BLD_RUNES.indexOf(r)).join('.')].join('~')}
+function bldLoad(h){const [slug,lv,sk,he,ru]=h.slice(8).split('~');if(!BY[slug])return;Object.assign(BLD,{slug,lv:+lv||60,sk:(sk||'').split('.').filter(x=>x!=='').map(Number),held:BLD_HELD[+he]||'',runes:(ru||'').split('.').filter(x=>x!=='').map(i=>BLD_RUNES[+i]).filter(Boolean)})}
+function bldUseRec(a){BLD.held=a.rec&&a.rec.h?a.rec.h[0]:'';BLD.runes=a.rec&&a.rec.r?[a.rec.r[0]]:[];}
+function renderBuilder(){
+  const el=document.getElementById('bld');if(!el)return;
+  const rel=A.filter(a=>!a.u).slice().sort((x,y)=>(x.th||x.name).localeCompare(y.th||y.name,'th'));
+  if(!BLD.slug){BLD.slug=rel[0].slug;bldUseRec(rel[0])}
+  const a=BY[BLD.slug],sks=skillsOf(a.slug).filter(s=>s.k!=='atk');
+  BLD.sk=BLD.sk.filter(i=>i<sks.length);
+  const fx=BLD_FX[BLD.held]||'',m=fx.match(/gain ([\d.]+) additional (\w+) per level/i);
+  const bonus=m?{k:m[2].toUpperCase(),v:+m[1]*BLD.lv}:null;
+  const statRows=STAT.map(k=>{const add=bonus&&(bonus.k===k||(bonus.k==='DEF'&&k==='PDEF'))?bonus.v:0;return `<div class="stat"><span>${STAT_L[k]||k}</span><span class="bar"><i style="width:${Math.min(100,a.s[k]/130*100)}%"></i></span><b>${a.s[k]}${add?` <em class="plus">+${Math.round(add*10)/10}</em>`:''}</b></div>`}).join('');
+  el.innerHTML=`<div class="bld-l">
+    <label>Aniimo<select id="bldMon">${rel.map(x=>`<option value="${x.slug}"${x.slug===a.slug?' selected':''}>${esc(x.th||x.name)} · ${esc(x.name)}</option>`).join('')}</select></label>
+    <div class="bld-pic"><img src="${TH(a.i)}" alt=""><div><b>${esc(a.th||a.name)}</b><div style="display:flex;gap:4px;margin-top:4px">${a.e.map(badge).join('')}<span class="chip">${a.r}</span></div></div></div>
+    <label>เลเวล <b id="bldLvV">${BLD.lv}</b><input type="range" id="bldLv" min="1" max="100" value="${BLD.lv}"></label>
+    <label>Held Item<select id="bldHeld"><option value="">— ไม่ใส่ —</option>${BLD_HELD.map(n=>`<option${n===BLD.held?' selected':''}>${esc(n)}</option>`).join('')}</select></label>
+    ${fx?`<p class="small muted">${esc(tr(fx))}</p>`:''}
+    <label>Rune (สูงสุด 4)<select id="bldRune"><option value="">+ เพิ่ม Rune</option>${BLD_RUNES.map(n=>`<option>${esc(n)}</option>`).join('')}</select></label>
+    <div class="bld-runes">${BLD.runes.map((r,i)=>`<span class="chip">${itemRef(r)}<button type="button" class="x" data-rrm="${i}" aria-label="เอาออก">×</button></span>`).join('')||'<span class="small muted">ยังไม่ได้ใส่ Rune</span>'}</div>
+    <div class="bld-act"><button type="button" class="btn" id="bldRec">ใช้บิลด์ที่เกมแนะนำ</button><button type="button" class="btn primary" id="bldShare">คัดลอกลิงก์บิลด์</button><button type="button" class="btn" id="bldSave">บันทึก</button></div>
+    ${bldSaved().length?`<div><p class="eyebrow" style="margin:6px 0">บิลด์ที่บันทึกไว้</p><div class="bld-saved">${bldSaved().map((b,i)=>`<span class="chip"><button type="button" class="itemlink" data-bopen="${esc(b.code)}">${esc(b.name)}</button><button type="button" class="x" data-bdel="${i}" aria-label="ลบ">×</button></span>`).join('')}</div></div>`:''}
+  </div>
+  <div class="bld-r">
+    <div><p class="eyebrow" style="margin-bottom:8px">ค่าสถานะที่เลเวล ${BLD.lv}${bonus?` · ${esc(BLD.held)}`:''}</p><div class="stats">${statRows}</div><p class="small muted" style="margin-top:6px">ตัวเลขหลักคือค่าพื้นฐานของสายพันธุ์ ส่วน +ตัวเลขคือที่ Held Item เพิ่มตามเลเวล</p></div>
+    <div><p class="eyebrow" style="margin-bottom:8px">สกิล ${BLD.sk.length}/4 · กดเพื่อเลือก</p><div class="bld-sk">${sks.map((s,i)=>`<button type="button" class="bsk" data-bsk="${i}" aria-pressed="${BLD.sk.includes(i)}">${skillCard(s)}</button>`).join('')}</div></div>
+  </div>`;
+}
+document.addEventListener('change',e=>{
+  if(e.target.id==='bldMon'){BLD.slug=e.target.value;BLD.sk=[];bldUseRec(BY[BLD.slug]);renderBuilder()}
+  else if(e.target.id==='bldHeld'){BLD.held=e.target.value;renderBuilder()}
+  else if(e.target.id==='bldRune'){const v=e.target.value;if(v&&BLD.runes.length<4)BLD.runes.push(v);renderBuilder()}
+  else if(e.target.id==='be'||e.target.id==='bq')renderBuilds();
+});
+document.addEventListener('input',e=>{if(e.target.id==='bldLv'){BLD.lv=+e.target.value;renderBuilder()}else if(e.target.id==='bq')renderBuilds()});
+document.addEventListener('click',e=>{
+  const t=e.target;
+  const sk=t.closest('[data-bsk]');if(sk){const i=+sk.dataset.bsk,j=BLD.sk.indexOf(i);if(j>=0)BLD.sk.splice(j,1);else if(BLD.sk.length<4)BLD.sk.push(i);renderBuilder();return}
+  const rr=t.closest('[data-rrm]');if(rr){BLD.runes.splice(+rr.dataset.rrm,1);renderBuilder();return}
+  if(t.closest('#bldRec')){bldUseRec(BY[BLD.slug]);renderBuilder();return}
+  if(t.closest('#bldShare')){const u=location.href.split('#')[0]+'#'+bldCode();navigator.clipboard&&navigator.clipboard.writeText(u);toast('คัดลอกลิงก์บิลด์แล้ว');return}
+  if(t.closest('#bldSave')){const l=bldSaved();const a=BY[BLD.slug];l.unshift({name:(a.th||a.name)+(BLD.held?' · '+BLD.held:''),code:bldCode()});try{localStorage.setItem('aniimo-builds',JSON.stringify(l.slice(0,20)))}catch(_){}renderBuilder();toast('บันทึกบิลด์แล้ว');return}
+  const bo=t.closest('[data-bopen]');if(bo){bldLoad(bo.dataset.bopen);renderBuilder();return}
+  const bd=t.closest('[data-bdel]');if(bd){const l=bldSaved();l.splice(+bd.dataset.bdel,1);try{localStorage.setItem('aniimo-builds',JSON.stringify(l))}catch(_){}renderBuilder();return}
+  const ob=t.closest('[data-bbuild]');if(ob){const a=BY[ob.dataset.bbuild];BLD.slug=a.slug;BLD.sk=[];bldUseRec(a);go('builder');renderBuilder();return}
+});
+function renderBuilds(){
+  const g=document.getElementById('bgrid');if(!g)return;
+  const be=document.getElementById('be');if(!be.options.length)be.innerHTML='<option value="">ทุกธาตุ</option>'+E.map(x=>`<option value="${x.k}">${x.th}</option>`).join('');
+  const q=(document.getElementById('bq').value||'').trim().toLowerCase(),ek=be.value;
+  const list=A.filter(a=>!a.u&&a.rec&&(!ek||a.e.includes(ek))&&(!q||nameHit(a,q)));
+  g.innerHTML=list.map(a=>`<div class="bcard2"><button type="button" class="bpic" data-open="${a.slug}"><img src="${TH(a.i)}" alt="" loading="lazy"></button><div><b>${esc(a.th||a.name)}</b><div style="display:flex;gap:3px;margin:3px 0">${a.e.map(badge).join('')}<span class="chip">${a.r}</span></div>
+    ${a.rec.h?`<p class="small"><span class="muted">Held Item:</span> ${itemRef(a.rec.h[0])}${LANG==='th'?` <span class="muted">(${esc(a.rec.h[1])})</span>`:''}</p>`:''}
+    ${a.rec.r?`<p class="small"><span class="muted">Rune:</span> ${itemRef(a.rec.r[0])}</p>`:''}
+    <button type="button" class="btn" data-bbuild="${a.slug}" style="margin-top:6px">เปิดในตัวจัดบิลด์</button></div></div>`).join('')||'<p class="muted">ไม่พบ</p>';
+}
 </script>

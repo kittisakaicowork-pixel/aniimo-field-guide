@@ -244,6 +244,33 @@ def stylize(path):
     return sq
 
 
+def recommended(raw):
+    """The game's recommended build: a held item family (3 rarities) and a rune family (4 rarities)."""
+    def name(it):
+        return [loc(it["name"]), th_norm(loc(it["name"], "th_TH"))]
+    out = {}
+    eq = [ITEMS.get(str(i)) for i in raw.get("recommendEquipment") or []]
+    if eq and eq[0]:
+        out["h"] = name(eq[0])
+    gems = raw.get("recommendGemId") or []
+    if gems:  # rune ids point at items through their icon (ui_item_<id>)
+        want = f"img/ui_item_{gems[-1]}"
+        it = next((x for x in ITEMS.values() if (x.get("icon") or "").startswith(want)), None)
+        if it:
+            out["r"] = name(it)
+    return out
+
+
+def foods():
+    """Homeland foods: [Thai name, English name, energy] from homeland_food_item + item names."""
+    out = []
+    for iid, energy in table("homeland_food_item").items():
+        it = ITEMS.get(str(iid))
+        if it and energy:
+            out.append([th_norm(loc(it["name"], "th_TH")), loc(it["name"]), energy])
+    return sorted(out, key=lambda x: -x[2])
+
+
 def official_th():
     """English game text (resolved, match key) -> official Thai, for every string that has both."""
     out = {}
@@ -281,7 +308,11 @@ def apply(raw, th):
             h=g["size"].get("height"), w=g["size"].get("weight"),
             g=[round(gr[0] * 100), round(gr[1] * 100)] if isinstance(gr, list) and len(gr) == 2 else None,  # None: genderless
             mv={k: v for k, v in (("fly", mv.get("canFly")), ("climb", mv.get("canClimb")), ("glide", mv.get("canGlide"))) if v},
-            sr=round(1 / sr) if sr else None)
+            sr=round(1 / sr) if sr else None,
+            fs=g["raw"].get("homeFoodCostSpeed"))  # Homeland food energy used per minute
+        rec = recommended(g["raw"])
+        if rec:
+            a["rec"] = rec
         for k, gk in STAT_MAP.items():
             if g["stats"].get(gk) is not None:
                 a["stats"][k] = g["stats"][gk]
