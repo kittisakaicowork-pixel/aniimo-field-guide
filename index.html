@@ -1103,6 +1103,25 @@ h2{color:var(--ink)}
 .card,.panel{border-color:var(--line);box-shadow:0 1px 0 rgba(255,255,255,.8) inset,0 6px 18px rgba(16,120,190,.08)}
 .navbtn[aria-current="page"]{background:linear-gradient(180deg,#3BC4F2,var(--accent))!important;color:#fff!important;box-shadow:0 4px 12px rgba(16,167,230,.3)}
 .navbtn[aria-current="page"] svg{color:#fff}
+
+/* ===== top navigation on wide screens (AniiDex-style structure, our own look) ===== */
+.topnav{display:none}
+@media (min-width:960px){
+  .shell{grid-template-columns:minmax(0,1fr)!important;max-width:1240px}
+  .side{display:none!important}
+  .appbar{gap:14px}
+  .topnav{display:flex;align-items:center;gap:2px;flex:1 1 auto;min-width:0}
+  .tn-g{position:relative}
+  .tn-b{display:inline-flex;align-items:center;gap:4px;border:0;background:none;padding:8px 12px;border-radius:999px;font:700 .9rem/1 var(--display);color:var(--ink-2);cursor:pointer;text-decoration:none;white-space:nowrap}
+  .tn-b svg{width:14px;height:14px;opacity:.7}
+  .tn-b:hover,.tn-g:focus-within>.tn-b,.tn-g:hover>.tn-b{color:var(--ink);background:var(--sunk)}
+  .tn-b[aria-current="page"],.tn-g:has([aria-current="page"])>.tn-b{color:var(--accent)}
+  .tn-m{position:absolute;top:calc(100% + 6px);left:0;min-width:240px;display:none;flex-direction:column;gap:1px;padding:8px;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-up);z-index:40}
+  .tn-m::before{content:"";position:absolute;inset:-8px 0 auto;height:8px}
+  .tn-g:hover>.tn-m,.tn-g:focus-within>.tn-m{display:flex}
+  .tn-m .navbtn{padding:9px 12px;border-radius:10px;font-size:.9rem}
+  .appbar .gsearch{flex:0 1 280px}
+}
 </style>
 
 <div id="boot" role="status" aria-live="polite"><div class="bootin"><b class="wm"><span aria-hidden="true">an<span class="ii"><i>ı</i><i>ı</i></span>guide</span><span class="sr">aniiguide</span></b><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><small id="bootMsg">กำลังโหลดข้อมูล Aniimo…</small></div></div>
@@ -1149,6 +1168,7 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
 
 <header class="appbar">
   <a class="logo" href="#home" data-go="home"><b class="wm"><span aria-hidden="true">an<span class="ii"><i>ı</i><i>ı</i></span>guide</span><span class="sr">aniiguide</span></b></a>
+  <nav class="topnav" id="topnav" aria-label="เมนูหลัก"></nav>
   <div class="gsearch">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
     <input type="search" id="gq" placeholder="ค้นหา Aniimo หรือสกิล" aria-label="ค้นหา Aniimo หรือสกิล" autocomplete="off">
@@ -2378,6 +2398,7 @@ const VIEWS=[
  {id:'admin',th:'หลังบ้าน',ic:'chart',hidden:1}];
 const navItem=(v,cls)=>`<button type="button" class="${cls}" data-go="${v.id}"><svg><use href="#i-${v.ic}"/></svg><span>${v.th}</span></button>`;
 document.getElementById('side').innerHTML=navItem(VIEWS[0],'navbtn')+GROUPS.map(g=>`<p class="grp">${g.th}</p>`+VIEWS.filter(v=>v.g===g.id).map(v=>navItem(v,'navbtn')).join('')).join('')+`<div class="foot"><button type="button" class="adentry" data-go="admin"><svg><use href="#i-lock"/></svg>หลังบ้าน</button><span>แฟนเมด · ข้อมูลจาก <a href="https://aniidex.com/" target="_blank" rel="noopener">AniiDex</a> · ${esc(META.scraped||'')}</span></div>`;
+document.getElementById('topnav').innerHTML=`<a class="tn-b" href="#home" data-go="home">หน้าแรก</a>`+GROUPS.map(g=>{const vs=VIEWS.filter(v=>v.g===g.id);return vs.length?`<div class="tn-g"><button type="button" class="tn-b" aria-haspopup="true">${g.th}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m6 9 6 6 6-6"/></svg></button><div class="tn-m">${vs.map(v=>navItem(v,'navbtn')).join('')}${g.id==='more'?`<button type="button" class="navbtn" data-go="admin"><svg><use href="#i-lock"/></svg><span>หลังบ้าน</span></button>`:''}</div></div>`:''}).join('');
 document.getElementById('tabbar').innerHTML=VIEWS.filter(v=>v.tab).map(v=>navItem({...v,th:v.tabTh||v.th},'')).join('')+`<button type="button" id="moreBtn"><svg><use href="#i-more"/></svg><span>เพิ่มเติม</span></button>`;
 document.getElementById('menuInner').innerHTML='<div class="grab"></div>'+GROUPS.map(g=>`<div class="mgrp"><p>${g.th}</p><div class="mtiles">${VIEWS.filter(v=>v.g===g.id).map(v=>`<button type="button" data-go="${v.id}"><svg><use href="#i-${v.ic}"/></svg>${v.th}</button>`).join('')}</div></div>`).join('')+'<button type="button" class="adentry" data-go="admin" style="justify-self:center"><svg><use href="#i-lock"/></svg>หลังบ้าน</button>';
 const FEAT=[
@@ -2405,7 +2426,7 @@ function go(id,push){
   current=id;if(typeof setTitle==='function'&&LANG!=='en')setTitle(id);
   document.querySelectorAll('.view').forEach(s=>s.hidden=s.dataset.view!==id);
   if(id==='map'&&MV.ready)setTimeout(mapSize,0);
-  document.querySelectorAll('[data-go]').forEach(b=>{if(b.closest('.side,.tabbar,#menu'))b.setAttribute('aria-current',b.dataset.go===id?'page':'false')});
+  document.querySelectorAll('[data-go]').forEach(b=>{if(b.closest('.side,.tabbar,#menu,.topnav'))b.setAttribute('aria-current',b.dataset.go===id?'page':'false')});
   const more=document.getElementById('moreBtn');more.setAttribute('aria-current',VIEWS.find(v=>v.id===id).tab?'false':'page');
   if(push!==false&&location.hash!=='#'+id){try{history.pushState(null,'','#'+id)}catch(_){location.hash=id}}
   try{localStorage.setItem('aniimo-view',id)}catch(_){}
