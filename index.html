@@ -1122,6 +1122,32 @@ h2{color:var(--ink)}
   .tn-m .navbtn{padding:9px 12px;border-radius:10px;font-size:.9rem}
   .appbar .gsearch{flex:0 1 280px}
 }
+
+/* ===== home landing (AniiDex-style structure) ===== */
+.wiki{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.wcard{display:grid;gap:8px;align-content:start;text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:18px;padding:16px;cursor:pointer;box-shadow:var(--shadow);transition:transform .15s,box-shadow .15s}
+.wcard:hover{transform:translateY(-2px);box-shadow:var(--shadow-up)}
+.wcard.big{grid-column:span 2;background:linear-gradient(135deg,var(--sunk),var(--surface))}
+.wcard .wtop{display:flex;align-items:center;gap:8px}
+.wcard svg{width:20px;height:20px;color:var(--accent);flex:none}
+.wcard b{font:800 1rem/1.2 var(--display)}
+.wcard em{margin-left:auto;font-style:normal;font-size:.72rem;font-weight:700;color:var(--accent);background:var(--glow);border-radius:99px;padding:3px 9px;white-space:nowrap}
+.wcard small{color:var(--ink-2);font-size:.84rem;line-height:1.45}
+.picks{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}
+.pick{position:relative;display:grid;justify-items:center;gap:4px;border:1px solid var(--line);background:linear-gradient(180deg,var(--glow),var(--surface) 70%);border-radius:18px;padding:12px 8px;cursor:pointer}
+.pick img{width:100%;aspect-ratio:1;object-fit:contain}
+.pick .no{position:absolute;left:10px;top:8px;font-size:.72rem;color:var(--ink-2)}
+.pick b{font:800 .95rem/1.2 var(--display)}
+.hnews{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.hncard{display:grid;gap:6px;align-content:start;border:1px solid var(--line);background:var(--surface);border-radius:18px;padding:16px;text-decoration:none;color:var(--ink)}
+.hncard b{font:800 1rem/1.3 var(--display)}
+.about .agrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:12px}
+.sitefoot{display:grid;grid-template-columns:1.6fr repeat(6,minmax(0,1fr));gap:18px;margin-top:40px;padding:28px 0 12px;border-top:1px solid var(--line)}
+.sitefoot a{display:block;color:var(--ink-2);text-decoration:none;font-size:.84rem;padding:3px 0}
+.sitefoot a:hover{color:var(--accent)}
+.sf-h{font:800 .85rem/1 var(--display);margin:0 0 8px}
+.sf-brand .wm{font:900 1.3rem/1 var(--display)}
+@media (max-width:959px){.wiki{grid-template-columns:repeat(2,minmax(0,1fr))}.picks{grid-template-columns:repeat(3,minmax(0,1fr))}.hnews,.about .agrid{grid-template-columns:1fr}.sitefoot{grid-template-columns:repeat(2,minmax(0,1fr))}.sf-brand{grid-column:1/-1}}
 </style>
 
 <div id="boot" role="status" aria-live="polite"><div class="bootin"><b class="wm"><span aria-hidden="true">an<span class="ii"><i>ı</i><i>ı</i></span>guide</span><span class="sr">aniiguide</span></b><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><small id="bootMsg">กำลังโหลดข้อมูล Aniimo…</small></div></div>
@@ -1201,9 +1227,21 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
       </div>
       <section class="hsec"><h2>ตอนนี้ในเกม</h2><div class="hnow" id="homeNow" aria-live="polite"></div></section>
       <section class="hsec"><h2>Aniimo ประจำวัน<small>เปลี่ยนทุกวัน</small></h2><div class="daily" id="homeDaily"></div></section>
-      <section class="hsec"><h2>เว็บนี้มีอะไรบ้าง<small>เริ่มจากตรงนี้</small></h2><div class="feat" id="homeFeat"></div></section>
+      <section class="hsec"><h2>วิกิ Aniimo<small>ข้อมูลทุกอย่างในเกม</small></h2><div class="wiki" id="homeWiki"></div></section>
+      <section class="hsec"><h2>Aniimo แนะนำ<small><a href="#dex" data-go="dex">ดูทั้งหมด →</a></small></h2><div class="picks" id="homePicks"></div></section>
+      <section class="hsec" hidden><div class="feat" id="homeFeat"></div></section>
       <section class="hsec" id="homeRecent" hidden><h2>ดูล่าสุด<small><a href="#history" data-go="history">ประวัติทั้งหมด</a></small></h2><div class="recent" id="homeRecentList"></div></section>
-      <section class="hsec"><h2>หน้าอื่น ๆ ทั้งหมด</h2><div class="hall" id="homeGroups"></div></section>
+      <section class="hsec"><h2>อัปเดตล่าสุด<small><a href="#news" data-go="news">ข่าวทั้งหมด →</a></small></h2><div class="hnews" id="homeNews"></div></section>
+      <section class="hsec about"><h2>Aniimo คืออะไร?</h2>
+        <p class="lede">Aniimo เป็นเกม RPG โลกเปิดแนวสะสมสัตว์ เล่นได้ทั้ง PC คอนโซล และมือถือ ผู้เล่นรับบทนักสำรวจ (Pathfinder) ออกเดินทางทั่วดินแดน Idyll จับและเลี้ยง Aniimo แล้วต่อสู้ไปด้วยกัน</p>
+        <div class="agrid">
+          <div class="card"><span class="tag">จับและเลี้ยง</span><p>ล่อ Aniimo ด้วยการเลี้ยง (Nurture) แล้วจับด้วย Aniipod ศักยภาพ ร่างพิเศษ และร่างเปล่งประกายสุ่มได้ตอนจับหรือฟักไข่</p></div>
+          <div class="card"><span class="tag">ต่อสู้</span><p>สู้แบบแอ็กชันเรียลไทม์ ใช้สกิลตามธาตุ 9 ธาตุ แพ้ทางกันแบบ ×1.6 / ×0.625 และทำลาย (Break) ศัตรูเพื่อเปิดจังหวะโจมตี</p></div>
+          <div class="card"><span class="tag">รวมร่าง</span><p>Twining คือการรวมร่างกับ Aniimo ใช้ความสามารถสำรวจ เช่น บิน ว่ายน้ำ มุดดิน เพื่อไปจุดที่เดินไปไม่ถึง</p></div>
+          <div class="card"><span class="tag">บ้านและเพื่อน</span><p>สร้าง Homeland ให้ Aniimo ช่วยทำงาน เล่นร่วมกับเพื่อนได้สูงสุด 4 คน ทั้ง Egg Heist, บอส Alpha/Omega และอีเวนต์</p></div>
+        </div>
+      </section>
+      <div class="hall" id="homeGroups" hidden></div>
       <nav class="seolinks" aria-label="หน้าสรุปสำหรับแชร์"><span>หน้าสรุปสำหรับแชร์และค้นหา:</span> <a href="p/dex/">รายชื่อ Aniimo</a> · <a href="p/tier/">Tier List</a> · <a href="p/codes/">โค้ดล่าสุด</a> · <a href="p/events/">อีเวนต์</a> · <a href="p/map/">แผนที่</a> · <a href="p/daily/">เช็กลิสต์รายวัน</a> · <a href="p/beginner/">มือใหม่</a> · <a href="p/heist/">Egg Heist</a> · <a href="p/eggs/">ล่าไข่</a> · <a href="p/helditems/">Held Item</a> · <a href="p/homeland/">Homeland</a> · <a href="p/bosses/">บอส</a> · <a href="p/whisperwake/">Whisperwake Isles</a> · <a href="p/news/">ข่าว</a> · <a href="p/guide/">ข้อมูลเกม</a></nav>
             <div class="install" id="installBox" hidden>
         <img src="icon-192.png" alt="">
@@ -2252,6 +2290,7 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
       </ul>
       <p class="small muted">เว็บแฟนเมด ไม่เกี่ยวข้องกับ Pawprint Studio · ภาพและชื่อ Aniimo เป็นลิขสิทธิ์ของผู้พัฒนาเกม · ข้อมูลและคำแปลไทยจากไฟล์เกมโดยได้รับอนุญาต · ภาพตัวละคร ร่างเปล่งประกาย แผนที่ อีเวนต์ และบอสใช้โดยได้รับอนุญาตจาก <a href="https://aniidex.com/" target="_blank" rel="noopener">AniiDex</a> ขอบคุณมาก · แผนที่ Egg Heist จาก <a href="https://aniilog.gg/" target="_blank" rel="noopener">AniiLog</a> · ข่าวสรุปจากประกาศทางการ</p>
     </section>
+  <footer class="sitefoot" id="sitefoot"></footer>
   </main>
 </div>
 
@@ -2411,6 +2450,7 @@ const FEAT=[
 document.getElementById('homeFeat').innerHTML=FEAT.map(f=>{const v=VIEWS.find(x=>x.id===f.id);return `<button type="button" data-go="${v.id}"><span class="ic"><svg><use href="#i-${v.ic}"/></svg></span><b>${v.th}</b><small>${f.d}</small></button>`}).join('');
 document.getElementById('homeGroups').innerHTML=GROUPS.map(g=>{const vs=VIEWS.filter(v=>v.g===g.id&&!FEAT.some(f=>f.id===v.id));return vs.length?`<div><h3>${g.th}</h3>${vs.map(v=>`<button type="button" data-go="${v.id}">${v.th}</button>`).join('')}</div>`:''}).join('');
 addEventListener('keydown',e=>{if(e.key!=='/'||e.ctrlKey||e.metaKey||e.altKey)return;const t=e.target;if(t&&(t.isContentEditable||/INPUT|TEXTAREA|SELECT/.test(t.tagName)))return;e.preventDefault();const g=document.getElementById('gq');g.focus();g.scrollIntoView({block:'nearest'})});
+
 document.getElementById('hsearch').addEventListener('click',()=>{const g=document.getElementById('gq');g.focus();g.scrollIntoView({block:'nearest'})});
 const menu=document.getElementById('menu');
 document.getElementById('moreBtn').addEventListener('click',()=>menu.showModal());
@@ -4144,4 +4184,24 @@ if(LANG==='en'){
 window.__i18nMissing=()=>{const out=new Set();const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT|NodeFilter.SHOW_ELEMENT);let n;while((n=w.nextNode())){if(n.nodeType===3){if(HAS_TH.test(n.nodeValue)&&n.parentElement&&!/SCRIPT|STYLE/.test(n.parentElement.tagName)){const [k]=i18nKey(n.nodeValue);if(!(k in UI_EN))out.add(k)}}else for(const a of I18N_ATTR){const x=n.getAttribute(a);if(x&&HAS_TH.test(x)){const [k]=i18nKey(x);if(!(k in UI_EN))out.add(k)}}}return [...out]};
 route();
 {const hide=()=>{const b=document.getElementById('boot');if(!b||b.classList.contains('done'))return;b.classList.add('done');setTimeout(()=>b.remove(),500)};requestAnimationFrame(hide);setTimeout(hide,400)} // splash off once the first page is drawn (timer covers background tabs)
+
+/* ===== home: wiki cards, picks, latest news; site footer ===== */
+(()=>{
+  const rel=ANIIMO.filter(a=>!a.u),forms=rel.reduce((n,a)=>n+a.f.length,0),skills=new Set(Object.values(SKILLS).flatMap(x=>x.s.map(s=>s[0]))).size;
+  const W=[['map','แผนที่ทวีป Idyll','4,334 จุด','หีบ ไข่ วัตถุดิบ บอส ด่าน Pathfinder พร้อมขอบเขตภูมิภาค'],
+    ['dex','รายชื่อ Aniimo',`${rel.length} ตัว · ${forms} ร่าง`,'ค่าสถานะ สกิล วิวัฒนาการ จุดเกิด และไอเท็มแนะนำ'],
+    ['builder','ตัวจัดบิลด์','ใหม่','เลือกสกิล Held Item และ Rune ให้ Aniimo แต่ละตัว แล้วแชร์ลิงก์'],
+    ['tier','Tier List','โหวตได้','อันดับความนิยมและความเก่งของ Aniimo'],
+    ['helditems','Held Item และ Rune',`${(Array.isArray(ITEMS)?ITEMS:ITEMS.list).length.toLocaleString(LOC)} ไอเท็ม`,'ไอเท็มทั้งหมด พร้อมวิธีหาและผลของไอเท็ม'],
+    ['elements','ตารางธาตุ','81 คู่','ธาตุไหนแพ้ทางธาตุไหน พร้อมเครื่องคำนวณดาเมจ'],
+    ['skills','สกิล',`${skills} สกิล`,'สกิลทุกตัวพร้อมสีธาตุ พลัง EP และคูลดาวน์'],
+    ['sets','ชุดแต่งตัว Aniimo','Transmog','ชุดแต่งตัวของ Aniimo แต่ละตัวและสีทั้งหมด']].filter(w=>VIEWS.some(v=>v.id===w[0]));
+  document.getElementById('homeWiki').innerHTML=W.map(([id,t,b,d],i)=>`<button type="button" class="wcard${i<1?' big':''}" data-go="${id}"><span class="wtop"><svg><use href="#i-${(VIEWS.find(v=>v.id===id)||{}).ic||'star'}"/></svg><b>${t}</b><em>${b}</em></span><small>${d}</small></button>`).join('');
+  const day=Math.floor(Date.now()/864e5),pool=rel.filter(a=>!a.cut);
+  const picks=Array.from({length:6},(_,i)=>pool[(day*7+i*13)%pool.length]);
+  document.getElementById('homePicks').innerHTML=picks.map(a=>`<button type="button" class="pick" data-open="${a.slug}"><span class="no">${numLabel(a)}</span><img src="${TH(a.i)}" alt="" loading="lazy"><b>${esc(a.th||a.name)}</b><span style="display:flex;gap:3px;justify-content:center">${a.e.map(badge).join('')}</span><small class="muted">${a.r}</small></button>`).join('');
+  const N=(window.NEWS||[]).slice().sort((a,b)=>b.date.localeCompare(a.date)).slice(0,3);
+  document.getElementById('homeNews').innerHTML=N.map(n=>`<a class="hncard" href="#news-${n.id}"><small class="muted">${new Date(n.date+'T00:00:00+07:00').toLocaleDateString(LOC,{day:'numeric',month:'long',year:'numeric'})}</small><b>${esc(n.title)}</b><span class="small muted">${esc(n.lede||'')}</span></a>`).join('');
+  document.getElementById('sitefoot').innerHTML=`<div class="sf-brand"><b class="wm">aniiguide</b><p class="small muted">คู่มือเกม Aniimo ภาษาไทย แฟนเมด ไม่เกี่ยวข้องกับ Pawprint Studio · ภาพตัวละคร แผนที่ อีเวนต์ และบอสใช้โดยได้รับอนุญาตจาก <a href="https://aniidex.com/" target="_blank" rel="noopener">AniiDex</a></p></div>`+GROUPS.map(g=>{const vs=VIEWS.filter(v=>v.g===g.id);return vs.length?`<div><p class="sf-h">${g.th}</p>${vs.map(v=>`<a href="#${v.id}" data-go="${v.id}">${v.th}</a>`).join('')}</div>`:''}).join('');
+})();
 </script>
