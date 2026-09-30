@@ -1,6 +1,7 @@
 #!/bin/bash
-# Daily data update, run on this Mac by launchd (tools/com.aniguide.daily.plist) because the game data it
-# builds from (gamedata/, ~1 GB, not in git) only lives here.
+# Daily data update, run on this Mac by the Claude desktop app's scheduled task "aniguide-daily-update"
+# (launchd cannot: macOS does not let background jobs read ~/Desktop). It runs here because the game data it
+# builds from (gamedata/, ~1 GB, not in git) only lives on this Mac.
 #
 #   1. re-download AniiDex's list and event pages (plus a few of the oldest pages, politely) -> tools/raw.json
 #   2. rebuild data.js, the Transmog sets and the search pages
