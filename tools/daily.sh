@@ -32,18 +32,19 @@ before=$(count)
 
 python3 tools/scrape.py --daily || fail "ดึงข้อมูลจาก AniiDex ไม่สำเร็จ"
 python3 tools/sets.py || fail "สร้างชุดแต่งตัวไม่สำเร็จ"
-python3 tools/build.py || fail "build ไม่สำเร็จ"
+python3 tools/build.py | tee /tmp/aniguide-build.txt || fail "build ไม่สำเร็จ"
+untranslated=$(sed -nE 's/.*untranslated ([0-9]+).*/\1/p' /tmp/aniguide-build.txt)
 
 node --check data.js || fail "data.js เสีย"
 after=$(count)
 [ "$after" -ge "$before" ] || fail "จำนวน Aniimo ลดลงจาก $before เหลือ $after"
 
 # The build writes the scrape time into data.js every run; only publish when something else changed.
-if git diff -U0 -- data.js tools/sets.json | grep '^[-+][^-+]' | grep -qv '^[-+]window.META='; then :
-elif [ -n "$(git status --porcelain -- img)" ]; then :
-else
-  say "ข้อมูลเหมือนเดิม ไม่มีอะไรต้องอัปเดต"; undo; exit 0
-fi
+# (Collected into a variable: with pipefail, grep -q stopping early would make the whole pipe look failed.)
+changed=$(git diff -U0 -- data.js tools/sets.json | grep '^[-+][^-+]' | grep -v '^[-+]window.META=' | cut -c1-40)
+changed+=$(git status --porcelain -- img)
+if [ -z "$changed" ]; then say "ข้อมูลเหมือนเดิม ไม่มีอะไรต้องอัปเดต"; undo; exit 0; fi
+echo "changed:"; echo "$changed" | sort -u
 
 python3 tools/seo.py || fail "สร้างหน้าค้นหาไม่สำเร็จ"
 node tools/check/audit.js || fail "ตรวจเว็บแล้วเจอปัญหา"
@@ -55,4 +56,7 @@ sed -i '' "s/'aniimo-v$v'/'aniimo-v$((v + 1))'/" sw.js
 git add -A -- "${OUT[@]}"
 git commit -q -m "Daily data update $(date +%F)" || fail "commit ไม่สำเร็จ"
 git push -q origin main || fail "push ขึ้น GitHub ไม่สำเร็จ"
-say "อัปเดตข้อมูลขึ้นเว็บแล้ว (Aniimo $after ตัว)"
+msg="อัปเดตข้อมูลขึ้นเว็บแล้ว (Aniimo $after ตัว)"
+# new game text shows in English until it is translated (tools/i18n/missing.json -> th.json)
+[ "${untranslated:-0}" -gt 0 ] && msg+=" · มีข้อความใหม่ $untranslated ข้อความที่ยังไม่แปล"
+say "$msg"

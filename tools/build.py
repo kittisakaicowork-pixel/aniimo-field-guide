@@ -256,8 +256,11 @@ def main():
             + [c for r in a["routes"] for c in r["criteria"]]} | {b["desc"] for b in raw["bosses"]} \
         | {it["desc"] for it in raw.get("items", [])} | {x for e in raw.get("events", []) for x in [e["intro"]] + e["rules"]} \
         | {n for it in raw.get("items", []) for x in it["sources"] for n in [x["note"]]} | {t["desc"] for t in raw.get("territories", [])}
+    # AniiDex sometimes re-posts the same text with other quotes or capitals; reuse the translation
+    loose = lambda x: re.sub(r"\W+", " ", x).strip().lower()
+    by_loose = {loose(k): v for k, v in th.items()}
     for x in used - th.keys():  # templated text (item sources, crafting notes...) translates by rule
-        t = x and translate(x, th)
+        t = x and (by_loose.get(loose(x)) or translate(x, th))
         if t:
             th[x] = t
     th_used = {k: th[k] for k in sorted(used & th.keys())}  # sorted: same data, same file
