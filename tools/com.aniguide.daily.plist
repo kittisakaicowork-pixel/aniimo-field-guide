@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Runs tools/daily.sh at 05:00 every day (or when the Mac wakes, if it was asleep then).
+     Install: cp tools/com.aniguide.daily.plist ~/Library/LaunchAgents/ && launchctl load ~/Library/LaunchAgents/com.aniguide.daily.plist
+     Remove:  launchctl unload ~/Library/LaunchAgents/com.aniguide.daily.plist && rm ~/Library/LaunchAgents/com.aniguide.daily.plist -->
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>com.aniguide.daily</string>
+  <key>ProgramArguments</key>
+  <array><string>/bin/bash</string><string>/Users/saseeroy/Desktop/aniimo/tools/daily.sh</string></array>
+  <key>StartCalendarInterval</key><dict><key>Hour</key><integer>5</integer><key>Minute</key><integer>0</integer></dict>
+  <key>StandardOutPath</key><string>/Users/saseeroy/Desktop/aniimo/tools/daily.log</string>
+  <key>StandardErrorPath</key><string>/Users/saseeroy/Desktop/aniimo/tools/daily.log</string>
+</dict>
+</plist>

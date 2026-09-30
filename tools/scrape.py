@@ -7,6 +7,7 @@ Pages are cached under tools/cache/pages; pass --refresh to re-download them
     python3 tools/scrape.py            # parse from cache, fetch only what is missing
     python3 tools/scrape.py --refresh  # re-download every page first
     python3 tools/scrape.py --check    # only check for new redeem codes and official news
+    python3 tools/scrape.py --daily    # daily job: re-download the list pages and events, plus a few of the oldest pages
 """
 import html
 import json
@@ -24,18 +25,44 @@ CACHE = ROOT / "cache" / "pages"
 BASE = "https://aniidex.com"
 UA = "Mozilla/5.0 (AniimoFieldGuide fan project)"
 REFRESH = "--refresh" in sys.argv
+DAILY = "--daily" in sys.argv
+# --daily: pages that change between game updates are fetched again every day; every other page is fetched
+# again once it is STALE_DAYS old, at most STALE_BUDGET a day, so the whole site turns over about every two weeks
+# while AniiDex sees a small, steady load.
+DAILY_PATHS = ("/aniimo/", "/aniimo/forms/", "/aniimo/sparkling/", "/bosses/", "/events/", "/sitemap-en.xml")
+STALE_DAYS, STALE_BUDGET = 14, 80
+_stale_left = [STALE_BUDGET]
+
+
+def _due(path, dest):
+    if REFRESH:
+        return True
+    if not DAILY:
+        return False
+    if path in DAILY_PATHS or path.startswith("/events/"):
+        return True
+    if time.time() - dest.stat().st_mtime > STALE_DAYS * 86400 and _stale_left[0] > 0:
+        _stale_left[0] -= 1
+        return True
+    return False
 
 ELEMENT_ALIASES = {"Electric": "Lightning", "Rock": "Earth", "Holy": "Light"}
 
 
 def fetch(path, dest):
     dest.parent.mkdir(parents=True, exist_ok=True)
-    if dest.exists() and dest.stat().st_size > 5000 and not REFRESH:
+    if dest.exists() and dest.stat().st_size > 5000 and not _due(path, dest):
         return dest.read_text()
     url = BASE + urllib.parse.quote(path, safe="/-_.~%")
+    old = dest.with_suffix(".old")
     if dest.exists():
-        dest.unlink()  # --refresh: fetch again
+        dest.replace(old)  # fetch again, but keep the old copy if the fetch fails
     polite.get(url, dest)  # low rate, never player profiles (the owner's terms)
+    if not dest.exists() or dest.stat().st_size < 5000:
+        if old.exists():
+            old.replace(dest)
+    elif old.exists():
+        old.unlink()
     return dest.read_text() if dest.exists() else ""
 
 

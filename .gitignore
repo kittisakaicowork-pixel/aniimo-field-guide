@@ -14,3 +14,5 @@ tools/model/3d
 aniimo/
 move_log.txt
 tools/model/viewer3d.js
+node_modules/
+tools/daily.log

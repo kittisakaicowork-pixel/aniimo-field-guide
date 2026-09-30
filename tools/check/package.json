@@ -1,0 +1,1 @@
+{"private":true,"description":"Site audit for the daily update job (tools/daily.sh)","dependencies":{"playwright":"^1.63.0"}}

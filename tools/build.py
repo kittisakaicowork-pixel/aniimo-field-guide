@@ -260,7 +260,7 @@ def main():
         t = x and translate(x, th)
         if t:
             th[x] = t
-    th_used = {k: v for k, v in th.items() if k in used}
+    th_used = {k: th[k] for k in sorted(used & th.keys())}  # sorted: same data, same file
     missing = sorted(x for x in used if x and x not in th)
     miss_file = TOOLS / "i18n" / "missing.json"
     if missing:  # new game text after a scrape: translate these, then add them to th.json
