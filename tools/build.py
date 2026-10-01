@@ -33,7 +33,7 @@ RAW_URL = "https://aniidex.com/"
 UA = "Mozilla/5.0 (AniimoFieldGuide fan project)"
 FULL = "--full" in sys.argv
 # 3D viewer package (web3d_deploy/, too big for GitHub Pages) lives in this Cloudflare R2 bucket; tools/r2/
-R2_3D = "https://pub-5ce14aaad5e74e65917c5dccda751643.r2.dev"
+R2_3D = "https://3d.aniiguide.trade"
 KINDS = {"Basic attack": "atk", "Ultimate": "ult"}
 SPARK_TYPES = 12
 
