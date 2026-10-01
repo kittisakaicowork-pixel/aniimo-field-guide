@@ -29,6 +29,9 @@ function serve() {
   p.on('console', m => { if (m.type() === 'error' && !/supabase|ERR_FAILED/.test(m.text())) errs.push(`[${where}] console: ${m.text().slice(0, 200)}`) });
   p.on('response', r => { if (r.status() >= 400 && !/supabase/.test(r.url())) bad.push(`${r.status()} ${r.url()} (${where})`) });
   await p.goto(BASE, { waitUntil: 'networkidle' }); await p.waitForTimeout(1500);
+  // data sanity: a change in AniiDex's page layout once left every role as "DPS Lumin Stage" and no stage
+  (await p.evaluate(() => ANIIMO.filter(a => !['DPS', 'Break', 'Support', 'Heal', 'Regen', '—'].includes(a.r) || !a.st).map(a => `${a.slug}: role "${a.r}" stage "${a.st}"`)))
+    .slice(0, 5).forEach(x => errs.push('[data] ' + x));
   const views = await p.evaluate(() => VIEWS.map(v => v.id));
   const brokenImgs = new Set();
   for (const v of views) {

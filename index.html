@@ -1177,6 +1177,12 @@ h2{color:var(--ink)}
 .bcard2{display:grid;grid-template-columns:84px 1fr;gap:10px;border:1px solid var(--line);background:var(--surface);border-radius:16px;padding:10px}
 .bpic{border:0;background:var(--glow);border-radius:12px;padding:0;cursor:pointer}.bpic img{width:84px;height:84px;object-fit:contain}
 @media (max-width:959px){.bld{grid-template-columns:1fr}.bld-sk{grid-template-columns:1fr}}
+/* phones: the hero shrinks so "now in the game" (gift code first) is on the first screen; the bottom bar already links Aniimo and the map */
+@media (max-width:600px){.hero3{min-height:0;aspect-ratio:auto;padding:22px 18px 20px}.hero3 .h3eye,.hero3 .lede,.hero3 .h3cta{display:none}.hero3 .h3title{font-size:1.85rem}.hero3 .hsearch{margin-top:2px;padding:13px 16px}.hnow>.hcode{order:-1;grid-column:1/-1}[data-view="home"]{gap:22px}}
+.sup{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:16px;align-items:start}.sup .dpanel{display:grid;gap:10px}.sup h3{margin:0}
+.sup-qr{justify-items:center;text-align:center}.sup-qr img{width:min(260px,70vw);height:auto;border-radius:16px;background:#fff;padding:10px}
+.prose{display:grid;gap:10px;max-width:780px;line-height:1.75}.prose h3{margin:12px 0 0}.prose ul{margin:0;padding-left:1.2em;display:grid;gap:6px}
+@media (max-width:759px){.sup{grid-template-columns:1fr}}
 .m3d{border-radius:16px;overflow:hidden;background:#101218;height:min(70vh,560px);flex:none}.m3d iframe{width:100%;height:100%;border:0;display:block}
 .sset{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:16px;border:1px solid var(--line);background:var(--surface);border-radius:20px;padding:14px;margin-bottom:16px}
 .sstage{position:relative;background:radial-gradient(circle at 50% 45%,var(--glow),transparent 70%);border-radius:16px;aspect-ratio:1;display:grid;place-items:center;overflow:hidden}
@@ -1368,6 +1374,7 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
         <button type="button" class="btn primary" id="tmAuto">เติมทีมอัตโนมัติ</button>
         <button type="button" class="btn" id="tmCopy">คัดลอกรายชื่อทีม</button>
         <button type="button" class="btn" id="tmLink">คัดลอกลิงก์ทีม</button>
+        <button type="button" class="btn" id="tmShot">แชร์เป็นรูป</button>
         <button type="button" class="btn" id="tmCodeBtn">ใส่โค้ดทีม</button>
         <button type="button" class="btn" id="tmClear">ล้างทีม</button>
         <span class="count" id="tmMsg" aria-live="polite"></span>
@@ -1890,6 +1897,46 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
     </section>
 
     <!-- FEEDBACK -->
+    <section class="view" data-view="support" hidden>
+      <div class="vhead"><p class="eyebrow">Support</p><h2>สนับสนุน AniiGuide</h2><p class="muted">เว็บนี้ทำโดยแฟนเกมคนเดียว เปิดให้ใช้ฟรีทุกฟีเจอร์ ไม่มีอะไรล็อกไว้ให้เฉพาะคนจ่ายเงิน</p></div>
+      <div class="sup">
+        <div class="dpanel sup-qr" id="supQr" hidden>
+          <h3>เลี้ยงกาแฟคนทำเว็บ</h3>
+          <img id="supQrImg" alt="QR พร้อมเพย์สำหรับสนับสนุน AniiGuide" width="260" height="260">
+          <p class="small muted">สแกนด้วยแอปธนาคารไหนก็ได้ (พร้อมเพย์) ใส่จำนวนเท่าไหร่ก็ได้ เงินสนับสนุนใช้เป็นค่าโดเมน ค่าเก็บไฟล์ และเวลาพัฒนาเว็บ ไม่ได้ปลดล็อกอะไรเพิ่ม</p>
+        </div>
+        <div class="dpanel">
+          <h3>ช่วยแบบไม่เสียเงิน</h3>
+          <ul class="infolist">
+            <li><b>แชร์เว็บให้เพื่อน</b><div class="small muted" style="margin:2px 0 8px">ช่วยได้มากที่สุด ยิ่งมีคนแชร์ Google ยิ่งแสดงเว็บนี้ให้คนอื่นเห็น</div><button type="button" class="btn primary" id="supShare">แชร์ลิงก์เว็บ</button></li>
+            <li><b>แชร์ทีมเป็นรูป</b><div class="small muted" style="margin:2px 0 8px">จัดทีมแล้วกด "แชร์เป็นรูป" ได้การ์ดทีมพร้อมชื่อเว็บไปโพสต์</div><button type="button" class="btn" data-go="team">ไปจัดทีม</button></li>
+            <li><b>บอกสิ่งที่อยากให้มี หรือข้อมูลที่ผิด</b><div class="small muted" style="margin:2px 0 8px">ทุกข้อความถูกอ่าน</div><button type="button" class="btn" data-go="feedback">ส่งคำแนะนำ</button></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <section class="view" data-view="privacy" hidden>
+      <div class="vhead"><p class="eyebrow">Privacy</p><h2>นโยบายความเป็นส่วนตัว</h2><p class="muted">ปรับปรุงล่าสุด 2 ตุลาคม 2569</p></div>
+      <div class="dpanel prose">
+        <p>AniiGuide (aniiguide.trade) เป็นเว็บคู่มือเกม Aniimo ภาษาไทยที่แฟนเกมทำ ไม่เกี่ยวข้องกับผู้พัฒนาเกม หน้านี้บอกว่าเว็บเก็บข้อมูลอะไร เก็บไว้ที่ไหน และใช้ทำอะไร</p>
+        <h3>ไม่ต้องสมัครสมาชิก</h3>
+        <p>ใช้ได้ทุกฟีเจอร์โดยไม่ต้องสมัครหรือล็อกอิน เว็บไม่ขอชื่อ อีเมล หรือเบอร์โทร</p>
+        <h3>ข้อมูลที่เก็บไว้ในเครื่องของคุณเท่านั้น</h3>
+        <p>ทีมที่จัด บิลด์ เช็กลิสต์ Aniimo ที่สะสม ประวัติที่เปิดดู ธีม และภาษา เก็บใน localStorage ของเบราว์เซอร์ ไม่ได้ส่งมาที่เว็บ ลบได้ทุกเมื่อด้วยการล้างข้อมูลเว็บไซต์ในเบราว์เซอร์</p>
+        <h3>สถิติการใช้งาน</h3>
+        <p>เพื่อรู้ว่าหน้าไหนมีคนใช้และควรปรับอะไร เว็บส่งข้อมูลต่อไปนี้ไปเก็บที่ Supabase: หน้าที่เปิด, Aniimo หรือไอเท็มที่เปิดดู, คำที่ค้นหาในเว็บ, รหัสสุ่มของเบราว์เซอร์ (ไม่ผูกกับตัวตน), รหัสสุ่มของรอบการเข้าเว็บ, ระยะเวลาที่ใช้งาน, ประเภทอุปกรณ์ (มือถือ แท็บเล็ต คอม), ภาษาของเบราว์เซอร์ และเขตเวลา เว็บไม่ได้เก็บชื่อ อีเมล หรือที่อยู่ IP ในฐานข้อมูลนี้ และไม่ใช้คุกกี้ติดตาม</p>
+        <h3>สิ่งที่คุณส่งเอง</h3>
+        <ul><li><b>ส่งคำแนะนำ:</b> ข้อความ ช่องทางติดต่อ (ถ้าใส่) และหน้าที่เปิดอยู่ตอนส่ง</li><li><b>โหวต Tier List:</b> ตัวที่โหวต พร้อมรหัสสุ่มของเบราว์เซอร์เพื่อกันโหวตซ้ำ</li><li><b>รหัสซิงก์ข้ามเครื่อง:</b> ถ้าเปิดใช้ ข้อมูลเช็กลิสต์และทีมจะถูกเก็บไว้กับรหัสซิงก์ที่คุณตั้ง ใครรู้รหัสก็โหลดข้อมูลนั้นได้ จึงไม่ควรใช้รหัสที่เดาง่าย</li></ul>
+        <h3>บริการภายนอกที่เว็บใช้</h3>
+        <ul><li><b>GitHub Pages และ Cloudflare</b> ให้บริการเว็บและป้องกันการโจมตี อาจบันทึกที่อยู่ IP และข้อมูลเบราว์เซอร์ในบันทึกของระบบตามนโยบายของผู้ให้บริการ</li><li><b>Cloudflare R2</b> เก็บไฟล์โมเดล 3D</li><li><b>Google Fonts</b> ให้บริการฟอนต์</li><li><b>YouTube (โหมดไม่ใช้คุกกี้)</b> เมื่อกดเล่นคลิปในหน้าข่าว</li><li><b>Supabase</b> เก็บสถิติ คำแนะนำ โหวต และข้อมูลซิงก์</li></ul>
+        <p>ลิงก์ที่พาออกไปเว็บอื่น เช่น AniiDex หรือเว็บทางการของเกม ใช้นโยบายของเว็บนั้น</p>
+        <h3>โฆษณา</h3>
+        <p>ตอนนี้เว็บยังไม่มีโฆษณา ถ้าจะมีในอนาคต เช่น Google AdSense จะอัปเดตหน้านี้ก่อน และจะบอกว่าผู้ให้บริการโฆษณาใช้คุกกี้อย่างไร</p>
+        <h3>ขอดูหรือลบข้อมูล</h3>
+        <p>ส่งข้อความผ่านหน้า <a href="#feedback" data-go="feedback">ส่งคำแนะนำ</a> พร้อมช่องทางติดต่อกลับ ข้อมูลสถิติไม่ได้ผูกกับตัวตน จึงลบได้เมื่อแจ้งรหัสสุ่มของเบราว์เซอร์มาด้วย (ดูได้ด้านล่าง)</p>
+        <p class="small muted">รหัสสุ่มของเบราว์เซอร์นี้: <code id="privVisitor">—</code></p>
+      </div>
+    </section>
     <section class="view" data-view="feedback" hidden>
       <div class="vhead">
         <p class="eyebrow">ส่งคำแนะนำ</p>
@@ -2373,10 +2420,10 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
 </dialog>
 <dialog id="menu" aria-label="เมนูทั้งหมด"><div class="inner" id="menuInner"></div></dialog>
 
-<script src="data.js?v=dfae47f884"></script>
-<script src="thumbs.js?v=dfae47f884"></script>
-<script src="content.js?v=dfae47f884"></script>
-<script src="i18n-en.js?v=dfae47f884"></script>
+<script src="data.js?v=0a0b719be3"></script>
+<script src="thumbs.js?v=0a0b719be3"></script>
+<script src="content.js?v=0a0b719be3"></script>
+<script src="i18n-en.js?v=0a0b719be3"></script>
 <script>
 /* ===== theme ===== */
 (function(){
@@ -2496,6 +2543,8 @@ const VIEWS=[
  {id:'history',th:'ประวัติการใช้งาน',ic:'clock',g:'tools',d:'ที่ดูล่าสุดและคำค้นหา'},
  {id:'codes',th:'โค้ดแลกของ',ic:'gift',g:'more',d:'กดคัดลอกได้เลย'},
  {id:'feedback',th:'ส่งคำแนะนำ',ic:'chat',g:'more',d:'แนะนำฟีเจอร์ แจ้งข้อมูลผิด'},
+ {id:'support',th:'สนับสนุนเว็บ',ic:'star',g:'more',d:'ช่วยให้เว็บอยู่ต่อ'},
+ {id:'privacy',th:'นโยบายความเป็นส่วนตัว',ic:'lock',hidden:1},
  {id:'admin',th:'หลังบ้าน',ic:'chart',hidden:1}];
 const navItem=(v,cls)=>`<button type="button" class="${cls}" data-go="${v.id}"><svg><use href="#i-${v.ic}"/></svg><span>${v.th}</span></button>`;
 document.getElementById('side').innerHTML=navItem(VIEWS[0],'navbtn')+GROUPS.map(g=>`<p class="grp">${g.th}</p>`+VIEWS.filter(v=>v.g===g.id).map(v=>navItem(v,'navbtn')).join('')).join('')+`<div class="foot"><button type="button" class="adentry" data-go="admin"><svg><use href="#i-lock"/></svg>หลังบ้าน</button><span>แฟนเมด · ข้อมูลจาก <a href="https://aniidex.com/" target="_blank" rel="noopener">AniiDex</a> · ${esc(META.scraped||'')}</span></div>`;
@@ -3094,7 +3143,7 @@ function renderMap(){
     MAP.count=MAP.layers.map(()=>0);MAP.m.forEach(m=>MAP.count[m[0]]++);
     mapLayersUI();
   };
-  if(window.MAP)boot();else{const sc=document.createElement('script');sc.src='map.js?v=dfae47f884';sc.onload=boot;sc.onerror=()=>{document.getElementById('mapLoad').textContent='โหลดข้อมูลแผนที่ไม่สำเร็จ'};document.head.appendChild(sc)}
+  if(window.MAP)boot();else{const sc=document.createElement('script');sc.src='map.js?v=0a0b719be3';sc.onload=boot;sc.onerror=()=>{document.getElementById('mapLoad').textContent='โหลดข้อมูลแผนที่ไม่สำเร็จ'};document.head.appendChild(sc)}
 }
 function mapSaveLayers(){try{localStorage.setItem('aniimo-map-layers',JSON.stringify([...MV.on].map(i=>MAP.layers[i].id)))}catch(_){}}
 function mapLayersUI(){
@@ -3227,6 +3276,50 @@ function loadTeamCode(code){
   const t=parts.map(p=>{const [sl,fi]=p.split('~');const a=BY[sl];if(!a)return null;const f=fi!=null&&a.f[+fi]?+fi:null;return {slug:sl,form:f}});
   while(t.length<4)t.push(null);team=t;saveTeam();if(RENDERED.has('team'))renderTeam();
 }
+/* ===== share the team as a picture: 1080×1080 card with the four Aniimo, their elements, the team score and the
+   site address, so a post in a group carries the site's name. Phones get the share sheet, computers a download. */
+async function teamCard(){
+  const ms=team.filter(Boolean);if(!ms.length)return null;
+  const W=1080,c=document.createElement('canvas');c.width=c.height=W;const g=c.getContext('2d');
+  const css=getComputedStyle(document.documentElement),col=k=>css.getPropertyValue('--'+k).trim()||'#888';
+  const font=(w,px)=>`${w} ${px}px Mitr, "IBM Plex Sans Thai", "Noto Sans Thai", sans-serif`;
+  try{await document.fonts.ready}catch(_){}
+  const bg=g.createLinearGradient(0,0,W,W);bg.addColorStop(0,'#1c1440');bg.addColorStop(.6,'#2a2370');bg.addColorStop(1,'#10A7E6');g.fillStyle=bg;g.fillRect(0,0,W,W);
+  g.fillStyle='rgba(255,255,255,.9)';for(let i=0;i<60;i++){const x=(i*397)%W,y=(i*211)%W,r=(i%3)+1;g.globalAlpha=.15+(i%5)/10;g.beginPath();g.arc(x,y,r,0,7);g.fill()}g.globalAlpha=1;
+  g.fillStyle='#fff';g.font=font(700,64);g.fillText('ทีมของฉัน',70,130);
+  const r=analyze(team);g.font=font(500,34);g.fillStyle='rgba(255,255,255,.85)';g.fillText(`คะแนนทีม ${r.score} / 100 · ${ROLES.filter(x=>r.roles[x]).join(' · ')}`,70,190);
+  const load=src=>new Promise(res=>{const im=new Image();im.onload=()=>res(im);im.onerror=()=>res(null);im.src=src});
+  const cw=450,ch=330;
+  for(let i=0;i<4;i++){
+    const x=70+(i%2)*(cw+40),y=240+Math.floor(i/2)*(ch+40),m=team[i];
+    g.fillStyle='rgba(255,255,255,.1)';g.beginPath();g.roundRect(x,y,cw,ch,32);g.fill();g.strokeStyle='rgba(255,255,255,.22)';g.lineWidth=2;g.stroke();
+    if(!m){g.fillStyle='rgba(255,255,255,.4)';g.font=font(500,30);g.fillText('ว่าง',x+cw/2-30,y+ch/2+10);continue}
+    const a=BY[m.slug],f=m.form!=null?a.f[m.form]:null,im=await load(f&&f.i?f.i:a.i);
+    if(im){const s=Math.min(230/im.width,230/im.height);g.drawImage(im,x+(cw-im.width*s)/2,y+18,im.width*s,im.height*s)}
+    g.fillStyle='#fff';g.font=font(700,36);const nm=(LANG==='en'?a.name:(a.th||a.name))+(f?' · '+f.n:'');g.fillText(nm.length>18?nm.slice(0,17)+'…':nm,x+28,y+ch-50);
+    let ex=x+28;g.font=font(500,24);memEls(m).forEach(k=>{const t=EK[k].th,w=g.measureText(t).width+34;g.fillStyle=col(k);g.beginPath();g.roundRect(ex,y+ch-36,w,30,15);g.fill();g.fillStyle='#fff';g.fillText(t,ex+17,y+ch-13);ex+=w+8});
+  }
+  g.fillStyle='#fff';g.font=font(700,40);g.fillText('aniiguide.trade',70,W-58);
+  g.font=font(400,26);g.fillStyle='rgba(255,255,255,.8)';const t='คู่มือ Aniimo ภาษาไทย · จัดทีม Combo';g.fillText(t,W-70-g.measureText(t).width,W-62);
+  return new Promise(res=>c.toBlob(res,'image/png'));
+}
+document.getElementById('tmShot').addEventListener('click',async()=>{
+  if(!team.some(Boolean)){tmMsg('ยังไม่มีสมาชิกในทีม');return}
+  tmMsg('กำลังทำรูป…');
+  const blob=await teamCard();if(!blob){tmMsg('ทำรูปไม่สำเร็จ');return}
+  const file=new File([blob],'aniiguide-team.png',{type:'image/png'}),url=SHARE_BASE+'#'+teamCode();
+  try{if(navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({files:[file],title:'ทีม Aniimo ของฉัน',text:'จัดทีมที่ '+url});tmMsg('');return}}catch(e){if(e&&e.name==='AbortError'){tmMsg('');return}}
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='aniiguide-team.png';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),4000);
+  tmMsg('บันทึกรูปแล้ว เอาไปโพสต์ได้เลย');
+});
+/* ===== support page: the PromptPay QR shows only once the owner adds img/donate-qr.* (build.py puts its path in META.donate) ===== */
+{const q=window.META&&META.donate;if(q){document.getElementById('supQr').hidden=false;document.getElementById('supQrImg').src=q}}
+document.getElementById('supShare').addEventListener('click',async()=>{
+  const url='https://aniiguide.trade/';
+  try{if(navigator.share){await navigator.share({title:'AniiGuide คู่มือเกม Aniimo ภาษาไทย',url});return}}catch(e){if(e&&e.name==='AbortError')return}
+  try{await navigator.clipboard.writeText(url);toast('คัดลอกลิงก์แล้ว วางแชร์ได้เลย')}catch(_){toast(url)}
+});
+setTimeout(()=>{const v=document.getElementById('privVisitor');if(v)v.textContent=VISITOR||'—'}); // VISITOR is declared further down
 document.getElementById('tmLink').addEventListener('click',()=>{
   if(!team.some(Boolean)){tmMsg('ยังไม่มีสมาชิกในทีม');return}
   const url=SHARE_BASE+'#'+teamCode();
@@ -3744,7 +3837,7 @@ document.addEventListener('click',e=>{
 });
 
 /* ===== Pathfinder duels & Sanctums (from the map data) ===== */
-function withMap(fn){if(window.MAP){fn();return}const sc=document.createElement('script');sc.src='map.js?v=dfae47f884';sc.onload=fn;sc.onerror=()=>{};document.head.appendChild(sc)}
+function withMap(fn){if(window.MAP){fn();return}const sc=document.createElement('script');sc.src='map.js?v=0a0b719be3';sc.onload=fn;sc.onerror=()=>{};document.head.appendChild(sc)}
 function regionAt(m){const x=m[1]/100,y=m[2]/100;return Object.keys(MAP.regions).find(n=>inPoly(x,y,MAP.regions[n]))||''}
 const mapBtn=i=>`<button type="button" class="chip" data-mapm-go="${i}" style="cursor:pointer">ดูบนแผนที่</button>`;
 const elBadges=a=>(a||[]).map(e=>badge(mEl(e))).join('');
@@ -3800,7 +3893,7 @@ function renderHeist(){
   hvCv=document.getElementById('hvCv');hvCtx=hvCv.getContext('2d');
   if(HV.ready){setTimeout(hvSize,0);return}if(HV.booting)return;HV.booting=true;
   const fail=()=>{document.getElementById('hvLoad').textContent='โหลดแผนที่ไม่สำเร็จ'};
-  const sc=document.createElement('script');sc.src='heist.js?v=dfae47f884';sc.onerror=fail;
+  const sc=document.createElement('script');sc.src='heist.js?v=0a0b719be3';sc.onerror=fail;
   sc.onload=()=>{const ico=new Image();ico.onerror=fail;ico.onload=()=>{
     HV.ico=ico;HV.ready=true;
     const busy=new Set(['egg_lesser_chest','egg_loot_pile','sanctum_chest','sanctum_loot_pile']); // plain chests and piles crowd the map; off at first
@@ -4291,7 +4384,7 @@ route();
   document.getElementById('homePicks').innerHTML=picks.map(a=>`<button type="button" class="pick" data-open="${a.slug}"><span class="no">${numLabel(a)}</span><img src="${TH(a.i)}" alt="" loading="lazy"><b>${esc(a.th||a.name)}</b><span style="display:flex;gap:3px;justify-content:center">${a.e.map(badge).join('')}</span><small class="muted">${a.r}</small></button>`).join('');
   const N=(window.NEWS||[]).slice().sort((a,b)=>b.date.localeCompare(a.date)).slice(0,3);
   document.getElementById('homeNews').innerHTML=N.map(n=>`<a class="hncard" href="#news-${n.id}"><small class="muted">${new Date(n.date+'T00:00:00+07:00').toLocaleDateString(LOC,{day:'numeric',month:'long',year:'numeric'})}</small><b>${esc(n.title)}</b><span class="small muted">${esc(n.lede||'')}</span></a>`).join('');
-  document.getElementById('sitefoot').innerHTML=`<div class="sf-brand"><b class="wm">aniiguide</b><p class="small muted">คู่มือเกม Aniimo ภาษาไทย แฟนเมด ไม่เกี่ยวข้องกับ Pawprint Studio · ภาพตัวละคร แผนที่ อีเวนต์ และบอสใช้โดยได้รับอนุญาตจาก <a href="https://aniidex.com/" target="_blank" rel="noopener">AniiDex</a></p></div>`+GROUPS.map(g=>{const vs=VIEWS.filter(v=>v.g===g.id);return vs.length?`<div><p class="sf-h">${g.th}</p>${vs.map(v=>`<a href="#${v.id}" data-go="${v.id}">${v.th}</a>`).join('')}</div>`:''}).join('');
+  document.getElementById('sitefoot').innerHTML=`<div class="sf-brand"><b class="wm">aniiguide</b><p class="small muted">คู่มือเกม Aniimo ภาษาไทย แฟนเมด ไม่เกี่ยวข้องกับ Pawprint Studio · ภาพตัวละคร แผนที่ อีเวนต์ และบอสใช้โดยได้รับอนุญาตจาก <a href="https://aniidex.com/" target="_blank" rel="noopener">AniiDex</a></p><p class="small"><a href="#privacy" data-go="privacy">นโยบายความเป็นส่วนตัว</a> · <a href="#support" data-go="support">สนับสนุนเว็บ</a></p></div>`+GROUPS.map(g=>{const vs=VIEWS.filter(v=>v.g===g.id);return vs.length?`<div><p class="sf-h">${g.th}</p>${vs.map(v=>`<a href="#${v.id}" data-go="${v.id}">${v.th}</a>`).join('')}</div>`:''}).join('');
 })();
 
 /* ===== builder + recommended builds ===== */

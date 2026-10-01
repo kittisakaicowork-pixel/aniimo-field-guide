@@ -280,7 +280,9 @@ def main():
         ("TERR", raw.get("territories", [])), ("FOOD", game.foods() if game else []),
         ("M3D", dict(url=R2_3D, m=json.loads((TOOLS / "r2" / "m3d.json").read_text())) if (TOOLS / "r2" / "m3d.json").exists() else None),
         ("SETS", json.loads((TOOLS / "sets.json").read_text()) if (TOOLS / "sets.json").exists() else []), ("RUSH", raw.get("boss_rush", [])),
-        ("META", dict(scraped=raw["scraped"], scraped_at=raw.get("scraped_at", ""), full=FULL, server="Asia-Pacific"))])
+        ("META", dict(scraped=raw["scraped"], scraped_at=raw.get("scraped_at", ""), full=FULL, server="Asia-Pacific",
+                     # the owner's PromptPay QR for the support page; the block stays hidden until the file exists
+                     donate=next((f"img/{f.name}" for f in sorted((ROOT / "img").glob("donate-qr.*"))), "")))])
     (out_dir / "data.js").write_text(js)
     # Script links carry a version from the files' contents, so browsers and Cloudflare fetch new data at once
     # (and an unchanged build leaves index.html unchanged).

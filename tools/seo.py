@@ -45,6 +45,7 @@ TOPICS = [
     ("whisperwake", "Whisperwake Isles พื้นที่ใหม่ Aniimo", "Whisperwake Isles เปิด 29 ต.ค. 2026 Aniimo ใหม่ 10 ชนิด และธาตุที่ควรเตรียม", "whisperwake"),
     ("bosses", "บอส Alpha และ Omega Aniimo จุดอ่อนและตัวที่ควรใช้", "บอส Alpha และ Omega ทุกตัว ธาตุที่แพ้ทาง และ Aniimo ที่ควรใช้สู้", "bosses"),
     ("guide", "ข้อมูลเกม Aniimo สเปก ปุ่มควบคุม และมือถือ", "ข้อมูลเกม Aniimo สเปกคอมและมือถือ ปุ่มควบคุม PC PS5 Xbox การตั้งค่าที่แนะนำ", "guide"),
+    ("privacy", "นโยบายความเป็นส่วนตัว AniiGuide", "AniiGuide เก็บข้อมูลอะไร เก็บไว้ที่ไหน ใช้บริการภายนอกอะไรบ้าง และขอลบข้อมูลได้อย่างไร", "privacy"),
 ]
 
 CSS = """:root{--bg:#EEF7FF;--card:#FFFFFF;--ink:#172238;--ink2:#56678A;--line:#D3E5F4;--accent:#0A84D6}
@@ -174,14 +175,16 @@ def main():
         "events": "<ul>" + "".join(f"<li>{E(u['name'])} <span class='muted'>{E(u['dates'])}</span></li>" for u in d["UP"] or []) + "</ul>",
         "helditems": "<ul>" + "".join(f"<li><b>{E(i['n'])}</b> <span class='muted'>{E(i['q'])}</span></li>" for i in d["ITEMS"] if i["c"] == "Held Item") + "</ul>",
     }
+    # the privacy policy is written once, in index.html; this copies it to a plain page (ad networks ask for one)
+    m = re.search(r'data-view="privacy".*?<div class="dpanel prose">(.*?)</div>\s*</section>', (ROOT / "index.html").read_text(), re.S)
+    if m:
+        extra["privacy"] = re.sub(r'<p class="small muted">รหัสสุ่ม.*?</p>', "", m.group(1), flags=re.S).replace('href="#', 'href="../../#')
     for key, title, desc, view in TOPICS:
         body = f"<h1>{E(title)}</h1><p>{E(desc)}</p><a class='cta' href='../../#{view}'>เปิดหน้านี้ในคู่มือ</a>{extra.get(key, '')}"
         urls.append(page(f"p/{key}/", title + " | AniiGuide", desc, body))
 
     sm = "".join(f"<url><loc>{u}</loc><lastmod>{TODAY}</lastmod></url>" for u in urls)
     (ROOT / "sitemap.xml").write_text(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{sm}</urlset>\n')
-    # robots.txt only counts at the domain root, which this project site does not own; submit the sitemap
-    # in Google Search Console instead
     print(f"{len(urls)} pages · sitemap.xml")
 
 

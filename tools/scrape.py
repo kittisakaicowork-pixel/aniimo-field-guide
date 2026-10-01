@@ -83,7 +83,13 @@ def parse_list(page):
         name = html.unescape(re.search(r'class="char-name"[^>]*>([^<]+)', b).group(1).strip())
         num = re.search(r"char-num[^>]*>#(\d+)", b)
         sub = re.search(r'class="char-sub"[^>]*>(.*?)</span><span class="level-pills"', b, re.S)
-        role, _, stage = text(sub.group(1)).partition(" · ") if sub else ("", "", "")
+        # role and stage: "DPS · Lumin" before Oct 2026, now one char-meta span each ("BREAK", "Lumin Stage")
+        metas = [text(x) for x in re.findall(r'class="char-meta"[^>]*>(.*?)</span>(?=<span class="char-meta"|$)', sub.group(1), re.S)] if sub else []
+        if len(metas) >= 2:
+            role, stage = metas[0], re.sub(r"\s*Stage$", "", metas[1])
+        else:
+            role, _, stage = text(sub.group(1)).partition(" · ") if sub else ("", "", "")
+        role = {"BREAK": "Break", "REGEN": "Regen", "SUPPORT": "Support", "HEAL": "Heal"}.get(role.upper(), role) if role.upper() != "DPS" else "DPS"
         head = re.search(r"images/aniimo/(UI_PetHead_\d+\.webp)", b)
         work = []
         for t in re.findall(r'class="level-pill" title="([^"]+)"', b):
