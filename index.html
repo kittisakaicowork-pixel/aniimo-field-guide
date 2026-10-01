@@ -2,13 +2,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>AniiGuide — คู่มือเกม Aniimo ภาษาไทย</title>
 <meta name="description" content="คู่มือเกม Aniimo ภาษาไทย รายชื่อ Aniimo ทุกตัว สกิล ร่างพิเศษ แผนที่ Idyll 4,334 จุด อีเวนต์นับถอยหลัง จัดทีม Tier List และโค้ดแลกของ">
-<link rel="canonical" href="https://kittisakaicowork-pixel.github.io/aniimo-field-guide/">
+<link rel="canonical" href="https://aniiguide.trade/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="AniiGuide">
 <meta property="og:title" content="AniiGuide — คู่มือเกม Aniimo ภาษาไทย">
 <meta property="og:description" content="รายชื่อ Aniimo สกิล ร่างพิเศษ แผนที่ อีเวนต์ จัดทีม Tier List และโค้ดแลกของ อัปเดตตามเวอร์ชันล่าสุด">
-<meta property="og:url" content="https://kittisakaicowork-pixel.github.io/aniimo-field-guide/">
-<meta property="og:image" content="https://kittisakaicowork-pixel.github.io/aniimo-field-guide/og.png">
+<meta property="og:url" content="https://aniiguide.trade/">
+<meta property="og:image" content="https://aniiguide.trade/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="th_TH">
@@ -3438,7 +3438,7 @@ plFrom.value=BY.helion?'helion':RELEASED[0].slug;syncTargets();
 let deferred=null;
 addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferred=e;document.getElementById('installBox').hidden=false});
 document.getElementById('installBtn').addEventListener('click',async()=>{if(!deferred)return;deferred.prompt();try{await deferred.userChoice}catch(_){}deferred=null;document.getElementById('installBox').hidden=true});
-try{if('serviceWorker' in navigator&&/^(localhost|127\.0\.0\.1|\[::1\])$|\.github\.io$/.test(location.hostname))navigator.serviceWorker.register('sw.js').catch(()=>{})}catch(_){}
+try{if('serviceWorker' in navigator&&/^(localhost|127\.0\.0\.1|\[::1\])$|\.github\.io$|(^|\.)aniiguide\.trade$/.test(location.hostname))navigator.serviceWorker.register('sw.js').catch(()=>{})}catch(_){}
 
 
 /* ===== usage history (this browser only) and anonymous visit stats ===== */
@@ -4169,7 +4169,7 @@ renderDaily(dailyPick());
 setInterval(countAll,1200);countAll();
 
 /* ===== bring people back: what's new since last visit, calendar reminders, sharing, page titles ===== */
-const SITE_URL='https://kittisakaicowork-pixel.github.io/aniimo-field-guide/';
+const SITE_URL='https://aniiguide.trade/';
 function whatsNew(){
   const el=document.getElementById('whatsNew');if(!el)return;
   const now=Date.now(),live=EVENTS.filter(e=>e.kind!=='gameplay'&&eventWindow(e,now).state==='live').map(e=>e.slug),codes=C.filter(c=>!c[2]).map(c=>c[0]),news=NEWS.map(n=>n.id);

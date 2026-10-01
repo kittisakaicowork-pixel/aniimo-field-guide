@@ -16,7 +16,7 @@ from datetime import date
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-SITE = "https://kittisakaicowork-pixel.github.io/aniimo-field-guide/"
+SITE = "https://aniiguide.trade/"
 TODAY = date.today().isoformat()
 E = html.escape
 
