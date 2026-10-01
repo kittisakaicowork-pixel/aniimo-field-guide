@@ -3489,7 +3489,7 @@ document.addEventListener('click',e=>{
    this browser, device type, browser language and time zone. No names, no cookies, no IP stored.
    Runs only on the public site so local testing is not counted. */
 const SB={url:'https://gmammzjwpkencuxgzmqu.supabase.co',key:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdtYW1temp3cGtlbmN1eGd6bXF1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA1ODE4MTIsImV4cCI6MjEwNjE1NzgxMn0.KZTw4zk5cNDz3i7WLjnbf9VllfT5NzM-vAh8U5_8EVQ'}; // anon key: public by design, insert-only (see tools/admin/supabase.sql)
-const SB_ON=!!SB.url&&/\.github\.io$/.test(location.hostname);
+const SB_ON=!!SB.url&&/\.github\.io$|(^|\.)aniiguide\.trade$/.test(location.hostname);
 let VISITOR='';try{VISITOR=localStorage.getItem('aniimo-visitor')||'';if(!VISITOR){VISITOR=(crypto.randomUUID?crypto.randomUUID():String(Math.random()).slice(2)).slice(0,36);localStorage.setItem('aniimo-visitor',VISITOR)}}catch(_){}
 const DEVICE=/iPad|Tablet/i.test(navigator.userAgent)||(navigator.maxTouchPoints>1&&innerWidth>=768&&innerWidth<1100)?'tablet':/Mobi|Android|iPhone/i.test(navigator.userAgent)?'phone':'desktop';
 let TZ='';try{TZ=Intl.DateTimeFormat().resolvedOptions().timeZone||''}catch(_){}
