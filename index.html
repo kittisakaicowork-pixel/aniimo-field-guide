@@ -1176,6 +1176,7 @@ h2{color:var(--ink)}
 .bcard2{display:grid;grid-template-columns:84px 1fr;gap:10px;border:1px solid var(--line);background:var(--surface);border-radius:16px;padding:10px}
 .bpic{border:0;background:var(--glow);border-radius:12px;padding:0;cursor:pointer}.bpic img{width:84px;height:84px;object-fit:contain}
 @media (max-width:959px){.bld{grid-template-columns:1fr}.bld-sk{grid-template-columns:1fr}}
+.m3d{border-radius:16px;overflow:hidden;background:#101218;height:min(70vh,560px);flex:none}.m3d iframe{width:100%;height:100%;border:0;display:block}
 .sset{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:16px;border:1px solid var(--line);background:var(--surface);border-radius:20px;padding:14px;margin-bottom:16px}
 .sstage{position:relative;background:radial-gradient(circle at 50% 45%,var(--glow),transparent 70%);border-radius:16px;aspect-ratio:1;display:grid;place-items:center;overflow:hidden}
 .sstage img{width:100%;height:100%;object-fit:contain}
@@ -2653,7 +2654,8 @@ function renderDetail(){
   const sks=skillsOf(a.slug),traits=(SK[a.slug]||{}).t||[],cols=skColors(a.slug);
   const spKey=a.slug+'|'+(dState.form==null?'':dState.form),spIdx=SPK_IDX[spKey],spAny=hasSpark(a.slug);
   if(dState.spark&&spIdx==null)dState.spark=null;
-  const tabs=[['overview','ภาพรวม'],['skills',`สกิล (${sks.length})`],['forms',`ร่าง (${a.f.length+1})`]].concat(spAny?[['sparkling','✦ เปล่งประกาย']]:[]);
+  const m3=window.M3D&&M3D.m[a.slug];
+  const tabs=[['overview','ภาพรวม'],['skills',`สกิล (${sks.length})`],['forms',`ร่าง (${a.f.length+1})`]].concat(spAny?[['sparkling','✦ เปล่งประกาย']]:[],m3?[['3d','3D']]:[]);
   let pane='';
   if(dState.tab==='overview'){
     pane=`${a.u?'':voteBox(a.slug)}<p>${esc(tr(a.d))}</p>
@@ -2665,6 +2667,11 @@ function renderDetail(){
   }else if(dState.tab==='skills'){
     pane=`<div><p class="eyebrow" style="margin-bottom:8px">สีสกิลของ ${esc(a.name)}</p><div class="palette">${cols.map(k=>`<span class="swatch"><i style="background:var(--${k})"></i>${EK[k].th} · ${sks.filter(s=>s.e===k).length} สกิล</span>`).join('')}</div></div>
     <div style="display:grid;gap:10px">${sks.map(skillCard).join('')}</div>`;
+  }else if(dState.tab==='3d'&&m3){
+    // the viewer is a separate app on R2; it loads only when this tab opens
+    const file=(cur&&m3.f&&m3.f[cur.id])||m3.b,src=`${M3D.url}/index.html?file=${encodeURIComponent(file)}`,emb=src+'&embed=1';
+    pane=`<div class="m3d"><iframe src="${emb}" title="โมเดล 3D ของ ${esc(a.name)}" allow="fullscreen"></iframe></div>
+    <p class="small muted">หมุนด้วยการลาก ซูมด้วยล้อเมาส์หรือสองนิ้ว กดปุ่ม ☰ มุมขวาบนของกรอบเพื่อเลือกร่าง เปล่งประกาย ชุดแต่งตัว และท่าทาง · <a href="${src}" target="_blank" rel="noopener">เปิดเต็มจอ</a>${cur&&!(m3.f&&m3.f[cur.id])?' · ร่างนี้ยังไม่มีโมเดล แสดงร่างปกติแทน':''}</p>`;
   }else if(dState.tab==='sparkling'){
     const spForms=a.f.map((f,i)=>i).filter(i=>SPK_IDX[a.slug+'|'+i]!=null);
     pane=`${spForms.length?`<div class="seg" role="group" aria-label="เลือกร่าง"><button type="button" data-open="${a.slug}" data-form="" data-tab="sparkling" aria-pressed="${dState.form==null}">ร่างปกติ</button>${spForms.map(i=>`<button type="button" data-open="${a.slug}" data-form="${i}" data-tab="sparkling" aria-pressed="${dState.form===i}">${a.f[i].k==='prismana'?'Prismana':esc(a.f[i].n)}</button>`).join('')}</div>`:''}

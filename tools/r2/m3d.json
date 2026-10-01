@@ -1,0 +1,508 @@
+{
+ "celestis": {
+  "b": "Celestis.glb"
+ },
+ "stellarys": {
+  "b": "Stellarys.glb",
+  "f": {
+   "1001201": "Stellarys_Rainstorm_Form.glb",
+   "1001202": "Stellarys_Prismana.glb"
+  }
+ },
+ "helmut": {
+  "b": "Helmut.glb",
+  "f": {
+   "1002101": "Helmut_Snowfield_Form.glb",
+   "1002102": "Helmut_Mountain_Woods_Form.glb"
+  }
+ },
+ "helmwhelp": {
+  "b": "Helmwhelp.glb",
+  "f": {
+   "1002201": "Helmwhelp_Mountain_Form.glb"
+  }
+ },
+ "helgon": {
+  "b": "Helgon.glb",
+  "f": {
+   "1002301": "Helgon_Mountain_Form.glb"
+  }
+ },
+ "jawling": {
+  "b": "Jawling.glb",
+  "f": {
+   "1002401": "Jawling_Mountain_Form.glb"
+  }
+ },
+ "infergon": {
+  "b": "Infergon.glb",
+  "f": {
+   "1002503": "Infergon_Prismana.glb"
+  }
+ },
+ "pawney": {
+  "b": "Pawney.glb",
+  "f": {
+   "1002601": "Pawney_Snowfield_Form.glb",
+   "1002602": "Pawney_Mountain_Woods_Form.glb",
+   "1002603": "Pawney_Prismana.glb"
+  }
+ },
+ "rookey": {
+  "b": "Rookey.glb",
+  "f": {
+   "1002701": "Rookey_Snowfield_Form.glb",
+   "1002702": "Rookey_Mountain_Woods_Form.glb"
+  }
+ },
+ "wisptis": {
+  "b": "Wisptis.glb",
+  "f": {
+   "1003101": "Wisptis_Forest_Form.glb",
+   "1003103": "Wisptis_Highland_Form.glb"
+  }
+ },
+ "ignitis": {
+  "b": "Ignitis.glb",
+  "f": {
+   "1003201": "Ignitis_Forest_Form.glb",
+   "1003202": "Ignitis_Prismana.glb",
+   "1003203": "Ignitis_Highland_Form.glb"
+  }
+ },
+ "fulmintis": {
+  "b": "Fulmintis.glb",
+  "f": {
+   "1003305": "Fulmintis_Prismana.glb"
+  }
+ },
+ "skippy": {
+  "b": "Skippy.glb",
+  "f": {
+   "1004101": "Skippy_Sea_of_Flowers_Form.glb",
+   "1004102": "Skippy_Snowfield_Form.glb"
+  }
+ },
+ "pranky": {
+  "b": "Pranky.glb",
+  "f": {
+   "1004201": "Pranky_Sea_of_Flowers_Form.glb",
+   "1004202": "Pranky_Snowfield_Form.glb"
+  }
+ },
+ "glacy": {
+  "b": "Glacy.glb",
+  "f": {
+   "1004301": "Glacy_Sea_of_Flowers_Form.glb",
+   "1004302": "Glacy_Snowfield_Form.glb",
+   "1004303": "Glacy_Prismana.glb"
+  }
+ },
+ "leafy": {
+  "b": "Leafy.glb"
+ },
+ "emberpup": {
+  "b": "Emberpup.glb",
+  "f": {
+   "1005101": "Emberpup_Highland_Form.glb",
+   "1005104": "Emberpup_Mountain_Woods_Form.glb"
+  }
+ },
+ "flameruff": {
+  "b": "Flameruff.glb",
+  "f": {
+   "1005201": "Flameruff_Highland_Form.glb",
+   "1005204": "Flameruff_Mountain_Woods_Form.glb"
+  }
+ },
+ "scorchhowl": {
+  "b": "Scorchhowl.glb",
+  "f": {
+   "1005301": "Scorchhowl_Highland_Form.glb",
+   "1005302": "Scorchhowl_Thunderstorm_Form.glb",
+   "1005303": "Scorchhowl_Prismana.glb",
+   "1005304": "Scorchhowl_Mountain_Woods_Form.glb"
+  }
+ },
+ "inferlupa": {
+  "b": "Inferlupa.glb",
+  "f": {
+   "1005503": "Inferlupa_Prismana.glb"
+  }
+ },
+ "besauce": {
+  "b": "Besauce.glb"
+ },
+ "bonesky": {
+  "b": "Bonesky.glb",
+  "f": {
+   "1013102": "Bonesky_Nighttime_Form.glb"
+  }
+ },
+ "fenrier": {
+  "b": "Fenrier.glb",
+  "f": {
+   "1013202": "Fenrier_Nighttime_Form.glb"
+  }
+ },
+ "glynsera": {
+  "b": "Glynsera.glb",
+  "f": {
+   "1013301": "Glynsera_Prismana.glb",
+   "1013302": "Glynsera_Nighttime_Form.glb"
+  }
+ },
+ "bulbly": {
+  "b": "Bulbly.glb"
+ },
+ "veilfloat": {
+  "b": "Veilfloat.glb"
+ },
+ "luminelle": {
+  "b": "Luminelle.glb",
+  "f": {
+   "1014301": "Luminelle_Rainstorm_Form.glb",
+   "1014302": "Luminelle_Prismana.glb"
+  }
+ },
+ "budclaw": {
+  "b": "Budclaw.glb",
+  "f": {
+   "1016101": "Budclaw_Mudflat_Form.glb",
+   "1016102": "Budclaw_Beach_Form.glb",
+   "1016103": "Budclaw_Bay_Form.glb"
+  }
+ },
+ "shrubclaw": {
+  "b": "Shrubclaw.glb",
+  "f": {
+   "1016201": "Shrubclaw_Mudflat_Form.glb",
+   "1016202": "Shrubclaw_Beach_Form.glb",
+   "1016203": "Shrubclaw_Bay_Form.glb"
+  }
+ },
+ "geoclaw": {
+  "b": "Geoclaw.glb"
+ },
+ "susuta": {
+  "b": "Susuta.glb",
+  "f": {
+   "1017101": "Susuta_Nighttime_Form.glb"
+  }
+ },
+ "popota": {
+  "b": "Popota.glb",
+  "f": {
+   "1017201": "Popota_Nighttime_Form.glb"
+  }
+ },
+ "piopiota": {
+  "b": "Piopiota.glb",
+  "f": {
+   "1017301": "Piopiota_Nighttime_Form.glb"
+  }
+ },
+ "panpanta": {
+  "b": "Panpanta.glb",
+  "f": {
+   "1017401": "Panpanta_Nighttime_Form.glb",
+   "1017402": "Panpanta_Prismana.glb"
+  }
+ },
+ "chirpi": {
+  "b": "Chirpi.glb",
+  "f": {
+   "1018101": "Chirpi_Beach_Form.glb",
+   "1018103": "Chirpi_Highland_Form.glb"
+  }
+ },
+ "tromber": {
+  "b": "Tromber.glb",
+  "f": {
+   "1018401": "Tromber_Beach_Form.glb",
+   "1018403": "Tromber_Highland_Form.glb"
+  }
+ },
+ "cornet": {
+  "b": "Cornet.glb",
+  "f": {
+   "1018501": "Cornet_Beach_Form.glb",
+   "1018502": "Cornet_Prismana.glb",
+   "1018503": "Cornet_Highland_Form.glb"
+  }
+ },
+ "tubster": {
+  "b": "Tubster.glb",
+  "f": {
+   "1018701": "Tubster_Beach_Form.glb",
+   "1018703": "Tubster_Highland_Form.glb"
+  }
+ },
+ "shelly": {
+  "b": "Shelly.glb"
+ },
+ "sheldon": {
+  "b": "Sheldon.glb"
+ },
+ "sherro": {
+  "b": "Sherro.glb",
+  "f": {
+   "1019401": "Sherro_Thunderstorm_Form.glb",
+   "1019402": "Sherro_Prismana.glb"
+  }
+ },
+ "hummin": {
+  "b": "Hummin.glb",
+  "f": {
+   "1020101": "Hummin_Mountain_Form.glb"
+  }
+ },
+ "hexxin": {
+  "b": "Hexxin.glb",
+  "f": {
+   "1020301": "Hexxin_Mountain_Form.glb",
+   "1020302": "Hexxin_Prismana.glb"
+  }
+ },
+ "tuckin": {
+  "b": "Tuckin.glb",
+  "f": {
+   "1020701": "Tuckin_Mountain_Form.glb"
+  }
+ },
+ "iris": {
+  "b": "Iris.glb",
+  "f": {
+   "1021101": "Iris_Highland_Form.glb",
+   "1021102": "Iris_Forest_Form.glb",
+   "1021103": "Iris_Grassland_Form.glb",
+   "1021104": "Iris_Prismana.glb",
+   "1021105": "Iris_Plateau_Form.glb",
+   "1021106": "Iris_Mountain_Woods_Form.glb"
+  }
+ },
+ "irisal": {
+  "b": "Irisal.glb",
+  "f": {
+   "1021201": "Irisal_Highland_Form.glb",
+   "1021202": "Irisal_Forest_Form.glb",
+   "1021203": "Irisal_Grassland_Form.glb",
+   "1021204": "Irisal_Prismana.glb",
+   "1021205": "Irisal_Plateau_Form.glb",
+   "1021206": "Irisal_Mountain_Woods_Form.glb"
+  }
+ },
+ "irisalis": {
+  "b": "Irisalis_Prismana.glb"
+ },
+ "bolty": {
+  "b": "Bolty.glb",
+  "f": {
+   "1022102": "Bolty_Mountain_Woods_Form.glb"
+  }
+ },
+ "blazen": {
+  "b": "Blazen.glb",
+  "f": {
+   "1022201": "Blazen_Prismana.glb",
+   "1022202": "Blazen_Mountain_Woods_Form.glb"
+  }
+ },
+ "flutternym": {
+  "b": "Flutternym.glb",
+  "f": {
+   "1023101": "Flutternym_Sea_of_Flowers_Form.glb",
+   "1023102": "Flutternym_Nighttime_Form.glb",
+   "1023103": "Flutternym_Mountain_Woods_Form.glb"
+  }
+ },
+ "gracewing": {
+  "b": "Gracewing.glb",
+  "f": {
+   "1023201": "Gracewing_Sea_of_Flowers_Form.glb",
+   "1023202": "Gracewing_Nighttime_Form.glb",
+   "1023203": "Gracewing_Mountain_Woods_Form.glb"
+  }
+ },
+ "somniwing": {
+  "b": "Somniwing_Prismana.glb"
+ },
+ "nimbi": {
+  "b": "Nimbi.glb",
+  "f": {
+   "1026101": "Nimbi_Rainstorm_Form.glb",
+   "1026102": "Nimbi_Cloudmist_Form.glb",
+   "1026105": "Nimbi_Plateau_Form.glb"
+  }
+ },
+ "turbo": {
+  "b": "Turbo.glb",
+  "f": {
+   "1026201": "Turbo_Rainstorm_Form.glb",
+   "1026202": "Turbo_Cloudmist_Form.glb",
+   "1026204": "Turbo_Prismana.glb",
+   "1026205": "Turbo_Plateau_Form.glb"
+  }
+ },
+ "dreaple": {
+  "b": "Dreaple.glb"
+ },
+ "pebbling": {
+  "b": "Pebbling.glb"
+ },
+ "lavazar": {
+  "b": "Lavazar.glb"
+ },
+ "magmarex": {
+  "b": "Magmarex.glb",
+  "f": {
+   "1028301": "Magmarex_Prismana.glb"
+  }
+ },
+ "geodeback": {
+  "b": "Geodeback.glb"
+ },
+ "minespine": {
+  "b": "Minespine.glb"
+ },
+ "fentuft": {
+  "b": "Fentuft.glb"
+ },
+ "fenmane": {
+  "b": "Fenmane.glb",
+  "f": {
+   "1029301": "Fenmane_Prismana.glb"
+  }
+ },
+ "budsquire": {
+  "b": "Budsquire.glb",
+  "f": {
+   "1032103": "Budsquire_Towerwood_Form.glb"
+  }
+ },
+ "thornblade": {
+  "b": "Thornblade.glb",
+  "f": {
+   "1032301": "Thornblade_Thunderstorm_Form.glb",
+   "1032302": "Thornblade_Prismana.glb",
+   "1032303": "Thornblade_Towerwood_Form.glb"
+  }
+ },
+ "melloblum": {
+  "b": "Melloblum.glb",
+  "f": {
+   "1032402": "Melloblum_Prismana.glb"
+  }
+ },
+ "sparki": {
+  "b": "Sparki.glb",
+  "f": {
+   "1033101": "Sparki_Highland_Form.glb",
+   "1033102": "Sparki_Forest_Form.glb",
+   "1033103": "Sparki_Sea_of_Flowers_Form.glb"
+  }
+ },
+ "flamerion": {
+  "b": "Flamerion.glb",
+  "f": {
+   "1033301": "Flamerion_Highland_Form.glb",
+   "1033302": "Flamerion_Forest_Form.glb",
+   "1033303": "Flamerion_Sea_of_Flowers_Form.glb"
+  }
+ },
+ "dewy": {
+  "b": "Dewy.glb"
+ },
+ "fragrancier": {
+  "b": "Fragrancier.glb"
+ },
+ "helion": {
+  "b": "Helion.glb"
+ },
+ "soleon": {
+  "b": "Soleon.glb"
+ },
+ "lunara": {
+  "b": "Lunara.glb"
+ },
+ "fennelun": {
+  "b": "Fennelun.glb"
+ },
+ "cozite": {
+  "b": "Cozite.glb"
+ },
+ "bailite": {
+  "b": "Bailite.glb"
+ },
+ "eko": {
+  "b": "Eko.glb"
+ },
+ "eklue": {
+  "b": "Eklue.glb"
+ },
+ "baleetle": {
+  "b": "Baleetle.glb",
+  "f": {
+   "1045101": "Baleetle_Snowfield_Form.glb"
+  }
+ },
+ "waleetle": {
+  "b": "Waleetle.glb",
+  "f": {
+   "1045301": "Waleetle_Snowfield_Form.glb",
+   "1045302": "Waleetle_Prismana.glb"
+  }
+ },
+ "bouldus": {
+  "b": "Bouldus.glb",
+  "f": {
+   "1045401": "Bouldus_Snowfield_Form.glb"
+  }
+ },
+ "pomegg": {
+  "b": "Pomegg.glb",
+  "f": {
+   "1047101": "Pomegg_Snowfield_Form.glb",
+   "1047102": "Pomegg_Highland_Form.glb",
+   "1047103": "Pomegg_Sea_of_Flowers_Form.glb"
+  }
+ },
+ "dazmand": {
+  "b": "Dazmand.glb"
+ },
+ "pomawk": {
+  "b": "Pomawk.glb",
+  "f": {
+   "1047501": "Pomawk_Snowfield_Form.glb",
+   "1047502": "Pomawk_Highland_Form.glb",
+   "1047503": "Pomawk_Sea_of_Flowers_Form.glb"
+  }
+ },
+ "fahloo": {
+  "b": "Fahloo.glb"
+ },
+ "erlath": {
+  "b": "Erlath.glb"
+ },
+ "cubbo": {
+  "b": "Cubbo.glb"
+ },
+ "grizbo": {
+  "b": "Grizbo.glb",
+  "f": {
+   "1050301": "Grizbo_Prismana.glb"
+  }
+ },
+ "squarrel": {
+  "b": "Squarrel.glb"
+ },
+ "squashel": {
+  "b": "Squashel.glb"
+ },
+ "sparkelf": {
+  "b": "Sparkelf.glb",
+  "f": {
+   "6999301": "Sparkelf_Prismana.glb"
+  }
+ }
+}

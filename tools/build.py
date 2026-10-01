@@ -31,6 +31,8 @@ IPX = "https://aniidex.com/_ipx/q_90&fit_inside&s_{s}x{s}/"
 RAW_URL = "https://aniidex.com/"
 UA = "Mozilla/5.0 (AniimoFieldGuide fan project)"
 FULL = "--full" in sys.argv
+# 3D viewer package (web3d_deploy/, too big for GitHub Pages) lives in this Cloudflare R2 bucket; tools/r2/
+R2_3D = "https://pub-5ce14aaad5e74e65917c5dccda751643.r2.dev"
 KINDS = {"Basic attack": "atk", "Ultimate": "ult"}
 SPARK_TYPES = 12
 
@@ -275,6 +277,7 @@ def main():
         ("EVO", evo), ("BOSSES", bosses), ("REGIONS", regions), ("TH", th_used), ("NAMES_TH", names_th), ("CODES", manual),
         ("ITEMS", dict(cols=item_cols, rows=item_rows, list=items)), ("EVENTS", events), ("UPCOMING", raw.get("upcoming", [])),
         ("TERR", raw.get("territories", [])), ("FOOD", game.foods() if game else []),
+        ("M3D", dict(url=R2_3D, m=json.loads((TOOLS / "r2" / "m3d.json").read_text())) if (TOOLS / "r2" / "m3d.json").exists() else None),
         ("SETS", json.loads((TOOLS / "sets.json").read_text()) if (TOOLS / "sets.json").exists() else []), ("RUSH", raw.get("boss_rush", [])),
         ("META", dict(scraped=raw["scraped"], scraped_at=raw.get("scraped_at", ""), full=FULL, server="Asia-Pacific"))])
     (out_dir / "data.js").write_text(js)
@@ -283,7 +286,7 @@ def main():
     if FULL:
         for f in ["index.html", "manifest.webmanifest", "icon-192.png", "icon-512.png", "sw.js"]:
             shutil.copyfile(ROOT / f, out_dir / f)
-    skip = {"tools", "dist-full", ".git", "gamedata", "aniimo"}
+    skip = {"tools", "dist-full", ".git", "gamedata", "aniimo", "web3d_deploy"}
     total = sum(p.stat().st_size for p in out_dir.rglob("*")
                 if p.is_file() and not skip & set(p.relative_to(out_dir).parts))
     print(f"built {out_dir} ({total/1e6:.1f} MB)")
