@@ -18,7 +18,7 @@ echo "== $(date '+%F %T')"
 
 say() { echo "$1"; osascript -e "display notification \"$1\" with title \"AniiGuide อัปเดตรายวัน\"" >/dev/null 2>&1 || true; }
 # the files this job writes; anything else in the working tree is someone's work in progress and is left alone
-OUT=(data.js sw.js sitemap.xml a p img tools/sets.json)
+OUT=(data.js index.html sw.js sitemap.xml a p img tools/sets.json)
 undo() { git checkout -q -- "${OUT[@]}" 2>/dev/null; }
 fail() { say "ไม่ได้อัปเดต: $1 (ดู tools/daily.log)"; undo; exit 1; }
 
