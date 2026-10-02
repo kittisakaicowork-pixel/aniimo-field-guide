@@ -1183,6 +1183,8 @@ h2{color:var(--ink)}
 .sup-qr{justify-items:center;text-align:center}.sup-qr img{width:min(260px,70vw);height:auto;border-radius:16px;background:#fff;padding:10px}
 .prose{display:grid;gap:10px;max-width:780px;line-height:1.75}.prose h3{margin:12px 0 0}.prose ul{margin:0;padding-left:1.2em;display:grid;gap:6px}
 @media (max-width:759px){.sup{grid-template-columns:1fr}}
+/* the guide chip bar scrolls sideways with its scrollbar hidden; fade the right edge so phones show there is more */
+@media (max-width:759px){.gnav{-webkit-mask-image:linear-gradient(90deg,#000 82%,transparent);mask-image:linear-gradient(90deg,#000 82%,transparent);padding-right:28px}}
 .m3d{border-radius:16px;overflow:hidden;background:#101218;height:min(70vh,560px);flex:none}.m3d iframe{width:100%;height:100%;border:0;display:block}
 .sset{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:16px;border:1px solid var(--line);background:var(--surface);border-radius:20px;padding:14px;margin-bottom:16px}
 .sstage{position:relative;background:radial-gradient(circle at 50% 45%,var(--glow),transparent 70%);border-radius:16px;aspect-ratio:1;display:grid;place-items:center;overflow:hidden}
