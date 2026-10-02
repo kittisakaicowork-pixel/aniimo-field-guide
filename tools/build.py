@@ -34,6 +34,7 @@ UA = "Mozilla/5.0 (AniimoFieldGuide fan project)"
 FULL = "--full" in sys.argv
 # 3D viewer package (web3d_deploy/, too big for GitHub Pages) lives in this Cloudflare R2 bucket; tools/r2/
 R2_3D = "https://3d.aniiguide.trade"
+R2_3D_V = 21  # bump after uploading a changed web3d_deploy/index.html (the edge keeps 3D files a month)
 KINDS = {"Basic attack": "atk", "Ultimate": "ult"}
 SPARK_TYPES = 12
 
@@ -282,7 +283,7 @@ def main():
         ("EVO", evo), ("BOSSES", bosses), ("REGIONS", regions), ("TH", th_used), ("NAMES_TH", names_th), ("CODES", manual),
         ("ITEMS", dict(cols=item_cols, rows=item_rows, list=items)), ("EVENTS", events), ("UPCOMING", raw.get("upcoming", [])),
         ("TERR", raw.get("territories", [])), ("FOOD", game.foods() if game else []),
-        ("M3D", dict(url=R2_3D, m=json.loads((TOOLS / "r2" / "m3d.json").read_text())) if (TOOLS / "r2" / "m3d.json").exists() else None),
+        ("M3D", dict(url=R2_3D, v=R2_3D_V, m=json.loads((TOOLS / "r2" / "m3d.json").read_text())) if (TOOLS / "r2" / "m3d.json").exists() else None),
         ("SETS", json.loads((TOOLS / "sets.json").read_text()) if (TOOLS / "sets.json").exists() else []), ("RUSH", raw.get("boss_rush", [])),
         ("META", dict(scraped=raw["scraped"], scraped_at=raw.get("scraped_at", ""), full=FULL, server="Asia-Pacific",
                      # the owner's PromptPay QR for the support page; the block stays hidden until the file exists
