@@ -2422,10 +2422,10 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
 </dialog>
 <dialog id="menu" aria-label="เมนูทั้งหมด"><div class="inner" id="menuInner"></div></dialog>
 
-<script src="data.js?v=5937a3417f"></script>
-<script src="thumbs.js?v=5937a3417f"></script>
-<script src="content.js?v=5937a3417f"></script>
-<script src="i18n-en.js?v=5937a3417f"></script>
+<script src="data.js?v=24b78952e5"></script>
+<script src="thumbs.js?v=24b78952e5"></script>
+<script src="content.js?v=24b78952e5"></script>
+<script src="i18n-en.js?v=24b78952e5"></script>
 <script>
 /* ===== theme ===== */
 (function(){
@@ -3145,7 +3145,7 @@ function renderMap(){
     MAP.count=MAP.layers.map(()=>0);MAP.m.forEach(m=>MAP.count[m[0]]++);
     mapLayersUI();
   };
-  if(window.MAP)boot();else{const sc=document.createElement('script');sc.src='map.js?v=5937a3417f';sc.onload=boot;sc.onerror=()=>{document.getElementById('mapLoad').textContent='โหลดข้อมูลแผนที่ไม่สำเร็จ'};document.head.appendChild(sc)}
+  if(window.MAP)boot();else{const sc=document.createElement('script');sc.src='map.js?v=24b78952e5';sc.onload=boot;sc.onerror=()=>{document.getElementById('mapLoad').textContent='โหลดข้อมูลแผนที่ไม่สำเร็จ'};document.head.appendChild(sc)}
 }
 function mapSaveLayers(){try{localStorage.setItem('aniimo-map-layers',JSON.stringify([...MV.on].map(i=>MAP.layers[i].id)))}catch(_){}}
 function mapLayersUI(){
@@ -3839,7 +3839,7 @@ document.addEventListener('click',e=>{
 });
 
 /* ===== Pathfinder duels & Sanctums (from the map data) ===== */
-function withMap(fn){if(window.MAP){fn();return}const sc=document.createElement('script');sc.src='map.js?v=5937a3417f';sc.onload=fn;sc.onerror=()=>{};document.head.appendChild(sc)}
+function withMap(fn){if(window.MAP){fn();return}const sc=document.createElement('script');sc.src='map.js?v=24b78952e5';sc.onload=fn;sc.onerror=()=>{};document.head.appendChild(sc)}
 function regionAt(m){const x=m[1]/100,y=m[2]/100;return Object.keys(MAP.regions).find(n=>inPoly(x,y,MAP.regions[n]))||''}
 const mapBtn=i=>`<button type="button" class="chip" data-mapm-go="${i}" style="cursor:pointer">ดูบนแผนที่</button>`;
 const elBadges=a=>(a||[]).map(e=>badge(mEl(e))).join('');
@@ -3895,7 +3895,7 @@ function renderHeist(){
   hvCv=document.getElementById('hvCv');hvCtx=hvCv.getContext('2d');
   if(HV.ready){setTimeout(hvSize,0);return}if(HV.booting)return;HV.booting=true;
   const fail=()=>{document.getElementById('hvLoad').textContent='โหลดแผนที่ไม่สำเร็จ'};
-  const sc=document.createElement('script');sc.src='heist.js?v=5937a3417f';sc.onerror=fail;
+  const sc=document.createElement('script');sc.src='heist.js?v=24b78952e5';sc.onerror=fail;
   sc.onload=()=>{const ico=new Image();ico.onerror=fail;ico.onload=()=>{
     HV.ico=ico;HV.ready=true;
     const busy=new Set(['egg_lesser_chest','egg_loot_pile','sanctum_chest','sanctum_loot_pile']); // plain chests and piles crowd the map; off at first

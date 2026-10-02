@@ -137,17 +137,21 @@ def main():
         if srcs[name].exists():
             shutil.copyfile(srcs[name], out_dir / name)
 
-    # thumbnails (200px) embedded in one script so list views stay light
+    # thumbnails (200px) as small files under img/t/, so a list loads only the pictures it shows
+    # (they used to be base64 inside thumbs.js, 1.7 MB that every visit had to download first)
     thumbs = {}
     for _, _, name in img_jobs:
         src = srcs[name]
         if not src.exists():
             continue
-        im = Image.open(src).convert("RGBA")
-        im.thumbnail((200, 200), Image.LANCZOS)
-        buf = io.BytesIO()
-        im.save(buf, "WEBP", quality=80, method=4)
-        thumbs[name] = "data:image/webp;base64," + base64.b64encode(buf.getvalue()).decode()
+        rel = "img/t/" + (name[4:] if name.startswith("img/") else name)
+        dest = out_dir / rel
+        if not dest.exists() or dest.stat().st_mtime < src.stat().st_mtime:
+            dest.parent.mkdir(parents=True, exist_ok=True)
+            im = Image.open(src).convert("RGBA")
+            im.thumbnail((200, 200), Image.LANCZOS)
+            im.save(dest, "WEBP", quality=80, method=4)
+        thumbs[name] = rel
     (out_dir / "thumbs.js").write_text("window.THUMB=" + json.dumps(thumbs, separators=(",", ":")) + ";")
 
     # ------------------------------------------------ skill icon sprite
