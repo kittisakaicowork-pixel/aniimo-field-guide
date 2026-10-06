@@ -32,6 +32,14 @@ function serve() {
   // data sanity: a change in AniiDex's page layout once left every role as "DPS Lumin Stage" and no stage
   (await p.evaluate(() => ANIIMO.filter(a => !['DPS', 'Break', 'Support', 'Heal', 'Regen', '—'].includes(a.r) || !a.st).map(a => `${a.slug}: role "${a.r}" stage "${a.st}"`)))
     .slice(0, 5).forEach(x => errs.push('[data] ' + x));
+  // events: a layout change in Oct 2026 marked every event "ended", blanked titles and named upcoming ones "Oct"
+  (await p.evaluate(() => {
+    const out = [], live = EVENTS.filter(e => e.kind === 'event').length;
+    if (!live) out.push('no live events');
+    EVENTS.filter(e => !e.t).slice(0, 3).forEach(e => out.push(`event ${e.slug} has no title`));
+    (window.UPCOMING || []).filter(u => !u.name || u.name.length < 4 || /^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sept?|Oct|Nov|Dec)\b/.test(u.name)).slice(0, 3).forEach(u => out.push(`upcoming "${u.name}"`));
+    return out;
+  })).forEach(x => errs.push('[data] ' + x));
   const views = await p.evaluate(() => VIEWS.map(v => v.id));
   const brokenImgs = new Set();
   for (const v of views) {

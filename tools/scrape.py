@@ -282,6 +282,33 @@ def clean_item_desc(desc, name):
 
 # ------------------------------------------------------------------ events
 def parse_events_index(page):
+    """AniiDex /events/ since Oct 2026: "Live Now" (Events, then Gameplay), "Upcoming" week groups and "Past",
+    each a list of ev-card links. Older layout (text "Events N Gameplay N" / "Coming up" / "Past events") is
+    still read when the new headings are missing."""
+    body = re.sub(r"<script.*?</script>|<style.*?</style>", "", page, flags=re.S)
+    live_at, up_at, past_at = (body.find(h) for h in ("Event List: Live Now", "Upcoming Aniimo Events", "Past Aniimo Events"))
+    if live_at < 0 or up_at < 0:
+        return _parse_events_index_old(page)
+    end = past_at if past_at > 0 else len(body)
+    links = lambda part: list(dict.fromkeys(re.findall(r'href="/events/([^/"]+)/"', part)))
+    live = body[live_at:up_at]
+    g = live.find("<h3>Gameplay")
+    events, gameplay = (links(live[:g]), links(live[g:])) if g > 0 else (links(live), [])
+    upcoming, up_slugs = [], []
+    for card in re.findall(r'<a href="/events/([^/"]+)/" class="ev-card(.*?)</a>', body[up_at:end], re.S):
+        slug, c = card
+        name = re.search(r'class="ev-card__name"[^>]*>(.*?)</b>', c, re.S)
+        when = re.search(r"(\d+ [A-Z][a-z]+ – \d+ [A-Z][a-z]+)", text(c))
+        if name and when:
+            upcoming.append(dict(name=text(name.group(1)), dates=when.group(1)))
+        up_slugs.append(slug)
+    past = links(body[end:]) if past_at > 0 else []
+    seen = set(events + gameplay)
+    slugs = events + gameplay + [x for x in dict.fromkeys(up_slugs) if x not in seen] + [x for x in past if x not in seen and x not in up_slugs]
+    return slugs, len(events), upcoming, set(past) - seen - set(up_slugs)
+
+
+def _parse_events_index_old(page):
     t = text(re.sub(r"<script.*?</script>|<style.*?</style>", "", page, flags=re.S))
     slugs = list(dict.fromkeys(re.findall(r'href="/events/([^/"]+)/"', page)))
     m = re.search(r"Events (\d+) Gameplay (\d+)", t)
@@ -299,8 +326,8 @@ def parse_events_index(page):
 def parse_event(page):
     """Structured fields come from the page's own markup; only the date table is read from text."""
     d = {}
-    h1 = re.search(r'<h1 class="st-title"[^>]*>(.*?)</h1>', page, re.S)
-    d["title"] = text(re.sub(r'<span class="st-title__game"[^>]*>.*?</span>', "", h1.group(1))) if h1 else ""
+    h1 = re.search(r'<(h1|p) class="st-title"[^>]*>(.*?)</\1>', page, re.S)  # <h1> before Oct 2026, now <p>
+    d["title"] = text(re.sub(r'<span class="st-title__game"[^>]*>.*?</span>', "", h1.group(2))) if h1 else ""
     run = re.search(r'<p class="st-run"[^>]*>(.*?)</p>', page, re.S)
     d["run"] = text(run.group(1)) if run else ""
     pill = re.search(r'class="pill pill--time"[^>]*>(.*?)</span>', page, re.S)
