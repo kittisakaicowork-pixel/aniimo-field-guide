@@ -1202,13 +1202,65 @@ h2{color:var(--ink)}
 .sw.q4,.sw.q5,.sw.q3{border-bottom:4px solid var(--qc)}
 .spieces td,.spieces th{padding:5px 6px}
 @media (max-width:759px){.sset{grid-template-columns:1fr}}
+
+/* ===== soft light look (Oct 2026): airy lavender-white ground, white cards with soft shadows, game icons ===== */
+:root[data-theme="light"]{--ground:#F6F5FC;--surface:#FFFFFF;--sunk:#F1EFF9;--line:#E7E4F2;--ink:#20223A;--ink-2:#676A86;--glow:#EEF0FF;
+  --shadow:0 1px 2px rgba(60,50,120,.05),0 6px 20px rgba(60,50,120,.07);--shadow-up:0 2px 6px rgba(60,50,120,.07),0 16px 36px rgba(60,50,120,.12);
+  --sky:radial-gradient(1100px 520px at 88% -8%,rgba(186,170,255,.22),transparent 60%),radial-gradient(900px 560px at -8% 6%,rgba(140,210,255,.22),transparent 60%),#F6F5FC}
+:root[data-theme="light"] body{background:var(--sky)}
+.ebadge{gap:4px;padding:3px 9px 3px 3px;background:color-mix(in srgb,var(--c) 14%,var(--surface));color:color-mix(in srgb,var(--c) 70%,var(--ink));border:1px solid color-mix(in srgb,var(--c) 26%,transparent)}
+.ebadge img{width:16px;height:16px;flex:none}
+.rchip{display:inline-flex;align-items:center;gap:4px;font:600 .74rem/1 var(--display);color:var(--ink-2)}
+.rchip img{width:15px;height:15px;background:#3b3a55;border-radius:50%;padding:2px;box-sizing:content-box}
+.rmeta{display:inline-flex;align-items:center;gap:6px}.rmeta small{color:var(--ink-2);font-size:.74rem}
+/* Aniimo cards: hex portrait on the left, tinted by the first element */
+#dexGrid{grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.mon{grid-template-columns:86px minmax(0,1fr);grid-template-rows:none;align-items:center;gap:12px;padding:12px 12px 12px 10px;border-radius:20px;border:1px solid var(--line);
+  background:linear-gradient(120deg,color-mix(in srgb,var(--c) 11%,var(--surface)),var(--surface) 58%);box-shadow:var(--shadow)}
+.mon:hover{transform:translateY(-2px);box-shadow:var(--shadow-up);border-color:color-mix(in srgb,var(--c) 40%,var(--line))}
+.mon .pic{width:86px;height:86px;aspect-ratio:auto;padding:0;border-radius:0;clip-path:polygon(25% 3%,75% 3%,100% 50%,75% 97%,25% 97%,0 50%);
+  background:radial-gradient(circle at 50% 35%,color-mix(in srgb,var(--c) 30%,#fff),color-mix(in srgb,var(--c) 55%,#2a2850))}
+.mon .pic img{width:100%;height:100%;object-fit:cover;object-position:50% 0;scale:1.5;translate:0 18%;filter:none} /* scale, not transform: the reveal animation owns transform */
+.mon .pic img.cut{scale:1.1;translate:0 4%}
+.mon .info{padding:0;gap:4px}.mon .nm{font-size:1.02rem}
+.mon .flag{top:8px;right:8px;left:auto;font-size:.66rem}.mon .flag.pr+.flag.sp{right:8px}.mon .flag.pr:has(+.flag.sp){right:36px}.mon .flag.fc{top:auto;bottom:8px}
+.mon .flag.pr~.flag.fc,.mon .flag.sp~.flag.fc{display:none}
+/* pill tabs and segmented controls */
+.dtabs{gap:6px;border:0;background:color-mix(in srgb,var(--surface) 92%,transparent);padding:8px 0;flex-wrap:wrap}
+.dtabs button{border:1px solid var(--line);border-radius:999px;padding:7px 14px;margin:0;background:var(--surface)}
+.dtabs button[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.seg button[aria-pressed="true"]{background:var(--accent);color:#fff;border-color:var(--accent)}
+/* wiki cards with previews */
+.wcard{position:relative;overflow:hidden}
+.wp{display:flex;gap:4px;align-items:center;min-height:46px;margin:-2px 0 8px;pointer-events:none}
+.wp.faces img{width:46px;height:46px;object-fit:cover;object-position:50% 10%;border-radius:50%;background:var(--sunk);border:2px solid var(--surface);margin-right:-12px;box-shadow:var(--shadow)}
+.wp.tiers i{font:800 .8rem/1 var(--display);font-style:normal;width:24px;height:24px;display:grid;place-items:center;border-radius:7px;color:#fff;background:#E2566B}
+.wp.tiers i:nth-child(2){background:#F09A3E}.wp.tiers i:nth-child(3){background:#E9C440}.wp.tiers i:nth-child(4){background:#5BBE77}.wp.tiers i:nth-child(5){background:#4C9BE8}
+.wp.ring{width:46px;height:46px;position:relative}.wp.ring svg{width:46px;height:46px;transform:rotate(-90deg)}.wp.ring circle{fill:none;stroke:var(--sunk);stroke-width:5}
+.wp.ring circle.v{stroke:var(--accent);stroke-dasharray:79 113;stroke-linecap:round}.wp.ring b{position:absolute;inset:0;display:grid;place-items:center;font:700 .8rem var(--display)}
+.wp.els{flex-wrap:wrap;max-width:140px}.wp.els img{width:22px;height:22px}.wp.els i{width:14px;height:14px;border-radius:50%}
+.wp.pins i{width:12px;height:12px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:var(--accent);margin:0 3px}.wp.pins i:nth-child(2){background:var(--peach)}.wp.pins i:nth-child(3){background:var(--sun)}
+/* full-page Aniimo view on every screen size */
+@media (min-width:760px){
+  #dlg{width:100vw;max-width:100vw;height:100dvh;max-height:100dvh;border-radius:0;border:0;margin:0;background:var(--ground)}
+  .dlg{grid-template-columns:minmax(320px,44%) minmax(0,1fr);max-height:100dvh;height:100dvh}
+  .dlg .hero-pic{position:sticky;top:0;height:100dvh;border-radius:0 32px 32px 0;background:radial-gradient(circle at 50% 50%,var(--glow),var(--sunk) 72%)}
+  .dlg .hero-pic img{max-height:62dvh;width:auto;max-width:100%}
+  .dlg .body{max-width:880px;padding:28px 36px 60px}
+}
+.dback{position:absolute;left:16px;top:calc(14px + env(safe-area-inset-top,0px));z-index:3;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:7px 14px;font:600 .85rem var(--display);cursor:pointer;box-shadow:var(--shadow)}
+.fsw{position:absolute;top:calc(58px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:2;max-width:calc(100% - 32px);overflow-x:auto;padding:4px}
+.fsw button{width:52px;height:52px;border-radius:50%;border:2px solid var(--line);background:var(--surface);padding:0;overflow:hidden;cursor:pointer;flex:none;box-shadow:var(--shadow)}
+.fsw button[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 25%,transparent)}
+.fsw img{width:100%;height:100%;object-fit:cover;object-position:50% 12%}.fsw span{font:600 .7rem var(--display);color:var(--ink-2)}
+@media (max-width:759px){.fsw{top:calc(12px + env(safe-area-inset-top,0px));left:auto;right:56px;transform:none;max-width:calc(100% - 150px)}.fsw button{width:42px;height:42px}}
 </style>
 
 <div id="boot" role="status" aria-live="polite"><div class="bootin"><b class="wm"><span aria-hidden="true">an<span class="ii"><i>ı</i><i>ı</i></span>guide</span><span class="sr">aniiguide</span></b><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><small id="bootMsg">กำลังโหลดข้อมูล Aniimo…</small></div></div>
 <div id="progress" aria-hidden="true"></div>
 <div id="toast" role="status" aria-live="polite"></div>
 <script>
-(function(){var en=false;try{en=localStorage.getItem('aniimo-lang')==='en';var t=localStorage.getItem('aniimo-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(_){}var m=document.getElementById('bootMsg');if(en)m.textContent='Loading Aniimo data…';
+(function(){var en=false;try{en=localStorage.getItem('aniimo-lang')==='en';var t=localStorage.getItem('aniimo-theme')||'light';if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(_){}var m=document.getElementById('bootMsg');if(en)m.textContent='Loading Aniimo data…';
 setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.contains('done'))m.textContent=en?'Taking longer than usual. Try refreshing the page.':'โหลดนานกว่าปกติ ลองรีเฟรชหน้าเว็บ'},15000)})();
 </script>
 
@@ -2432,7 +2484,8 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
   const root=document.documentElement,btn=document.getElementById('themeBtn'),meta=document.querySelector('meta[name=theme-color]');
   const mq=matchMedia('(prefers-color-scheme: dark)');
   let saved=null;try{saved=localStorage.getItem('aniimo-theme')}catch(_){}
-  if(saved==='light'||saved==='dark')root.setAttribute('data-theme',saved);
+  if(saved!=='dark')saved='light'; // soft light look by default; dark stays one tap away
+  root.setAttribute('data-theme',saved);
   const isDark=()=>root.getAttribute('data-theme')?root.getAttribute('data-theme')==='dark':mq.matches;
   const sync=()=>{btn.setAttribute('aria-label',isDark()?'เปลี่ยนเป็นโหมดสว่าง':'เปลี่ยนเป็นโหมดมืด');meta.content=isDark()?'#0B1426':'#1E9BEB'};
   btn.addEventListener('click',()=>{const n=isDark()?'light':'dark';root.setAttribute('data-theme',n);try{localStorage.setItem('aniimo-theme',n)}catch(_){}sync()});
@@ -2451,7 +2504,9 @@ const M={fire:{s:['grass','ice'],r:['fire','water','earth','light']},water:{s:['
 const mult=(a,d)=>M[a].s.includes(d)?1.6:M[a].r.includes(d)?0.625:1;
 const fmt=v=>'×'+(Math.round(v*1000)/1000);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const badge=k=>EK[k]?`<span class="ebadge" style="background:var(--${k})">${EK[k].th}</span>`:'';
+const badge=k=>EK[k]?`<span class="ebadge" style="--c:var(--${k})"><img src="img/ui/el-${k}.webp" alt="" width="16" height="16">${EK[k].th}</span>`:'';
+const ROLE_IC={DPS:'dps',Break:'break',Support:'support',Heal:'heal',Regen:'regen'};
+const roleChip=r=>ROLE_IC[r]?`<span class="rchip"><img src="img/ui/role-${ROLE_IC[r]}.webp" alt="" width="14" height="14">${r}</span>`:`<span class="rchip">${r||'—'}</span>`;
 const KIND={region:'ภูมิภาค',prismana:'Prismana',rain:'ฝน/พายุ',thunder:'พายุฟ้าคะนอง',snow:'หิมะ',night:'กลางคืน'};
 const SLOT={atk:'โจมตีปกติ',s1:'สกิล 1',s2:'สกิล 2',s3:'สกิล 3',s4:'สกิล 4',ult:'อัลติเมต'};
 const DMG={p:'กายภาพ',m:'เวท','':'ไม่ทำดาเมจ'};
@@ -2592,6 +2647,7 @@ function go(id,push){
 document.addEventListener('click',e=>{const b=e.target.closest('[data-go]');if(!b)return;e.preventDefault();go(b.dataset.go)});
 function route(){
   const h=location.hash.slice(1);
+  if(typeof dlg!=='undefined'&&dlg.open&&!BY[h])dlg.close(); // browser back from an Aniimo page
   if(/^s-/.test(h)){go('systems',false);setTimeout(()=>{const el=document.getElementById(h);el&&el.scrollIntoView()},0);return}
   if(/^b-/.test(h)||/^g-(steps|personality|spend|road)$/.test(h)){go(h.startsWith('b-')?'beginner':'growth',false);setTimeout(()=>{const el=document.getElementById(h);el&&el.scrollIntoView()},0);return}
   if(h.startsWith('g-')){go('guide',false);setTimeout(()=>{const el=document.getElementById(h);el&&el.scrollIntoView()},0);return}
@@ -2631,12 +2687,12 @@ function renderDex(){
   const q=dq.value.trim().toLowerCase().replace(/^#/,'');
   const list=A.filter(a=>(!q||nameHit(a,q)||a.no.includes(q))&&(!de.value||a.e.includes(de.value))&&(!dr.value||a.r===dr.value)&&(!ds.value||a.st===ds.value)&&(!dp.checked||hasPr(a))&&(!dsp.checked||hasSpark(a.slug))&&(!dw.value||(a.w||[]).some(w=>w[0]===dw.value))&&(!dc.value||(dc.value==='have')===!!COL.d.c[a.slug]));
   document.getElementById('dcount').textContent=`แสดง ${list.length} จาก ${A.length} ตัว`;
-  document.getElementById('dexGrid').innerHTML=list.map(a=>`<button class="mon" type="button" data-open="${a.slug}">
+  document.getElementById('dexGrid').innerHTML=list.map(a=>`<button class="mon" type="button" data-open="${a.slug}" style="--c:var(--${a.e[0]||'neutral'})">
     ${hasPr(a)?'<span class="flag pr">Prismana</span>':''}${hasSpark(a.slug)?'<span class="flag sp">✦</span>':''}${a.u?'<span class="flag un">ยังไม่เปิด</span>':a.f.length?`<span class="flag fc">${a.f.length+1} ร่าง</span>`:''}
     <span class="pic"><img decoding="async" src="${TH(a.i)}" alt="${esc(a.name)}" loading="lazy" class="${a.cut?'cut':''}">${COL.d.c[a.slug]?'<span class="caught" title="จับแล้ว">✓</span>':''}</span>
     <span class="info"><span class="no">${numLabel(a)}</span><span class="nm">${esc(a.name)}</span>
     <span class="row">${a.e.map(badge).join('')}</span>
-    <span class="meta"><span>${a.r} · ${a.st}</span><span class="dots" title="สีสกิล">${skColors(a.slug).map(k=>`<i style="background:var(--${k})"></i>`).join('')}</span></span></span></button>`).join('')||'<p class="muted">ไม่พบ Aniimo ที่ตรงกับตัวกรอง</p>';
+    <span class="meta"><span class="rmeta">${roleChip(a.r)}<small>${a.st}</small></span><span class="dots" title="สีสกิล">${skColors(a.slug).map(k=>`<i style="background:var(--${k})"></i>`).join('')}</span></span></span></button>`).join('')||'<p class="muted">ไม่พบ Aniimo ที่ตรงกับตัวกรอง</p>';
 }
 [dq,de,dr,ds,dp,dsp,dw,dc].forEach(el=>el.addEventListener(el.type==='search'?'input':'change',renderDex));
 
@@ -2655,6 +2711,7 @@ function openMon(slug,formIdx,tab,spark){
   if(dState.slug!==slug||!dlg.open){histAdd('mons',slug);track('mon',slug)}
   dState={slug,form:formIdx==null||formIdx===''?null:+formIdx,tab:tab||(dState.slug===slug?dState.tab:'overview'),spark:spark||null};
   renderDetail();if(!dlg.open)dlg.showModal();
+  if(location.hash!=='#'+slug){try{history.pushState(null,'','#'+slug)}catch(_){}} // every Aniimo has its own link
 }
 function evoInfo(a){
   const rs=EVO.filter(([s,d])=>s===a.slug||d===a.slug);if(!rs.length)return '';
@@ -2735,10 +2792,10 @@ function renderDetail(){
       ${a.f.length?'':'<p class="muted">Aniimo ตัวนี้ยังไม่มีร่างพิเศษ</p>'}`;
   }
   dlgBody.innerHTML=`<div class="dlg">
-   <div class="hero-pic">${dState.spark&&spIdx!=null?(META.full&&SPK.ids?`<img src="spk/${SPK.ids[spIdx]}_${String(dState.spark).padStart(2,'0')}.webp" alt="${esc(a.name)} ${STYPES[dState.spark-1]}">`:`<span class="spr" style="${sprStyle(dState.spark,spIdx,1)}" role="img" aria-label="${esc(a.name)} ${STYPES[dState.spark-1]}"></span>`):`<img src="${img}" alt="${esc(a.name)}" class="${!cur&&a.cut?'cut':''}">`}<span class="fname">${cur?KIND[cur.k]+' · '+esc(cur.n):'ร่างปกติ'}${dState.spark?' · ✦ '+STYPES[dState.spark-1]:''}</span></div>
+   <div class="hero-pic"><button type="button" class="dback" onclick="document.getElementById('dlg').close()" aria-label="กลับ">← กลับ</button>${a.f.length?`<div class="fsw" role="group" aria-label="เลือกร่าง"><button type="button" data-open="${a.slug}" data-form="" aria-pressed="${!cur}" title="ร่างปกติ"><img src="${TH(a.i)}" alt=""></button>${a.f.map((f,i)=>`<button type="button" data-open="${a.slug}" data-form="${i}" aria-pressed="${cur===f}" title="${esc(f.n)}">${f.i?`<img src="${TH(f.i)}" alt="">`:`<span>${esc(f.n.slice(0,2))}</span>`}</button>`).join('')}</div>`:''}${dState.spark&&spIdx!=null?(META.full&&SPK.ids?`<img src="spk/${SPK.ids[spIdx]}_${String(dState.spark).padStart(2,'0')}.webp" alt="${esc(a.name)} ${STYPES[dState.spark-1]}">`:`<span class="spr" style="${sprStyle(dState.spark,spIdx,1)}" role="img" aria-label="${esc(a.name)} ${STYPES[dState.spark-1]}"></span>`):`<img src="${img}" alt="${esc(a.name)}" class="${!cur&&a.cut?'cut':''}">`}<span class="fname">${cur?KIND[cur.k]+' · '+esc(cur.n):'ร่างปกติ'}${dState.spark?' · ✦ '+STYPES[dState.spark-1]:''}</span></div>
    <div class="body">
     <div><p class="eyebrow">${numLabel(a)} · ${a.st}${a.u?' · ยังไม่เปิดให้จับ':''}</p><h3 id="dlgTitle">${esc(a.name)}</h3>${a.th&&a.th!==a.en?`<p class="muted small">${esc(LANG==='th'?a.en:a.th)}</p>`:''}</div>
-    <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">${els.map(badge).join('')}<span class="chip">${a.r}</span><span class="dots" style="margin-left:4px" title="สีสกิล">${cols.map(k=>`<i style="background:var(--${k})"></i>`).join('')}</span></div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">${els.map(badge).join('')}${roleChip(a.r)}<span class="dots" style="margin-left:4px" title="สีสกิล">${cols.map(k=>`<i style="background:var(--${k})"></i>`).join('')}</span></div>
     <div class="dactions">${a.u?'':`<button type="button" data-col="${cur?'f':'c'}" data-key="${cur?a.slug+'|'+dState.form:a.slug}" aria-pressed="${!!(cur?COL.d.f[a.slug+'|'+dState.form]:COL.d.c[a.slug])}">${(cur?COL.d.f[a.slug+'|'+dState.form]:COL.d.c[a.slug])?'✓ จับแล้ว':'+ จับแล้ว'}${cur?' (ร่างนี้)':''}</button>`}<button type="button" data-cmp-add="${a.slug}">${CMP.includes(a.slug)?'✓ อยู่ในการเปรียบเทียบ':'+ เปรียบเทียบ'}</button><button type="button" data-team-add="${a.slug}">+ ใส่ทีม</button><button type="button" data-share="${a.slug}">แชร์</button></div>
     <div class="dtabs" role="tablist">${tabs.map(([k,l])=>`<button type="button" role="tab" data-dtab="${k}" aria-selected="${dState.tab===k}">${l}</button>`).join('')}</div>
     ${pane}
@@ -2754,7 +2811,7 @@ document.addEventListener('click',e=>{
 });
 document.getElementById('dlgClose').addEventListener('click',()=>dlg.close());
 dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close()});
-dlg.addEventListener('close',()=>{dState.tab='overview';delete dState.boss});
+dlg.addEventListener('close',()=>{dState.tab='overview';delete dState.boss;if(BY[location.hash.slice(1)]){try{history.pushState(null,'','#'+current)}catch(_){}}});
 
 /* ===== skills view ===== */
 let skMode='by',skEl='',skLimit=60;
@@ -2899,7 +2956,7 @@ function renderTeam(){
     return `<div class="slot"><span class="no">${i+1}</span><button type="button" class="rm" data-rm="${i}" aria-label="เอา ${esc(a.name)} ออก">×</button>
       <button type="button" class="pic" data-pick="${i}" style="border:0;cursor:pointer" aria-label="เปลี่ยนตัวในช่อง ${i+1}"><img src="${img}" alt="${esc(a.name)}" class="${!f&&a.cut?'cut':''}"></button>
       <div class="info"><button type="button" class="nm" data-open="${a.slug}">${esc(a.name)}</button>
-      <div class="row">${memEls(m).map(badge).join('')}<span class="chip">${a.r}</span></div>
+      <div class="row">${memEls(m).map(badge).join('')}${roleChip(a.r)}</div>
       ${a.f.length?`<select data-form-slot="${i}" aria-label="ร่างของ ${esc(a.name)}"><option value="">ร่างปกติ</option>${a.f.map((x,j)=>`<option value="${j}" ${m.form===j?'selected':''}>${KIND[x.k]} · ${esc(x.n)}</option>`).join('')}</select>`:''}
       <div class="row" title="สกิลของตัวนี้">${skillsOf(a.slug).map(s=>orb(s,true)).join('')}</div></div></div>`;
   }).join('');
@@ -4380,7 +4437,14 @@ route();
     ['elements','ตารางธาตุ','81 คู่','ธาตุไหนแพ้ทางธาตุไหน พร้อมเครื่องคำนวณดาเมจ'],
     ['skills','สกิล',`${skills} สกิล`,'สกิลทุกตัวพร้อมสีธาตุ พลัง EP และคูลดาวน์'],
     ['sets','ชุดแต่งตัว Aniimo','Transmog','ชุดแต่งตัวของ Aniimo แต่ละตัวและสีทั้งหมด']].filter(w=>VIEWS.some(v=>v.id===w[0]));
-  document.getElementById('homeWiki').innerHTML=W.map(([id,t,b,d],i)=>`<button type="button" class="wcard${i<1?' big':''}" data-go="${id}"><span class="wtop"><svg><use href="#i-${(VIEWS.find(v=>v.id===id)||{}).ic||'star'}"/></svg><b>${t}</b><em>${b}</em></span><small>${d}</small></button>`).join('');
+  const faces=n=>rel.filter(a=>!a.cut).slice(0,n).map(a=>`<img src="${TH(a.i)}" alt="" loading="lazy">`).join('');
+  const PREV={dex:`<span class="wp faces">${faces(3)}</span>`,tier:'<span class="wp tiers"><i>S</i><i>A</i><i>B</i><i>C</i><i>D</i></span>',
+    builder:'<span class="wp ring"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="18"/><circle cx="22" cy="22" r="18" class="v"/></svg><b>70</b></span>',
+    elements:`<span class="wp els">${E.map(e=>`<img src="img/ui/el-${e.k}.webp" alt="" loading="lazy">`).join('')}</span>`,
+    skills:`<span class="wp els">${E.slice(0,5).map(e=>`<i style="background:var(--${e.k})"></i>`).join('')}</span>`,
+    sets:`<span class="wp faces">${((window.SETS||[])[0]||{sets:[]}).sets.slice(0,3).map(x=>x.bust?`<img src="${x.bust}" alt="" loading="lazy">`:'').join('')}</span>`,
+    map:'<span class="wp pins"><i></i><i></i><i></i></span>',helditems:'<span class="wp tiers"><i>R</i><i>E</i><i>L</i></span>'};
+  document.getElementById('homeWiki').innerHTML=W.map(([id,t,b,d],i)=>`<button type="button" class="wcard${i<1?' big':''}" data-go="${id}">${PREV[id]||''}<span class="wtop"><svg><use href="#i-${(VIEWS.find(v=>v.id===id)||{}).ic||'star'}"/></svg><b>${t}</b><em>${b}</em></span><small>${d}</small></button>`).join('');
   const day=Math.floor(Date.now()/864e5),pool=rel.filter(a=>!a.cut);
   const picks=Array.from({length:6},(_,i)=>pool[(day*7+i*13)%pool.length]);
   document.getElementById('homePicks').innerHTML=picks.map(a=>`<button type="button" class="pick" data-open="${a.slug}"><span class="no">${numLabel(a)}</span><img src="${TH(a.i)}" alt="" loading="lazy"><b>${esc(a.th||a.name)}</b><span style="display:flex;gap:3px;justify-content:center">${a.e.map(badge).join('')}</span><small class="muted">${a.r}</small></button>`).join('');
@@ -4409,7 +4473,7 @@ function renderBuilder(){
   const statRows=STAT.map(k=>{const add=bonus&&(bonus.k===k||(bonus.k==='DEF'&&k==='PDEF'))?bonus.v:0;return `<div class="stat"><span>${STAT_L[k]||k}</span><span class="bar"><i style="width:${Math.min(100,a.s[k]/130*100)}%"></i></span><b>${a.s[k]}${add?` <em class="plus">+${Math.round(add*10)/10}</em>`:''}</b></div>`}).join('');
   el.innerHTML=`<div class="bld-l">
     <label>Aniimo<select id="bldMon">${rel.map(x=>`<option value="${x.slug}"${x.slug===a.slug?' selected':''}>${esc(x.th||x.name)} · ${esc(x.name)}</option>`).join('')}</select></label>
-    <div class="bld-pic"><img src="${TH(a.i)}" alt=""><div><b>${esc(a.th||a.name)}</b><div style="display:flex;gap:4px;margin-top:4px">${a.e.map(badge).join('')}<span class="chip">${a.r}</span></div></div></div>
+    <div class="bld-pic"><img src="${TH(a.i)}" alt=""><div><b>${esc(a.th||a.name)}</b><div style="display:flex;gap:4px;margin-top:4px">${a.e.map(badge).join('')}${roleChip(a.r)}</div></div></div>
     <label>เลเวล <b id="bldLvV">${BLD.lv}</b><input type="range" id="bldLv" min="1" max="100" value="${BLD.lv}"></label>
     <label>Held Item<select id="bldHeld"><option value="">— ไม่ใส่ —</option>${BLD_HELD.map(n=>`<option${n===BLD.held?' selected':''}>${esc(n)}</option>`).join('')}</select></label>
     ${fx?`<p class="small muted">${esc(tr(fx))}</p>`:''}
@@ -4479,7 +4543,7 @@ function renderBuilds(){
   const be=document.getElementById('be');if(!be.options.length)be.innerHTML='<option value="">ทุกธาตุ</option>'+E.map(x=>`<option value="${x.k}">${x.th}</option>`).join('');
   const q=(document.getElementById('bq').value||'').trim().toLowerCase(),ek=be.value;
   const list=A.filter(a=>!a.u&&a.rec&&(!ek||a.e.includes(ek))&&(!q||nameHit(a,q)));
-  g.innerHTML=list.map(a=>`<div class="bcard2"><button type="button" class="bpic" data-open="${a.slug}"><img src="${TH(a.i)}" alt="" loading="lazy"></button><div><b>${esc(a.th||a.name)}</b><div style="display:flex;gap:3px;margin:3px 0">${a.e.map(badge).join('')}<span class="chip">${a.r}</span></div>
+  g.innerHTML=list.map(a=>`<div class="bcard2"><button type="button" class="bpic" data-open="${a.slug}"><img src="${TH(a.i)}" alt="" loading="lazy"></button><div><b>${esc(a.th||a.name)}</b><div style="display:flex;gap:3px;margin:3px 0">${a.e.map(badge).join('')}${roleChip(a.r)}</div>
     ${a.rec.h?`<p class="small"><span class="muted">Held Item:</span> ${itemRef(a.rec.h[0])}${LANG==='th'?` <span class="muted">(${esc(a.rec.h[1])})</span>`:''}</p>`:''}
     ${a.rec.r?`<p class="small"><span class="muted">Rune:</span> ${itemRef(a.rec.r[0])}</p>`:''}
     <button type="button" class="btn" data-bbuild="${a.slug}" style="margin-top:6px">เปิดในตัวจัดบิลด์</button></div></div>`).join('')||'<p class="muted">ไม่พบ</p>';

@@ -138,6 +138,19 @@ def main():
         if srcs[name].exists():
             shutil.copyfile(srcs[name], out_dir / name)
 
+    # element and role icons straight from the game (img/ui/), used by the badges across the site
+    if game and (game.GAME / "icons").exists():
+        ui = out_dir / "img" / "ui"
+        ui.mkdir(parents=True, exist_ok=True)
+        icons = {f"el-{k}": f"UI_IconTMP_Element_{v}" for k, v in dict(fire="Fire", water="Water", grass="Grass", lightning="Electric",
+                 ice="Ice", earth="Rock", wind="Wind", light="Holy", dark="Dark").items()}
+        icons.update({f"role-{k}": f"UI_Img_FavoriteTag_Position_{v}" for k, v in dict(dps="Output", **{"break": "Break"},
+                      support="Auxiliary", heal="Treatment", regen="Energy").items()})
+        for name, src in icons.items():
+            f = game.GAME / "icons" / f"{src}.png"
+            if f.exists():
+                Image.open(f).convert("RGBA").save(ui / f"{name}.webp", "WEBP", lossless=True)
+
     # thumbnails (200px) as small files under img/t/, so a list loads only the pictures it shows
     # (they used to be base64 inside thumbs.js, 1.7 MB that every visit had to download first)
     thumbs = {}
