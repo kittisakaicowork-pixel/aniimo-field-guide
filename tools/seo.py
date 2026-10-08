@@ -45,6 +45,7 @@ TOPICS = [
     ("whisperwake", "Whisperwake Isles พื้นที่ใหม่ Aniimo", "Whisperwake Isles เปิด 29 ต.ค. 2026 Aniimo ใหม่ 10 ชนิด และธาตุที่ควรเตรียม", "whisperwake"),
     ("bosses", "บอส Alpha และ Omega Aniimo จุดอ่อนและตัวที่ควรใช้", "บอส Alpha และ Omega ทุกตัว ธาตุที่แพ้ทาง และ Aniimo ที่ควรใช้สู้", "bosses"),
     ("guide", "ข้อมูลเกม Aniimo สเปก ปุ่มควบคุม และมือถือ", "ข้อมูลเกม Aniimo สเปกคอมและมือถือ ปุ่มควบคุม PC PS5 Xbox การตั้งค่าที่แนะนำ", "guide"),
+    ("howto", "วิธีหาตั๋ว Chaos, Lumin Amber, Prismana, ตัวเปล่งประกาย และ Vein Essence ใน Aniimo", "ไกด์ภาษาไทย: ราคาตั๋ว Chaos, เลื่อนยศและซ่อมอุปกรณ์ Egg Heist, รางวัลตู้โชว์ของสะสม, จุดเก็บ Lumin Amber, วิธีจับ Prismana และ Aniimo เปล่งประกาย", "howto"),
     ("privacy", "นโยบายความเป็นส่วนตัว AniiGuide", "AniiGuide เก็บข้อมูลอะไร เก็บไว้ที่ไหน ใช้บริการภายนอกอะไรบ้าง และขอลบข้อมูลได้อย่างไร", "privacy"),
 ]
 
@@ -176,7 +177,11 @@ def main():
         "helditems": "<ul>" + "".join(f"<li><b>{E(i['n'])}</b> <span class='muted'>{E(i['q'])}</span></li>" for i in d["ITEMS"] if i["c"] == "Held Item") + "</ul>",
     }
     # the privacy policy is written once, in index.html; this copies it to a plain page (ad networks ask for one)
-    m = re.search(r'data-view="privacy".*?<div class="dpanel prose">(.*?)</div>\s*</section>', (ROOT / "index.html").read_text(), re.S)
+    page_src = (ROOT / "index.html").read_text()
+    g = re.search(r'data-view="howto".*?<div class="howtos">(.*?)</div>\s*</section>', page_src, re.S)
+    if g:  # the guides, opened up for readers without JavaScript
+        extra["howto"] = g.group(1).replace("<details ", "<section ").replace("</details>", "</section>").replace("<summary>", "<h2>").replace("</summary>", "</h2>")
+    m = re.search(r'data-view="privacy".*?<div class="dpanel prose">(.*?)</div>\s*</section>', page_src, re.S)
     if m:
         extra["privacy"] = re.sub(r'<p class="small muted">รหัสสุ่ม.*?</p>', "", m.group(1), flags=re.S).replace('href="#', 'href="../../#')
     for key, title, desc, view in TOPICS:

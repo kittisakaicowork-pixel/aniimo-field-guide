@@ -3,6 +3,120 @@
    src tags: official = from an official announcement; community = gathered from player guides. */
 window.NEWS = [
   {
+    id: "patch-3629693", date: "2026-09-30", type: 'update', tag: 'official',
+    title: "แพตช์ 1.0.362: ชุด Frostburst Punk, Erlath ใน Egg Heist และแก้บั๊ก 44 รายการ",
+    lede: "อัปเดตไฟล์โดยไม่ปิดเซิร์ฟเวอร์ รีสตาร์ตเกมเพื่อโหลดไฟล์ใหม่ ผู้ที่สมัครก่อนอัปเดต 1.1 ได้รับ Glimmer ×200",
+    source: "https://aniidex.com/patch-notes/aniimo-version-1-0-3629693-september-30-2026/",
+    sections: [
+      { h: "ของใหม่ในร้าน", items: [
+        "ชุดลิมิเต็ด Forest of Butterfly Dreams",
+        "ชุด Frostburst Punk ราคา 680 Lumin Crystal"
+      ]},
+      { h: "ปรับปรุง", items: [
+        "ไอริสสายรุ้ง (Irisalis) บันทึกชุด Transmog ได้ 5 ชุด จากเดิม 3 ชุด",
+        "Egg Heist เพิ่มศัตรู Erlath ที่บัฟเพื่อนได้ ควรกำจัดก่อน และเพิ่มอัตราดรอป Starine จาก Stellarys ในระดับ Chaos",
+        "ลดแต้ม Harvest Moon ที่ต้องเก็บในอีเวนต์ฤดูกาลของ Home",
+        "เงื่อนไขความสำเร็จย้อมชุด ปลดล็อกได้แค่เพิ่มเพื่อน 1 คน",
+        "โหลดตอนล็อกอินและเปลี่ยนฉากเร็วขึ้น"
+      ]},
+      { h: "แก้บั๊กที่น่าสนใจ", items: [
+        "texture ของไอริสสายรุ้งเบลอเมื่อใส่ชุด Starbloom Moonlight หรือ Sunflare Rose และของ Grizbo, Luminelle, Sherro",
+        "เอฟเฟกต์สกิลผิดเมื่อไอริสสายรุ้งถือ Floral Rainbow Feather",
+        "หีบที่เห็นบนแผนที่แต่รับรางวัลไม่ได้",
+        "เทเลพอร์ตแล้วฉากโหลดผิด ถ้ายังเจอ ให้ไปที่ Outpost แล้วใช้จุดโต้ตอบสีเขียวเพื่อโหลดฉากใหม่",
+        "ความสำเร็จ Windchaser: Gold, Safe and Sound และ Friends in Focus ปลดล็อกไม่ได้บนคอนโซล"
+      ]}
+    ]
+  },
+  {
+    id: "patch-3616231", date: "2026-09-28", type: 'update', tag: 'official',
+    title: "แพตช์ 1.0.361: แก้ Irisalis, การจับ Alpha และร่างเปล่งประกาย",
+    lede: "แพตช์แก้บั๊กก่อนอัปเดต 1.0.362 รายการหลักรวมอยู่ในแพตช์ 30 ก.ย. ด้วย",
+    source: "https://aniidex.com/patch-notes/aniimo-version-1-0-3616231-september-28-2026/",
+    sections: [
+      { h: "แก้บั๊ก", items: [
+        "จับ Alpha แล้วขึ้น \"Cannot catch the Alpha in the current state\"",
+        "เข้าปาร์ตี้เพื่อนผ่าน Come to My World ช่วงต้นเกมแล้วเนื้อเรื่องติด",
+        "เลือก Aniimo ร่างเปล่งประกายด้วยจอยในหน้าจัดการ Aniimo ไม่ได้",
+        "สะพานในพื้นที่ก่อสร้างหายตอนไปเยี่ยมบ้านคนอื่น",
+        "Umbral Stellarys Alpha ใน Egg Heist ไม่ติดสถานะกันควบคุม"
+      ]}
+    ]
+  },
+  {
+    id: "patch-0927", date: "2026-09-27", type: 'update', tag: 'official',
+    title: "แพตช์ 27 ก.ย.: เน็ตเสถียรขึ้นตอนเปลี่ยนแผนที่",
+    lede: "ลดอาการหลุดและเชื่อมต่อใหม่ตอนย้ายแผนที่",
+    source: "https://aniidex.com/patch-notes/aniimo-september-27-2026-fixes/",
+    sections: [
+      { h: "ปรับปรุง", items: [
+        "การเชื่อมต่อเสถียรขึ้นเมื่อเปลี่ยนแผนที่"
+      ]}
+    ]
+  },
+  {
+    id: "patch-0926", date: "2026-09-26", type: 'update', tag: 'official',
+    title: "แพตช์ 26 ก.ย.: แก้ Transmog, มือถือ และ Egg Heist",
+    lede: "แก้บั๊กเล็ก ๆ และปรับปุ่มบนมือถือ",
+    source: "https://aniidex.com/patch-notes/aniimo-september-26-2026-fixes/",
+    sections: [
+      { h: "แก้บั๊ก", items: [
+        "ลากชุด Transmog ช่องที่ 3 ไม่ได้ตอนแทนที่ชุดที่บันทึก",
+        "Egg Heist: นับถอยหลังผิด และร่างไข่เดินกระตุกบนมือถือบางรุ่น",
+        "รับรางวัลอีเวนต์ Aniimo Discovery ไม่ได้ในบางกรณี"
+      ]},
+      { h: "ปรับปรุง", items: [
+        "จัดปุ่มหน้าข้อมูล Aniimo บนมือถือใหม่ และปรับการควบคุมเมื่อกดจอยซ้าย"
+      ]}
+    ]
+  },
+  {
+    id: "patch-irisalis-potential", date: "2026-09-26", type: 'update', tag: 'official',
+    title: "ปรับศักยภาพแฝงของไอริสสายรุ้ง (Irisalis) ให้เท่ากันทุกตัว",
+    lede: "หลังอัปเดต 1.1 ศักยภาพแฝงของ Irisalis จะไม่สุ่มแล้ว ทุกคนได้ค่าเท่ากัน",
+    source: "https://aniidex.com/patch-notes/aniimo-irisalis-balance-september-26-2026/",
+    sections: [
+      { h: "ค่าใหม่", items: [
+        "ATK 10 · REGEN 10 · HP 5 · BREAK 5 · M.DEF 5 · P.DEF 5"
+      ]},
+      { h: "ชดเชย", items: [
+        "ส่วนที่เกินเพดานหลังปรับ จะแปลงเป็น Starcryst Essence ส่งทางจดหมายในเกม ดูรายละเอียดในประกาศถัดไป"
+      ]}
+    ]
+  },
+  {
+    id: "patch-0924", date: "2026-09-24", type: 'update', tag: 'official',
+    title: "แพตช์ 24 ก.ย.: แก้ Egg Heist, เครื่องประดับ และคอนโซล",
+    lede: "Egg Heist ระดับ Chaos มีรังไข่บ่อยขึ้น และระดับ Hard กับ Nightmare ได้หีบ Prismatic บ่อยขึ้น",
+    source: "https://aniidex.com/patch-notes/aniimo-september-24-2026-fixes/",
+    sections: [
+      { h: "ปรับปรุง", items: [
+        "Chaos: รังไข่เกิดบ่อยขึ้น",
+        "Hard และ Nightmare: หีบ Prismatic ดรอปบ่อยขึ้น",
+        "Xbox และ PS5 เสถียรขึ้น เด้งออกน้อยลง"
+      ]},
+      { h: "แก้บั๊ก", items: [
+        "Egg Heist: Twine กับ Aniimo ที่มีความสามารถ Pathfinding แล้วมีโอกาสตายทันที",
+        "Pawney ใช้ Hookshot ไม่ได้หลังใส่เครื่องประดับ",
+        "Sparkelf ใช้ Sparkling Pigment ได้ทั้งที่ไม่ควรได้ (มีแค่ขอบเรืองแสง) ไอเท็มที่ใช้ไปจะคืนทางจดหมาย"
+      ]}
+    ]
+  },
+  {
+    id: "patch-0923", date: "2026-09-23", type: 'update', tag: 'official',
+    title: "แพตช์ 23 ก.ย.: แก้ Home, มือถือ และ Lunara",
+    lede: "แก้บั๊กหลังเปิดมือถือ เช่น Android ตั้งทีมกับคอนโซลและ Steam ไม่ได้",
+    source: "https://aniidex.com/patch-notes/aniimo-september-23-2026-fixes/",
+    sections: [
+      { h: "แก้บั๊ก", items: [
+        "Android ตั้งทีมกับคอนโซลและ Steam ไม่ได้",
+        "ภาพค้างหลัง Helion หรือ Lunara ที่ใส่เครื่องประดับใช้ Ultimate แล้วสลับตัว",
+        "PC: เจอ Prismana แล้วแผนที่เปิดเองจนเกมค้าง",
+        "เควสต์ Family Reunion ติดในโหมด Companion หลายคน"
+      ]}
+    ]
+  },
+  {
     id: 'whisperwake-preview', date: '2026-09-29', type: 'news', tag: 'community',
     title: 'เตรียมตัวก่อน Whisperwake Isles เปิด 29 ต.ค.',
     lede: 'พื้นที่ใหม่แห่งแรกหลังเปิดเกม มาพร้อม Season 1 ภาค 2 และ Aniimo ใหม่ 10 ชนิด สรุปสิ่งที่ยืนยันแล้วกับสิ่งที่มาจากไฟล์เกม',

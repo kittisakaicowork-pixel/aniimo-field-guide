@@ -1307,6 +1307,11 @@ body{overflow-x:clip}
 .cal-days span.wk{border-left:1px solid var(--line)}
 .cal-bar{font:600 .74rem/1 var(--display);padding:6px 8px;border-radius:999px;background:color-mix(in srgb,var(--violet) 18%,var(--surface));color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border:1px solid color-mix(in srgb,var(--violet) 30%,transparent)}
 .cal-bar.live{background:color-mix(in srgb,var(--accent) 20%,var(--surface));border-color:color-mix(in srgb,var(--accent) 40%,transparent)}
+
+.howtos{display:grid;gap:10px}
+.howto summary{cursor:pointer;display:grid;gap:2px;list-style:none}.howto summary::-webkit-details-marker{display:none}
+.howto summary b{font:700 1.05rem var(--display)}.howto summary b::before{content:"▸ ";color:var(--accent)}.howto[open] summary b::before{content:"▾ "}
+.howto .prose{margin-top:10px}.howto table{margin:8px 0}
 </style>
 
 <div id="boot" role="status" aria-live="polite"><div class="bootin"><b class="wm"><span aria-hidden="true">an<span class="ii"><i>ı</i><i>ı</i></span>guide</span><span class="sr">aniiguide</span></b><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><small id="bootMsg">กำลังโหลดข้อมูล Aniimo…</small></div></div>
@@ -2010,6 +2015,10 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
       <div class="bfilter"><input type="search" id="stq" placeholder="ค้นหาชื่อ Aniimo" aria-label="ค้นหาชื่อ Aniimo"><select id="ste" aria-label="ธาตุ"></select><select id="str" aria-label="บทบาท"><option value="">ทุกบทบาท</option><option>DPS</option><option>Break</option><option>Support</option><option>Heal</option><option>Regen</option></select><select id="sts" aria-label="ขั้น"><option value="">ทุกขั้น</option><option>Lumin</option><option>Gamma</option><option>Nova</option><option>Legendary</option></select></div>
       <div class="scroll-x"><table class="plain sttab" id="stTable"></table></div>
     </section>
+    <section class="view" data-view="howto" hidden>
+      <div class="vhead"><p class="eyebrow">Guides</p><h2>ไกด์วิธีหา</h2><p class="muted">สรุปวิธีหาของสำคัญในเกม กดหัวข้อเพื่ออ่าน ข้อมูลจาก <a href="https://aniidex.com/guides/" target="_blank" rel="noopener">AniiDex</a> (ได้รับอนุญาต) ตรวจกับเกมเวอร์ชัน 1.1</p></div>
+      <div class="howtos"><details class="dpanel howto" id="h-chaos"><summary><b>วิธีหาตั๋ว Chaos</b><span class="small muted">ซื้อด้วย Eggshell Coin ในร้าน Egg Heist วันละไม่เกิน 20 ใบ</span></summary><div class="prose"><p>ตั๋ว Chaos ใช้เข้า Operation: Egg Heist โหมดทีม ระดับ Chaos ซื้อได้ในร้าน Egg Heist ด้วย Eggshell Coin วันละสูงสุด 20 ใบ ราคาขึ้นเป็นช่วงตามจำนวนที่ซื้อในวันนั้น</p><div class="scroll-x"><table class="plain"><thead><tr><th>ใบที่ (ในวันนั้น)</th><th>ราคาต่อใบ</th><th>รวมที่จ่ายไป</th></tr></thead><tbody><tr><td>1</td><td>20,000</td><td>20,000</td></tr><tr><td>2</td><td>50,000</td><td>70,000</td></tr><tr><td>3</td><td>70,000</td><td>140,000</td></tr><tr><td>4–6</td><td>100,000</td><td>440,000</td></tr><tr><td>7–10</td><td>200,000</td><td>1,240,000</td></tr><tr><td>11–15</td><td>300,000</td><td>2,740,000</td></tr><tr><td>16–20</td><td>400,000</td><td>4,740,000</td></tr></tbody></table></div><ul><li>ระดับ Chaos ปลดล็อกที่ยศ <b>Elite Egg Seeker IV</b> (Hard ปลดที่ Rising Egg Scout III, Nightmare ที่ Pro Egg Snatcher IV) ตั๋วใช้แทนยศไม่ได้</li><li>ซื้อเท่าที่จะเล่นจริง 20 ใบคือเพดาน ไม่ใช่เป้า เหรียญชุดเดียวกันต้องใช้ซ่อมและซื้ออุปกรณ์ด้วย</li></ul></div></details><details class="dpanel howto" id="h-rank"><summary><b>วิธีเลื่อนยศ Egg Heist</b><span class="small muted">แต้มยศได้จากการหนีออกสำเร็จ ของยิ่งมีค่ายิ่งได้แต้มเยอะ</span></summary><div class="prose"><ul><li>แต้มยศได้เมื่อ<b>หนีออกสำเร็จ</b> ยิ่งของที่ขนออกมามีค่า ยิ่งได้แต้มเยอะ</li><li>การหนีสำเร็จ<b>ครั้งแรกของวัน</b>ได้แต้มสองเท่า นับเฉพาะรอบที่หนีออกได้ จึงควรเล่นรอบแรกแบบปลอดภัย</li><li>ถ้าขึ้นข้อความว่าแต้มของโหมดนี้เต็มแล้ว โหมดนั้นจะไม่ให้แต้มเพิ่มชั่วคราว</li><li>แต้มยศไม่ใช่ Eggshell Coin และไม่ใช่ Collectible Point</li></ul><p>ยศมี 7 ขั้น ไล่จากเลขโรมันมากไปน้อยในแต่ละขั้น รวม 25 ระดับ:</p><div class="scroll-x"><table class="plain"><thead><tr><th>ยศ</th><th>สิ่งที่ปลดล็อกสำคัญ</th></tr></thead><tbody><tr><td>Rookie Egg Hunter III–I</td><td>Lucky Chest 1 ช่อง วันละ 4 กล่อง, กล่องสูงสุดระดับ Rare</td></tr><tr><td>Rising Egg Scout III–I</td><td>ระดับ <b>Hard</b> (III), Lucky Chest 2 ช่อง, ของใหม่ในร้าน</td></tr><tr><td>Pro Egg Snatcher IV–I</td><td>ระดับ <b>Nightmare</b> (IV), กล่องระดับ Epic</td></tr><tr><td>Elite Egg Seeker IV–I</td><td>ระดับ <b>Chaos</b> (IV), Lucky Chest 3 ช่อง</td></tr><tr><td>Expert Egg Raider V–I</td><td>วันละ 6 กล่อง, กล่องระดับ Legendary, เปิดกล่องเร็วขึ้น</td></tr><tr><td>Egg Heist Master V–I</td><td>Lucky Chest 4 ช่อง</td></tr><tr><td>Egg Emperor</td><td>ยศสูงสุด</td></tr></tbody></table></div></div></details><details class="dpanel howto" id="h-repair"><summary><b>วิธีซ่อมอุปกรณ์ Egg Heist</b><span class="small muted">ใช้ Energy Stone ให้ตรงประเภท หรือจ่าย Eggshell Coin</span></summary><div class="prose"><ul><li>เปิดกระเป๋า เลือก Amplifier หรือ BINI Unit แล้วซ่อมด้วย Energy Stone หรือ Eggshell Coin</li><li><b>Pulse</b> Energy Stone ใช้กับ Amplifier, <b>Harmonic</b> Energy Stone ใช้กับ BINI Unit ใช้ผิดประเภทจะขึ้น Repair Kit type mismatch</li><li>หินมี 4 เกรด: Experimental, Low, Medium, High ยิ่งเกรดสูงยิ่งฟื้นพลังงานมาก Experimental ทำให้อุปกรณ์ขั้นสูงเสียความทนทานมาก เก็บไว้ใช้กับอุปกรณ์พื้นฐาน</li><li>ไม่มีร้านขายหิน ต้องเก็บบนเกาะระหว่างเล่น Egg Heist</li><li>ซ่อมด้วยเหรียญแพงกว่า และค่าความทนทานสูงสุดจะลดลงทุกครั้งที่ซ่อม เมื่อเหลือน้อยให้เทียบกับการซื้อชิ้นใหม่ในร้าน</li></ul></div></details><details class="dpanel howto" id="h-collect"><summary><b>รางวัลตู้โชว์ของสะสม Egg Heist</b><span class="small muted">วางของสะสม 7 ชิ้น ได้ 120 แต้ม รางวัลสุดท้ายคือไข่ Prismana</span></summary><div class="prose"><p>วางของสะสมที่ได้จาก Egg Heist ในตู้โชว์ แต่ละช่องใส่ได้ทั้งแบบปกติและ Collector's Edition ได้แต้มครั้งเดียว ถอดออกได้ตลอดโดยแต้มไม่หาย จึงเอาไปขายต่อได้</p><div class="scroll-x"><table class="plain"><thead><tr><th>ของสะสม</th><th>แต้ม</th><th>ขายได้ (ปกติ / Collector's)</th></tr></thead><tbody><tr><td>Evercrystal Egg</td><td>30</td><td>5,000,000 / 10,000,000</td></tr><tr><td>Rose Thorn Blade</td><td>20</td><td>768,000 / 2,094,283</td></tr><tr><td>Feather Bathed in Light</td><td>20</td><td>1,044,000 / 3,048,552</td></tr><tr><td>Soul Tremor</td><td>20</td><td>307,200 / 940,000</td></tr><tr><td>Wolfspirit Ghost Lantern</td><td>10</td><td>108,000 / 298,344</td></tr><tr><td>Cloudsoft Slumber</td><td>10</td><td>131,705 / 318,384</td></tr><tr><td>Dragonflame Horn</td><td>10</td><td>215,280 / 473,203</td></tr></tbody></table></div><div class="scroll-x"><table class="plain"><thead><tr><th>แต้มสะสม</th><th>รางวัล</th></tr></thead><tbody><tr><td>10</td><td>Glimmer 80, Mystery Egg Box 1</td></tr><tr><td>20</td><td>Glimmer 80, Umbral Aniimo Egg 1</td></tr><tr><td>30</td><td>Glimmer 80, Mystery Egg Box 3</td></tr><tr><td>50</td><td>Glimmer 100, Fragrant Umbral Aniimo Egg 1</td></tr><tr><td>70</td><td>Glimmer 100, Large Umbral Aniimo Egg 1</td></tr><tr><td>90</td><td>Windchaser Egg Tales 1, Large Umbral Aniimo Egg 1</td></tr><tr><td>120</td><td>Egg of the Wind 1, <b>Mysterious Prismana Egg 1</b></td></tr></tbody></table></div></div></details><details class="dpanel howto" id="h-amber"><summary><b>วิธีหา Lumin Amber</b><span class="small muted">Breezy Plains มี 200 ชิ้น ใช้ 150 ชิ้นอัป Branch ถึงเลเวล 15</span></summary><div class="prose"><p>Lumin Amber ใช้ให้ Branch ดูดซับเพื่อเลเวลอัป Breezy Plains มีทั้งหมด 200 ชิ้น Branch ต้องใช้ 150 ชิ้นจึงถึงเลเวลสุดท้าย (15) แผนที่ในเกมนับให้ว่าเก็บไปแล้วกี่ชิ้น</p><div class="scroll-x"><table class="plain"><thead><tr><th>แหล่ง</th><th>จำนวน</th><th>วิธีได้</th></tr></thead><tbody><tr><td>วางอยู่ตามพื้นที่</td><td>77</td><td>เดินไปเก็บ</td></tr><tr><td>ภารกิจจับเวลา</td><td>35</td><td>Runaway Amber (8) วิ่งตามให้ทัน, Lumin Collection (27) เก็บพลังงานที่กระจายให้ครบในเวลา (Echoback Hop เกิดเฉพาะตอนฝนตก)</td></tr><tr><td>Blessed Aniimo</td><td>25</td><td>จับแล้วดรอป (Blessed Budsquire เกิดตอนพายุฝนฟ้าคะนอง, Blessed Helmut ตอนหิมะตก)</td></tr><tr><td>Lumin Marking</td><td>20</td><td>มองลวดลายจากมุมที่ถูกต้องให้ต่อกันครบ</td></tr><tr><td>Sanctum</td><td>17</td><td>ซ่อม Vein ข้างในแล้วรับ</td></tr><tr><td>Alpha</td><td>15</td><td>ชนะครั้งแรก</td></tr><tr><td>Omega</td><td>6</td><td>ตัวละ 2 ชิ้น ครั้งแรกที่ชนะ</td></tr><tr><td>Morphling's Memory</td><td>5</td><td>หา Morphling ที่ปลอมตัวอยู่</td></tr></tbody></table></div><p><b>Branch ของ Breezy Plains</b> ขึ้น 1 เลเวลทุก 10 ชิ้น ที่ควรรู้: เลเวล 1 โอกาสจับ +10% · เลเวล 3 Nurture ต่อวัน +10 ครั้ง · เลเวล 6 สภาพอากาศเรียก Prismana · เลเวล 9 Branch ให้ไข่ทุกวันจันทร์ 04:00 · เลเวล 10, 11, 13, 14 ใช้สตามินาลดลงครั้งละ 10% · เลเวล 12 เผยถ้ำลับ · เลเวล 15 เดินในพื้นที่นอกการต่อสู้ไม่เสียสตามินา ส่วนเลเวลอื่นเพิ่มสตามินาสูงสุดครั้งละ 10%</p></div></details><details class="dpanel howto" id="h-prismana"><summary><b>วิธีหาและจับร่าง Prismana</b><span class="small muted">สะสม Prismatic Energy ในพื้นที่ของ Prismana ที่ต้องการ</span></summary><div class="prose"><ol><li>เลือกพื้นที่ที่มี Prismana ที่ต้องการ (ร่างจากอีเวนต์ดูพื้นที่และช่วงเวลาในหน้าอีเวนต์)</li><li>ต้องมี Bronze Collection Badge ของพื้นที่นั้นก่อนจึงใช้ Nurture ได้</li><li>ใช้ Nurture ที่ Bloom แล้วเข้าไปแตะเพื่อเปิด Wild Surge</li><li><b>จับ</b> Aniimo ที่ถูกดึงดูดมา (การจับคือการสะสมพลังงาน ไม่ใช่ล้มให้หมด)</li><li>เก็บ Veinfruit หลังผลหมด พลังงานจะเข้าไปในพื้นที่</li><li>เมื่อเกิด Prismana Flow ดูเครื่องหมายสีพิเศษบนแผนที่ แล้วไปจับ</li></ol><ul><li>พลังงานพื้นที่มี 6 ขั้น จาก Empty ถึง Full เต็มเมื่อไหร่ Prismana จะปรากฏ ก่อนเต็มมีโอกาสเกิดก่อนได้ ไม่มีจำนวนครั้งที่การันตี</li><li>Nurture ฟรีวันละ 1 ครั้ง สะสมได้ 3 ครั้ง ใช้ร่วมทุก Branch ครั้งต่อไปใช้ Vein Essence ครั้งละ 1 (รีเซ็ต 04:00 ตามเวลาเซิร์ฟเวอร์)</li><li>Lucky Strike ตอนจับ Aniimo ก็เพิ่มพลังงานได้ ช่วงอีเวนต์ Vein Abundance: Nurture มีโอกาสเรียก Prismana Flow 3%, Lucky Strike 0.6%</li><li>ของเซ่นช่วยเลือก Aniimo ที่จะถูกดึงดูด เช่น Lightning Shard ดึงตระกูล Bolty ที่ Blitzwood จนได้ Prismana Blazen</li></ul></div></details><details class="dpanel howto" id="h-sparkling"><summary><b>วิธีหา Aniimo เปล่งประกาย</b><span class="small muted">4 วิธี: จับในป่า, ฟักไข่, Sparkling Cube, Sparkling Sigil</span></summary><div class="prose"><div class="scroll-x"><table class="plain"><thead><tr><th>วิธี</th><th>รายละเอียด</th><th>ต้องใช้</th></tr></thead><tbody><tr><td>จับในป่า</td><td>เจอปนกับตัวปกติ จับได้แต้มวิจัยด้วย</td><td>ดวง เพิ่มโอกาสด้วย Sparkling Essence และอัป Branch</td></tr><tr><td>ฟักไข่</td><td>ไข่ทุกใบมีโอกาสเล็กน้อย</td><td>ไข่และ Hatchinator ที่ Outpost</td></tr><tr><td>Sparkling Cube</td><td>จับติดแน่นอน ศักยภาพ Perfect และเปล่งประกาย</td><td>Cube 1 อันต่อการจับ</td></tr><tr><td>Sparkling Sigil</td><td>เปลี่ยนตัวที่มีอยู่ให้เปล่งประกาย (ไม่ได้ Perfect)</td><td>Sigil 1 อัน</td></tr></tbody></table></div><ul><li><b>Sparkling Essence</b> ใส่ตอน Nurture ที่ Branch เพิ่มโอกาสเจอ ซื้อ 10,000 Home Coin หรือร้าน Holo-Battle Sim และร้าน Egg Heist</li><li><b>Sparkling Cube</b> แลกที่ร้าน Outpost 1,000 Sparkling Crystal, ร้าน Stamp 500 Windborn Stamp, Mysterious Vendor 3,000,000 Credit (ถ้ามีของ)</li><li><b>Sparkling Sigil</b> ได้จากรายงานตัวเปล่งประกายที่ Outpost หรือ Mysterious Vendor 1,000,000 Credit</li><li><b>Sparkling Pigment</b> สุ่มเปลี่ยนสีตัวเปล่งประกายที่เป็นร่าง Prismana เท่านั้น แลก 5 Sigil หรือ 5,000,000 Credit</li><li>Branch ระดับ Sparkling Encounter ให้ไข่ทุกวันจันทร์ 04:00</li><li>ไม่ต้องใช้ Cube จับร่าง Prismana เก็บ Cube ไว้ใช้กับตัวที่อยากได้ทั้งเปล่งประกายและ Perfect</li></ul></div></details><details class="dpanel howto" id="h-vein"><summary><b>วิธีหา Vein Essence</b><span class="small muted">ใช้จ่าย Nurture ที่เกินโควต้าฟรี ได้จาก Territory, ร้าน Stamp และอื่น ๆ</span></summary><div class="prose"><div class="scroll-x"><table class="plain"><thead><tr><th>แหล่ง</th><th>ได้เท่าไร</th></tr></thead><tbody><tr><td>Branch ของ Breezy Plains</td><td>2 (เลเวล 3 และเลเวล 12)</td></tr><tr><td>เคลียร์ซ้ำ Territory: Stellarys, Scorchhowl, Panpanta, Blazen, Irisal, Turbo, Minespine</td><td>1 ต่อครั้ง (แหล่งหลัก)</td></tr><tr><td>ส่ง Aniimo ไปสำรวจในอีเวนต์ Tracing the Trail ถึง 10 ธ.ค.</td><td>1 ใน 40% ของรางวัล</td></tr><tr><td>ร้าน Stamp ใน Season Hub</td><td>1 ต่อ 50 Windborn Stamp</td></tr><tr><td>Mysterious Vendor</td><td>1 ต่อ 210,000 Credit (วันที่มีของ)</td></tr><tr><td>Elite Training, catch completion, Holo-Battle Interlink</td><td>บางรางวัล</td></tr><tr><td>แพ็กในร้าน</td><td>Weekly Nurturing Delivery 10, Departure Gift 8, Weekly Value Supplies 2</td></tr></tbody></table></div><ul><li>ใช้ Nurture ฟรีก่อน (วันละ 1 สะสมได้ 3) แล้วค่อยใช้ Vein Essence</li><li>Vein Essence ไม่ใช่ Prismana Crystal ซึ่งใช้เรียก Prismana Flow ทันทีและมีโควต้าแยก ดูชื่อไอเท็มก่อนใช้</li></ul></div></details></div>
+    </section>
     <section class="view" data-view="support" hidden>
       <div class="vhead"><p class="eyebrow">Support</p><h2>สนับสนุน AniiGuide</h2><p class="muted">เว็บนี้ทำโดยแฟนเกมคนเดียว เปิดให้ใช้ฟรีทุกฟีเจอร์ ไม่มีอะไรล็อกไว้ให้เฉพาะคนจ่ายเงิน</p></div>
       <div class="sup">
@@ -2029,7 +2038,7 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
       </div>
     </section>
     <section class="view" data-view="privacy" hidden>
-      <div class="vhead"><p class="eyebrow">Privacy</p><h2>นโยบายความเป็นส่วนตัว</h2><p class="muted">ปรับปรุงล่าสุด 2 ตุลาคม 2569</p></div>
+      <div class="vhead"><p class="eyebrow">Privacy</p><h2>นโยบายความเป็นส่วนตัวและเงื่อนไขการใช้งาน</h2><p class="muted">ปรับปรุงล่าสุด 2 ตุลาคม 2569</p></div>
       <div class="dpanel prose">
         <p>AniiGuide (aniiguide.trade) เป็นเว็บคู่มือเกม Aniimo ภาษาไทยที่แฟนเกมทำ ไม่เกี่ยวข้องกับผู้พัฒนาเกม หน้านี้บอกว่าเว็บเก็บข้อมูลอะไร เก็บไว้ที่ไหน และใช้ทำอะไร</p>
         <h3>ไม่ต้องสมัครสมาชิก</h3>
@@ -2048,6 +2057,8 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
         <h3>ขอดูหรือลบข้อมูล</h3>
         <p>ส่งข้อความผ่านหน้า <a href="#feedback" data-go="feedback">ส่งคำแนะนำ</a> พร้อมช่องทางติดต่อกลับ ข้อมูลสถิติไม่ได้ผูกกับตัวตน จึงลบได้เมื่อแจ้งรหัสสุ่มของเบราว์เซอร์มาด้วย (ดูได้ด้านล่าง)</p>
         <p class="small muted">รหัสสุ่มของเบราว์เซอร์นี้: <code id="privVisitor">—</code></p>
+        <h3 id="terms">เงื่อนไขการใช้งาน</h3>
+        <ul><li>เว็บนี้เป็นแฟนเมด ไม่เกี่ยวข้องกับผู้พัฒนาเกม ชื่อ ภาพ และโมเดลของ Aniimo เป็นลิขสิทธิ์ของเจ้าของเกม</li><li>ข้อมูลรวบรวมจากไฟล์เกม ประกาศทางการ และ AniiDex (ได้รับอนุญาต) อาจคลาดเคลื่อนหรือเปลี่ยนตามอัปเดตของเกม</li><li>ห้ามนำเนื้อหาที่เขียนขึ้นสำหรับเว็บนี้ไปเผยแพร่ซ้ำเชิงพาณิชย์โดยไม่ได้รับอนุญาต แชร์ลิงก์ได้เสมอ</li><li>ติดต่อหรือแจ้งข้อมูลผิดได้ที่หน้า <a href="#feedback" data-go="feedback">ส่งคำแนะนำ</a></li></ul>
       </div>
     </section>
     <section class="view" data-view="feedback" hidden>
@@ -2534,10 +2545,10 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
 </dialog>
 <dialog id="menu" aria-label="เมนูทั้งหมด"><div class="inner" id="menuInner"></div></dialog>
 
-<script src="data.js?v=ed8330b8ef"></script>
-<script src="thumbs.js?v=ed8330b8ef"></script>
-<script src="content.js?v=ed8330b8ef"></script>
-<script src="i18n-en.js?v=ed8330b8ef"></script>
+<script src="data.js?v=f452063d53"></script>
+<script src="thumbs.js?v=f452063d53"></script>
+<script src="content.js?v=f452063d53"></script>
+<script src="i18n-en.js?v=f452063d53"></script>
 <script>
 /* ===== theme ===== */
 (function(){
@@ -2587,6 +2598,7 @@ const LINES=(()=>{const p={};const f=x=>p[x]===x?x:(p[x]=f(p[x]));A.forEach(a=>p
   const g={},SO={Lumin:0,Gamma:1,Nova:2,Legendary:3};A.forEach(a=>{(g[f(a.slug)]=g[f(a.slug)]||[]).push(a)});
   const out={};Object.values(g).forEach(l=>{l.sort((x,y)=>(SO[x.st]??2)-(SO[y.st]??2)||x.ord-y.ord);l.forEach(a=>out[a.slug]=l)});return out})();
 const TH=p=>(window.THUMB&&window.THUMB[p])||p;
+if(Array.isArray(window.NEWS))window.NEWS.sort((x,y)=>y.date.localeCompare(x.date)); // newest first, whatever order content.js has
 const numLabel=a=>(+a.no>9000?'พิเศษ':'#'+a.no);
 const skillsOf=slug=>((SK[slug]||{}).s||[]).map(s=>({n:s[0],k:s[1],e:s[2],t:s[3],mi:s[4],cost:s[5],cd:s[6],r:s[7],ix:s[8],d:s[9],g:s[10]||[]}));
 const skColors=slug=>{const c=[];skillsOf(slug).forEach(s=>{if(s.e&&!c.includes(s.e))c.push(s.e)});return c};
@@ -2625,6 +2637,7 @@ const VIEWS=[
  {id:'media',th:'วิดีโอและไทม์ไลน์',ic:'play',g:'info',d:'ตัวอย่างเกมทางการ'},
  {id:'faq',th:'คำถามที่พบบ่อย',ic:'help',g:'info',d:'เซิร์ฟเวอร์ จอดำ รางวัล'},
  {id:'glossary',th:'อภิธานศัพท์',ic:'book',g:'info',d:'คำศัพท์ในเกม'},
+ {id:'howto',th:'ไกด์วิธีหา',ic:'book',g:'start',d:'ตั๋ว Chaos, Lumin Amber, Prismana, เปล่งประกาย'},
  {id:'beginner',th:'มือใหม่',ic:'star',g:'start',d:'ตัวเลือกที่ย้อนไม่ได้ ควรทำ/ไม่ควรทำ'},
  {id:'daily',th:'เช็กลิสต์รายวัน',ic:'check',g:'start',d:'ติ๊กงานรายวัน รายสัปดาห์ รีเซ็ตเอง'},
  {id:'growth',th:'แนวทางพัฒนา',ic:'up',g:'start',d:'พัฒนา Aniimo และใช้ทรัพยากรให้คุ้ม'},
@@ -2696,7 +2709,7 @@ function go(id,push){
   if(id==='builds'&&typeof renderBuilds==='function')renderBuilds();
   if(id==='sets'&&typeof renderSets==='function')renderSets();
   if(id==='ranking'&&typeof renderStats==='function')renderStats();
-  if(id==='items'&&!window.ITEMS_MORE&&!window.__imore){window.__imore=1;const sc=document.createElement('script');sc.src='items-more.js?v=ed8330b8ef';
+  if(id==='items'&&!window.ITEMS_MORE&&!window.__imore){window.__imore=1;const sc=document.createElement('script');sc.src='items-more.js?v=f452063d53';
     sc.onload=()=>{const have=new Set(ITEMS.map(i=>i.slug));(window.ITEMS_MORE||[]).forEach(i=>{if(!have.has(i.slug)){ITEMS.push(i);ITEM_BY_NAME[i.n.toLowerCase()]=ITEM_BY_NAME[i.n.toLowerCase()]||i}});
       const c=document.getElementById('ic');if(c){const cats=new Set([...c.options].map(o=>o.value));[...new Set(ITEMS.map(i=>i.c))].filter(x=>!cats.has(x)).forEach(x=>c.insertAdjacentHTML('beforeend',`<option value="${esc(x)}">${esc(CAT_TH[x]||x)}</option>`))}
       if(current==='items'&&typeof renderItems==='function')renderItems()};document.head.appendChild(sc)}
@@ -2716,6 +2729,7 @@ function route(){
   if(typeof dlg!=='undefined'&&dlg.open&&!BY[h])dlg.close(); // browser back from an Aniimo page
   if(/^s-/.test(h)){go('systems',false);setTimeout(()=>{const el=document.getElementById(h);el&&el.scrollIntoView()},0);return}
   if(/^b-/.test(h)||/^g-(steps|personality|spend|road)$/.test(h)){go(h.startsWith('b-')?'beginner':'growth',false);setTimeout(()=>{const el=document.getElementById(h);el&&el.scrollIntoView()},0);return}
+  if(h.startsWith('h-')&&document.getElementById(h)){go('howto',false);const d=document.getElementById(h);d.open=true;setTimeout(()=>d.scrollIntoView(),0);return}
   if(h.startsWith('g-')){go('guide',false);setTimeout(()=>{const el=document.getElementById(h);el&&el.scrollIntoView()},0);return}
   if(h.startsWith('news-')){go('news',false);renderNews(h.slice(5));return}
   if(/^sync-[A-Za-z0-9]{20,40}$/.test(h)){SYNC.code=h.slice(5);syncSave();try{history.replaceState(null,'','#collection')}catch(_){}go('collection',false);syncPull(true).then(()=>toast('เชื่อมรหัสซิงก์แล้ว ข้อมูลตรงกับอีกเครื่องแล้ว'));return}
@@ -3271,7 +3285,7 @@ function renderMap(){
     MAP.count=MAP.layers.map(()=>0);MAP.m.forEach(m=>MAP.count[m[0]]++);
     mapLayersUI();
   };
-  if(window.MAP)boot();else{const sc=document.createElement('script');sc.src='map.js?v=ed8330b8ef';sc.onload=boot;sc.onerror=()=>{document.getElementById('mapLoad').textContent='โหลดข้อมูลแผนที่ไม่สำเร็จ'};document.head.appendChild(sc)}
+  if(window.MAP)boot();else{const sc=document.createElement('script');sc.src='map.js?v=f452063d53';sc.onload=boot;sc.onerror=()=>{document.getElementById('mapLoad').textContent='โหลดข้อมูลแผนที่ไม่สำเร็จ'};document.head.appendChild(sc)}
 }
 function mapSaveLayers(){try{localStorage.setItem('aniimo-map-layers',JSON.stringify([...MV.on].map(i=>MAP.layers[i].id)))}catch(_){}}
 function mapLayersUI(){
@@ -3966,7 +3980,7 @@ document.addEventListener('click',e=>{
 });
 
 /* ===== Pathfinder duels & Sanctums (from the map data) ===== */
-function withMap(fn){if(window.MAP){fn();return}const sc=document.createElement('script');sc.src='map.js?v=ed8330b8ef';sc.onload=fn;sc.onerror=()=>{};document.head.appendChild(sc)}
+function withMap(fn){if(window.MAP){fn();return}const sc=document.createElement('script');sc.src='map.js?v=f452063d53';sc.onload=fn;sc.onerror=()=>{};document.head.appendChild(sc)}
 function regionAt(m){const x=m[1]/100,y=m[2]/100;return Object.keys(MAP.regions).find(n=>inPoly(x,y,MAP.regions[n]))||''}
 const mapBtn=i=>`<button type="button" class="chip" data-mapm-go="${i}" style="cursor:pointer">ดูบนแผนที่</button>`;
 const elBadges=a=>(a||[]).map(e=>badge(mEl(e))).join('');
@@ -4022,7 +4036,7 @@ function renderHeist(){
   hvCv=document.getElementById('hvCv');hvCtx=hvCv.getContext('2d');
   if(HV.ready){setTimeout(hvSize,0);return}if(HV.booting)return;HV.booting=true;
   const fail=()=>{document.getElementById('hvLoad').textContent='โหลดแผนที่ไม่สำเร็จ'};
-  const sc=document.createElement('script');sc.src='heist.js?v=ed8330b8ef';sc.onerror=fail;
+  const sc=document.createElement('script');sc.src='heist.js?v=f452063d53';sc.onerror=fail;
   sc.onload=()=>{const ico=new Image();ico.onerror=fail;ico.onload=()=>{
     HV.ico=ico;HV.ready=true;
     const busy=new Set(['egg_lesser_chest','egg_loot_pile','sanctum_chest','sanctum_loot_pile']); // plain chests and piles crowd the map; off at first
@@ -4245,7 +4259,7 @@ function renderNews(openId){
      <p class="dnote">ที่มา: <a href="${esc(n.source)}" target="_blank" rel="noopener">ประกาศทางการ ↗</a> · สรุปและแปลโดยเว็บนี้ รายละเอียดทั้งหมดอ่านได้ที่ต้นฉบับ</p>`;
     window.scrollTo({top:0});return;
   }
-  list.innerHTML=NEWS.filter(x=>!newsKind||x.type===newsKind).map(x=>{const d=new Date(x.date+'T00:00:00+07:00');return `<button type="button" class="ncard" data-news="${x.id}">
+  list.innerHTML=NEWS.slice().sort((x,y)=>y.date.localeCompare(x.date)).filter(x=>!newsKind||x.type===newsKind).map(x=>{const d=new Date(x.date+'T00:00:00+07:00');return `<button type="button" class="ncard" data-news="${x.id}">
     <span class="dt"><b>${d.getDate()}</b><small>${d.toLocaleDateString(LOC,{month:'short',year:'2-digit'})}</small></span>
     <span><span class="meta"><span class="ntype ${x.type}">${NTYPE[x.type]}</span>${RTAG[x.tag]||''}</span><h3>${esc(x.title)}</h3><p>${esc(x.lede)}</p></span></button>`}).join('');
 }
