@@ -237,8 +237,13 @@ def main():
                   d=it["desc"] or held_effect.get(it["name"], ""), ix=item_idx.get(it["icon"], -1),
                   src=[[x["kind"], x["detail"], x["cost"], x["where"], x["note"]] for x in it["sources"]])
              for it in items_raw]
+    def event_art(e):  # AniiDex event card picture (owner's permission), fetched once per event
+        dest = ROOT / "img" / "events" / f"{e['slug']}.webp"
+        if e.get("art") and not dest.exists():
+            polite.get("https://aniidex.com" + e["art"], dest)
+        return f"img/events/{e['slug']}.webp" if dest.exists() else ""
     events = [dict(slug=e["slug"], t=e["title"], run=e["run"], kind=e["kind"], ends=e["ends_in"], starts=e["starts_in"],
-                   d=e["intro"], rules=e["rules"], rw=e["rewards"], dates=e["dates"]) for e in raw.get("events", [])]
+                   d=e["intro"], rules=e["rules"], rw=e["rewards"], dates=e["dates"], img=event_art(e)) for e in raw.get("events", [])]
 
     # ------------------------------------------------ data
     aniimo, skills, partners = [], {}, {}

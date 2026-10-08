@@ -480,6 +480,11 @@ def main():
         kind = "ended" if slug in past else "upcoming" if ev["starts_in"] else "event" if i < n_events else "gameplay"
         ev.update(slug=slug, kind=kind)
         events.append(ev)
+    art = {}  # event card pictures from the list page (home page strip)
+    for slug, src in re.findall(r'<a href="/events/([^/"]+)/" class="ev-card"><img[^>]*?src="(/images/events/[^"]+)"', fetch("/events/", CACHE / "events.html")):
+        art.setdefault(slug, src)
+    for ev in events:
+        ev["art"] = art.get(ev["slug"], "")
     manual = json.loads((ROOT / "manual.json").read_text())
     sm = fetch("/sitemap-en.xml", CACHE / "sitemap-en.xml")
     territories = []
