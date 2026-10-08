@@ -2534,10 +2534,10 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
 </dialog>
 <dialog id="menu" aria-label="เมนูทั้งหมด"><div class="inner" id="menuInner"></div></dialog>
 
-<script src="data.js?v=7f8b74b6a3"></script>
-<script src="thumbs.js?v=7f8b74b6a3"></script>
-<script src="content.js?v=7f8b74b6a3"></script>
-<script src="i18n-en.js?v=7f8b74b6a3"></script>
+<script src="data.js?v=ed8330b8ef"></script>
+<script src="thumbs.js?v=ed8330b8ef"></script>
+<script src="content.js?v=ed8330b8ef"></script>
+<script src="i18n-en.js?v=ed8330b8ef"></script>
 <script>
 /* ===== theme ===== */
 (function(){
@@ -2696,6 +2696,10 @@ function go(id,push){
   if(id==='builds'&&typeof renderBuilds==='function')renderBuilds();
   if(id==='sets'&&typeof renderSets==='function')renderSets();
   if(id==='ranking'&&typeof renderStats==='function')renderStats();
+  if(id==='items'&&!window.ITEMS_MORE&&!window.__imore){window.__imore=1;const sc=document.createElement('script');sc.src='items-more.js?v=ed8330b8ef';
+    sc.onload=()=>{const have=new Set(ITEMS.map(i=>i.slug));(window.ITEMS_MORE||[]).forEach(i=>{if(!have.has(i.slug)){ITEMS.push(i);ITEM_BY_NAME[i.n.toLowerCase()]=ITEM_BY_NAME[i.n.toLowerCase()]||i}});
+      const c=document.getElementById('ic');if(c){const cats=new Set([...c.options].map(o=>o.value));[...new Set(ITEMS.map(i=>i.c))].filter(x=>!cats.has(x)).forEach(x=>c.insertAdjacentHTML('beforeend',`<option value="${esc(x)}">${esc(CAT_TH[x]||x)}</option>`))}
+      if(current==='items'&&typeof renderItems==='function')renderItems()};document.head.appendChild(sc)}
   current=id;if(typeof setTitle==='function'&&LANG!=='en')setTitle(id);
   document.querySelectorAll('.view').forEach(s=>s.hidden=s.dataset.view!==id);
   if(id==='map'&&MV.ready)setTimeout(mapSize,0);
@@ -3267,7 +3271,7 @@ function renderMap(){
     MAP.count=MAP.layers.map(()=>0);MAP.m.forEach(m=>MAP.count[m[0]]++);
     mapLayersUI();
   };
-  if(window.MAP)boot();else{const sc=document.createElement('script');sc.src='map.js?v=7f8b74b6a3';sc.onload=boot;sc.onerror=()=>{document.getElementById('mapLoad').textContent='โหลดข้อมูลแผนที่ไม่สำเร็จ'};document.head.appendChild(sc)}
+  if(window.MAP)boot();else{const sc=document.createElement('script');sc.src='map.js?v=ed8330b8ef';sc.onload=boot;sc.onerror=()=>{document.getElementById('mapLoad').textContent='โหลดข้อมูลแผนที่ไม่สำเร็จ'};document.head.appendChild(sc)}
 }
 function mapSaveLayers(){try{localStorage.setItem('aniimo-map-layers',JSON.stringify([...MV.on].map(i=>MAP.layers[i].id)))}catch(_){}}
 function mapLayersUI(){
@@ -3475,7 +3479,7 @@ const CAT_TH={'Evolution Material':'วัสดุวิวัฒนากา�
 const Q_TH={Common:'ทั่วไป',Uncommon:'ไม่ธรรมดา',Rare:'Rare',Epic:'Epic',Legendary:'Legendary',Prismatic:'Prismatic'};
 const SRC_TH={'Defeat Alphas':'ชนะบอส Alpha','Defeat Omega':'ชนะบอส Omega','Chest':'หีบสมบัติ','Mysterious Vendor':'Mysterious Vendor (ร้านสุ่มรายวัน)','Pawprint Shop':'Pawprint Shop','Elite Training':'Elite Training','Furniture Store':'ร้านเฟอร์นิเจอร์','Outpost vendor':'ร้านค้า Outpost','Shop':'ร้านค้า','Companion Handbook':'Companion Handbook','Premium Custom Pack':'แพ็กเติมเงิน (Premium Custom Pack)','Upgrade Level':'รางวัลเลื่อนเลเวล','Stamp Rush Shop':'Stamp Rush Shop','Badge Shop':'Badge Shop','Credit Shop':'ร้าน Credit','Complete Quests':'ทำเควสต์','Breezy Plains Branch':'Branch ใน Breezy Plains','Whisperwake Isles Branch':'Branch ใน Whisperwake Isles','Repeat clears in 1 place':'เคลียร์ดินแดนซ้ำ (1 แห่ง)','Repeat clears in 7 Territories':'เคลียร์ดินแดนซ้ำ (7 แห่ง)','Holo-Battle Sim':'Holo-Battle Sim','Shop · Glimmer':'ร้านค้า (จ่าย Glimmer)','Shop · Companion Handbook':'ร้าน Companion Handbook','Purchase at Super Claw':'ซื้อที่ Super Claw','Home Production':'ผลิตในบ้าน','Super Claw':'Super Claw','Holo-Shop':'Holo-Shop','Courses':'Courses (Elite Training)','View Catch Completion Progress':'รางวัลความคืบหน้าการจับ','Pathfinder Challenge':'Pathfinder Challenge','Glimmer Purchase':'ซื้อด้วย Glimmer','Item Exchange':'แลกไอเท็ม','Daily Activity Quests':'ภารกิจ Daily Activity','Weekly Nurturing Delivery':'แพ็ก Weekly Nurturing Delivery','Sanctum Clear':'เคลียร์ Sanctum','Open Omega chest':'เปิดหีบ Omega (Primegy 50)','Open Alpha chest':'เปิดหีบ Alpha','Holo-Battle Interlink':'Holo-Battle Interlink','Purchase at Aniimart':'ซื้อที่ Aniimart','Coilstrike Club':'Coilstrike Club','Champion’s Gift':'แพ็ก Champion’s Gift','Pick up':'เก็บจากพื้น','Weekly Value Supplies':'แพ็ก Weekly Value Supplies','Aniimo Catches Report':'รายงานการจับ Aniimo','Home Shop':'ร้านในบ้าน','Weekly Sparkling':'แพ็ก Weekly Sparkling','Produce Aniipods in Homeland':'ผลิต Aniipod ในบ้าน','Produce EXP items in Home':'ผลิตไอเท็ม EXP ในบ้าน','Aniimo dispatch':'ส่ง Aniimo ออกสำรวจ','Lumin Energy':'Lumin Energy','Sanctum':'Sanctum','Report Alpha Aniimo':'รายงาน Alpha Aniimo','Stump':'ตอไม้','World Exploration - Dirt Mound':'กองดินในโลก','Go to Shop':'ร้านค้าในเกม','Shop · Item':'ร้านค้า (จ่าย Lumin Crystal)','Adventure Pack':'แพ็ก Adventure Pack','Season Keepsakes':'แพ็ก Season Keepsakes','Release Aniimo':'ปล่อย Aniimo','Clay Pot':'ไหดินเผา','Aniilog Level':'เลเวล Aniilog','Nurture':'Nurture','Stamp Rush':'Stamp Rush','Season Achievement':'ความสำเร็จของซีซัน','Catch New Aniimo':'จับ Aniimo ชนิดใหม่','Obtain Lumin Amber':'เก็บ Lumin Amber','Egg':'ไข่','Holo-Battle Sim Rewards':'รางวัล Holo-Battle Sim','Operation: Egg Heist Shop':'ร้าน Operation: Egg Heist','Operation: Egg Heist':'Operation: Egg Heist','Lumin Amber':'Lumin Amber','Weekly Nurturing':'แพ็ก Weekly Nurturing','Dig':'ขุด','Legendary Journey Shop':'ร้าน Legendary Journey','Shop Purchase':'ซื้อในร้าน','Legendary Journey Event':'อีเวนต์ Legendary Journey','Defeat Aniimo in the Lost Sanctum':'ชนะ Aniimo ใน Lost Sanctum','Main Story':'เนื้อเรื่องหลัก','Journey Quests':'เควสต์ Journey','Alpha First Clear':'ชนะ Alpha ครั้งแรก','Elite Pathfinder Challenge':'Elite Pathfinder Challenge','Silver Badges':'Silver Badge','RV Level Up':'อัปเลเวล RV','Home Tilling Chest':'หีบจากการไถดินในบ้าน','Home Index':'ดัชนีบ้าน','Events':'อีเวนต์','Departure Gift':'แพ็ก Departure Gift','Helmut’s Gift':'ของขวัญจาก Helmut','Helmut’s Gift of Thanks':'ของขวัญขอบคุณจาก Helmut','Rookey’s Gift of Thanks':'ของขวัญขอบคุณจาก Rookey','Release Inferlupa':'ปล่อย Inferlupa','Defeat Flameruff: Elite':'ชนะ Flameruff: Elite','Shell':'เปลือกหอย'};
 const srcLabel=d=>{if(SRC_TH[d])return SRC_TH[d];const m=d.match(/^Craft: (.+)$/);if(m)return 'สร้าง: '+m[1];return d.replace(/ ↗ —$/,'')};
-function itemIcon(it,big){if(it.ix<0)return `<span class="iicon q-${it.q}"></span>`;const c=it.ix%ISPR.cols,r=Math.floor(it.ix/ISPR.cols);return `<span class="iicon q-${it.q}" style="background-image:url(items.webp);background-size:${ISPR.cols*100}% ${ISPR.rows*100}%;background-position:${c/(ISPR.cols-1)*100}% ${ISPR.rows>1?r/(ISPR.rows-1)*100:0}%"></span>`}
+function itemIcon(it,big){if(it.ix<0)return it.img?`<span class="iicon q-${it.q}" style="background:url(${it.img}) center/contain no-repeat"></span>`:`<span class="iicon q-${it.q}"></span>`;const c=it.ix%ISPR.cols,r=Math.floor(it.ix/ISPR.cols);return `<span class="iicon q-${it.q}" style="background-image:url(items.webp);background-size:${ISPR.cols*100}% ${ISPR.rows*100}%;background-position:${c/(ISPR.cols-1)*100}% ${ISPR.rows>1?r/(ISPR.rows-1)*100:0}%"></span>`}
 const itemRef=n=>ITEM_BY_NAME[String(n).toLowerCase()]?`<button type="button" class="itemlink" data-item="${esc(n)}">${esc(n)}</button>`:esc(n);
 const ic=document.getElementById('ic'),iq=document.getElementById('iq'),iqq=document.getElementById('iqq');
 ic.innerHTML+=[...new Set(ITEMS.map(i=>i.c))].sort((a,b)=>(CAT_TH[a]||a).localeCompare(CAT_TH[b]||b,'th')).map(c=>`<option value="${esc(c)}">${esc(CAT_TH[c]||c)}</option>`).join('');
@@ -3962,7 +3966,7 @@ document.addEventListener('click',e=>{
 });
 
 /* ===== Pathfinder duels & Sanctums (from the map data) ===== */
-function withMap(fn){if(window.MAP){fn();return}const sc=document.createElement('script');sc.src='map.js?v=7f8b74b6a3';sc.onload=fn;sc.onerror=()=>{};document.head.appendChild(sc)}
+function withMap(fn){if(window.MAP){fn();return}const sc=document.createElement('script');sc.src='map.js?v=ed8330b8ef';sc.onload=fn;sc.onerror=()=>{};document.head.appendChild(sc)}
 function regionAt(m){const x=m[1]/100,y=m[2]/100;return Object.keys(MAP.regions).find(n=>inPoly(x,y,MAP.regions[n]))||''}
 const mapBtn=i=>`<button type="button" class="chip" data-mapm-go="${i}" style="cursor:pointer">ดูบนแผนที่</button>`;
 const elBadges=a=>(a||[]).map(e=>badge(mEl(e))).join('');
@@ -4018,7 +4022,7 @@ function renderHeist(){
   hvCv=document.getElementById('hvCv');hvCtx=hvCv.getContext('2d');
   if(HV.ready){setTimeout(hvSize,0);return}if(HV.booting)return;HV.booting=true;
   const fail=()=>{document.getElementById('hvLoad').textContent='โหลดแผนที่ไม่สำเร็จ'};
-  const sc=document.createElement('script');sc.src='heist.js?v=7f8b74b6a3';sc.onerror=fail;
+  const sc=document.createElement('script');sc.src='heist.js?v=ed8330b8ef';sc.onerror=fail;
   sc.onload=()=>{const ico=new Image();ico.onerror=fail;ico.onload=()=>{
     HV.ico=ico;HV.ready=true;
     const busy=new Set(['egg_lesser_chest','egg_loot_pile','sanctum_chest','sanctum_loot_pile']); // plain chests and piles crowd the map; off at first

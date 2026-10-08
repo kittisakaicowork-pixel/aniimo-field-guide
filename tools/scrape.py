@@ -31,6 +31,7 @@ DAILY = "--daily" in sys.argv
 # while AniiDex sees a small, steady load.
 DAILY_PATHS = ("/aniimo/", "/aniimo/forms/", "/aniimo/sparkling/", "/bosses/", "/events/", "/sitemap-en.xml")
 STALE_DAYS, STALE_BUDGET = 14, 80
+NEW_ITEMS = 250  # item pages never seen before, fetched per run (the sitemap lists ~3,500; this fills in over ~2 weeks)
 _stale_left = [STALE_BUDGET]
 
 
@@ -464,10 +465,17 @@ def main():
     items = []
     index = {x["slug"]: x for x in json.loads((ROOT / "items_all.json").read_text())} if (ROOT / "items_all.json").exists() else {}
     featured = json.loads((ROOT / "items.json").read_text())
-    for slug in list(dict.fromkeys(featured + list(index))):
+    sm_items = [urllib.parse.unquote(x) for x in re.findall(r"aniidex\.com/items/([^/<]+)/</loc>", fetch("/sitemap-en.xml", CACHE / "sitemap-en.xml"))]
+    new_left = NEW_ITEMS
+    for slug in list(dict.fromkeys(featured + list(index) + sm_items)):
+        if not (CACHE / "items" / f"{slug}.html").exists():
+            if new_left <= 0:
+                continue
+            new_left -= 1
         it = parse_item(fetch(f"/items/{slug}/", CACHE / "items" / f"{slug}.html"))
         it["slug"] = slug
         it["featured"] = slug in featured
+        it["extra"] = slug not in index and slug not in featured  # only in the sitemap: goes to items-more.js
         if slug in index:
             it["group"], it["sub"] = index[slug]["cat"], index[slug]["sub"]
         it["desc"] = clean_item_desc(it["desc"], it["name"])

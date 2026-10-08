@@ -226,7 +226,8 @@ def main():
             spark["rows"] = pack_sheet(paths, 128, 10, out_dir / f"spark-s-{n:02d}.webp", quality=80)
 
     # ------------------------------------------------ item icons
-    items_raw = raw.get("items", [])
+    items_raw = [it for it in raw.get("items", []) if not it.get("extra")]
+    items_extra = [it for it in raw.get("items", []) if it.get("extra")]
     icons_i = [it["icon"] for it in items_raw if it["icon"]]
     download([(IPX.format(s=96) + "images/items/" + ic, CACHE / "item96" / ic) for ic in icons_i if not icon(ic)])
     item_cols = 10
@@ -237,6 +238,25 @@ def main():
                   d=it["desc"] or held_effect.get(it["name"], ""), ix=item_idx.get(it["icon"], -1),
                   src=[[x["kind"], x["detail"], x["cost"], x["where"], x["note"]] for x in it["sources"]])
              for it in items_raw]
+    # the other items (only in AniiDex's sitemap): own file, loaded by the items page; one small icon file each
+    more = []
+    (out_dir / "img" / "i").mkdir(parents=True, exist_ok=True)
+    download([(IPX.format(s=96) + "images/items/" + it["icon"], CACHE / "item96" / it["icon"]) for it in items_extra
+              if it["icon"] and not icon(it["icon"]) and not (out_dir / "img" / "i" / it["icon"]).exists()])
+    for it in items_extra:
+        ic = ""
+        if it["icon"]:
+            dest = out_dir / "img" / "i" / it["icon"]
+            src = icon(it["icon"]) or CACHE / "item96" / it["icon"]
+            if not dest.exists() and Path(src).exists():
+                im = Image.open(src).convert("RGBA")
+                im.thumbnail((64, 64), Image.LANCZOS)
+                im.save(dest, "WEBP", quality=82)
+            ic = f"img/i/{it['icon']}" if dest.exists() else ""
+        more.append(dict(slug=it["slug"], n=it["name"], q=it["quality"], c=it["category"], f=0, d=it["desc"], ix=-1, img=ic,
+                         src=[[x["kind"], x["detail"], x["cost"], x["where"], x["note"]] for x in it["sources"]]))
+    (out_dir / "items-more.js").write_text("window.ITEMS_MORE=" + json.dumps(more, ensure_ascii=False, separators=(",", ":")) + ";")
+
     def event_art(e):  # AniiDex event card picture (owner's permission), fetched once per event
         dest = ROOT / "img" / "events" / f"{e['slug']}.webp"
         if e.get("art") and not dest.exists():
@@ -310,12 +330,12 @@ def main():
     # Script links carry a version from the files' contents, so browsers and Cloudflare fetch new data at once
     # (and an unchanged build leaves index.html unchanged).
     if not FULL:
-        parts = [(ROOT / f).read_bytes() for f in ("data.js", "thumbs.js", "content.js", "i18n-en.js", "map.js", "heist.js")
+        parts = [(ROOT / f).read_bytes() for f in ("data.js", "thumbs.js", "content.js", "i18n-en.js", "map.js", "heist.js", "items-more.js")
                  if (ROOT / f).exists()]
         stamp = hashlib.md5(b"".join(parts)).hexdigest()[:10]
         page = ROOT / "index.html"
         old = page.read_text()
-        new = re.sub(r"((?:data|thumbs|content|i18n-en|map|heist)\.js\?v=)[0-9a-z]+", lambda m: m.group(1) + stamp, old)
+        new = re.sub(r"((?:data|thumbs|content|i18n-en|map|heist|items-more)\.js\?v=)[0-9a-z]+", lambda m: m.group(1) + stamp, old)
         if new != old:
             page.write_text(new)
     print(f"data.js {len(js)/1e6:.2f} MB · Thai strings {len(th_used)} · untranslated {len(missing)}")
