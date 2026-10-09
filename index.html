@@ -1708,6 +1708,9 @@ body{overflow-x:clip}
   .adws nav button{flex:none;white-space:nowrap;padding:10px 14px}
   .adws .aside{gap:10px}
 }
+
+/* iPhone zooms into any field under 16px: keep typing fields at 16px on touch screens */
+@media (pointer:coarse),(max-width:640px){input:not([type=checkbox]):not([type=radio]):not([type=range]),select,textarea{font-size:16px!important}}
 </style>
 
 <div id="boot" role="status" aria-live="polite"><div class="bootin"><b class="wm"><svg class="brandmark" viewBox="0 0 260 72" aria-hidden="true"><use href="img/aniiguide-logo.svg?v=4#wordmark"></use></svg><span class="sr">AniiGuide</span></b><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><small id="bootMsg">กำลังโหลดข้อมูล Aniimo…</small></div></div>
