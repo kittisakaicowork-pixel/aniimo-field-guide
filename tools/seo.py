@@ -92,7 +92,7 @@ def page(path, title, desc, body, image=None, jsonld=None, prefix="../../"):
 <meta property="og:type" content="article"><meta property="og:site_name" content="AniiGuide"><meta property="og:title" content="{E(title)}">
 <meta property="og:description" content="{E(desc)}"><meta property="og:url" content="{url}"><meta property="og:image" content="{img}">
 <meta property="og:locale" content="th_TH"><meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#1E9BEB">
-<link rel="icon" href="{prefix}favicon.png" type="image/png"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@900&family=Mitr:wght@500&display=swap">{ld}<style>{CSS}</style></head><body>
+<link rel="icon" href="{prefix}favicon.png?v=2" type="image/png"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@900&family=Mitr:wght@500&display=swap">{ld}<style>{CSS}</style></head><body>
 <header><a href="{prefix}" class="wm">an<span class="ii"><i>ı</i><i>ı</i></span>guide</a></header>
 <main>{body}</main>
 <footer>คู่มือเกม Aniimo ภาษาไทย (แฟนเมด ไม่เกี่ยวข้องกับ Pawprint Studio) · ข้อมูล ภาพ และคำแปลไทยจากข้อมูลในเกม · <a href="{prefix}">เปิดคู่มือเต็ม</a></footer>
