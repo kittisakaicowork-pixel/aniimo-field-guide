@@ -1339,6 +1339,17 @@ body{overflow-x:clip}
 .hfq{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 16px}
 .hfq summary{cursor:pointer;font:600 .98rem var(--display)}.hfq p{margin:8px 0 0;color:var(--ink-2);line-height:1.7}
 .wiki.tools .wcard{min-height:0}
+
+/* header art on wide screens (Oct 2026 fix): soft left and top fades, art kept clear of the text column */
+@media (min-width:1181px){
+  [data-view="home"] .hero3 .hbg{width:calc(100vw - max(20px,calc(50vw - 560px)) - 470px);max-width:1300px;
+    -webkit-mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.35) 18%,#000 42%),linear-gradient(180deg,transparent 0,#000 14%,#000 72%,transparent 100%);-webkit-mask-composite:source-in;
+    mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.35) 18%,#000 42%),linear-gradient(180deg,transparent 0,#000 14%,#000 72%,transparent 100%);mask-composite:intersect}
+  [data-view="home"] .hero3 .hbg img{object-position:70% 42%}
+}
+[data-view="home"] .hero3 .h3text{max-width:600px}
+.hev-h a{background:var(--surface);padding:2px 10px;border-radius:999px;box-shadow:var(--shadow)}
+[data-view="home"] .wnew{margin-top:-8px}
 </style>
 
 <div id="boot" role="status" aria-live="polite"><div class="bootin"><b class="wm"><span aria-hidden="true">an<span class="ii"><i>ı</i><i>ı</i></span>guide</span><span class="sr">aniiguide</span></b><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><small id="bootMsg">กำลังโหลดข้อมูล Aniimo…</small></div></div>
@@ -1405,7 +1416,6 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
   <main id="main">
     <!-- HOME -->
     <section class="view" data-view="home">
-      <div class="wnew" id="whatsNew" hidden></div>
       <div class="hero3">
         <div class="hbg" aria-hidden="true"><img src="img/hero-kv.webp" alt="" fetchpriority="high"></div>
         <div class="h3text">
@@ -1417,6 +1427,7 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
         </div>
         <div class="spks" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
       </div>
+      <div class="wnew" id="whatsNew" hidden></div>
       <section class="hsec ctr"><header class="shead"><h2>ตอนนี้ในเกม</h2><p class="sdesc">โค้ดของขวัญที่ยังใช้ได้ อีเวนต์ที่กำลังจัด และอัปเดตล่าสุด ตามเวลาไทย</p></header><div class="hnow" id="homeNow" aria-live="polite"></div></section>
       <section class="hsec ctr"><header class="shead"><h2>วิกิ Aniimo</h2><p class="sdesc" id="dWiki"></p></header><div class="wiki" id="homeWiki"></div></section>
       <section class="hsec ctr"><header class="shead"><h2>เครื่องมือผู้เล่น</h2><p class="sdesc" id="dTools"></p></header><div class="wiki tools" id="homeTools"></div></section>
