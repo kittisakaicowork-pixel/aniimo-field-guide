@@ -24,7 +24,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png?v=2">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700;800;900&family=Inter:wght@400;500;600;700&family=Mitr:wght@400;500;600&family=IBM+Plex+Sans+Thai:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@800&family=M+PLUS+Rounded+1c:wght@700;800;900&family=Inter:wght@400;500;600;700&family=Mitr:wght@400;500;600&family=IBM+Plex+Sans+Thai:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
 <style>
 :root{
   --ground:#EEF7FF; --surface:#FFFFFF; --sunk:#E3F1FC; --ink:#172238; --ink-2:#56678A; --line:#D3E5F4;
@@ -129,7 +129,7 @@ main{padding:24px 24px 64px;min-width:0}
   .tabbar svg{width:22px;height:22px}
   .tabbar button[aria-current="page"]{color:var(--accent);font-weight:600}
   .logo b:not(.wm){display:none}
-  .logo{gap:7px}.logo img{width:30px;height:30px}.logo .wm{font-size:1.1rem}
+  .logo{gap:7px}.logo img{width:30px;height:30px}.logo .wm{font-size:1rem}
 }
 
 /* ---------- shared ---------- */
@@ -1069,13 +1069,10 @@ kbd{font:600 .78rem var(--mono);border:1px solid var(--line);border-bottom-width
 .seolinks{font-size:.8rem;color:var(--ink-2);line-height:1.9}.seolinks a{color:var(--ink-2)}
 /* =================== v4 skin: AniiGuide (sky blue like the game, rounded type) =================== */
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-.wm{font:900 1.3rem/1 "M PLUS Rounded 1c",var(--display);letter-spacing:-.01em;color:var(--ink);display:inline-flex;align-items:baseline;white-space:nowrap}
-.wm .ii{display:inline-flex}
-.wm .ii i{position:relative;font-style:normal}
-.wm .ii i::before{content:"";position:absolute;left:50%;top:.1em;width:.22em;height:.22em;border-radius:50%;translate:-50% 0;background:linear-gradient(135deg,#FF8AD0,#FF5C93)}
-.wm .ii i+i::before{background:linear-gradient(135deg,#B7FBFF,#3FD3C8)}
+.wm{font:800 1.12rem/1 "Unbounded","M PLUS Rounded 1c",system-ui,sans-serif;letter-spacing:.01em;color:var(--ink);display:inline-flex;align-items:center;white-space:nowrap;position:relative;isolation:isolate}.wm .ii{position:relative;display:inline-block;margin:0 .03em 0 .05em;letter-spacing:.07em}.wm .ii .ring{position:absolute;left:50%;top:50%;width:1.3em;height:1.85em;translate:-50% -50%;z-index:-1;overflow:visible}.wm .ii::after{content:"";position:absolute;right:-.42em;top:-.5em;width:.5em;height:.5em;background:linear-gradient(135deg,#FF7AC8,#2FC7FF);clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%)}
 .logo img{border-radius:10px;box-shadow:0 4px 12px rgba(10,110,210,.25)}
 .logo b.wm span{background:none;-webkit-background-clip:border-box;background-clip:border-box;color:inherit}
+.logo b.wm,.sf-brand .wm,#boot .wm{font-family:"Unbounded","M PLUS Rounded 1c",system-ui,sans-serif;font-weight:800}
 #boot .wm{font-size:2.4rem;animation:bob 1.6s ease-in-out infinite}
 h1,h2,h3,.eyebrow,.h3title{font-family:var(--display)}
 h2,h3{font-weight:800}
@@ -1147,7 +1144,7 @@ h2{color:var(--ink)}
 .sitefoot a{display:block;color:var(--ink-2);text-decoration:none;font-size:.84rem;padding:3px 0}
 .sitefoot a:hover{color:var(--accent)}
 .sf-h{font:800 .85rem/1 var(--display);margin:0 0 8px}
-.sf-brand .wm{font:900 1.3rem/1 var(--display)}
+.sf-brand .wm{font-size:1.25rem}
 @media (max-width:959px){.wiki{grid-template-columns:repeat(2,minmax(0,1fr))}.picks{grid-template-columns:repeat(3,minmax(0,1fr))}.hnews,.about .agrid{grid-template-columns:1fr}.sitefoot{grid-template-columns:repeat(2,minmax(0,1fr))}.sf-brand{grid-column:1/-1}}
 
 .radars{display:grid;grid-template-columns:1fr 1fr;gap:12px}
@@ -1473,7 +1470,7 @@ body{overflow-x:clip}
 .cm-card.question{border-left:4px solid var(--accent)}
 </style>
 
-<div id="boot" role="status" aria-live="polite"><div class="bootin"><b class="wm"><span aria-hidden="true">an<span class="ii"><i>ı</i><i>ı</i></span>guide</span><span class="sr">aniiguide</span></b><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><small id="bootMsg">กำลังโหลดข้อมูล Aniimo…</small></div></div>
+<div id="boot" role="status" aria-live="polite"><div class="bootin"><b class="wm"><span aria-hidden="true">AN<span class="ii">II<svg class="ring" viewBox="0 0 40 60" aria-hidden="true"><defs><linearGradient id="wmg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FF7AC8"/><stop offset=".5" stop-color="#8A7CFF"/><stop offset="1" stop-color="#2FC7FF"/></linearGradient></defs><ellipse cx="20" cy="30" rx="13" ry="27" fill="none" stroke="url(#wmg)" stroke-width="4" transform="rotate(20 20 30)"/></svg></span>GUIDE</span><span class="sr">aniiguide</span></b><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><small id="bootMsg">กำลังโหลดข้อมูล Aniimo…</small></div></div>
 <div id="progress" aria-hidden="true"></div>
 <div id="toast" role="status" aria-live="polite"></div>
 <script>
@@ -1518,7 +1515,7 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
 </svg>
 
 <header class="appbar">
-  <a class="logo" href="#home" data-go="home"><b class="wm"><span aria-hidden="true">an<span class="ii"><i>ı</i><i>ı</i></span>guide</span><span class="sr">aniiguide</span></b></a>
+  <a class="logo" href="#home" data-go="home"><b class="wm"><span aria-hidden="true">AN<span class="ii">II<svg class="ring" viewBox="0 0 40 60" aria-hidden="true"><defs><linearGradient id="wmg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FF7AC8"/><stop offset=".5" stop-color="#8A7CFF"/><stop offset="1" stop-color="#2FC7FF"/></linearGradient></defs><ellipse cx="20" cy="30" rx="13" ry="27" fill="none" stroke="url(#wmg)" stroke-width="4" transform="rotate(20 20 30)"/></svg></span>GUIDE</span><span class="sr">aniiguide</span></b></a>
   <nav class="topnav" id="topnav" aria-label="เมนูหลัก"></nav>
   <a class="suppill" href="#support" data-go="support" aria-label="สนับสนุนเว็บ"><span aria-hidden="true">☕</span><b>สนับสนุนเว็บ</b><small>เลี้ยงกาแฟ</small></a>
   <div class="gsearch">
