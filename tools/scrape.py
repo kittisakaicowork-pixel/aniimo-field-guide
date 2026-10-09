@@ -282,6 +282,23 @@ def clean_item_desc(desc, name):
 
 
 # ------------------------------------------------------------------ events
+def parse_player_skills(page):
+    """AniiDex /skills/: player titles, active skills and passive talents, with per-level title and Report Card cost."""
+    t = text(re.sub(r"<script.*?</script>|<style.*?</style>", "", page, flags=re.S))
+    out = []
+    for m in re.finditer(r"([A-Z][\w’'!, -]+?) (Active Skill|Passive Talent)\. Maximum level (\d+)\. (.*?)(?= [A-Z][\w’'!, -]+? (?:Active Skill|Passive Talent)\. Maximum level|$)", t):
+        name, kind, mx, rest = m.groups()
+        desc = re.split(r" Level 1 requires ", rest)[0].strip()
+        levels = [[f"{a} {b}", int(c)] for _, a, b, c in re.findall(r"Level (\d+) requires (I{1,3}|IV|V) (\w+) and costs (\d+) Report Card", rest)]
+        out.append(dict(name=name.strip(), kind="active" if kind.startswith("Active") else "passive", max=int(mx), desc=desc, levels=levels))
+    names = [x["name"] for x in out]  # the first match also swallows the end of the title grid ("Unwavering Rampart Heal")
+    for x in out:
+        for other in names:
+            if other != x["name"] and x["name"].startswith(other + " "):
+                x["name"] = x["name"][len(other) + 1:]
+    return out
+
+
 def parse_events_index(page):
     """AniiDex /events/ since Oct 2026: "Live Now" (Events, then Gameplay), "Upcoming" week groups and "Past",
     each a list of ev-card links. Older layout (text "Events N Gameplay N" / "Coming up" / "Past events") is
@@ -505,7 +522,8 @@ def main():
         b = parse_boss_rush(fetch(f"/bosses/{slug}/", CACHE / "bossrush" / f"{slug}.html"))
         b["slug"] = slug
         boss_rush.append(b)
-    raw = dict(aniimo=base, sparkling=sparkling, bosses=bosses, items=items, events=events, upcoming=upcoming,
+    pskills = parse_player_skills(fetch("/skills/", CACHE / "skills.html"))
+    raw = dict(pskills=pskills, aniimo=base, sparkling=sparkling, bosses=bosses, items=items, events=events, upcoming=upcoming,
                territories=territories, boss_rush=boss_rush, scraped_at=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
                scraped=time.strftime("%Y-%m-%d"))
     check_codes()

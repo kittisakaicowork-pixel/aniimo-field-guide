@@ -316,12 +316,15 @@ def main():
         miss_file.write_text(json.dumps({m: "" for m in missing}, ensure_ascii=False, indent=1))
     elif miss_file.exists():
         miss_file.unlink()
+    pth = game.player_skills({p["name"] for p in raw.get("pskills", [])}) if game else {}
     js = "".join(f"window.{k}={json.dumps(v, ensure_ascii=False, separators=(',', ':'))};\n" for k, v in [
         ("ANIIMO", aniimo), ("SKILLS", skills), ("SPRITE", sprite), ("PARTNERS", partners), ("SPARK", spark),
         ("EVO", evo), ("BOSSES", bosses), ("REGIONS", regions), ("TH", th_used), ("NAMES_TH", names_th), ("CODES", manual),
         ("ITEMS", dict(cols=item_cols, rows=item_rows, list=items)), ("EVENTS", events), ("UPCOMING", raw.get("upcoming", [])),
         ("TERR", raw.get("territories", [])), ("FOOD", game.foods() if game else []),
         ("M3D", dict(url=R2_3D, v=R2_3D_V, m=json.loads((TOOLS / "r2" / "m3d.json").read_text())) if (TOOLS / "r2" / "m3d.json").exists() else None),
+        ("PSKILLS", [dict(n=p["name"], k=p["kind"], mx=p["max"], d=p["desc"], lv=p["levels"],
+                          th=(pth.get(p["name"]) or ["", ""])[0], dth=(pth.get(p["name"]) or ["", ""])[1]) for p in raw.get("pskills", [])]),
         ("SETS", json.loads((TOOLS / "sets.json").read_text()) if (TOOLS / "sets.json").exists() else []), ("RUSH", raw.get("boss_rush", [])),
         ("META", dict(scraped=raw["scraped"], scraped_at=raw.get("scraped_at", ""), full=FULL, server="Asia-Pacific",
                      # the owner's PromptPay QR for the support page; the block stays hidden until the file exists

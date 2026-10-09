@@ -261,6 +261,22 @@ def recommended(raw):
     return out
 
 
+def player_skills(names):
+    """Official Thai name and description for player skills, matched by English name (player_skill_data)."""
+    out = {}
+    try:
+        data = table("player_skill_data")
+    except Exception:
+        return out
+    strip = lambda s: re.sub(r"</?color[^>]*>", "", s or "")
+    for levels in data.values():
+        for x in levels:
+            en = (x.get("name") or {}).get("en", "")
+            if en in names and en not in out:
+                out[en] = [th_norm(x["name"].get("th_TH", "")), th_norm(strip((levels[-1].get("desc") or {}).get("th_TH", "")))]
+    return out
+
+
 def foods():
     """Homeland foods: [Thai name, English name, energy] from homeland_food_item + item names."""
     out = []
