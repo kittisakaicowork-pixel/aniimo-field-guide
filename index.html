@@ -1323,6 +1323,22 @@ body{overflow-x:clip}
 @media (max-width:759px){.suppill{padding:6px 9px}.suppill b{display:none}}
 
 .appbar .gsearch input{padding-left:38px} /* clear the magnifier icon */
+
+/* home sections: centred title with gradient rules and a description (Oct 2026) */
+.hsec.ctr{gap:14px}
+.shead{text-align:center;display:grid;justify-items:center;gap:6px;margin-bottom:6px}
+.shead h2{display:flex;align-items:center;gap:16px;margin:0;font:800 clamp(1.4rem,2.6vw,2rem) var(--display)}
+.shead h2::before,.shead h2::after{content:"";width:clamp(40px,10vw,120px);height:2px;border-radius:2px;background:linear-gradient(90deg,transparent,var(--accent),var(--peach))}
+.shead h2::after{background:linear-gradient(90deg,var(--peach),var(--violet),transparent)}
+.sdesc{margin:0;max-width:820px;color:var(--ink-2);font-size:.95rem;line-height:1.7}
+.smore{font:600 .88rem var(--display);color:var(--accent);text-decoration:none}
+.agrid2{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.agrid2 .card{padding:18px 20px;border-radius:18px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow)}
+.agrid2 h3{margin:0 0 6px;font:700 1.05rem var(--display)}.agrid2 p{margin:0;color:var(--ink-2);line-height:1.7}
+.hfaq{display:grid;gap:8px;max-width:860px;margin:0 auto;width:100%}
+.hfq{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 16px}
+.hfq summary{cursor:pointer;font:600 .98rem var(--display)}.hfq p{margin:8px 0 0;color:var(--ink-2);line-height:1.7}
+.wiki.tools .wcard{min-height:0}
 </style>
 
 <div id="boot" role="status" aria-live="polite"><div class="bootin"><b class="wm"><span aria-hidden="true">an<span class="ii"><i>ı</i><i>ı</i></span>guide</span><span class="sr">aniiguide</span></b><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><small id="bootMsg">กำลังโหลดข้อมูล Aniimo…</small></div></div>
@@ -1401,22 +1417,25 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
         </div>
         <div class="spks" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
       </div>
-      <section class="hsec"><h2>ตอนนี้ในเกม</h2><div class="hnow" id="homeNow" aria-live="polite"></div></section>
-      <section class="hsec"><h2>Aniimo ประจำวัน<small>เปลี่ยนทุกวัน</small></h2><div class="daily" id="homeDaily"></div></section>
-      <section class="hsec"><h2>วิกิ Aniimo<small>ข้อมูลทุกอย่างในเกม</small></h2><div class="wiki" id="homeWiki"></div></section>
-      <section class="hsec"><h2>Aniimo แนะนำ<small><a href="#dex" data-go="dex">ดูทั้งหมด →</a></small></h2><div class="picks" id="homePicks"></div></section>
-      <section class="hsec" hidden><div class="feat" id="homeFeat"></div></section>
-      <section class="hsec" id="homeRecent" hidden><h2>ดูล่าสุด<small><a href="#history" data-go="history">ประวัติทั้งหมด</a></small></h2><div class="recent" id="homeRecentList"></div></section>
-      <section class="hsec"><h2>อัปเดตล่าสุด<small><a href="#news" data-go="news">ข่าวทั้งหมด →</a></small></h2><div class="hnews" id="homeNews"></div></section>
-      <section class="hsec about"><h2>Aniimo คืออะไร?</h2>
-        <p class="lede">Aniimo เป็นเกม RPG โลกเปิดแนวสะสมสัตว์ เล่นได้ทั้ง PC คอนโซล และมือถือ ผู้เล่นรับบทนักสำรวจ (Pathfinder) ออกเดินทางทั่วดินแดน Idyll จับและเลี้ยง Aniimo แล้วต่อสู้ไปด้วยกัน</p>
-        <div class="agrid">
-          <div class="card"><span class="tag">จับและเลี้ยง</span><p>ล่อ Aniimo ด้วยการเลี้ยง (Nurture) แล้วจับด้วย Aniipod ศักยภาพ ร่างพิเศษ และร่างเปล่งประกายสุ่มได้ตอนจับหรือฟักไข่</p></div>
-          <div class="card"><span class="tag">ต่อสู้</span><p>สู้แบบแอ็กชันเรียลไทม์ ใช้สกิลตามธาตุ 9 ธาตุ แพ้ทางกันแบบ ×1.6 / ×0.625 และทำลาย (Break) ศัตรูเพื่อเปิดจังหวะโจมตี</p></div>
-          <div class="card"><span class="tag">รวมร่าง</span><p>Twining คือการรวมร่างกับ Aniimo ใช้ความสามารถสำรวจ เช่น บิน ว่ายน้ำ มุดดิน เพื่อไปจุดที่เดินไปไม่ถึง</p></div>
-          <div class="card"><span class="tag">บ้านและเพื่อน</span><p>สร้าง Homeland ให้ Aniimo ช่วยทำงาน เล่นร่วมกับเพื่อนได้สูงสุด 4 คน ทั้ง Egg Heist, บอส Alpha/Omega และอีเวนต์</p></div>
+      <section class="hsec ctr"><header class="shead"><h2>ตอนนี้ในเกม</h2><p class="sdesc">โค้ดของขวัญที่ยังใช้ได้ อีเวนต์ที่กำลังจัด และอัปเดตล่าสุด ตามเวลาไทย</p></header><div class="hnow" id="homeNow" aria-live="polite"></div></section>
+      <section class="hsec ctr"><header class="shead"><h2>วิกิ Aniimo</h2><p class="sdesc" id="dWiki"></p></header><div class="wiki" id="homeWiki"></div></section>
+      <section class="hsec ctr"><header class="shead"><h2>เครื่องมือผู้เล่น</h2><p class="sdesc" id="dTools"></p></header><div class="wiki tools" id="homeTools"></div></section>
+      <section class="hsec ctr"><header class="shead"><h2>Aniimo แนะนำ</h2><p class="sdesc" id="dPicks"></p><a class="smore" href="#dex" data-go="dex">ดูทั้งหมด →</a></header><div class="picks" id="homePicks"></div></section>
+      <section class="hsec ctr"><header class="shead"><h2>Aniimo ประจำวัน</h2><p class="sdesc">ทำความรู้จัก Aniimo วันละหนึ่งตัว พร้อมคำอธิบายจากบันทึกวิจัยในเกม เปลี่ยนทุกวัน</p></header><div class="daily" id="homeDaily"></div></section>
+      <section class="hsec ctr about"><header class="shead"><h2>Aniimo คืออะไร?</h2><p class="sdesc">Aniimo เป็นเกม RPG โลกเปิดแนวสะสม Aniimo บนทวีป Idyll เล่นฟรีบน PC, PS5, Xbox Series X|S, iOS และ Android ข้อมูลใช้ร่วมกันทุกเครื่อง คุณไม่ได้แค่สั่ง Aniimo ให้สู้ แต่รวมร่างเป็นพวกมันได้ด้วย</p></header>
+        <div class="agrid2">
+          <article class="card"><h3>รวมร่าง (Twining)</h3><p>ผูกจิตกับ Aniimo ที่จับได้แล้วกลายเป็นตัวมันจริง ๆ ใช้ความสามารถของแต่ละตัวสำรวจโลก เช่น บิน ว่ายน้ำ มุดดิน หรือวิ่งเร็ว เพื่อไปจุดที่เดินไปไม่ถึง</p></article>
+          <article class="card"><h3>การต่อสู้แบบเรียลไทม์</h3><p>สั่ง Aniimo ในทีมให้ใช้สกิล หรือรวมร่างลงสู้เองด้วยการหลบ คอมโบ และสกิลประจำตัว สกิลมี 9 ธาตุ ตีแพ้ทาง ×1.6 โดนต้าน ×0.625 และการทำลาย (Break) เปิดจังหวะให้โจมตีหนัก</p></article>
+          <article class="card"><h3>จับและเลี้ยง</h3><p>ขว้าง Aniipod จับ Aniimo ในป่า ใช้ Nurture ที่ Branch เพื่อเรียก Aniimo หายาก ร่าง Prismana และร่างเปล่งประกาย หรือฟักไข่ที่ Hatchinator แต่ละตัวมีศักยภาพแฝงและวิวัฒนาการได้</p></article>
+          <article class="card"><h3>สำรวจ Idyll</h3><p>ทวีปเปิดกว้างหลายภูมิภาค มีหีบ ไข่ Lumin Amber ปริศนา Sanctum บอส Alpha และ Omega รวมถึงพื้นที่ใหม่อย่าง Whisperwake Isles</p></article>
+          <article class="card"><h3>บ้านและเพื่อน</h3><p>สร้าง Homeland ให้ Aniimo ช่วยทำงาน เล่นกับเพื่อนได้สูงสุด 4 คน ทั้ง Operation: Egg Heist, Holo-Battle Interlink และอีเวนต์</p></article>
+          <article class="card"><h3>ไม่ใช่เกมกาชา</h3><p>Aniimo ได้จากการจับในโลกเกม ไม่ได้สุ่มจากตู้ สิ่งที่ซื้อได้ส่วนใหญ่เป็นชุดและของตกแต่ง</p></article>
         </div>
       </section>
+      <section class="hsec ctr"><header class="shead"><h2>อัปเดตล่าสุด</h2><p class="sdesc">ข่าว แพตช์โน้ต และประกาศจากทีมพัฒนา สรุปเป็นภาษาไทย</p><a class="smore" href="#news" data-go="news">ข่าวทั้งหมด →</a></header><div class="hnews" id="homeNews"></div></section>
+      <section class="hsec ctr"><header class="shead"><h2>คำถามที่พบบ่อยเกี่ยวกับ Aniimo</h2><p class="sdesc" id="dFaq"></p><a class="smore" href="#faq" data-go="faq">คำถามทั้งหมด →</a></header><div class="hfaq" id="homeFaq"></div></section>
+      <section class="hsec" hidden><div class="feat" id="homeFeat"></div></section>
+      <section class="hsec" id="homeRecent" hidden><h2>ดูล่าสุด<small><a href="#history" data-go="history">ประวัติทั้งหมด</a></small></h2><div class="recent" id="homeRecentList"></div></section>
       <div class="hall" id="homeGroups" hidden></div>
       <nav class="seolinks" aria-label="หน้าสรุปสำหรับแชร์"><span>หน้าสรุปสำหรับแชร์และค้นหา:</span> <a href="p/dex/">รายชื่อ Aniimo</a> · <a href="p/tier/">Tier List</a> · <a href="p/codes/">โค้ดล่าสุด</a> · <a href="p/events/">อีเวนต์</a> · <a href="p/map/">แผนที่</a> · <a href="p/daily/">เช็กลิสต์รายวัน</a> · <a href="p/beginner/">มือใหม่</a> · <a href="p/heist/">Egg Heist</a> · <a href="p/eggs/">ล่าไข่</a> · <a href="p/helditems/">Held Item</a> · <a href="p/homeland/">Homeland</a> · <a href="p/bosses/">บอส</a> · <a href="p/whisperwake/">Whisperwake Isles</a> · <a href="p/news/">ข่าว</a> · <a href="p/guide/">ข้อมูลเกม</a></nav>
             <div class="install" id="installBox" hidden>
@@ -2557,10 +2576,10 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
 </dialog>
 <dialog id="menu" aria-label="เมนูทั้งหมด"><div class="inner" id="menuInner"></div></dialog>
 
-<script src="data.js?v=f452063d53"></script>
-<script src="thumbs.js?v=f452063d53"></script>
-<script src="content.js?v=f452063d53"></script>
-<script src="i18n-en.js?v=f452063d53"></script>
+<script src="data.js?v=2dccdd20d0"></script>
+<script src="thumbs.js?v=2dccdd20d0"></script>
+<script src="content.js?v=2dccdd20d0"></script>
+<script src="i18n-en.js?v=2dccdd20d0"></script>
 <script>
 /* ===== theme ===== */
 (function(){
@@ -2721,7 +2740,7 @@ function go(id,push){
   if(id==='builds'&&typeof renderBuilds==='function')renderBuilds();
   if(id==='sets'&&typeof renderSets==='function')renderSets();
   if(id==='ranking'&&typeof renderStats==='function')renderStats();
-  if(id==='items'&&!window.ITEMS_MORE&&!window.__imore){window.__imore=1;const sc=document.createElement('script');sc.src='items-more.js?v=f452063d53';
+  if(id==='items'&&!window.ITEMS_MORE&&!window.__imore){window.__imore=1;const sc=document.createElement('script');sc.src='items-more.js?v=2dccdd20d0';
     sc.onload=()=>{const have=new Set(ITEMS.map(i=>i.slug));(window.ITEMS_MORE||[]).forEach(i=>{if(!have.has(i.slug)){ITEMS.push(i);ITEM_BY_NAME[i.n.toLowerCase()]=ITEM_BY_NAME[i.n.toLowerCase()]||i}});
       const c=document.getElementById('ic');if(c){const cats=new Set([...c.options].map(o=>o.value));[...new Set(ITEMS.map(i=>i.c))].filter(x=>!cats.has(x)).forEach(x=>c.insertAdjacentHTML('beforeend',`<option value="${esc(x)}">${esc(CAT_TH[x]||x)}</option>`))}
       if(current==='items'&&typeof renderItems==='function')renderItems()};document.head.appendChild(sc)}
@@ -3297,7 +3316,7 @@ function renderMap(){
     MAP.count=MAP.layers.map(()=>0);MAP.m.forEach(m=>MAP.count[m[0]]++);
     mapLayersUI();
   };
-  if(window.MAP)boot();else{const sc=document.createElement('script');sc.src='map.js?v=f452063d53';sc.onload=boot;sc.onerror=()=>{document.getElementById('mapLoad').textContent='โหลดข้อมูลแผนที่ไม่สำเร็จ'};document.head.appendChild(sc)}
+  if(window.MAP)boot();else{const sc=document.createElement('script');sc.src='map.js?v=2dccdd20d0';sc.onload=boot;sc.onerror=()=>{document.getElementById('mapLoad').textContent='โหลดข้อมูลแผนที่ไม่สำเร็จ'};document.head.appendChild(sc)}
 }
 function mapSaveLayers(){try{localStorage.setItem('aniimo-map-layers',JSON.stringify([...MV.on].map(i=>MAP.layers[i].id)))}catch(_){}}
 function mapLayersUI(){
@@ -3992,7 +4011,7 @@ document.addEventListener('click',e=>{
 });
 
 /* ===== Pathfinder duels & Sanctums (from the map data) ===== */
-function withMap(fn){if(window.MAP){fn();return}const sc=document.createElement('script');sc.src='map.js?v=f452063d53';sc.onload=fn;sc.onerror=()=>{};document.head.appendChild(sc)}
+function withMap(fn){if(window.MAP){fn();return}const sc=document.createElement('script');sc.src='map.js?v=2dccdd20d0';sc.onload=fn;sc.onerror=()=>{};document.head.appendChild(sc)}
 function regionAt(m){const x=m[1]/100,y=m[2]/100;return Object.keys(MAP.regions).find(n=>inPoly(x,y,MAP.regions[n]))||''}
 const mapBtn=i=>`<button type="button" class="chip" data-mapm-go="${i}" style="cursor:pointer">ดูบนแผนที่</button>`;
 const elBadges=a=>(a||[]).map(e=>badge(mEl(e))).join('');
@@ -4048,7 +4067,7 @@ function renderHeist(){
   hvCv=document.getElementById('hvCv');hvCtx=hvCv.getContext('2d');
   if(HV.ready){setTimeout(hvSize,0);return}if(HV.booting)return;HV.booting=true;
   const fail=()=>{document.getElementById('hvLoad').textContent='โหลดแผนที่ไม่สำเร็จ'};
-  const sc=document.createElement('script');sc.src='heist.js?v=f452063d53';sc.onerror=fail;
+  const sc=document.createElement('script');sc.src='heist.js?v=2dccdd20d0';sc.onerror=fail;
   sc.onload=()=>{const ico=new Image();ico.onerror=fail;ico.onload=()=>{
     HV.ico=ico;HV.ready=true;
     const busy=new Set(['egg_lesser_chest','egg_loot_pile','sanctum_chest','sanctum_loot_pile']); // plain chests and piles crowd the map; off at first
@@ -4547,6 +4566,17 @@ route();
     skills:`<span class="wp els">${E.slice(0,5).map(e=>`<i style="background:var(--${e.k})"></i>`).join('')}</span>`,
     sets:`<span class="wp faces">${((window.SETS||[])[0]||{sets:[]}).sets.slice(0,3).map(x=>x.bust?`<img src="${x.bust}" alt="" loading="lazy">`:'').join('')}</span>`,
     map:'<span class="wp pins"><i></i><i></i><i></i></span>',helditems:'<span class="wp tiers"><i>R</i><i>E</i><i>L</i></span>'};
+  const itemN=(Array.isArray(ITEMS)?ITEMS:ITEMS.list).length,ptsN=(window.MAPSTAT&&MAPSTAT.n)||4334;
+  const setD=(id,t)=>{const el=document.getElementById(id);if(el)el.textContent=t};
+  setD('dWiki',`Aniimo ทั้ง ${rel.length} ตัวพร้อม ${forms} ร่าง ค่าสถานะ สกิล และวิวัฒนาการ แผนที่ทวีป Idyll ${ptsN.toLocaleString(LOC)} จุด ไอเท็ม ${itemN.toLocaleString(LOC)} ชิ้น Tier List และบิลด์ แยกเป็นหน้าละเรื่อง อัปเดตตามข้อมูลเกมทุกวัน`);
+  setD('dTools','จัดทีมและดูจุดอ่อน วางแผนวัสดุอัปเลเวล เช็กลิสต์งานรายวันและ Aniimo ที่สะสม ทุกอย่างบันทึกไว้ในเครื่องของคุณ ไม่ต้องสมัครสมาชิก');
+  setD('dPicks',`6 ตัวจากทั้งหมด ${rel.length} ตัว เปลี่ยนทุกวัน กดดูร่าง ค่าสถานะ สกิล วิวัฒนาการ และแหล่งที่พบ`);
+  setD('dFaq','คำตอบสั้น ๆ เรื่องตัวเกม เซิร์ฟเวอร์ และการเริ่มเล่น');
+  const TOOLS=[['team','จัดทีม Combo','4 ตัว','เลือก Aniimo 4 ตัว ดูบทบาท ธาตุที่ตีแพ้ทาง จุดอ่อน และแชร์ทีมเป็นรูป'],['daily','เช็กลิสต์รายวัน','รีเซ็ต 03:00','งานรายวันและรายสัปดาห์ ติ๊กแล้วจำไว้ให้'],
+    ['planner','วางแผนวัสดุ','คำนวณ','ต้องใช้ของเท่าไรถึงเลเวลหรือขั้นที่ต้องการ'],['collection','เช็กลิสต์สะสม','ซิงก์ได้','ติ๊ก Aniimo และร่างที่จับแล้ว ซิงก์ข้ามเครื่องด้วยรหัส'],
+    ['compare','เปรียบเทียบ','สูงสุด 4 ตัว','เทียบค่าสถานะ ธาตุ และสกิลแบบเคียงข้างกัน'],['ranking','จัดอันดับค่าสถานะ','ใหม่','เรียง Aniimo ตาม HP ATK DEF หรือผลรวม']].filter(w=>VIEWS.some(v=>v.id===w[0]));
+  const ht=document.getElementById('homeTools');if(ht)ht.innerHTML=TOOLS.map(([id,t,b,d])=>`<button type="button" class="wcard" data-go="${id}"><span class="wtop"><svg><use href="#i-${(VIEWS.find(v=>v.id===id)||{}).ic||'star'}"/></svg><b>${t}</b><em>${b}</em></span><small>${d}</small></button>`).join('');
+  const hf=document.getElementById('homeFaq');if(hf)hf.innerHTML=(window.FAQ||[]).slice(0,5).map(f=>`<details class="hfq"><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join('');
   document.getElementById('homeWiki').innerHTML=W.map(([id,t,b,d],i)=>`<button type="button" class="wcard${i<1?' big':''}" data-go="${id}">${PREV[id]||''}<span class="wtop"><svg><use href="#i-${(VIEWS.find(v=>v.id===id)||{}).ic||'star'}"/></svg><b>${t}</b><em>${b}</em></span><small>${d}</small></button>`).join('');
   const day=Math.floor(Date.now()/864e5),pool=rel.filter(a=>!a.cut);
   const picks=Array.from({length:6},(_,i)=>pool[(day*7+i*13)%pool.length]);
