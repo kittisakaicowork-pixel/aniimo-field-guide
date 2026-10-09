@@ -1356,6 +1356,55 @@ body{overflow-x:clip}
 .ps-h{display:flex;justify-content:space-between;gap:8px;align-items:center}.ps-h b{font:700 1.02rem var(--display)}
 .ps .chip.active{background:color-mix(in srgb,var(--accent) 16%,var(--surface))}.ps .chip.passive{background:color-mix(in srgb,var(--violet) 16%,var(--surface))}
 .pslv{display:flex;flex-wrap:wrap;gap:4px}.pslv span{font-size:.75rem;background:var(--sunk);border-radius:6px;padding:2px 6px}
+
+/* ===== admin workspace (Oct 2026): dark violet panel regardless of the site theme ===== */
+.adws{--a-bg:#171a26;--a-panel:#1f2333;--a-line:#2e3346;--a-ink:#eceefa;--a-mute:#9aa0bd;--a-acc:#a497f5;--a-acc2:#7b6be0;--a-good:#a497f5;--a-bad:#69708f;
+  display:grid;grid-template-columns:240px minmax(0,1fr);min-height:80vh;background:var(--a-bg);color:var(--a-ink);border:1px solid var(--a-line);border-radius:22px;overflow:hidden}
+.adws .aside{border-right:1px solid var(--a-line);padding:28px 18px;display:grid;align-content:start;gap:28px;background:#1b1f2d}
+.abrand b{font:800 1.5rem var(--display);color:#fff}.abrand b::first-letter{color:#fff}.abrand small{display:block;color:var(--a-mute);letter-spacing:.06em;font-size:.78rem;margin-top:4px}
+.adws nav{display:grid;gap:6px}.adws nav button{display:flex;align-items:center;gap:12px;border:0;background:none;color:var(--a-mute);font:600 .98rem var(--display);padding:12px 14px;border-radius:12px;cursor:pointer;text-align:left}
+.adws nav button svg{width:18px;height:18px}.adws nav button[aria-current="true"]{background:#2e2a52;color:#d8d2ff}.adws nav button:hover{color:#fff}
+.adws nav em{margin-left:auto;font-style:normal;background:var(--a-acc2);color:#fff;border-radius:999px;padding:1px 8px;font-size:.75rem}
+.amain{padding:30px 34px 24px;display:grid;gap:18px;align-content:start;min-width:0}
+.atop{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}.atop h2{margin:2px 0;font:800 1.9rem var(--display);color:#fff}
+.aeye{margin:0;color:var(--a-acc);font:700 .78rem var(--display);letter-spacing:.18em}.amute{color:var(--a-mute);margin:0;font-size:.88rem}
+.apill{background:#3a3470;color:#cfc8ff;border-radius:10px;padding:6px 12px;font:600 .8rem var(--display);white-space:nowrap}
+.abarline{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.aseg{display:flex;gap:6px;flex-wrap:wrap}.aseg button{border:1px solid var(--a-line);background:var(--a-panel);color:var(--a-ink);border-radius:12px;padding:9px 16px;font:600 .9rem var(--display);cursor:pointer}
+.aseg button[aria-pressed="true"]{background:var(--a-acc);border-color:var(--a-acc);color:#1b1640}
+.ameta{display:flex;gap:10px;align-items:center;flex-wrap:wrap;color:var(--a-mute);font-size:.82rem}
+.abtn{border:1px solid var(--a-line);background:transparent;color:var(--a-ink);border-radius:10px;padding:7px 14px;font:600 .85rem var(--display);cursor:pointer;justify-self:start}
+.abtn:hover{border-color:var(--a-acc)}
+.akpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.akpi,.acard{background:var(--a-panel);border:1px solid var(--a-line);border-radius:18px;padding:20px 22px;min-width:0}
+.akpi small{color:var(--a-mute);font-size:.88rem}.akpi b{display:block;font:800 2.3rem/1.2 var(--display);color:#fff;margin:6px 0 2px}
+.akpi b i,.aqual b i{font:600 .9rem var(--display);font-style:normal;color:var(--a-mute);margin-left:6px}.akpi span{color:var(--a-mute);font-size:.85rem}
+.agrid{display:grid;gap:14px}.agrid2{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.acard{display:grid;gap:12px;align-content:start}
+.ahead{display:flex;justify-content:space-between;align-items:baseline;gap:10px}.ahead h3{margin:0;font:700 1.1rem var(--display);color:#fff}.ahead small{color:var(--a-mute);font-size:.8rem}
+.aqual{display:grid;grid-template-columns:1fr 1fr;gap:12px}.aqual b{display:block;font:800 2rem var(--display);color:#fff}.aqual span{color:var(--a-mute);font-size:.88rem}.aqual span.g{color:var(--a-acc)}
+.abar{height:16px;border-radius:999px;background:var(--a-bad);overflow:hidden}.abar i{display:block;height:100%;background:var(--a-acc);border-radius:999px 0 0 999px}
+.arule summary{cursor:pointer;color:var(--a-acc);font-size:.85rem}.arule p{margin:8px 0 0;color:var(--a-mute);font-size:.84rem;line-height:1.7}
+.asep{height:1px;background:var(--a-line)}.abig{font:800 2rem var(--display);color:#fff}
+.afb{border-top:1px solid var(--a-line);padding-top:10px}.afb small{color:var(--a-mute)}.afb p{margin:4px 0 0;font-size:.9rem;line-height:1.6}
+.aempty{display:grid;justify-items:center;gap:4px;padding:30px 0;text-align:center}.aempty b{font:700 1.15rem var(--display);color:#fff}.aempty span{color:var(--a-mute);font-size:.88rem}
+.arow{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:12px 0;border-top:1px solid var(--a-line)}.arow:first-of-type{border-top:0}
+.arow span{color:var(--a-mute)}.arow b{font:700 1rem var(--display);color:#fff;text-align:right}
+.alink{border:0;background:none;color:#fff;font:inherit;cursor:pointer;padding:0;text-decoration:underline;text-decoration-color:var(--a-line)}
+.anote{color:var(--a-mute);font-size:.8rem;margin:4px 0 0;line-height:1.6}
+.ademo{background:#3a3470;color:#e2ddff;border-radius:12px;padding:10px 14px;font-size:.88rem}
+.adws .dpanel,.adws .dpanel.flat{background:var(--a-panel);border-color:var(--a-line);color:var(--a-ink)}
+.adws .rrow,.adws .rank,.adws .nm{color:var(--a-ink)}.adws .kpi{background:#262b3e;border-color:var(--a-line)}.adws .kpi b{color:#fff}.adws .muted,.adws .dnote,.adws small{color:var(--a-mute)}
+.adws .fbitem{background:#262b3e;border-color:var(--a-line)}
+@media (max-width:980px){.adws{grid-template-columns:1fr}.adws .aside{padding:16px;gap:12px;border-right:0;border-bottom:1px solid var(--a-line)}.adws nav{grid-auto-flow:column;overflow-x:auto}
+  .amain{padding:18px}.akpis{grid-template-columns:1fr 1fr}.agrid[style]{grid-template-columns:1fr!important}}
+@media (max-width:520px){.akpis{grid-template-columns:1fr}.aqual{grid-template-columns:1fr}}
+
+/* inner panels in the admin workspace take its palette */
+.adws{--surface:#1f2333;--sunk:#2a2f44;--ink:#eceefa;--ink-2:#9aa0bd;--line:#2e3346;--accent:#a497f5;--good:#a497f5;--bad:#5d6380;--glow:#2e2a52;--neutral:#5d6380}
+.adws .warnbox{background:#2e2a52;color:#e2ddff;border-color:#3a3470}
+.adws .esplit{background:#5d6380}.adws .esplit i{background:#a497f5}
+.adws .kpi.good b{color:#c9c1ff}.adws .kpi.bad b{color:#c3c7dc}
 </style>
 
 <div id="boot" role="status" aria-live="polite"><div class="bootin"><b class="wm"><span aria-hidden="true">an<span class="ii"><i>ı</i><i>ı</i></span>guide</span><span class="sr">aniiguide</span></b><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><small id="bootMsg">กำลังโหลดข้อมูล Aniimo…</small></div></div>
@@ -1390,6 +1439,8 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
   <symbol id="i-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 9 5-9 5-9-5z"/><path d="m3 13 9 5 9-5"/></symbol>
   <symbol id="i-calc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="3" width="14" height="18" rx="3"/><path d="M8 7h8M8 12h2M14 12h2M8 16h2M14 16h2"/></symbol>
   <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
   <symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V4"/><path d="M4 20h16"/><path d="M8 16v-4M12 16V8M16 16v-6"/></symbol>
   <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
   <symbol id="i-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-9.2-9A5 5 0 0 1 12 6.2 5 5 0 0 1 21.2 11C19 15.6 12 20 12 20z"/></symbol>
@@ -3820,7 +3871,7 @@ renderHomeRecent();
 /* ===== back office: site stats (owner only) =====
    The owner logs in with the Supabase account e-mail/password; the database only answers
    stats_summary() for that account. Visitors never see any numbers. */
-const AD={s:null,demo:false,range:7,busy:false};
+const AD={s:null,demo:false,range:7,busy:false,tab:'overview'};
 try{AD.s=JSON.parse(sessionStorage.getItem('aniimo-admin')||localStorage.getItem('aniimo-admin')||'null')}catch(_){}
 const fmtN=n=>Number(n||0).toLocaleString(LOC);
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
@@ -3896,36 +3947,36 @@ const TIME_TH={0:'ไม่ทราบ (ข้อมูลเก่า เป�
 function engSvg(days){
   const W=640,H=190,L=40,B=26,T=14,mx=Math.max(1,...days.map(d=>d.s)),step=Math.pow(10,Math.floor(Math.log10(mx))),top=Math.ceil(mx/step)*step||1;
   const bw=(W-L-8)/days.length,y=v=>T+(H-T-B)*(1-v/top),every=days.length>16?Math.ceil(days.length/10):1,px=v=>(H-T-B)*v/top;
-  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="ใช้งานจริงกับกดเข้ามาเฉยๆ รายวัน">${[0,top/2,top].map(t=>`<line class="gl" x1="${L}" x2="${W-4}" y1="${y(t)}" y2="${y(t)}"/><text class="ax" x="${L-6}" y="${y(t)+4}" text-anchor="end">${fmtN(Math.round(t))}</text>`).join('')}
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="ใช้งานจริงกับออกโดยไม่ได้ใช้งาน รายวัน">${[0,top/2,top].map(t=>`<line class="gl" x1="${L}" x2="${W-4}" y1="${y(t)}" y2="${y(t)}"/><text class="ax" x="${L-6}" y="${y(t)+4}" text-anchor="end">${fmtN(Math.round(t))}</text>`).join('')}
    ${days.map((d,i)=>{const x=L+i*bw+bw*.16,w=bw*.68,dt=new Date(d.day+'T00:00:00Z'),es=d.es||0,ee=d.ee||0;
      // stacked from the bottom: measured real use, estimated real use, measured quick exits, estimated quick exits
      const parts=[['ee',d.e-ee],['ee est',ee],['eb',(d.s-d.e)-(es-ee)],['eb est',es-ee]];let base=0;
      const rects=parts.map(([c,v])=>{if(v<=0)return '';const r=`<rect class="${c}" x="${x}" y="${y(base+v)}" width="${w}" height="${px(v)}" rx="2"/>`;base+=v;return r}).join('');
-     return `<g><title>${dt.toLocaleDateString(LOC,{weekday:'short',day:'numeric',month:'short'})}: ใช้งานจริง ${fmtN(d.e)} · กดเข้ามาเฉยๆ ${fmtN(d.s-d.e)}${es?` (ประมาณจากข้อมูลเก่า ${fmtN(es)} รอบ)`:''}</title>${rects}</g>${(days.length-1-i)%every===0?`<text class="ax" x="${x+w/2}" y="${H-8}" text-anchor="middle">${dt.getUTCDate()}</text>`:''}`}).join('')}</svg>`;
+     return `<g><title>${dt.toLocaleDateString(LOC,{weekday:'short',day:'numeric',month:'short'})}: ใช้งานจริง ${fmtN(d.e)} · ออกโดยไม่ได้ใช้งาน ${fmtN(d.s-d.e)}${es?` (ประมาณจากข้อมูลเก่า ${fmtN(es)} รอบ)`:''}</title>${rects}</g>${(days.length-1-i)%every===0?`<text class="ax" x="${x+w/2}" y="${H-8}" text-anchor="middle">${dt.getUTCDate()}</text>`:''}`}).join('')}</svg>`;
 }
 function engagePanel(e,rl){
-  if(!e||e.err==='missing')return `<div class="dpanel"><h3>ใช้งานจริง vs กดเข้ามาเฉยๆ</h3><p class="muted">ยังไม่ได้ติดตั้งในฐานข้อมูล เปิด Supabase → SQL Editor แล้วรันไฟล์ <code>tools/admin/engagement.sql</code> ครั้งเดียว ตัวเลขจะเริ่มนับตั้งแต่ตอนนั้น</p></div>`;
-  if(e.err)return `<div class="dpanel"><h3>ใช้งานจริง vs กดเข้ามาเฉยๆ</h3><p class="muted">โหลดข้อมูลส่วนนี้ไม่สำเร็จ กดรีเฟรชเพื่อลองใหม่</p></div>`;
+  if(!e||e.err==='missing')return `<div class="dpanel"><h3>ใช้งานจริง vs ออกโดยไม่ได้ใช้งาน</h3><p class="muted">ยังไม่ได้ติดตั้งในฐานข้อมูล เปิด Supabase → SQL Editor แล้วรันไฟล์ <code>tools/admin/engagement.sql</code> ครั้งเดียว ตัวเลขจะเริ่มนับตั้งแต่ตอนนั้น</p></div>`;
+  if(e.err)return `<div class="dpanel"><h3>ใช้งานจริง vs ออกโดยไม่ได้ใช้งาน</h3><p class="muted">โหลดข้อมูลส่วนนี้ไม่สำเร็จ กดรีเฟรชเพื่อลองใหม่</p></div>`;
   const S=e.sessions||0,E=e.engaged||0,Bn=S-E,ES=e.est_sessions||0,byDay={};(e.daily||[]).forEach(d=>byDay[d.day]=d);
   const days=AD.demo?e.daily:fillDays((e.daily||[]).map(d=>({day:d.day,n:d.s,u:d.e})),AD.range).map(d=>({...(byDay[d.day]||{}),day:d.day,s:d.n,e:d.u}));
   const landing=(e.landing||[]).filter(r=>VIEWS.some(v=>v.id===r.key));
-  return `<div class="dpanel engage"><h3>ใช้งานจริง vs กดเข้ามาเฉยๆ<small>นับเป็นรอบการเข้าเว็บ · ${rl}</small></h3>
+  return `<div class="dpanel engage"><h3>ใช้งานจริง vs ออกโดยไม่ได้ใช้งาน<small>นับเป็นรอบการเข้าเว็บ · ${rl}</small></h3>
     <div class="kpis">
       <div class="kpi"><small>รอบการเข้าเว็บ</small><b>${fmtN(S)}</b><span>เฉลี่ย ${e.avg_pages||0} หน้าต่อรอบ${ES?` · ประมาณจากข้อมูลเก่า ${fmtN(ES)}`:''}</span></div>
       <div class="kpi good"><small>ใช้งานจริง</small><b>${fmtN(E)}</b><span>${pct(E,S)}% ของทุกรอบ</span></div>
-      <div class="kpi bad"><small>กดเข้ามาเฉยๆ</small><b>${fmtN(Bn)}</b><span>${pct(Bn,S)}% ออกไปโดยไม่ได้ใช้งาน</span></div>
+      <div class="kpi bad"><small>ออกโดยไม่ได้ใช้งาน</small><b>${fmtN(Bn)}</b><span>${pct(Bn,S)}% ออกไปโดยไม่ได้ใช้งาน</span></div>
       <div class="kpi"><small>เวลาใช้งานของคนที่ใช้จริง</small><b>${e.median_secs_engaged!=null?fmtSecs(e.median_secs_engaged):'—'}</b><span>ค่ากลาง · เฉลี่ย ${e.avg_secs_engaged!=null?fmtSecs(e.avg_secs_engaged):'—'}</span></div>
     </div>
     <div class="esplit" role="img" aria-label="ใช้งานจริง ${pct(E,S)}%"><i style="width:${pct(E,S)}%"></i></div>
-    <div class="trend">${engSvg(days)}<p class="dnote"><span class="lg ee"></span>ใช้งานจริง <span class="lg eb"></span>กดเข้ามาเฉยๆ${ES?' · สีจางคือค่าประมาณจากข้อมูลเก่า':''} · ชี้ที่แท่งเพื่อดูตัวเลข</p></div>
+    <div class="trend">${engSvg(days)}<p class="dnote"><span class="lg ee"></span>ใช้งานจริง <span class="lg eb"></span>ออกโดยไม่ได้ใช้งาน${ES?' · สีจางคือค่าประมาณจากข้อมูลเก่า':''} · ชี้ที่แท่งเพื่อดูตัวเลข</p></div>
     <div class="dgrid">
-      <div class="dpanel flat"><h3>หน้าแรกที่เข้ามา<small>% ที่กดเข้ามาเฉยๆ</small></h3><div class="rank">${rankList(landing.map(r=>({...r,n:r.s})),r=>{const v=VIEWS.find(x=>x.id===r.key),bp=pct(r.s-r.e,r.s);return `<button type="button" class="rrow" data-go="${r.key}" style="grid-template-columns:28px minmax(0,1.6fr) minmax(40px,1fr) 48px"><span class="ico"><svg><use href="#i-${v.ic}"/></svg></span><span class="nm">${esc(v.th)} <small class="muted">${fmtN(r.s)} รอบ</small></span><span class="t"><i class="bad" style="width:${bp}%"></i></span><b>${bp}%</b></button>`})}</div></div>
+      <div class="dpanel flat"><h3>หน้าแรกที่เข้ามา<small>% ที่ออกโดยไม่ได้ใช้งาน</small></h3><div class="rank">${rankList(landing.map(r=>({...r,n:r.s})),r=>{const v=VIEWS.find(x=>x.id===r.key),bp=pct(r.s-r.e,r.s);return `<button type="button" class="rrow" data-go="${r.key}" style="grid-template-columns:28px minmax(0,1.6fr) minmax(40px,1fr) 48px"><span class="ico"><svg><use href="#i-${v.ic}"/></svg></span><span class="nm">${esc(v.th)} <small class="muted">${fmtN(r.s)} รอบ</small></span><span class="t"><i class="bad" style="width:${bp}%"></i></span><b>${bp}%</b></button>`})}</div></div>
       <div class="dpanel flat"><h3>อยู่ในเว็บนานแค่ไหน<small>จำนวนรอบ</small></h3><div class="rank">${rankList((e.time||[]).map(r=>({...r})),(r,p)=>plainRow(TIME_TH[r.key]||r.key,p,r.n))}</div></div>
       <div class="dpanel flat"><h3>ใช้งานจริงแยกตามอุปกรณ์</h3><div class="rank">${rankList((e.devices||[]).map(r=>({...r,n:r.s})),r=>pctRow(`${DEV_TH[r.key]||r.key} · ${fmtN(r.s)} รอบ`,pct(r.e,r.s)))}</div></div>
       <div class="dpanel flat"><h3>นับว่าใช้งานจริงเพราะ<small>สิ่งแรกที่ทำ</small></h3><div class="rank">${rankList(e.reasons||[],(r,p)=>plainRow(ENG_WHY[r.key]||r.key,p,r.n))}</div></div>
     </div>
-    ${ES?`<p class="warnbox" style="margin:0">รวมค่าประมาณจากข้อมูลเก่า ${fmtN(ES)} รอบ (ใช้งานจริง ${fmtN(e.est_engaged||0)}) ก่อน${e.since?` ${new Date(e.since).toLocaleDateString(LOC,{day:'numeric',month:'short',year:'numeric'})}`:'เริ่มเก็บแบบใหม่'} ข้อมูลเก่าไม่มีเวลาที่อยู่ในหน้า จึงดูจากหน้าที่เปิด การค้นหา และช่วงเวลาระหว่างการกดครั้งแรกถึงครั้งสุดท้าย คนที่เปิดหน้าเดียวแล้วอ่านนานอาจถูกนับเป็นกดเข้ามาเฉยๆ และช่วงนั้นยังนับการเข้าเว็บของเจ้าของด้วย</p>`:''}
-    <p class="dnote">"ใช้งานจริง" คือรอบที่เปิดมากกว่า 1 หน้า (ไม่นับการรีเฟรช) เปิดดู Aniimo หรือไอเท็ม ค้นหา อยู่ 10 วินาทีขึ้นไปและมีการกด เลื่อน หรือพิมพ์ หรืออยู่ในเว็บ 3 นาทีขึ้นไปแม้อ่านหน้าเดียว นอกนั้นนับเป็น "กดเข้ามาเฉยๆ" · รอบการเข้าเว็บหมดเมื่อไม่มีการใช้งาน 30 นาที · ไม่นับเครื่องที่ล็อกอินหลังบ้าน${e.since?` · เริ่มเก็บแบบใหม่ ${new Date(e.since).toLocaleDateString(LOC,{day:'numeric',month:'short',year:'numeric'})}`:''}</p>
+    ${ES?`<p class="warnbox" style="margin:0">รวมค่าประมาณจากข้อมูลเก่า ${fmtN(ES)} รอบ (ใช้งานจริง ${fmtN(e.est_engaged||0)}) ก่อน${e.since?` ${new Date(e.since).toLocaleDateString(LOC,{day:'numeric',month:'short',year:'numeric'})}`:'เริ่มเก็บแบบใหม่'} ข้อมูลเก่าไม่มีเวลาที่อยู่ในหน้า จึงดูจากหน้าที่เปิด การค้นหา และช่วงเวลาระหว่างการกดครั้งแรกถึงครั้งสุดท้าย คนที่เปิดหน้าเดียวแล้วอ่านนานอาจถูกนับเป็นออกโดยไม่ได้ใช้งาน และช่วงนั้นยังนับการเข้าเว็บของเจ้าของด้วย</p>`:''}
+    <p class="dnote">"ใช้งานจริง" คือรอบที่เปิดมากกว่า 1 หน้า (ไม่นับการรีเฟรช) เปิดดู Aniimo หรือไอเท็ม ค้นหา อยู่ 10 วินาทีขึ้นไปและมีการกด เลื่อน หรือพิมพ์ หรืออยู่ในเว็บ 3 นาทีขึ้นไปแม้อ่านหน้าเดียว นอกนั้นนับเป็น "ออกโดยไม่ได้ใช้งาน" · รอบการเข้าเว็บหมดเมื่อไม่มีการใช้งาน 30 นาที · ไม่นับเครื่องที่ล็อกอินหลังบ้าน${e.since?` · เริ่มเก็บแบบใหม่ ${new Date(e.since).toLocaleDateString(LOC,{day:'numeric',month:'short',year:'numeric'})}`:''}</p>
   </div>`;
 }
 const DEV_TH={phone:'มือถือ',tablet:'แท็บเล็ต',desktop:'คอมพิวเตอร์',unknown:'ไม่ทราบ'};
@@ -3984,36 +4035,79 @@ async function renderAdmin(quiet){
     const d=AD.demo?demoData(AD.range):await sbStats(AD.range);await loadFeedback();
     const eg=AD.demo?demoEngage(AD.range,d):await sbEngage(AD.range).catch(e=>({err:e.message}));
     const days=AD.demo?d.daily:fillDays(d.daily,AD.range);
-    const rl={7:'7 วันล่าสุด',30:'30 วันล่าสุด',90:'90 วันล่าสุด',365:'ตั้งแต่เริ่มเก็บข้อมูล'}[AD.range];
+    const rl={1:'วันนี้',7:'7 วันล่าสุด',30:'30 วันล่าสุด',90:'90 วันล่าสุด',365:'ตั้งแต่เริ่มเก็บข้อมูล'}[AD.range];
     const views=(d.top_views||[]).filter(r=>VIEWS.some(v=>v.id===r.key)&&r.key!=='admin').slice(0,10);
     const mons=(d.top_mons||[]).filter(r=>BY[r.key]);
-    out.innerHTML=(AD.demo?'<div class="warnbox" style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between"><span><b>ข้อมูลตัวอย่าง</b> ตัวเลขในหน้านี้สร้างขึ้นเพื่อดูหน้าตา ไม่ใช่สถิติจริง</span><button type="button" class="btn" id="adExitDemo">ออกจากตัวอย่าง</button></div>':'')
-     +`<div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between"><div class="seg" id="adRange" role="group" aria-label="ช่วงเวลา">${[7,30,90,365].map(n=>`<button type="button" data-r="${n}" aria-pressed="${AD.range===n}">${n===365?'ทั้งหมด':n+' วัน'}</button>`).join('')}</div>
-       <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><span class="dnote">อัปเดต ${new Date().toLocaleTimeString(LOC,{hour:'2-digit',minute:'2-digit'})} · รีเฟรชเองทุก 1 นาที</span>${AD.demo?'':`<span class="dnote">${esc(AD.s.email||'')}</span>`}<button type="button" class="btn" id="adRefresh">รีเฟรช</button>${AD.demo?'':'<button type="button" class="btn" id="adLogout">ออกจากระบบ</button>'}</div></div>
-     ${feedbackPanel()}
-     <div class="kpis">
-      <div class="kpi"><small>ผู้ใช้ ${rl}</small><b>${fmtN(d.visitors)}</b><span>เปิดหน้าเว็บ ${fmtN(d.views)} ครั้ง</span></div>
-      <div class="kpi"><small>วันนี้ (เวลาไทย)</small><b>${fmtN(d.today_visitors)}</b><span>คน · ${fmtN(d.today)} ครั้ง</span></div>
-      <div class="kpi"><small>เปิดดู Aniimo</small><b>${fmtN(d.mon_views)}</b><span>${mons.length?'อันดับ 1: '+esc(BY[mons[0].key].name):'—'}</span></div>
-      <div class="kpi"><small>การค้นหา</small><b>${fmtN(d.searches)}</b><span>${(d.top_searches||[]).length?'คำยอดฮิต: '+esc(d.top_searches[0].key):'—'}</span></div></div>
-     ${engagePanel(eg,rl)}
-     <div class="dpanel trend"><h3>การเข้าชมรายวัน<small>${rl} · แท่งสีอ่อนคือวันนี้ · ชี้ที่แท่งเพื่อดูจำนวนคน</small></h3>${trendSvg(days)}</div>
-     <div class="dgrid">
-      <div class="dpanel"><h3>หน้าที่เปิดมากที่สุด</h3><div class="rank">${rankList(views,(r,pct)=>{const v=VIEWS.find(x=>x.id===r.key);return `<button type="button" class="rrow" data-go="${r.key}"><span class="ico"><svg><use href="#i-${v.ic}"/></svg></span><span class="nm">${esc(v.th)}</span>${bar(pct,r.n)}</button>`})}</div></div>
-      <div class="dpanel"><h3>Aniimo ยอดฮิต</h3><div class="rank">${rankList(mons,(r,pct)=>`<button type="button" class="rrow" data-open="${r.key}"><img src="${TH(BY[r.key].i)}" alt=""><span class="nm">${esc(BY[r.key].name)}</span>${bar(pct,r.n)}</button>`)}</div></div>
-      <div class="dpanel"><h3>คำที่คนค้นหา</h3><div class="rank">${rankList(d.top_searches||[],(r,pct)=>plainRow('"'+r.key+'"',pct,r.n))}</div></div>
-      <div class="dpanel"><h3>ไอเท็มที่คนเปิดดู</h3><div class="rank">${rankList(d.top_items||[],(r,pct)=>plainRow(r.key,pct,r.n))}</div></div>
-      <div class="dpanel"><h3>อุปกรณ์<small>จำนวนคน</small></h3><div class="rank">${rankList(d.devices||[],(r,pct)=>plainRow(DEV_TH[r.key]||r.key,pct,r.n))}</div></div>
-      <div class="dpanel"><h3>ภาษาและเขตเวลา<small>จำนวนคน</small></h3><div class="rank">${rankList(d.langs||[],(r,pct)=>plainRow('ภาษา'+(LANG_TH[String(r.key).slice(0,2)]||' '+r.key),pct,r.n))}${rankList(d.zones||[],(r,pct)=>plainRow(String(r.key).replace('_',' '),pct,r.n))}</div></div>
-     </div>
-     <p class="dnote">เก็บในฐานข้อมูล Supabase ของเจ้าของเว็บ · ไม่เก็บชื่อ อีเมล IP หรือคุกกี้ของผู้ใช้</p>`;
+    const vh=document.querySelector('[data-view="admin"] .vhead');if(vh)vh.hidden=true;
+    const S=(eg&&!eg.err&&eg.sessions)||0,EG=(eg&&!eg.err&&eg.engaged)||0,BO=S-EG,ok=eg&&!eg.err;
+    const newFb=(FB.items||[]).filter(f=>f.status==='new');
+    const RULE='นับรอบนั้นว่า “ใช้งานจริง” เมื่อมีอย่างใดอย่างหนึ่ง: เปิดตั้งแต่ 2 หน้าที่ต่างกันขึ้นไป · เปิดดู Aniimo หรือไอเท็ม · ค้นหา · อยู่บนหน้าที่เปิดเห็นอยู่ 10 วินาทีขึ้นไปหลังแตะ เลื่อน หรือพิมพ์ · หรืออยู่ครบ 3 นาที นอกนั้นนับเป็น “ออกโดยไม่ได้ใช้งาน”';
+    const kpi=(lab,val,unit,sub,cls='')=>`<div class="akpi ${cls}"><small>${lab}</small><b>${val}<i>${unit}</i></b><span>${sub}</span></div>`;
+    const tabs=[['overview','ภาพรวม','grid'],['usage','การใช้งาน','chart'],['search','การค้นหา','search'],['feedback','คำแนะนำ','chat']];
+    const range=`<div class="aseg" id="adRange" role="group" aria-label="ช่วงเวลา">${[[1,'วันนี้'],[7,'7 วัน'],[30,'30 วัน'],[90,'90 วัน'],[365,'ทั้งหมด']].map(([n,l])=>`<button type="button" data-r="${n}" aria-pressed="${AD.range===n}">${l}</button>`).join('')}</div>`;
+    const meta=`<div class="ameta"><span>อัปเดต ${new Date().toLocaleTimeString(LOC,{hour:'2-digit',minute:'2-digit'})} · รีเฟรชเองทุก 1 นาที</span>${AD.demo?'<button type="button" class="abtn" id="adExitDemo">ออกจากข้อมูลตัวอย่าง</button>':`<span>${esc(AD.s.email||'')}</span><button type="button" class="abtn" id="adRefresh">รีเฟรช</button><button type="button" class="abtn" id="adLogout">ออกจากระบบ</button>`}</div>`;
+    const quality=ok?`<div class="acard">
+        <div class="ahead"><h3>คุณภาพการเข้าใช้งาน</h3><small>${rl} · นับเป็นรอบ</small></div>
+        <div class="aqual"><div><b>${fmtN(EG)}<i>รอบ</i></b><span class="g">ใช้งานจริง · ${pct(EG,S)}%</span></div><div><b>${fmtN(BO)}<i>รอบ</i></b><span>ออกโดยไม่ได้ใช้งาน · ${pct(BO,S)}%</span></div></div>
+        <div class="abar" role="img" aria-label="ใช้งานจริง ${pct(EG,S)}%"><i style="width:${pct(EG,S)}%"></i></div>
+        <details class="arule" open><summary>ⓘ เกณฑ์ “ใช้งานจริง” คืออะไร</summary><p>${RULE} · หนึ่งรอบจบเมื่อไม่มีการใช้งานต่อเนื่อง 30 นาที หรือปิดแท็บ</p></details>
+        <div class="asep"></div>
+        <small class="amute">เวลาใช้งานของรอบที่ใช้งานจริง · ค่ากลาง</small>
+        <b class="abig">${eg.median_secs_engaged!=null?fmtSecs(eg.median_secs_engaged):'—'}</b>
+        <small class="amute">ค่าเฉลี่ย ${eg.avg_secs_engaged!=null?fmtSecs(eg.avg_secs_engaged):'—'} · ค่าเฉลี่ยสูงกว่าเพราะมีบางรอบเปิดค้างไว้นาน</small></div>`
+      :`<div class="acard"><div class="ahead"><h3>คุณภาพการเข้าใช้งาน</h3></div><p class="amute">${eg&&eg.err==='missing'?'ยังไม่ได้ติดตั้งในฐานข้อมูล: รัน tools/admin/engagement.sql ใน Supabase SQL Editor':'โหลดข้อมูลส่วนนี้ไม่สำเร็จ กดรีเฟรชเพื่อลองใหม่'}</p></div>`;
+    const fbCard=`<div class="acard"><div class="ahead"><h3>คำแนะนำจากผู้ใช้</h3>${newFb.length?`<span class="apill">ใหม่ ${newFb.length}</span>`:''}</div>
+        ${newFb.length?newFb.slice(0,3).map(f=>`<div class="afb"><small>${esc(FB_TOPIC[f.topic]||f.topic)} · ${new Date(f.at).toLocaleDateString(LOC,{day:'numeric',month:'short'})}</small><p>${esc(f.message.slice(0,120))}${f.message.length>120?'…':''}</p></div>`).join(''):'<div class="aempty"><b>ไม่มีคำแนะนำใหม่</b><span>ไม่มีรายการในหมวดนี้</span></div>'}
+        <button type="button" class="abtn" data-adtab="feedback">${newFb.length?'ดูทั้งหมด':'ดูสถานะอื่น'}</button></div>`;
+    const topMon=mons[0],topSearch=(d.top_searches||[])[0],topView=views[0];
+    const interest=`<div class="acard"><div class="ahead"><h3>เนื้อหาที่คนสนใจ</h3><small>${rl}</small></div>
+        <div class="arow"><span>Aniimo อันดับ 1</span><b>${topMon?`<button type="button" class="alink" data-open="${topMon.key}">${esc(BY[topMon.key].th||BY[topMon.key].name)}</button> · ${fmtN(topMon.n)} ครั้ง`:'—'}</b></div>
+        <div class="arow"><span>คำค้นยอดนิยม</span><b>${topSearch?`“${esc(topSearch.key)}” · ${fmtN(topSearch.n)} ครั้ง`:'—'}</b></div>
+        <div class="arow"><span>หน้ายอดนิยม</span><b>${topView?`${esc(VIEWS.find(v=>v.id===topView.key).th)} · ${fmtN(topView.n)} ครั้ง`:'—'}</b></div></div>`;
+    const today=`<div class="acard"><div class="ahead"><h3>ข้อมูลวันนี้</h3><small>เวลาไทย</small></div>
+        <div class="arow"><span>ผู้ใช้</span><b>${fmtN(d.today_visitors)} คน</b></div>
+        <div class="arow"><span>เปิดหน้าเว็บ</span><b>${fmtN(d.today)} ครั้ง</b></div></div>`;
+    const units='<p class="anote">คน = ผู้ใช้ไม่ซ้ำ (นับจากรหัสสุ่มของเบราว์เซอร์) · รอบ = การเข้าเว็บหนึ่งครั้ง จบเมื่อไม่มีการใช้งาน 30 นาที · ครั้ง = จำนวนการเปิดหน้า การเปิดดู หรือการค้นหา</p>';
+    let body='';
+    if(AD.tab==='usage')body=`<div class="acard"><div class="ahead"><h3>การเข้าชมรายวัน</h3><small>${rl} · แท่งสีอ่อนคือวันนี้ · ชี้ที่แท่งเพื่อดูจำนวนคน</small></div><div class="trend">${trendSvg(days)}</div></div>
+      ${engagePanel(eg,rl)}
+      <div class="agrid2">
+        <div class="acard"><div class="ahead"><h3>หน้าที่เปิดมากที่สุด</h3><small>ครั้ง</small></div><div class="rank">${rankList(views,(r,pct)=>{const v=VIEWS.find(x=>x.id===r.key);return `<button type="button" class="rrow" data-go="${r.key}"><span class="ico"><svg><use href="#i-${v.ic}"/></svg></span><span class="nm">${esc(v.th)}</span>${bar(pct,r.n)}</button>`})}</div></div>
+        <div class="acard"><div class="ahead"><h3>อุปกรณ์</h3><small>คน</small></div><div class="rank">${rankList(d.devices||[],(r,pct)=>plainRow(DEV_TH[r.key]||r.key,pct,r.n))}</div></div>
+        <div class="acard"><div class="ahead"><h3>ภาษาและเขตเวลา</h3><small>คน</small></div><div class="rank">${rankList(d.langs||[],(r,pct)=>plainRow('ภาษา'+(LANG_TH[String(r.key).slice(0,2)]||' '+r.key),pct,r.n))}${rankList(d.zones||[],(r,pct)=>plainRow(String(r.key).replace('_',' '),pct,r.n))}</div></div>
+      </div>`;
+    else if(AD.tab==='search')body=`<div class="agrid2">
+        <div class="acard"><div class="ahead"><h3>คำที่คนค้นหา</h3><small>ครั้ง</small></div><div class="rank">${rankList(d.top_searches||[],(r,pct)=>plainRow('"'+r.key+'"',pct,r.n))}</div></div>
+        <div class="acard"><div class="ahead"><h3>Aniimo ที่คนเปิดดู</h3><small>ครั้ง</small></div><div class="rank">${rankList(mons,(r,pct)=>`<button type="button" class="rrow" data-open="${r.key}"><img src="${TH(BY[r.key].i)}" alt=""><span class="nm">${esc(BY[r.key].th||BY[r.key].name)}</span>${bar(pct,r.n)}</button>`)}</div></div>
+        <div class="acard"><div class="ahead"><h3>ไอเท็มที่คนเปิดดู</h3><small>ครั้ง</small></div><div class="rank">${rankList(d.top_items||[],(r,pct)=>plainRow(r.key,pct,r.n))}</div></div>
+      </div>`;
+    else if(AD.tab==='feedback')body=feedbackPanel();
+    else body=`<div class="akpis">
+        ${kpi('ผู้ใช้',fmtN(d.visitors),'คน',`เปิดหน้าเว็บ ${fmtN(d.views)} ครั้ง`)}
+        ${kpi('รอบการเข้าเว็บ',ok?fmtN(S):'—','รอบ',ok?`เฉลี่ย ${eg.avg_pages||0} หน้าต่อรอบ${eg.est_sessions?' · บางส่วนเป็นค่าประมาณ':''}`:'ยังไม่มีข้อมูล')}
+        ${kpi('เปิดดู Aniimo',fmtN(d.mon_views),'ครั้ง',topMon?'อันดับ 1: '+esc(BY[topMon.key].th||BY[topMon.key].name):'—')}
+        ${kpi('การค้นหา',fmtN(d.searches),'ครั้ง',topSearch?'คำยอดฮิต: '+esc(topSearch.key):'—')}
+      </div>
+      <div class="agrid" style="grid-template-columns:minmax(0,1.5fr) minmax(0,1fr)">${quality}${fbCard}</div>
+      <div class="agrid" style="grid-template-columns:minmax(0,1.5fr) minmax(0,1fr)">${interest}${today}</div>`;
+    const title={overview:'ภาพรวมเว็บไซต์',usage:'การใช้งาน',search:'การค้นหา',feedback:'คำแนะนำจากผู้ใช้'}[AD.tab]||'ภาพรวมเว็บไซต์';
+    out.innerHTML=`<div class="adws">
+      <aside class="aside"><div class="abrand"><b>aniiguide</b><small>ADMIN WORKSPACE</small></div>
+        <nav>${tabs.map(([k,l,ic])=>`<button type="button" data-adtab="${k}" aria-current="${AD.tab===k}"><svg><use href="#i-${ic}"/></svg>${l}${k==='feedback'&&newFb.length?`<em>${newFb.length}</em>`:''}</button>`).join('')}</nav></aside>
+      <div class="amain">
+        ${AD.demo?'<div class="ademo"><b>ข้อมูลตัวอย่าง</b> ตัวเลขในหน้านี้สร้างขึ้นเพื่อดูหน้าตา ไม่ใช่ข้อมูลจริง</div>':''}
+        <header class="atop"><div><p class="aeye">${(AD.tab||'overview').toUpperCase()}</p><h2>${title}</h2><p class="amute">ข้อมูล ${rl} · เวลาไทย</p></div><span class="apill">ผู้ดูแล</span></header>
+        <div class="abarline">${range}${meta}</div>
+        ${body}
+        ${units}
+      </div></div>`;
   }catch(e){
     if(e.message==='nologin')adminLogin('เซสชันหมดอายุ เข้าสู่ระบบอีกครั้ง');
     else if(e.message==='notowner'){adSave(null);adminLogin('บัญชีนี้ไม่มีสิทธิ์ดูหลังบ้าน')}
     else out.innerHTML=`<div class="dpanel"><h3>โหลดสถิติไม่สำเร็จ</h3><p class="muted">เชื่อมต่อฐานข้อมูลไม่ได้ ตรวจอินเทอร์เน็ตแล้วกดลองใหม่</p><div><button type="button" class="btn" id="adRefresh">ลองใหม่</button></div></div>`;
   }finally{AD.busy=false}
 }
-setInterval(()=>{if(current==='admin'&&!document.hidden&&AD.s&&!AD.demo&&!AD.busy&&document.querySelector('#adOut .kpis'))renderAdmin(true)},60000);
+setInterval(()=>{if(current==='admin'&&!document.hidden&&AD.s&&!AD.demo&&!AD.busy&&document.querySelector('#adOut .adws'))renderAdmin(true)},60000);
 let adTries=0;
 document.addEventListener('submit',async e=>{if(e.target.id!=='adForm')return;e.preventDefault();
   const email=document.getElementById('adEmail').value.trim(),pw=document.getElementById('adPw').value,btn=document.getElementById('adGo');if(!email||!pw)return;
@@ -4032,6 +4126,7 @@ document.addEventListener('click',e=>{
     fa.disabled=true;sbRpc('feedback_set',{fid:id,new_status:s}).then(refreshFeedback).catch(()=>{fa.disabled=false;fa.textContent='ไม่สำเร็จ ลองใหม่'});return}
   if(e.target.closest('#adLogout')){if(AD.s)fetch(SB.url+'/auth/v1/logout',{method:'POST',headers:{apikey:SB.key,Authorization:'Bearer '+AD.s.access}}).catch(()=>{});adSave(null);renderAdmin();return}
   const r=e.target.closest('#adRange [data-r]');if(r){AD.range=+r.dataset.r;renderAdmin()}
+  const at=e.target.closest('[data-adtab]');if(at){AD.tab=at.dataset.adtab;renderAdmin(true);return}
 });
 
 /* ===== Pathfinder duels & Sanctums (from the map data) ===== */
