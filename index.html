@@ -19,14 +19,16 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Aniimo">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="preload" as="image" href="img/hero-kv.webp" imagesrcset="img/hero-kv-960.webp 960w, img/hero-kv.webp 1600w" imagesizes="(max-width: 760px) 100vw, 1280px" fetchpriority="high">
+<link rel="preload" as="image" href="img/hero-kv.webp" imagesrcset="img/hero-kv-720.webp 720w, img/hero-kv-960.webp 960w, img/hero-kv.webp 1600w" imagesizes="(max-width: 760px) 100vw, 1280px" fetchpriority="high">
 <link rel="icon" href="favicon.png?v=2" sizes="64x64" type="image/png">
 <link rel="icon" href="icon-192.png?v=2" sizes="192x192">
 <link rel="apple-touch-icon" href="apple-touch-icon.png?v=2">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@800&family=M+PLUS+Rounded+1c:wght@700;800;900&family=Inter:wght@400;500;600;700&family=Mitr:wght@400;500;600&family=IBM+Plex+Sans+Thai:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@800&family=M+PLUS+Rounded+1c:wght@700;800;900&family=Inter:wght@400;500;600;700&family=Mitr:wght@400;500;600&family=IBM+Plex+Sans+Thai:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap"></noscript>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Mitr:wght@400;500;600&family=IBM+Plex+Sans+Thai:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Mitr:wght@400;500;600&family=IBM+Plex+Sans+Thai:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap"></noscript>
 <style>
+@font-face{font-family:'M PLUS Rounded 1c';font-style:normal;font-weight:700;font-display:swap;src:url(fonts/mplusrounded1c-700-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+2000-206F,U+20AC,U+2122,U+2212}@font-face{font-family:'M PLUS Rounded 1c';font-style:normal;font-weight:800;font-display:swap;src:url(fonts/mplusrounded1c-800-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+2000-206F,U+20AC,U+2122,U+2212}@font-face{font-family:'M PLUS Rounded 1c';font-style:normal;font-weight:900;font-display:swap;src:url(fonts/mplusrounded1c-900-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+2000-206F,U+20AC,U+2122,U+2212}
+
 :root{
   --ground:#EEF7FF; --surface:#FFFFFF; --sunk:#E3F1FC; --ink:#172238; --ink-2:#56678A; --line:#D3E5F4;
   --accent:#0A84D6; --accent-2:#6CC6FF; --accent-ink:#FFFFFF; --glow:#DDF0FF; --sun:#F4B55A; --peach:#FF6FB1;
@@ -1070,7 +1072,9 @@ kbd{font:600 .78rem var(--mono);border:1px solid var(--line);border-bottom-width
 .seolinks{font-size:.8rem;color:var(--ink-2);line-height:1.9}.seolinks a{color:var(--ink-2)}
 /* =================== v4 skin: AniiGuide (sky blue like the game, rounded type) =================== */
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-.wm{font:800 1.12rem/1 "Unbounded","M PLUS Rounded 1c",system-ui,sans-serif;letter-spacing:-.035em;color:#22243C;display:inline-flex;align-items:center;white-space:nowrap;position:relative;isolation:isolate}.wm .ii{position:relative;display:inline-block;margin:0 .025em 0 .035em;letter-spacing:.035em}.wm .ii .ring{position:absolute;left:50%;top:50%;width:1.38em;height:2em;translate:-50% -50%;z-index:1;pointer-events:none;overflow:visible}.wm .ii::after{content:"";position:absolute;right:-.38em;top:-.57em;width:.48em;height:.48em;background:linear-gradient(135deg,#FF7AC8,#2FC7FF);clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%)}
+.wm{display:inline-flex;align-items:center;color:var(--ink);line-height:1;flex:none}.brandmark{display:block;width:184px;height:auto;overflow:visible}.logo .brandmark{width:184px}.sf-brand .brandmark{width:200px}#boot .brandmark{width:min(300px,70vw)}
+@media(max-width:640px){.logo .brandmark{width:156px}.appbar{flex-wrap:wrap}.appbar .gsearch{order:5;flex-basis:100%;max-width:none}.appbar .suppill{margin-left:auto}}
+@media(min-width:960px) and (max-width:1250px){.appbar{flex-wrap:wrap}.appbar .topnav{order:5;flex-basis:100%;justify-content:center}.appbar .gsearch{flex:1;max-width:460px}}
 .logo img{border-radius:10px;box-shadow:0 4px 12px rgba(10,110,210,.25)}
 .logo b.wm span{background:none;-webkit-background-clip:border-box;background-clip:border-box;color:inherit}
 .logo b.wm{font-size:1.3rem}.logo b.wm,.sf-brand .wm,#boot .wm{font-family:"Unbounded","M PLUS Rounded 1c",system-ui,sans-serif;font-weight:800}
@@ -1471,7 +1475,7 @@ body{overflow-x:clip}
 .cm-card.question{border-left:4px solid var(--accent)}
 </style>
 
-<div id="boot" role="status" aria-live="polite"><div class="bootin"><b class="wm"><span aria-hidden="true">AN<span class="ii">II<svg class="ring" viewBox="0 0 40 60" aria-hidden="true"><defs><linearGradient id="wmg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FF7AC8"/><stop offset=".5" stop-color="#8A7CFF"/><stop offset="1" stop-color="#2FC7FF"/></linearGradient></defs><ellipse cx="20" cy="30" rx="13" ry="27" fill="none" stroke="url(#wmg)" stroke-width="4" transform="rotate(20 20 30)"/></svg></span>GUIDE</span><span class="sr">aniiguide</span></b><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><small id="bootMsg">กำลังโหลดข้อมูล Aniimo…</small></div></div>
+<div id="boot" role="status" aria-live="polite"><div class="bootin"><b class="wm"><svg class="brandmark" viewBox="0 0 260 72" aria-hidden="true"><use href="img/aniiguide-logo.svg#wordmark"></use></svg><span class="sr">AniiGuide</span></b><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><small id="bootMsg">กำลังโหลดข้อมูล Aniimo…</small></div></div>
 <div id="progress" aria-hidden="true"></div>
 <div id="toast" role="status" aria-live="polite"></div>
 <script>
@@ -1517,7 +1521,7 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
 </svg>
 
 <header class="appbar">
-  <a class="logo" href="#home" data-go="home"><b class="wm"><span aria-hidden="true">AN<span class="ii">II<svg class="ring" viewBox="0 0 40 60" aria-hidden="true"><defs><linearGradient id="wmg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FF7AC8"/><stop offset=".5" stop-color="#8A7CFF"/><stop offset="1" stop-color="#2FC7FF"/></linearGradient></defs><ellipse cx="20" cy="30" rx="13" ry="27" fill="none" stroke="url(#wmg)" stroke-width="4" transform="rotate(20 20 30)"/></svg></span>GUIDE</span><span class="sr">aniiguide</span></b></a>
+  <a class="logo" href="#home" data-go="home"><b class="wm"><svg class="brandmark" viewBox="0 0 260 72" aria-hidden="true"><use href="img/aniiguide-logo.svg#wordmark"></use></svg><span class="sr">AniiGuide</span></b></a>
   <nav class="topnav" id="topnav" aria-label="เมนูหลัก"></nav>
   <a class="suppill" href="#support" data-go="support" aria-label="สนับสนุนเว็บ"><span aria-hidden="true">☕</span><b>สนับสนุนเว็บ</b><small>เลี้ยงกาแฟ</small></a>
   <div class="gsearch">
@@ -1539,7 +1543,7 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
     <!-- HOME -->
     <section class="view" data-view="home">
       <div class="hero3">
-        <div class="hbg" aria-hidden="true"><img src="img/hero-kv.webp" srcset="img/hero-kv-960.webp 960w, img/hero-kv.webp 1600w" sizes="(max-width: 760px) 100vw, 1280px" width="1600" height="900" alt="" fetchpriority="high"></div>
+        <div class="hbg" aria-hidden="true"><img src="img/hero-kv.webp" srcset="img/hero-kv-720.webp 720w, img/hero-kv-960.webp 960w, img/hero-kv.webp 1600w" sizes="(max-width: 760px) 100vw, 1280px" width="1600" height="900" alt="" fetchpriority="high"></div>
         <div class="h3text">
           <h1 class="h3title">คู่มือ Aniimo</h1>
           <p class="lede">ครบทุกอย่างในอิดิลล์ <span class="hl">ภาษาไทย อัปเดตทุกวัน</span></p>
@@ -4788,7 +4792,7 @@ route();
   document.getElementById('homePicks').innerHTML=picks.map(a=>`<button type="button" class="pick" data-open="${a.slug}"><span class="no">${numLabel(a)}</span><img src="${TH(a.i)}" alt="" loading="lazy"><b>${esc(a.th||a.name)}</b><span style="display:flex;gap:3px;justify-content:center">${a.e.map(badge).join('')}</span><small class="muted">${a.r}</small></button>`).join('');
   const N=(window.NEWS||[]).slice().sort((a,b)=>b.date.localeCompare(a.date)).slice(0,3);
   document.getElementById('homeNews').innerHTML=N.map(n=>`<a class="hncard" href="#news-${n.id}"><small class="muted">${new Date(n.date+'T00:00:00+07:00').toLocaleDateString(LOC,{day:'numeric',month:'long',year:'numeric'})}</small><b>${esc(n.title)}</b><span class="small muted">${esc(n.lede||'')}</span></a>`).join('');
-  document.getElementById('sitefoot').innerHTML=`<div class="sf-brand"><b class="wm"><span aria-hidden="true">AN<span class="ii">II<svg class="ring" viewBox="0 0 40 60" aria-hidden="true"><defs><linearGradient id="wmg-footer" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FF7AC8"/><stop offset=".5" stop-color="#8A7CFF"/><stop offset="1" stop-color="#2FC7FF"/></linearGradient></defs><ellipse cx="20" cy="30" rx="13" ry="27" fill="none" stroke="url(#wmg-footer)" stroke-width="4" transform="rotate(20 20 30)"/></svg></span>GUIDE</span><span class="sr">aniiguide</span></b><p class="small muted">คู่มือเกม Aniimo ภาษาไทย แฟนเมด ไม่เกี่ยวข้องกับ Pawprint Studio · ภาพตัวละคร แผนที่ อีเวนต์ และบอสใช้โดยได้รับอนุญาตจาก <a href="https://aniidex.com/" target="_blank" rel="noopener">AniiDex</a></p><p class="small"><a href="#privacy" data-go="privacy">นโยบายความเป็นส่วนตัว</a> · <a href="#support" data-go="support">สนับสนุนเว็บ</a></p></div>`+GROUPS.map(g=>{const vs=VIEWS.filter(v=>v.g===g.id);return vs.length?`<div><p class="sf-h">${g.th}</p>${vs.map(v=>`<a href="#${v.id}" data-go="${v.id}">${v.th}</a>`).join('')}</div>`:''}).join('');
+  document.getElementById('sitefoot').innerHTML=`<div class="sf-brand"><b class="wm"><svg class="brandmark" viewBox="0 0 260 72" aria-hidden="true"><use href="img/aniiguide-logo.svg#wordmark"></use></svg><span class="sr">AniiGuide</span></b><p class="small muted">คู่มือเกม Aniimo ภาษาไทย แฟนเมด ไม่เกี่ยวข้องกับ Pawprint Studio · ภาพตัวละคร แผนที่ อีเวนต์ และบอสใช้โดยได้รับอนุญาตจาก <a href="https://aniidex.com/" target="_blank" rel="noopener">AniiDex</a></p><p class="small"><a href="#privacy" data-go="privacy">นโยบายความเป็นส่วนตัว</a> · <a href="#support" data-go="support">สนับสนุนเว็บ</a></p></div>`+GROUPS.map(g=>{const vs=VIEWS.filter(v=>v.g===g.id);return vs.length?`<div><p class="sf-h">${g.th}</p>${vs.map(v=>`<a href="#${v.id}" data-go="${v.id}">${v.th}</a>`).join('')}</div>`:''}).join('');
 })();
 
 /* ===== builder + recommended builds ===== */
