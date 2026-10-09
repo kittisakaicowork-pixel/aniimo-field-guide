@@ -53,7 +53,7 @@ def curl(url, dest):
         return dest
     if dest.exists():
         dest.unlink()
-    polite.get(url, dest)  # low rate, never player profiles (the owner's terms)
+    polite.get(url, dest, min_size=1)  # low rate, never player profiles (the owner's terms); some chunks are tiny
     return dest
 
 

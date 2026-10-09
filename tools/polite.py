@@ -23,10 +23,10 @@ def is_aniidex(url):
     return "aniidex.com" in url
 
 
-def get(url, dest, extra=()):
+def get(url, dest, extra=(), min_size=400):
     """Download url to dest (cached). Returns True when dest exists afterwards."""
     dest = Path(dest)
-    if dest.exists() and dest.stat().st_size > 400:
+    if dest.exists() and dest.stat().st_size >= min_size:
         return True
     if PROFILE.search(url):
         raise ValueError(f"refusing an AniiDex player profile page: {url}")
@@ -39,7 +39,7 @@ def get(url, dest, extra=()):
         subprocess.run(["curl", "-s", "-f", "-L", "-g", "-A", UA, *extra, "-o", str(dest), url])
         if is_aniidex(url):
             _last[0] = time.time()
-    ok = dest.exists() and dest.stat().st_size > 400
+    ok = dest.exists() and dest.stat().st_size >= min_size  # small files (tiny JS chunks) pass min_size=1
     if not ok and dest.exists():
         dest.unlink()
     return ok

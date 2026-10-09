@@ -18,7 +18,7 @@ echo "== $(date '+%F %T')"
 
 say() { echo "$1"; osascript -e "display notification \"$1\" with title \"AniiGuide อัปเดตรายวัน\"" >/dev/null 2>&1 || true; }
 # the files this job writes; anything else in the working tree is someone's work in progress and is left alone
-OUT=(data.js items-more.js index.html sw.js sitemap.xml a p img tools/sets.json)
+OUT=(data.js items-more.js map.js map.webp map-icons.webp index.html sw.js sitemap.xml a p img tools/sets.json)
 undo() { git checkout -q -- "${OUT[@]}" 2>/dev/null; }
 fail() { say "ไม่ได้อัปเดต: $1 (ดู tools/daily.log)"; undo; exit 1; }
 
@@ -33,6 +33,8 @@ before=$(count)
 
 python3 tools/scrape.py --daily || fail "ดึงข้อมูลจาก AniiDex ไม่สำเร็จ"
 python3 tools/sets.py || fail "สร้างชุดแต่งตัวไม่สำเร็จ"
+# the map (AniiDex's Idyll markers) changes rarely and costs a few dozen requests: refresh it on Mondays
+if [ "$(date +%u)" = 1 ]; then python3 tools/map.py --refresh || echo "map refresh failed, keeping the old map"; fi
 python3 tools/build.py | tee /tmp/aniguide-build.txt || fail "build ไม่สำเร็จ"
 untranslated=$(sed -nE 's/.*untranslated ([0-9]+).*/\1/p' /tmp/aniguide-build.txt)
 
@@ -42,7 +44,7 @@ after=$(count)
 
 # The build writes the scrape time into data.js every run; only publish when something else changed.
 # (Collected into a variable: with pipefail, grep -q stopping early would make the whole pipe look failed.)
-changed=$(git diff -U0 -- data.js items-more.js tools/sets.json | grep '^[-+][^-+]' | grep -v '^[-+]window.META=' | cut -c1-40)
+changed=$(git diff -U0 -- data.js items-more.js map.js tools/sets.json | grep '^[-+][^-+]' | grep -v '^[-+]window.META=' | cut -c1-40)
 changed+=$(git status --porcelain -- img items-more.js)
 if [ -z "$changed" ]; then say "ข้อมูลเหมือนเดิม ไม่มีอะไรต้องอัปเดต"; undo; exit 0; fi
 echo "changed:"; echo "$changed" | sort -u
