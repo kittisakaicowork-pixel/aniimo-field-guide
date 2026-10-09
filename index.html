@@ -1457,6 +1457,8 @@ body{overflow-x:clip}
 /* community */
 .cm-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center}
 .cm-form{display:grid;gap:10px;max-width:720px}.cm-form h3{margin:0}.cm-form label{display:grid;gap:4px;font-size:.88rem}
+.cm-form input:not(.hp){font:inherit;border:1px solid var(--line);border-radius:12px;padding:10px;background:var(--surface);color:var(--ink)}
+.cm-list{align-items:start}
 .cm-form textarea{font:inherit;border:1px solid var(--line);border-radius:12px;padding:10px;background:var(--surface);color:var(--ink)}
 .cm-act{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
 .cm-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
@@ -1464,6 +1466,11 @@ body{overflow-x:clip}
 .cm-h{display:flex;gap:10px;align-items:center;justify-content:space-between}.cm-h>div{flex:1}.cm-h img{width:46px;height:46px;border-radius:50%;object-fit:cover;object-position:50% 10%;background:var(--sunk)}
 .cm-h b{display:block;font:700 1rem var(--display)}.cm-h small{color:var(--ink-2)}
 .cm-code{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.cm-code code{font:600 .9rem var(--mono);background:var(--sunk);border:1px dashed var(--line);border-radius:8px;padding:4px 8px}
+
+.cm-rp{display:grid;gap:8px;border-top:1px solid var(--line);padding-top:8px}.cm-rp>.btn{justify-self:start}
+.cm-replies{display:grid;gap:8px}.cm-reply{background:var(--sunk);border-radius:12px;padding:8px 12px}.cm-reply p{margin:0;white-space:pre-line;line-height:1.6}.cm-reply small{color:var(--ink-2)}
+.cm-rform{display:grid;gap:6px}.cm-rform textarea{font:inherit;border:1px solid var(--line);border-radius:12px;padding:8px 10px;background:var(--surface);color:var(--ink)}
+.cm-card.question{border-left:4px solid var(--accent)}
 </style>
 
 <div id="boot" role="status" aria-live="polite"><div class="bootin"><b class="wm"><span aria-hidden="true">an<span class="ii"><i>ı</i><i>ı</i></span>guide</span><span class="sr">aniiguide</span></b><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><small id="bootMsg">กำลังโหลดข้อมูล Aniimo…</small></div></div>
@@ -2184,8 +2191,8 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
     </section>
     <aside class="nudge" id="nudge" hidden role="status"><button type="button" class="nx" id="nudgeX" aria-label="ปิด">×</button><b>☕ ใช้ AniiGuide มา <span id="nudgeDays"></span> วันแล้ว</b><p>เว็บนี้ฟรีและไม่มีโฆษณา ทำและอัปเดตทุกวันโดยแฟนเกมคนเดียว ถ้าช่วยคุณได้ เลี้ยงกาแฟสักแก้วช่วยให้เว็บอยู่ต่อได้</p><div class="na"><button type="button" class="btn primary" data-go="support" id="nudgeGo">สนับสนุนเว็บ</button><button type="button" class="btn" id="nudgeLater">ไว้ก่อน</button></div></aside>
     <section class="view" data-view="community" hidden>
-      <div class="vhead"><p class="eyebrow">Community</p><h2>ชุมชนผู้เล่น</h2><p class="muted">แชร์บิลด์ โค้ดแปลนบ้าน และหาเพื่อนเล่นด้วยกัน ทุกโพสต์ผ่านการตรวจโดยผู้ดูแลก่อนขึ้นเว็บ ไม่ต้องสมัครสมาชิก</p></div>
-      <div class="cm-top"><div class="seg" id="cmSeg" role="group" aria-label="หมวด"><button type="button" data-k="build" aria-pressed="true">บิลด์จากผู้เล่น</button><button type="button" data-k="home" aria-pressed="false">โค้ดแปลนบ้าน</button><button type="button" data-k="friend" aria-pressed="false">หาเพื่อนเล่น</button></div>
+      <div class="vhead"><p class="eyebrow">Community</p><h2>ชุมชนผู้เล่น</h2><p class="muted">ถามตอบ พูดคุย แชร์บิลด์ โค้ดแปลนบ้าน และหาเพื่อนเล่นด้วยกัน ทุกโพสต์ผ่านการตรวจโดยผู้ดูแลก่อนขึ้นเว็บ ไม่ต้องสมัครสมาชิก</p></div>
+      <div class="cm-top"><div class="seg" id="cmSeg" role="group" aria-label="หมวด"><button type="button" data-k="question" aria-pressed="true">ถามตอบ</button><button type="button" data-k="talk" aria-pressed="false">พูดคุย</button><button type="button" data-k="build" aria-pressed="false">บิลด์จากผู้เล่น</button><button type="button" data-k="home" aria-pressed="false">โค้ดแปลนบ้าน</button><button type="button" data-k="friend" aria-pressed="false">หาเพื่อนเล่น</button></div>
         <button type="button" class="btn primary" id="cmNew">+ โพสต์ใหม่</button></div>
       <form class="dpanel cm-form" id="cmForm" hidden autocomplete="off"></form>
       <div class="cm-list" id="cmList"></div>
@@ -2717,10 +2724,10 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
 </dialog>
 <dialog id="menu" aria-label="เมนูทั้งหมด"><div class="inner" id="menuInner"></div></dialog>
 
-<script src="data.js?v=5707aeb544"></script>
-<script src="thumbs.js?v=5707aeb544"></script>
-<script src="content.js?v=5707aeb544"></script>
-<script src="i18n-en.js?v=5707aeb544"></script>
+<script src="data.js?v=5e610bf3cd"></script>
+<script src="thumbs.js?v=5e610bf3cd"></script>
+<script src="content.js?v=5e610bf3cd"></script>
+<script src="i18n-en.js?v=5e610bf3cd"></script>
 <script>
 /* ===== theme ===== */
 (function(){
@@ -2886,7 +2893,7 @@ function go(id,push){
   if(id==='pskills'&&typeof renderPSkills==='function')renderPSkills();
   if(typeof nextUp==='function')nextUp(id);
   if(id==='community'&&typeof cmLoad==='function')setTimeout(cmLoad);
-  if(id==='items'&&!window.ITEMS_MORE&&!window.__imore){window.__imore=1;const sc=document.createElement('script');sc.src='items-more.js?v=5707aeb544';
+  if(id==='items'&&!window.ITEMS_MORE&&!window.__imore){window.__imore=1;const sc=document.createElement('script');sc.src='items-more.js?v=5e610bf3cd';
     sc.onload=()=>{const have=new Set(ITEMS.map(i=>i.slug));(window.ITEMS_MORE||[]).forEach(i=>{if(!have.has(i.slug)){ITEMS.push(i);ITEM_BY_NAME[i.n.toLowerCase()]=ITEM_BY_NAME[i.n.toLowerCase()]||i}});
       const c=document.getElementById('ic');if(c){const cats=new Set([...c.options].map(o=>o.value));[...new Set(ITEMS.map(i=>i.c))].filter(x=>!cats.has(x)).forEach(x=>c.insertAdjacentHTML('beforeend',`<option value="${esc(x)}">${esc(CAT_TH[x]||x)}</option>`))}
       if(current==='items'&&typeof renderItems==='function')renderItems()};document.head.appendChild(sc)}
@@ -3468,7 +3475,7 @@ function renderMap(){
     MAP.count=MAP.layers.map(()=>0);MAP.m.forEach(m=>MAP.count[m[0]]++);
     mapLayersUI();
   };
-  if(window.MAP)boot();else{const sc=document.createElement('script');sc.src='map.js?v=5707aeb544';sc.onload=boot;sc.onerror=()=>{document.getElementById('mapLoad').textContent='โหลดข้อมูลแผนที่ไม่สำเร็จ'};document.head.appendChild(sc)}
+  if(window.MAP)boot();else{const sc=document.createElement('script');sc.src='map.js?v=5e610bf3cd';sc.onload=boot;sc.onerror=()=>{document.getElementById('mapLoad').textContent='โหลดข้อมูลแผนที่ไม่สำเร็จ'};document.head.appendChild(sc)}
 }
 function mapSaveLayers(){try{localStorage.setItem('aniimo-map-layers',JSON.stringify([...MV.on].map(i=>MAP.layers[i].id)))}catch(_){}}
 function mapLayersUI(){
@@ -4211,7 +4218,7 @@ document.addEventListener('click',e=>{
 });
 
 /* ===== Pathfinder duels & Sanctums (from the map data) ===== */
-function withMap(fn){if(window.MAP){fn();return}const sc=document.createElement('script');sc.src='map.js?v=5707aeb544';sc.onload=fn;sc.onerror=()=>{};document.head.appendChild(sc)}
+function withMap(fn){if(window.MAP){fn();return}const sc=document.createElement('script');sc.src='map.js?v=5e610bf3cd';sc.onload=fn;sc.onerror=()=>{};document.head.appendChild(sc)}
 function regionAt(m){const x=m[1]/100,y=m[2]/100;return Object.keys(MAP.regions).find(n=>inPoly(x,y,MAP.regions[n]))||''}
 const mapBtn=i=>`<button type="button" class="chip" data-mapm-go="${i}" style="cursor:pointer">ดูบนแผนที่</button>`;
 const elBadges=a=>(a||[]).map(e=>badge(mEl(e))).join('');
@@ -4267,7 +4274,7 @@ function renderHeist(){
   hvCv=document.getElementById('hvCv');hvCtx=hvCv.getContext('2d');
   if(HV.ready){setTimeout(hvSize,0);return}if(HV.booting)return;HV.booting=true;
   const fail=()=>{document.getElementById('hvLoad').textContent='โหลดแผนที่ไม่สำเร็จ'};
-  const sc=document.createElement('script');sc.src='heist.js?v=5707aeb544';sc.onerror=fail;
+  const sc=document.createElement('script');sc.src='heist.js?v=5e610bf3cd';sc.onerror=fail;
   sc.onload=()=>{const ico=new Image();ico.onerror=fail;ico.onload=()=>{
     HV.ico=ico;HV.ready=true;
     const busy=new Set(['egg_lesser_chest','egg_loot_pile','sanctum_chest','sanctum_loot_pile']); // plain chests and piles crowd the map; off at first
@@ -4978,7 +4985,8 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-copypost]'
   try{navigator.clipboard.writeText(t.value).then(()=>{b.textContent='คัดลอกแล้ว'})}catch(_){t.select()}});
 
 /* ===== community: approved posts for everyone, a form that sends posts for the owner to check ===== */
-var CM={kind:'build',lists:{},err:'',prefill:null};
+var CM={kind:'question',lists:{},err:'',prefill:null,open:{}};
+const CM_TAGS={general:'ทั่วไป',team:'ทีมและบิลด์',catch:'จับและเลี้ยง',heist:'Egg Heist',boss:'บอส',home:'Homeland',event:'อีเวนต์',bug:'ปัญหาในเกม'};
 const SRV_TH={asia:'Asia-Pacific',america:'Americas',europe:'Europe'};
 async function cmLoad(force){
   const k=CM.kind;if(!SB.url){CM.err='off';cmRender();return}
@@ -4990,9 +4998,11 @@ async function cmLoad(force){
 function cmCard(p){
   const d=p.data||{},when=new Date(p.at).toLocaleDateString(LOC,{day:'numeric',month:'short'});
   const srv=p.server?`<span class="chip">${esc(SRV_TH[p.server]||p.server)}</span>`:'';
-  if(p.kind==='build'){const a=BY[d.slug];return `<article class="dpanel cm-card"><div class="cm-h">${a?`<img src="${TH(a.i)}" alt="">`:''}<div><b>${esc(p.title)}</b><small>${a?esc(a.th||a.name)+' · ':''}${when}</small></div></div>${p.body?`<p>${esc(p.body)}</p>`:''}${d.code&&/^builder-/.test(d.code)?`<a class="btn" href="#${esc(d.code)}">เปิดในตัวจัดบิลด์</a>`:''}</article>`}
-  if(p.kind==='home')return `<article class="dpanel cm-card"><div class="cm-h"><div><b>${esc(p.title)}</b><small>${when}</small></div>${srv}</div>${d.code?`<div class="cm-code"><code>${esc(d.code)}</code><button type="button" class="btn" data-cmcopy="${esc(d.code)}">คัดลอก</button></div>`:''}${p.body?`<p>${esc(p.body)}</p>`:''}</article>`;
-  return `<article class="dpanel cm-card"><div class="cm-h"><div><b>${esc(p.title)}</b><small>${d.ign?esc(d.ign)+' · ':''}${when}</small></div>${srv}</div>${d.uid?`<div class="cm-code"><span class="small muted">UID</span><code>${esc(d.uid)}</code><button type="button" class="btn" data-cmcopy="${esc(d.uid)}">คัดลอก</button></div>`:''}${p.body?`<p>${esc(p.body)}</p>`:''}</article>`;
+  const rp=`<div class="cm-rp"><button type="button" class="btn" data-cmrep="${p.id}">💬 ${p.replies?`${p.replies} คำตอบ`:'ตอบกลับ'}</button><div class="cm-replies" id="cmr-${p.id}" hidden></div></div>`;
+  if(p.kind==='question'||p.kind==='talk')return `<article class="dpanel cm-card ${p.kind}"><div class="cm-h"><div><b>${p.kind==='question'?'❓ ':''}${esc(p.title)}</b><small>${when}</small></div>${d.tag&&CM_TAGS[d.tag]?`<span class="chip">${CM_TAGS[d.tag]}</span>`:''}</div>${p.body?`<p>${esc(p.body)}</p>`:''}${rp}</article>`;
+  if(p.kind==='build'){const a=BY[d.slug];return `<article class="dpanel cm-card"><div class="cm-h">${a?`<img src="${TH(a.i)}" alt="">`:''}<div><b>${esc(p.title)}</b><small>${a?esc(a.th||a.name)+' · ':''}${when}</small></div></div>${p.body?`<p>${esc(p.body)}</p>`:''}${d.code&&/^builder-/.test(d.code)?`<a class="btn" href="#${esc(d.code)}">เปิดในตัวจัดบิลด์</a>`:''}${rp}</article>`}
+  if(p.kind==='home')return `<article class="dpanel cm-card"><div class="cm-h"><div><b>${esc(p.title)}</b><small>${when}</small></div>${srv}</div>${d.code?`<div class="cm-code"><code>${esc(d.code)}</code><button type="button" class="btn" data-cmcopy="${esc(d.code)}">คัดลอก</button></div>`:''}${p.body?`<p>${esc(p.body)}</p>`:''}${rp}</article>`;
+  return `<article class="dpanel cm-card"><div class="cm-h"><div><b>${esc(p.title)}</b><small>${d.ign?esc(d.ign)+' · ':''}${when}</small></div>${srv}</div>${d.uid?`<div class="cm-code"><span class="small muted">UID</span><code>${esc(d.uid)}</code><button type="button" class="btn" data-cmcopy="${esc(d.uid)}">คัดลอก</button></div>`:''}${p.body?`<p>${esc(p.body)}</p>`:''}${rp}</article>`;
 }
 function cmRender(){
   const el=document.getElementById('cmList');if(!el)return;
@@ -5005,11 +5015,14 @@ function cmForm(){
   const f=document.getElementById('cmForm'),k=CM.kind,pf=CM.prefill||{};
   const srv=`<label>เซิร์ฟเวอร์<select name="server"><option value="asia">Asia-Pacific</option><option value="america">Americas</option><option value="europe">Europe</option></select></label>`;
   const opts=ANIIMO.filter(a=>!a.u).map(a=>`<option value="${a.slug}" ${pf.slug===a.slug?'selected':''}>${esc(a.th||a.name)}</option>`).join('');
-  const fields={build:`<label>Aniimo<select name="slug">${opts}</select></label><label>ชื่อบิลด์<input name="title" maxlength="80" required placeholder="เช่น หมาป่าโลกันตร์สาย Break ล้มบอสไว"></label>
+  const tagSel=`<label>หมวด<select name="tag">${Object.entries(CM_TAGS).map(([k,l])=>`<option value="${k}">${l}</option>`).join('')}</select></label>`;
+  const fields={question:`${tagSel}<label>คำถาม<input name="title" maxlength="80" required placeholder="เช่น Aniimo ตัวไหนเหมาะกับ Egg Heist ระดับ Chaos"></label><label>รายละเอียด<textarea name="body" maxlength="1000" rows="4" placeholder="ตอนนี้มีตัวไหน เล่นถึงไหนแล้ว"></textarea></label>`,
+    talk:`${tagSel}<label>หัวข้อ<input name="title" maxlength="80" required placeholder="เช่น ใครได้ Prismana จาก Vein Abundance บ้าง"></label><label>ข้อความ<textarea name="body" maxlength="1000" rows="4"></textarea></label>`,
+    build:`<label>Aniimo<select name="slug">${opts}</select></label><label>ชื่อบิลด์<input name="title" maxlength="80" required placeholder="เช่น หมาป่าโลกันตร์สาย Break ล้มบอสไว"></label>
       <label>โค้ดบิลด์ (จากปุ่ม "แชร์ในชุมชน" ในตัวจัดบิลด์)<input name="code" maxlength="300" value="${esc(pf.code||'')}" placeholder="builder-…"></label><label>อธิบายการใช้<textarea name="body" maxlength="1000" rows="4" placeholder="ใช้สกิลไหนก่อน เหมาะกับบอสหรือโหมดไหน"></textarea></label>`,
     home:`${srv}<label>โค้ดแปลนบ้าน<input name="code" maxlength="100" required></label><label>ชื่อแปลน<input name="title" maxlength="80" required placeholder="เช่น บ้านฟาร์มเก็บของครบ"></label><label>รายละเอียด<textarea name="body" maxlength="1000" rows="3" placeholder="ต้องใช้เลเวลบ้านเท่าไร เด่นตรงไหน"></textarea></label>`,
     friend:`${srv}<label>UID ในเกม<input name="uid" maxlength="20" inputmode="numeric" pattern="[0-9]{6,20}" required></label><label>ชื่อในเกม (ไม่บังคับ)<input name="ign" maxlength="30"></label><label>หัวข้อ<input name="title" maxlength="80" required placeholder="เช่น หาทีม Egg Heist ระดับ Chaos ช่วงค่ำ"></label><label>รายละเอียด<textarea name="body" maxlength="500" rows="3" placeholder="เล่นช่วงไหน อยากเล่นอะไรด้วยกัน"></textarea></label>`};
-  f.innerHTML=`<h3>โพสต์ใหม่ · ${{build:'บิลด์',home:'โค้ดแปลนบ้าน',friend:'หาเพื่อนเล่น'}[k]}</h3>${fields[k]}<input name="website" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true">
+  f.innerHTML=`<h3>โพสต์ใหม่ · ${{question:'ถามตอบ',talk:'พูดคุย',build:'บิลด์',home:'โค้ดแปลนบ้าน',friend:'หาเพื่อนเล่น'}[k]}</h3>${fields[k]}<input name="website" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true">
     <p class="small muted">โพสต์จะขึ้นเว็บหลังผู้ดูแลตรวจ ห้ามใส่เบอร์โทร อีเมล ลิงก์ หรือข้อมูลส่วนตัว และห้ามซื้อขายบัญชีหรือของในเกม</p>
     <div class="cm-act"><button type="submit" class="btn primary">ส่งโพสต์</button><button type="button" class="btn" id="cmCancel">ยกเลิก</button><span class="small" id="cmMsg" aria-live="polite"></span></div>`;
   f.hidden=false;CM.prefill=null;
@@ -5027,8 +5040,8 @@ document.addEventListener('submit',async e=>{
   const f=e.target,v=n=>(f.elements[n]?f.elements[n].value:'').trim(),msg=document.getElementById('cmMsg'),btn=f.querySelector('[type=submit]');
   if(v('website')){msg.textContent='ส่งแล้ว รอผู้ดูแลตรวจ';return}
   if(/https?:\/\/|www\.|@[a-z0-9]|\b0\d{8,9}\b/i.test(v('title')+' '+v('body'))){msg.textContent='ห้ามใส่ลิงก์ อีเมล หรือเบอร์โทร';return}
-  const k=CM.kind,data=k==='build'?{slug:v('slug'),code:/^builder-[\w~.-]+$/.test(v('code'))?v('code'):''}:k==='home'?{code:v('code')}:{uid:v('uid'),ign:v('ign')};
-  const row={kind:k,title:v('title'),body:v('body'),data,server:k==='build'?null:v('server'),visitor:VISITOR||null};
+  const k=CM.kind,data=k==='build'?{slug:v('slug'),code:/^builder-[\w~.-]+$/.test(v('code'))?v('code'):''}:k==='home'?{code:v('code')}:k==='friend'?{uid:v('uid'),ign:v('ign')}:{tag:v('tag')};
+  const row={kind:k,title:v('title'),body:v('body'),data,server:(k==='home'||k==='friend')?v('server'):null,visitor:VISITOR||null};
   if(row.title.length<3){msg.textContent='ใส่หัวข้ออย่างน้อย 3 ตัวอักษร';return}
   btn.disabled=true;msg.textContent='กำลังส่ง…';
   try{
@@ -5039,16 +5052,42 @@ document.addEventListener('submit',async e=>{
   btn.disabled=false;
 });
 
+/* ===== community replies: approved ones under each post, a form to send one (checked by the owner first) ===== */
+async function cmReplies(pid){
+  const box=document.getElementById('cmr-'+pid);if(!box)return;
+  box.innerHTML='<p class="small muted">กำลังโหลด…</p>';
+  let L=[];try{L=await sbCall('community_replies_list',{pid})||[]}catch(_){}
+  box.innerHTML=`${L.map(r=>`<div class="cm-reply"><p>${esc(r.body)}</p><small>${new Date(r.at).toLocaleDateString(LOC,{day:'numeric',month:'short'})}</small></div>`).join('')||'<p class="small muted">ยังไม่มีคำตอบ</p>'}
+    <form class="cm-rform" data-rpost="${pid}"><textarea name="body" maxlength="1000" rows="2" required placeholder="เขียนคำตอบ (ผู้ดูแลจะตรวจก่อนขึ้นเว็บ)"></textarea><input name="website" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true"><div class="cm-act"><button type="submit" class="btn primary">ส่งคำตอบ</button><span class="small" aria-live="polite"></span></div></form>`;
+}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-cmrep]');if(!b)return;const id=b.dataset.cmrep,box=document.getElementById('cmr-'+id);if(!box)return;box.hidden=!box.hidden;if(!box.hidden)cmReplies(id)});
+document.addEventListener('submit',async e=>{
+  const f=e.target.closest('.cm-rform');if(!f)return;e.preventDefault();
+  const msg=f.querySelector('[aria-live]'),btn=f.querySelector('[type=submit]'),body=f.elements.body.value.trim();
+  if(f.elements.website.value){msg.textContent='ส่งแล้ว รอผู้ดูแลตรวจ';return}
+  if(body.length<2){msg.textContent='พิมพ์อย่างน้อย 2 ตัวอักษร';return}
+  if(/https?:\/\/|www\.|@[a-z0-9]|\b0\d{8,9}\b/i.test(body)){msg.textContent='ห้ามใส่ลิงก์ อีเมล หรือเบอร์โทร';return}
+  btn.disabled=true;msg.textContent='กำลังส่ง…';
+  try{const r=await fetch(SB.url+'/rest/v1/community_replies',{method:'POST',headers:{apikey:SB.key,Authorization:'Bearer '+SB.key,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify({post_id:+f.dataset.rpost,body,visitor:VISITOR||null})});
+    if(!r.ok){const j=await r.json().catch(()=>({}));throw new Error(j.code==='54000'?'many':r.status===404?'missing':'net')}
+    f.elements.body.value='';msg.textContent='ส่งแล้ว คำตอบจะขึ้นหลังผู้ดูแลตรวจ ขอบคุณครับ'}
+  catch(err){msg.textContent=err.message==='many'?'ส่งถี่เกินไป ลองใหม่ในอีกสักครู่':err.message==='missing'?'ระบบตอบกลับยังไม่เปิด':'ส่งไม่สำเร็จ ลองใหม่อีกครั้ง'}
+  btn.disabled=false;
+});
+
 /* ===== back office: community moderation ===== */
-var CMA={filter:'pending',items:null,err:''};
+var CMA={filter:'pending',items:null,err:'',mode:'posts'};
 async function cmaLoad(){
+  if(AD.demo&&CMA.mode==='replies'){CMA.items=[{id:9,at:new Date().toISOString(),body:'ใช้ตัวธาตุไฟคู่กับตัวฮีลจะผ่านง่ายขึ้น',status:'pending',post_title:'ตัวไหนเหมาะกับ Egg Heist',post_kind:'question'}];CMA.err='';return}
   if(AD.demo){CMA.items=[{id:1,at:new Date().toISOString(),kind:'friend',title:'หาทีม Egg Heist ช่วงค่ำ',body:'เล่นทุกวัน 2 ทุ่ม',data:{uid:'412000273795',ign:'Pathfinder'},server:'asia',status:'pending'}];CMA.err='';return}
-  try{CMA.items=await sbRpc('community_admin_list',{only_status:CMA.filter==='all'?null:CMA.filter,lim:200})||[];CMA.err=''}catch(e){CMA.items=[];CMA.err=e.message}
+  try{CMA.items=await sbRpc(CMA.mode==='replies'?'community_admin_replies':'community_admin_list',{only_status:CMA.filter==='all'?null:CMA.filter,lim:200})||[];CMA.err=''}catch(e){CMA.items=[];CMA.err=e.message}
 }
 function communityPanel(){
-  const st={pending:'รอตรวจ',approved:'อนุมัติแล้ว',rejected:'ไม่อนุมัติ',all:'ทั้งหมด'},kn={build:'บิลด์',home:'แปลนบ้าน',friend:'หาเพื่อน'};
-  const head=`<div class="acard"><div class="ahead"><h3>ตรวจโพสต์ชุมชน</h3><small>โพสต์ขึ้นเว็บเมื่อกดอนุมัติเท่านั้น</small></div><div class="aseg" id="cmaFilter">${Object.entries(st).map(([k,l])=>`<button type="button" data-cmaf="${k}" aria-pressed="${CMA.filter===k}">${l}</button>`).join('')}</div></div>`;
-  if(CMA.err==='nofeedback')return head+'<div class="acard"><p class="amute">ยังไม่ได้ติดตั้งระบบชุมชนในฐานข้อมูล: เปิด Supabase → SQL Editor แล้วรันไฟล์ tools/admin/community.sql ครั้งเดียว</p></div>';
+  const st={pending:'รอตรวจ',approved:'อนุมัติแล้ว',rejected:'ไม่อนุมัติ',all:'ทั้งหมด'},kn={build:'บิลด์',home:'แปลนบ้าน',friend:'หาเพื่อน',question:'ถามตอบ',talk:'พูดคุย'};
+  const head=`<div class="acard"><div class="ahead"><h3>ตรวจโพสต์ชุมชน</h3><small>โพสต์ขึ้นเว็บเมื่อกดอนุมัติเท่านั้น</small></div><div class="aseg"><button type="button" data-cmam="posts" aria-pressed="${CMA.mode==='posts'}">โพสต์</button><button type="button" data-cmam="replies" aria-pressed="${CMA.mode==='replies'}">คำตอบ</button></div><div class="aseg" id="cmaFilter">${Object.entries(st).map(([k,l])=>`<button type="button" data-cmaf="${k}" aria-pressed="${CMA.filter===k}">${l}</button>`).join('')}</div></div>`;
+  if(CMA.err==='nofeedback')return head+`<div class="acard"><p class="amute">ยังไม่ได้ติดตั้ง${CMA.mode==='replies'?'ระบบคำตอบ':'ระบบชุมชน'}ในฐานข้อมูล: เปิด Supabase → SQL Editor แล้วรันไฟล์ tools/admin/${CMA.mode==='replies'?'community2.sql':'community.sql'} ครั้งเดียว</p></div>`;
+  if(CMA.mode==='replies'){const L=CMA.items||[];return head+(L.length?L.map(r=>`<div class="acard"><div class="ahead"><h3>ตอบ: ${esc(r.post_title||'')}</h3><small>${kn[r.post_kind]||''} · ${new Date(r.at).toLocaleString(LOC,{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}</small></div><p>${esc(r.body)}</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">${r.status!=='approved'?`<button type="button" class="abtn" data-cmar="${r.id}" data-s="approved">อนุมัติ</button>`:''}${r.status!=='rejected'?`<button type="button" class="abtn" data-cmar="${r.id}" data-s="rejected">ไม่อนุมัติ</button>`:''}<button type="button" class="abtn" data-cmar="${r.id}" data-s="delete">ลบ</button></div></div>`).join(''):'<div class="acard"><div class="aempty"><b>ไม่มีคำตอบ</b><span>ไม่มีรายการในหมวดนี้</span></div></div>')}
   if(CMA.err)return head+'<div class="acard"><p class="amute">โหลดโพสต์ไม่สำเร็จ กดรีเฟรชเพื่อลองใหม่</p></div>';
   const L=CMA.items||[];
   return head+(L.length?L.map(p=>`<div class="acard"><div class="ahead"><h3>${esc(p.title)}</h3><small>${kn[p.kind]||p.kind} · ${new Date(p.at).toLocaleString(LOC,{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}${p.server?' · '+esc(SRV_TH[p.server]||p.server):''}</small></div>
@@ -5057,6 +5096,10 @@ function communityPanel(){
 }
 document.addEventListener('click',async e=>{
   const f=e.target.closest('[data-cmaf]');if(f){CMA.filter=f.dataset.cmaf;await cmaLoad();renderAdmin(true);return}
+  const md=e.target.closest('[data-cmam]');if(md){CMA.mode=md.dataset.cmam;await cmaLoad();renderAdmin(true);return}
+  const rr=e.target.closest('[data-cmar]');if(rr){if(rr.dataset.s==='delete'&&!rr.dataset.sure){rr.dataset.sure='1';rr.textContent='กดอีกครั้งเพื่อลบ';return}
+    if(AD.demo){CMA.items=CMA.items.filter(x=>x.id!==+rr.dataset.cmar);renderAdmin(true);return}
+    rr.disabled=true;try{await sbRpc('community_reply_set',{rid:+rr.dataset.cmar,new_status:rr.dataset.s});CM.lists={};await cmaLoad();renderAdmin(true)}catch(_){rr.disabled=false;rr.textContent='ไม่สำเร็จ ลองใหม่'}return}
   const b=e.target.closest('[data-cma]');if(!b)return;
   if(b.dataset.s==='delete'&&!b.dataset.sure){b.dataset.sure='1';b.textContent='กดอีกครั้งเพื่อลบ';return}
   if(AD.demo){CMA.items=CMA.items.filter(x=>x.id!==+b.dataset.cma);renderAdmin(true);return}
