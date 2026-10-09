@@ -1471,6 +1471,70 @@ body{overflow-x:clip}
 .cm-replies{display:grid;gap:8px}.cm-reply{background:var(--sunk);border-radius:12px;padding:8px 12px}.cm-reply p{margin:0;white-space:pre-line;line-height:1.6}.cm-reply small{color:var(--ink-2)}
 .cm-rform{display:grid;gap:6px}.cm-rform textarea{font:inherit;border:1px solid var(--line);border-radius:12px;padding:8px 10px;background:var(--surface);color:var(--ink)}
 .cm-card.question{border-left:4px solid var(--accent)}
+
+/* ============ phones: calmer header, app-like home, two-column Aniimo list ============ */
+.ftoggle{display:none}
+@media (max-width:640px){
+  /* header: search is a round button that opens across the bar */
+  .appbar{gap:8px}
+  .appbar .gsearch{flex:0 0 40px;margin-left:auto;position:relative}
+  .appbar .gsearch input{width:40px;height:40px;padding:0;border-radius:50%;color:transparent;cursor:pointer}
+  .appbar .gsearch input::placeholder{color:transparent}
+  .appbar .gsearch svg{left:12px;pointer-events:none}
+  .appbar{position:sticky}
+  .appbar .gsearch:focus-within{position:absolute;left:12px;right:12px;top:50%;translate:0 -50%;z-index:5}
+  .appbar .gsearch:focus-within input{width:100%;padding:0 14px 0 38px;border-radius:999px;color:var(--ink);cursor:text;box-shadow:0 8px 24px rgba(20,40,80,.18)}
+  .appbar .gsearch:focus-within input::placeholder{color:var(--ink-2)}
+  .appbar .gsearch .gresults{left:0;right:0}
+  #langBtn{padding:0 10px!important;height:36px}
+  /* hero shortcuts: five app tiles */
+  .h3links{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:4px}
+  .h3links a{flex-direction:column;justify-content:flex-start;gap:6px;font:600 .7rem/1.25 var(--display);text-align:center}
+  .h3links svg{width:48px;height:48px;padding:13px;box-sizing:border-box;border-radius:16px;color:var(--accent);
+    background:var(--surface);border:1px solid var(--glass-line,var(--line));box-shadow:0 6px 16px rgba(20,60,120,.10)}
+  .h3links a:active svg{transform:scale(.92)}
+  /* section heads: shorter */
+  .shead h2{font-size:1.35rem;gap:10px}
+  .shead h2::before,.shead h2::after{width:28px}
+  .shead>p{font-size:.86rem;line-height:1.55;max-width:34ch;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  /* wiki and tool cards: icon + title on one line, the label under the title, two lines of text */
+  .wcard{padding:14px 14px 15px;gap:6px;border-radius:18px}
+  .wcard .wtop{display:grid;grid-template-columns:20px minmax(0,1fr);column-gap:8px;row-gap:5px;align-items:center}
+  .wcard .wtop b{font-size:.98rem;line-height:1.25}
+  .wcard .wtop em{grid-column:2;justify-self:start;margin:0;font-size:.68rem;padding:2px 8px;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+  .wcard small{font-size:.8rem;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .wcard .wp{transform:scale(.88);transform-origin:left center}
+  .wcard:active,.mon:active,.pick:active,.hnow>*:active{transform:scale(.97)}
+  /* Aniimo list: two columns of portrait cards */
+  #dexGrid.dex{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  #dexGrid .mon{grid-template-columns:1fr;justify-items:center;text-align:center;gap:6px;padding:14px 8px 12px}
+  #dexGrid .mon .pic{width:92px;height:92px}
+  #dexGrid .mon .info{justify-items:center;width:100%}
+  #dexGrid .mon .row,#dexGrid .mon .meta{justify-content:center}
+  #dexGrid .mon .nm{font-size:.98rem}
+  /* filters folded behind one button */
+  [data-view="dex"] .vhead p.muted{display:none}
+  .bar-tools.five{grid-template-columns:minmax(0,1fr) auto!important;align-items:end;padding:12px}
+  .bar-tools.five.open{grid-template-columns:1fr 1fr!important}
+  #dexGrid .mon .flag{z-index:3}#dexGrid .mon .flag.pr{left:8px;right:auto;top:8px;font-size:.62rem;padding:2px 7px}
+  .bar-tools.five>label:not(:first-child){display:none}
+  .bar-tools.five.open>label:not(:first-child){display:grid}
+  .bar-tools.five.open{grid-template-columns:1fr 1fr}
+  .bar-tools.five.open>label:first-child{grid-column:1/-1}
+  .bar-tools.five.open .ftoggle{grid-column:1/-1;justify-self:start;order:9}
+  .ftoggle{display:inline-flex;align-items:center;gap:6px;height:44px;padding:0 14px;border-radius:14px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:600 .88rem var(--display);cursor:pointer}
+  .ftoggle svg{width:18px;height:18px}
+  .ftoggle b{min-width:18px;height:18px;border-radius:9px;background:var(--accent);color:#fff;font-size:.7rem;display:grid;place-items:center;padding:0 5px}
+  .ftoggle[aria-expanded="true"]{border-color:var(--accent);color:var(--accent)}
+  .dexmore{display:none!important}
+  .dexmore.open{display:flex!important}
+  /* Aniimo page: tabs in one sliding row, vote buttons in one row */
+  .dtabs{flex-wrap:nowrap!important;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;margin:0 -16px;padding-left:16px!important;padding-right:16px!important}
+  .dtabs::-webkit-scrollbar{display:none}
+  .dtabs button{flex:none}
+  .vote .row b{flex-basis:100%}
+  .vote .row button{flex:1;width:auto;height:40px}
+}
 </style>
 
 <div id="boot" role="status" aria-live="polite"><div class="bootin"><b class="wm"><svg class="brandmark" viewBox="0 0 260 72" aria-hidden="true"><use href="img/aniiguide-logo.svg?v=4#wordmark"></use></svg><span class="sr">AniiGuide</span></b><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><small id="bootMsg">กำลังโหลดข้อมูล Aniimo…</small></div></div>
@@ -1588,13 +1652,13 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
         <p class="muted">จุดสีใต้ชื่อคือสีธาตุของสกิลที่ตัวนั้นใช้ กดการ์ดเพื่อดูสกิล ค่าสถานะ สายวิวัฒนาการ และร่างทั้งหมด</p>
       </div>
       <div class="bar-tools five">
-        <label for="dq">ค้นหาชื่อหรือหมายเลข<input type="search" id="dq" placeholder="เช่น Helion หรือ 006"></label>
+        <label for="dq">ค้นหาชื่อหรือหมายเลข<input type="search" id="dq" placeholder="เช่น Helion หรือ 006"></label><button type="button" class="ftoggle" id="dFilt" aria-expanded="false" aria-controls="dexMore"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4"/></svg>ตัวกรอง<b id="dFiltN" hidden></b></button>
         <label for="de">ธาตุ<select id="de"><option value="">ทุกธาตุ</option></select></label>
         <label for="dr">บทบาท<select id="dr"><option value="">ทุกบทบาท</option><option>DPS</option><option>Break</option><option>Support</option><option>Heal</option><option>Regen</option></select></label>
         <label for="ds">ขั้นวิวัฒนาการ<select id="ds"><option value="">ทุกขั้น</option><option value="Lumin">Lumin (ร่างแรก)</option><option value="Gamma">Gamma (ร่างกลาง)</option><option value="Nova">Nova (ร่างสุดท้าย)</option><option value="Legendary">Legendary</option></select></label>
         <label for="dw">งานใน Homeland<select id="dw"><option value="">ทุกงาน</option></select></label>
       </div>
-      <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center">
+      <div class="dexmore" id="dexMore" style="display:flex;flex-wrap:wrap;gap:14px;align-items:center">
         <label for="dc" style="display:flex;flex-direction:row;gap:6px;color:var(--ink)"><select id="dc" style="width:auto;padding:4px 8px"><option value="">ทั้งหมด</option><option value="have">จับแล้ว</option><option value="need">ยังไม่ได้จับ</option></select></label>
         <label for="dp" style="display:flex;flex-direction:row;gap:6px;color:var(--ink)"><input type="checkbox" id="dp"> เฉพาะตัวที่มีร่าง Prismana</label>
         <label for="dsp" style="display:flex;flex-direction:row;gap:6px;color:var(--ink)"><input type="checkbox" id="dsp"> เฉพาะตัวที่มีร่างเปล่งประกาย</label>
@@ -2725,8 +2789,8 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
 </dialog>
 <dialog id="menu" aria-label="เมนูทั้งหมด"><div class="inner" id="menuInner"></div></dialog>
 
-<script>try{if(localStorage.getItem('aniimo-lang')==='en')document.write('<script src="i18n-en.js?v=3e4dc0dfe1"><\/script>')}catch(_){}</script>
-<script defer src="data.js?v=3e4dc0dfe1"></script>
-<script defer src="thumbs.js?v=3e4dc0dfe1"></script>
-<script defer src="content.js?v=3e4dc0dfe1"></script>
-<script defer src="app.js?v=3e4dc0dfe1"></script>
+<script>try{if(localStorage.getItem('aniimo-lang')==='en')document.write('<script src="i18n-en.js?v=3835eec837"><\/script>')}catch(_){}</script>
+<script defer src="data.js?v=3835eec837"></script>
+<script defer src="thumbs.js?v=3835eec837"></script>
+<script defer src="content.js?v=3835eec837"></script>
+<script defer src="app.js?v=3835eec837"></script>

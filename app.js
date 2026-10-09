@@ -2380,6 +2380,11 @@ function logApp(key){if(!SB_ON||isOwner())return;try{sbInsert({kind:'view',key,v
 addEventListener('appinstalled',()=>logApp('app-installed'));
 setTimeout(()=>{const app=matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
   if(app){try{if(!sessionStorage.getItem('aniimo-appopen')){sessionStorage.setItem('aniimo-appopen','1');logApp('app-open')}}catch(_){}}},2000);
+/* phones: the Aniimo list's filters fold behind one button that shows how many are on */
+{const btn=document.getElementById('dFilt');if(btn){const bar=btn.closest('.bar-tools'),more=document.getElementById('dexMore'),n=document.getElementById('dFiltN');
+  const count=()=>{const k=['de','dr','ds','dw','dc'].filter(id=>{const el=document.getElementById(id);return el&&el.value}).length+['dp','dsp'].filter(id=>{const el=document.getElementById(id);return el&&el.checked}).length;n.hidden=!k;n.textContent=k};
+  btn.addEventListener('click',()=>{const on=!bar.classList.contains('open');bar.classList.toggle('open',on);more&&more.classList.toggle('open',on);btn.setAttribute('aria-expanded',on)});
+  ['de','dr','ds','dw','dc','dp','dsp'].forEach(id=>{const el=document.getElementById(id);el&&el.addEventListener('change',count)});count()}}
 function renderBuilds(){
   const g=document.getElementById('bgrid');if(!g)return;
   const be=document.getElementById('be');if(!be.options.length)be.innerHTML='<option value="">ทุกธาตุ</option>'+E.map(x=>`<option value="${x.k}">${x.th}</option>`).join('');
