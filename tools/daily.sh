@@ -54,7 +54,14 @@ node tools/check/audit.js || fail "ตรวจเว็บแล้วเจอ
 v=$(sed -nE "s/.*'aniimo-v([0-9]+)'.*/\1/p" sw.js)
 sed -i '' "s/'aniimo-v$v'/'aniimo-v$((v + 1))'/" sw.js
 
-git add -A -- "${OUT[@]}"
+# index.html is also hand-edited: publish it only when the build changed nothing but the script version stamps
+handedit=$(git diff -U0 -- index.html | grep '^[-+][^-+]' | grep -v '\.js?v=' | head -c 200)
+if [ -n "$handedit" ]; then
+  echo "index.html has other edits in progress: leaving it out of this commit"
+  git add -A -- $(printf '%s\n' "${OUT[@]}" | grep -vx index.html)
+else
+  git add -A -- "${OUT[@]}"
+fi
 git commit -q -m "Daily data update $(date +%F)" || fail "commit ไม่สำเร็จ"
 git push -q origin main || fail "push ขึ้น GitHub ไม่สำเร็จ"
 msg="อัปเดตข้อมูลขึ้นเว็บแล้ว (Aniimo $after ตัว)"
