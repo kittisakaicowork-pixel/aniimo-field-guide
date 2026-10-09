@@ -34,7 +34,7 @@ UA = "Mozilla/5.0 (AniimoFieldGuide fan project)"
 FULL = "--full" in sys.argv
 # 3D viewer package (web3d_deploy/, too big for GitHub Pages) lives in this Cloudflare R2 bucket; tools/r2/
 R2_3D = "https://3d.aniiguide.trade"
-R2_3D_V = 21  # bump after uploading a changed web3d_deploy/index.html (the edge keeps 3D files a month)
+R2_3D_V = 22  # bump after uploading a changed web3d_deploy/index.html (the edge keeps 3D files a month)
 KINDS = {"Basic attack": "atk", "Ultimate": "ult"}
 SPARK_TYPES = 12
 
