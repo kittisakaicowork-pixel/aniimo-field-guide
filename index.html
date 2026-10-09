@@ -1453,6 +1453,17 @@ body{overflow-x:clip}
 .mnav.next{flex-direction:row-reverse;text-align:right}.mnav img{width:44px;height:44px;object-fit:cover;object-position:50% 10%;border-radius:50%;background:var(--sunk)}
 .mnav small{display:block;color:var(--ink-2);font-size:.74rem}.mnav b{font:700 .92rem var(--display)}.mnav:hover{border-color:var(--accent)}
 .apost{width:100%;font:inherit;font-size:.88rem;line-height:1.6;border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--sunk);color:var(--ink);resize:vertical}
+
+/* community */
+.cm-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center}
+.cm-form{display:grid;gap:10px;max-width:720px}.cm-form h3{margin:0}.cm-form label{display:grid;gap:4px;font-size:.88rem}
+.cm-form textarea{font:inherit;border:1px solid var(--line);border-radius:12px;padding:10px;background:var(--surface);color:var(--ink)}
+.cm-act{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.cm-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.cm-card{display:grid;gap:8px;align-content:start}.cm-card p{margin:0;line-height:1.65;white-space:pre-line}
+.cm-h{display:flex;gap:10px;align-items:center;justify-content:space-between}.cm-h>div{flex:1}.cm-h img{width:46px;height:46px;border-radius:50%;object-fit:cover;object-position:50% 10%;background:var(--sunk)}
+.cm-h b{display:block;font:700 1rem var(--display)}.cm-h small{color:var(--ink-2)}
+.cm-code{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.cm-code code{font:600 .9rem var(--mono);background:var(--sunk);border:1px dashed var(--line);border-radius:8px;padding:4px 8px}
 </style>
 
 <div id="boot" role="status" aria-live="polite"><div class="bootin"><b class="wm"><span aria-hidden="true">an<span class="ii"><i>ı</i><i>ı</i></span>guide</span><span class="sr">aniiguide</span></b><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><small id="bootMsg">กำลังโหลดข้อมูล Aniimo…</small></div></div>
@@ -2172,6 +2183,13 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
       <div id="psList"></div>
     </section>
     <aside class="nudge" id="nudge" hidden role="status"><button type="button" class="nx" id="nudgeX" aria-label="ปิด">×</button><b>☕ ใช้ AniiGuide มา <span id="nudgeDays"></span> วันแล้ว</b><p>เว็บนี้ฟรีและไม่มีโฆษณา ทำและอัปเดตทุกวันโดยแฟนเกมคนเดียว ถ้าช่วยคุณได้ เลี้ยงกาแฟสักแก้วช่วยให้เว็บอยู่ต่อได้</p><div class="na"><button type="button" class="btn primary" data-go="support" id="nudgeGo">สนับสนุนเว็บ</button><button type="button" class="btn" id="nudgeLater">ไว้ก่อน</button></div></aside>
+    <section class="view" data-view="community" hidden>
+      <div class="vhead"><p class="eyebrow">Community</p><h2>ชุมชนผู้เล่น</h2><p class="muted">แชร์บิลด์ โค้ดแปลนบ้าน และหาเพื่อนเล่นด้วยกัน ทุกโพสต์ผ่านการตรวจโดยผู้ดูแลก่อนขึ้นเว็บ ไม่ต้องสมัครสมาชิก</p></div>
+      <div class="cm-top"><div class="seg" id="cmSeg" role="group" aria-label="หมวด"><button type="button" data-k="build" aria-pressed="true">บิลด์จากผู้เล่น</button><button type="button" data-k="home" aria-pressed="false">โค้ดแปลนบ้าน</button><button type="button" data-k="friend" aria-pressed="false">หาเพื่อนเล่น</button></div>
+        <button type="button" class="btn primary" id="cmNew">+ โพสต์ใหม่</button></div>
+      <form class="dpanel cm-form" id="cmForm" hidden autocomplete="off"></form>
+      <div class="cm-list" id="cmList"></div>
+    </section>
     <section class="view" data-view="support" hidden>
       <div class="vhead"><p class="eyebrow">Support</p><h2>สนับสนุน AniiGuide</h2><p class="muted">เว็บนี้ทำโดยแฟนเกมคนเดียว เปิดให้ใช้ฟรีทุกฟีเจอร์ ไม่มีอะไรล็อกไว้ให้เฉพาะคนจ่ายเงิน</p></div>
       <div class="dpanel supwhy" id="supWhy"></div>
@@ -2212,7 +2230,7 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
         <p>ส่งข้อความผ่านหน้า <a href="#feedback" data-go="feedback">ส่งคำแนะนำ</a> พร้อมช่องทางติดต่อกลับ ข้อมูลสถิติไม่ได้ผูกกับตัวตน จึงลบได้เมื่อแจ้งรหัสสุ่มของเบราว์เซอร์มาด้วย (ดูได้ด้านล่าง)</p>
         <p class="small muted">รหัสสุ่มของเบราว์เซอร์นี้: <code id="privVisitor">—</code></p>
         <h3 id="terms">เงื่อนไขการใช้งาน</h3>
-        <ul><li>เว็บนี้เป็นแฟนเมด ไม่เกี่ยวข้องกับผู้พัฒนาเกม ชื่อ ภาพ และโมเดลของ Aniimo เป็นลิขสิทธิ์ของเจ้าของเกม</li><li>ข้อมูลรวบรวมจากไฟล์เกม ประกาศทางการ และ AniiDex (ได้รับอนุญาต) อาจคลาดเคลื่อนหรือเปลี่ยนตามอัปเดตของเกม</li><li>ห้ามนำเนื้อหาที่เขียนขึ้นสำหรับเว็บนี้ไปเผยแพร่ซ้ำเชิงพาณิชย์โดยไม่ได้รับอนุญาต แชร์ลิงก์ได้เสมอ</li><li>ติดต่อหรือแจ้งข้อมูลผิดได้ที่หน้า <a href="#feedback" data-go="feedback">ส่งคำแนะนำ</a></li></ul>
+        <ul><li>เว็บนี้เป็นแฟนเมด ไม่เกี่ยวข้องกับผู้พัฒนาเกม ชื่อ ภาพ และโมเดลของ Aniimo เป็นลิขสิทธิ์ของเจ้าของเกม</li><li>ข้อมูลรวบรวมจากในเกม ประกาศทางการ และ AniiDex (ได้รับอนุญาต) อาจคลาดเคลื่อนหรือเปลี่ยนตามอัปเดตของเกม</li><li>ห้ามนำเนื้อหาที่เขียนขึ้นสำหรับเว็บนี้ไปเผยแพร่ซ้ำเชิงพาณิชย์โดยไม่ได้รับอนุญาต แชร์ลิงก์ได้เสมอ</li><li>ติดต่อหรือแจ้งข้อมูลผิดได้ที่หน้า <a href="#feedback" data-go="feedback">ส่งคำแนะนำ</a></li></ul>
       </div>
     </section>
     <section class="view" data-view="feedback" hidden>
@@ -2340,14 +2358,14 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
       <div class="vhead">
         <p class="eyebrow">พื้นที่ใหม่ · Season 1 ภาค 2</p>
         <h2>Whisperwake Isles</h2>
-        <p class="muted">เกาะใหม่ทางใต้ของทวีป Idyll เปิดพร้อม Season 1 ภาค 2 ข้อมูลในหน้านี้แยกชัดเจนว่าอะไรยืนยันแล้ว และอะไรมาจากไฟล์เกมหรือช่วงเบต้าซึ่งอาจเปลี่ยนได้</p>
+        <p class="muted">เกาะใหม่ทางใต้ของทวีป Idyll เปิดพร้อม Season 1 ภาค 2 ข้อมูลในหน้านี้แยกชัดเจนว่าอะไรยืนยันแล้ว และอะไรเป็นข้อมูลเบื้องต้นที่อาจเปลี่ยนได้</p>
       </div>
       <div class="wwcd" id="wwCountdown"></div>
       <div class="grid g2">
         <article class="card"><p><span class="rtag official">ทางการ</span></p><h3>ยืนยันแล้ว</h3><ul id="wwConfirmed"></ul></article>
-        <article class="card"><p><span class="rtag community">จากไฟล์เกม</span></p><h3>จากไฟล์เกมและช่วงเบต้า (อาจเปลี่ยน)</h3><ul id="wwDatamined"></ul></article>
+        <article class="card"><p><span class="rtag community">ข้อมูลเบื้องต้น</span></p><h3>ข้อมูลเบื้องต้น (อาจเปลี่ยน)</h3><ul id="wwDatamined"></ul></article>
       </div>
-      <div class="gsec"><h3>Aniimo ที่จะมา</h3><p class="small muted">ยังจับไม่ได้จนกว่าเกาะจะเปิด กดที่ตัวเพื่อดูค่าสถานะและสกิลจากไฟล์เกม</p><div class="dex" id="wwGrid"></div></div>
+      <div class="gsec"><h3>Aniimo ที่จะมา</h3><p class="small muted">ยังจับไม่ได้จนกว่าเกาะจะเปิด กดที่ตัวเพื่อดูค่าสถานะและสกิล</p><div class="dex" id="wwGrid"></div></div>
       <div class="gsec"><h3>ธาตุที่ควรเตรียม</h3><p class="small muted" id="wwElNote"></p><div class="wwel" id="wwEl"></div><div class="sugs" id="wwSugs"></div></div>
       <div class="gsec"><h3>ควรเตรียมอะไรก่อนวันเปิด</h3><div class="grid g2" id="wwPrep"></div></div>
       <ul class="sources" id="wwSources"></ul>
@@ -2673,7 +2691,7 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
         <li><a href="https://game8.co/games/Aniimo/archives/623315" target="_blank" rel="noopener">Game8 — List of Controls</a></li>
         <li><a href="https://game8.co/games/Aniimo/archives/623345" target="_blank" rel="noopener">Game8 — Best and Recommended Settings</a></li>
       </ul>
-      <p class="small muted">เว็บแฟนเมด ไม่เกี่ยวข้องกับ Pawprint Studio · ภาพและชื่อ Aniimo เป็นลิขสิทธิ์ของผู้พัฒนาเกม · ข้อมูลและคำแปลไทยจากไฟล์เกมโดยได้รับอนุญาต · ภาพตัวละคร ร่างเปล่งประกาย แผนที่ อีเวนต์ และบอสใช้โดยได้รับอนุญาตจาก <a href="https://aniidex.com/" target="_blank" rel="noopener">AniiDex</a> ขอบคุณมาก · แผนที่ Egg Heist จาก <a href="https://aniilog.gg/" target="_blank" rel="noopener">AniiLog</a> · ข่าวสรุปจากประกาศทางการ</p>
+      <p class="small muted">เว็บแฟนเมด ไม่เกี่ยวข้องกับ Pawprint Studio · ภาพและชื่อ Aniimo เป็นลิขสิทธิ์ของผู้พัฒนาเกม · ข้อมูลและคำแปลไทยใช้โดยได้รับอนุญาต · ภาพตัวละคร ร่างเปล่งประกาย แผนที่ อีเวนต์ และบอสใช้โดยได้รับอนุญาตจาก <a href="https://aniidex.com/" target="_blank" rel="noopener">AniiDex</a> ขอบคุณมาก · แผนที่ Egg Heist จาก <a href="https://aniilog.gg/" target="_blank" rel="noopener">AniiLog</a> · ข่าวสรุปจากประกาศทางการ</p>
     </section>
   <footer class="sitefoot" id="sitefoot"></footer>
   </main>
@@ -2828,6 +2846,7 @@ const VIEWS=[
  {id:'collection',th:'เช็กลิสต์สะสม',ic:'check',g:'tools',d:'ติ๊กตัวที่จับได้'},
  {id:'history',th:'ประวัติการใช้งาน',ic:'clock',g:'tools',d:'ที่ดูล่าสุดและคำค้นหา'},
  {id:'codes',th:'โค้ดแลกของ',ic:'gift',g:'more',d:'กดคัดลอกได้เลย'},
+ {id:'community',th:'ชุมชน',ic:'team',g:'more',d:'บิลด์จากผู้เล่น โค้ดแปลนบ้าน หาเพื่อนเล่น'},
  {id:'feedback',th:'ส่งคำแนะนำ',ic:'chat',g:'more',d:'แนะนำฟีเจอร์ แจ้งข้อมูลผิด'},
  {id:'support',th:'สนับสนุนเว็บ',ic:'star',g:'more',d:'ช่วยให้เว็บอยู่ต่อ'},
  {id:'privacy',th:'นโยบายความเป็นส่วนตัว',ic:'lock',hidden:1},
@@ -2860,12 +2879,13 @@ function go(id,push){
   if(id!==current){const pg=document.getElementById('progress');if(pg){pg.classList.remove('go');void pg.offsetWidth;pg.classList.add('go')}}
   if(id!=='admin'){histAdd('views',id);track('view',id)}if(id!=='feedback'&&id!=='admin'&&typeof fbLastPage!=='undefined')fbLastPage=id;if(id==='history'||id==='admin'||id==='news')RENDERED.delete(id);if(id==='home'&&typeof renderHomeRecent==='function')renderHomeRecent();
   ensureRendered(id);
-  if(id==='builder'&&typeof renderBuilder==='function')renderBuilder();
+  if(id==='builder'&&typeof renderBuilder==='function')setTimeout(renderBuilder); // deferred: a deep link runs this before the builder's state exists
   if(id==='builds'&&typeof renderBuilds==='function')renderBuilds();
   if(id==='sets'&&typeof renderSets==='function')renderSets();
   if(id==='ranking'&&typeof renderStats==='function')renderStats();
   if(id==='pskills'&&typeof renderPSkills==='function')renderPSkills();
   if(typeof nextUp==='function')nextUp(id);
+  if(id==='community'&&typeof cmLoad==='function')setTimeout(cmLoad);
   if(id==='items'&&!window.ITEMS_MORE&&!window.__imore){window.__imore=1;const sc=document.createElement('script');sc.src='items-more.js?v=5707aeb544';
     sc.onload=()=>{const have=new Set(ITEMS.map(i=>i.slug));(window.ITEMS_MORE||[]).forEach(i=>{if(!have.has(i.slug)){ITEMS.push(i);ITEM_BY_NAME[i.n.toLowerCase()]=ITEM_BY_NAME[i.n.toLowerCase()]||i}});
       const c=document.getElementById('ic');if(c){const cats=new Set([...c.options].map(o=>o.value));[...new Set(ITEMS.map(i=>i.c))].filter(x=>!cats.has(x)).forEach(x=>c.insertAdjacentHTML('beforeend',`<option value="${esc(x)}">${esc(CAT_TH[x]||x)}</option>`))}
@@ -2894,7 +2914,7 @@ function route(){
   if(h.startsWith('team-')){loadTeamCode(h);go('team',false);return}
   if(h.startsWith('region-')){go('regions',false);setTimeout(()=>{const el=document.getElementById(h);el&&el.scrollIntoView()},0);return}
   if(BY[h]){go('dex',false);openMon(h);return}
-  if(h.startsWith('builder-')){bldLoad(h);go('builder',false);if(typeof renderBuilder==='function')renderBuilder();return}
+  if(h.startsWith('builder-')){go('builder',false);setTimeout(()=>{bldLoad(h);renderBuilder()});return} // after the script has set up the builder
   if(VIEWS.some(v=>v.id===h)){go(h,false);return}
   let last=null;try{last=localStorage.getItem('aniimo-view')}catch(_){}
   go(last||'home',false);
@@ -4100,7 +4120,7 @@ async function renderAdmin(quiet){
     const newFb=(FB.items||[]).filter(f=>f.status==='new');
     const RULE='นับรอบนั้นว่า “ใช้งานจริง” เมื่อมีอย่างใดอย่างหนึ่ง: เปิดตั้งแต่ 2 หน้าที่ต่างกันขึ้นไป · เปิดดู Aniimo หรือไอเท็ม · ค้นหา · อยู่บนหน้าที่เปิดเห็นอยู่ 10 วินาทีขึ้นไปหลังแตะ เลื่อน หรือพิมพ์ · หรืออยู่ครบ 3 นาที นอกนั้นนับเป็น “ออกโดยไม่ได้ใช้งาน”';
     const kpi=(lab,val,unit,sub,cls='')=>`<div class="akpi ${cls}"><small>${lab}</small><b>${val}<i>${unit}</i></b><span>${sub}</span></div>`;
-    const tabs=[['overview','ภาพรวม','grid'],['usage','การใช้งาน','chart'],['search','การค้นหา','search'],['feedback','คำแนะนำ','chat'],['posts','โพสต์โซเชียล','news']];
+    const tabs=[['overview','ภาพรวม','grid'],['usage','การใช้งาน','chart'],['search','การค้นหา','search'],['feedback','คำแนะนำ','chat'],['posts','โพสต์โซเชียล','news'],['community','ชุมชน','team']];
     const range=`<div class="aseg" id="adRange" role="group" aria-label="ช่วงเวลา">${[[1,'วันนี้'],[7,'7 วัน'],[30,'30 วัน'],[90,'90 วัน'],[365,'ทั้งหมด']].map(([n,l])=>`<button type="button" data-r="${n}" aria-pressed="${AD.range===n}">${l}</button>`).join('')}</div>`;
     const meta=`<div class="ameta"><span>อัปเดต ${new Date().toLocaleTimeString(LOC,{hour:'2-digit',minute:'2-digit'})} · รีเฟรชเองทุก 1 นาที</span>${AD.demo?'<button type="button" class="abtn" id="adExitDemo">ออกจากข้อมูลตัวอย่าง</button>':`<span>${esc(AD.s.email||'')}</span><button type="button" class="abtn" id="adRefresh">รีเฟรช</button><button type="button" class="abtn" id="adLogout">ออกจากระบบ</button>`}</div>`;
     const quality=ok?`<div class="acard">
@@ -4121,9 +4141,11 @@ async function renderAdmin(quiet){
         <div class="arow"><span>Aniimo อันดับ 1</span><b>${topMon?`<button type="button" class="alink" data-open="${topMon.key}">${esc(BY[topMon.key].th||BY[topMon.key].name)}</button> · ${fmtN(topMon.n)} ครั้ง`:'—'}</b></div>
         <div class="arow"><span>คำค้นยอดนิยม</span><b>${topSearch?`“${esc(topSearch.key)}” · ${fmtN(topSearch.n)} ครั้ง`:'—'}</b></div>
         <div class="arow"><span>หน้ายอดนิยม</span><b>${topView?`${esc(VIEWS.find(v=>v.id===topView.key).th)} · ${fmtN(topView.n)} ครั้ง`:'—'}</b></div></div>`;
+    let app=null;if(AD.demo)app={installs:12,installs_all:31,app_users:24,app_users_all:40};else try{app=await sbRpc('stats_app',{days:AD.range})}catch(_){}
+    const appRows=app?`<div class="arow"><span>ติดตั้งเป็นแอป (${rl})</span><b>${fmtN(app.installs)} คน</b></div><div class="arow"><span>เปิดใช้ผ่านแอป (${rl})</span><b>${fmtN(app.app_users)} คน</b></div>`:'<div class="arow"><span>ผู้ใช้แอป</span><b class="amute">รัน community.sql เพื่อเริ่มนับ</b></div>';
     const today=`<div class="acard"><div class="ahead"><h3>ข้อมูลวันนี้</h3><small>เวลาไทย</small></div>
         <div class="arow"><span>ผู้ใช้</span><b>${fmtN(d.today_visitors)} คน</b></div>
-        <div class="arow"><span>เปิดหน้าเว็บ</span><b>${fmtN(d.today)} ครั้ง</b></div></div>`;
+        <div class="arow"><span>เปิดหน้าเว็บ</span><b>${fmtN(d.today)} ครั้ง</b></div>${appRows}</div>`;
     const units='<p class="anote">คน = ผู้ใช้ไม่ซ้ำ (นับจากรหัสสุ่มของเบราว์เซอร์) · รอบ = การเข้าเว็บหนึ่งครั้ง จบเมื่อไม่มีการใช้งาน 30 นาที · ครั้ง = จำนวนการเปิดหน้า การเปิดดู หรือการค้นหา</p>';
     let body='';
     if(AD.tab==='usage')body=`<div class="acard"><div class="ahead"><h3>การเข้าชมรายวัน</h3><small>${rl} · แท่งสีอ่อนคือวันนี้ · ชี้ที่แท่งเพื่อดูจำนวนคน</small></div><div class="trend">${trendSvg(days)}</div></div>
@@ -4140,6 +4162,7 @@ async function renderAdmin(quiet){
       </div>`;
     else if(AD.tab==='feedback')body=feedbackPanel();
     else if(AD.tab==='posts')body=socialPosts();
+    else if(AD.tab==='community'){if(!CMA.items)await cmaLoad();body=communityPanel()}
     else body=`<div class="akpis">
         ${kpi('ผู้ใช้',fmtN(d.visitors),'คน',`เปิดหน้าเว็บ ${fmtN(d.views)} ครั้ง`)}
         ${kpi('รอบการเข้าเว็บ',ok?fmtN(S):'—','รอบ',ok?`เฉลี่ย ${eg.avg_pages||0} หน้าต่อรอบ${eg.est_sessions?' · บางส่วนเป็นค่าประมาณ':''}`:'ยังไม่มีข้อมูล')}
@@ -4148,7 +4171,7 @@ async function renderAdmin(quiet){
       </div>
       <div class="agrid" style="grid-template-columns:minmax(0,1.5fr) minmax(0,1fr)">${quality}${fbCard}</div>
       <div class="agrid" style="grid-template-columns:minmax(0,1.5fr) minmax(0,1fr)">${interest}${today}</div>`;
-    const title={overview:'ภาพรวมเว็บไซต์',usage:'การใช้งาน',search:'การค้นหา',feedback:'คำแนะนำจากผู้ใช้',posts:'โพสต์โซเชียล'}[AD.tab]||'ภาพรวมเว็บไซต์';
+    const title={overview:'ภาพรวมเว็บไซต์',usage:'การใช้งาน',search:'การค้นหา',feedback:'คำแนะนำจากผู้ใช้',posts:'โพสต์โซเชียล',community:'ชุมชน'}[AD.tab]||'ภาพรวมเว็บไซต์';
     out.innerHTML=`<div class="adws">
       <aside class="aside"><div class="abrand"><b>aniiguide</b><small>ADMIN WORKSPACE</small></div>
         <nav>${tabs.map(([k,l,ic])=>`<button type="button" data-adtab="${k}" aria-current="${AD.tab===k}"><svg><use href="#i-${ic}"/></svg>${l}${k==='feedback'&&newFb.length?`<em>${newFb.length}</em>`:''}</button>`).join('')}</nav></aside>
@@ -4789,7 +4812,7 @@ function renderBuilder(){
     ${fx?`<p class="small muted">${esc(tr(fx))}</p>`:''}
     <label>Rune (สูงสุด 4)<select id="bldRune"><option value="">+ เพิ่ม Rune</option>${BLD_RUNES.map(n=>`<option>${esc(n)}</option>`).join('')}</select></label>
     <div class="bld-runes">${BLD.runes.map((r,i)=>`<span class="chip">${itemRef(r)}<button type="button" class="x" data-rrm="${i}" aria-label="เอาออก">×</button></span>`).join('')||'<span class="small muted">ยังไม่ได้ใส่ Rune</span>'}</div>
-    <div class="bld-act"><button type="button" class="btn" id="bldRec">ใช้บิลด์ที่เกมแนะนำ</button><button type="button" class="btn primary" id="bldShare">คัดลอกลิงก์บิลด์</button><button type="button" class="btn" id="bldSave">บันทึก</button></div>
+    <div class="bld-act"><button type="button" class="btn" id="bldRec">ใช้บิลด์ที่เกมแนะนำ</button><button type="button" class="btn" id="bldToCm">แชร์ในชุมชน</button><button type="button" class="btn primary" id="bldShare">คัดลอกลิงก์บิลด์</button><button type="button" class="btn" id="bldSave">บันทึก</button></div>
     ${bldSaved().length?`<div><p class="eyebrow" style="margin:6px 0">บิลด์ที่บันทึกไว้</p><div class="bld-saved">${bldSaved().map((b,i)=>`<span class="chip"><button type="button" class="itemlink" data-bopen="${esc(b.code)}">${esc(b.name)}</button><button type="button" class="x" data-bdel="${i}" aria-label="ลบ">×</button></span>`).join('')}</div></div>`:''}
   </div>
   <div class="bld-r">
@@ -4954,6 +4977,97 @@ function socialPosts(){
 document.addEventListener('click',e=>{const b=e.target.closest('[data-copypost]');if(!b)return;const t=document.getElementById('post'+b.dataset.copypost);
   try{navigator.clipboard.writeText(t.value).then(()=>{b.textContent='คัดลอกแล้ว'})}catch(_){t.select()}});
 
+/* ===== community: approved posts for everyone, a form that sends posts for the owner to check ===== */
+var CM={kind:'build',lists:{},err:'',prefill:null};
+const SRV_TH={asia:'Asia-Pacific',america:'Americas',europe:'Europe'};
+async function cmLoad(force){
+  const k=CM.kind;if(!SB.url){CM.err='off';cmRender();return}
+  if(CM.lists[k]&&!force){cmRender();return}
+  document.getElementById('cmList').innerHTML='<p class="muted">กำลังโหลด…</p>';
+  try{CM.lists[k]=await sbCall('community_list',{only_kind:k,lim:60})||[];CM.err=''}catch(e){CM.err=String(e.message)==='404'?'missing':'net'}
+  cmRender();
+}
+function cmCard(p){
+  const d=p.data||{},when=new Date(p.at).toLocaleDateString(LOC,{day:'numeric',month:'short'});
+  const srv=p.server?`<span class="chip">${esc(SRV_TH[p.server]||p.server)}</span>`:'';
+  if(p.kind==='build'){const a=BY[d.slug];return `<article class="dpanel cm-card"><div class="cm-h">${a?`<img src="${TH(a.i)}" alt="">`:''}<div><b>${esc(p.title)}</b><small>${a?esc(a.th||a.name)+' · ':''}${when}</small></div></div>${p.body?`<p>${esc(p.body)}</p>`:''}${d.code&&/^builder-/.test(d.code)?`<a class="btn" href="#${esc(d.code)}">เปิดในตัวจัดบิลด์</a>`:''}</article>`}
+  if(p.kind==='home')return `<article class="dpanel cm-card"><div class="cm-h"><div><b>${esc(p.title)}</b><small>${when}</small></div>${srv}</div>${d.code?`<div class="cm-code"><code>${esc(d.code)}</code><button type="button" class="btn" data-cmcopy="${esc(d.code)}">คัดลอก</button></div>`:''}${p.body?`<p>${esc(p.body)}</p>`:''}</article>`;
+  return `<article class="dpanel cm-card"><div class="cm-h"><div><b>${esc(p.title)}</b><small>${d.ign?esc(d.ign)+' · ':''}${when}</small></div>${srv}</div>${d.uid?`<div class="cm-code"><span class="small muted">UID</span><code>${esc(d.uid)}</code><button type="button" class="btn" data-cmcopy="${esc(d.uid)}">คัดลอก</button></div>`:''}${p.body?`<p>${esc(p.body)}</p>`:''}</article>`;
+}
+function cmRender(){
+  const el=document.getElementById('cmList');if(!el)return;
+  if(CM.err==='missing'||CM.err==='off'){el.innerHTML='<p class="muted">ระบบชุมชนกำลังเปิดเร็ว ๆ นี้</p>';return}
+  if(CM.err){el.innerHTML='<p class="muted">โหลดโพสต์ไม่สำเร็จ ลองใหม่อีกครั้ง</p>';return}
+  const L=CM.lists[CM.kind]||[];
+  el.innerHTML=L.length?L.map(cmCard).join(''):`<p class="muted">ยังไม่มีโพสต์ในหมวดนี้ เป็นคนแรกที่โพสต์ได้เลย</p>`;
+}
+function cmForm(){
+  const f=document.getElementById('cmForm'),k=CM.kind,pf=CM.prefill||{};
+  const srv=`<label>เซิร์ฟเวอร์<select name="server"><option value="asia">Asia-Pacific</option><option value="america">Americas</option><option value="europe">Europe</option></select></label>`;
+  const opts=ANIIMO.filter(a=>!a.u).map(a=>`<option value="${a.slug}" ${pf.slug===a.slug?'selected':''}>${esc(a.th||a.name)}</option>`).join('');
+  const fields={build:`<label>Aniimo<select name="slug">${opts}</select></label><label>ชื่อบิลด์<input name="title" maxlength="80" required placeholder="เช่น หมาป่าโลกันตร์สาย Break ล้มบอสไว"></label>
+      <label>โค้ดบิลด์ (จากปุ่ม "แชร์ในชุมชน" ในตัวจัดบิลด์)<input name="code" maxlength="300" value="${esc(pf.code||'')}" placeholder="builder-…"></label><label>อธิบายการใช้<textarea name="body" maxlength="1000" rows="4" placeholder="ใช้สกิลไหนก่อน เหมาะกับบอสหรือโหมดไหน"></textarea></label>`,
+    home:`${srv}<label>โค้ดแปลนบ้าน<input name="code" maxlength="100" required></label><label>ชื่อแปลน<input name="title" maxlength="80" required placeholder="เช่น บ้านฟาร์มเก็บของครบ"></label><label>รายละเอียด<textarea name="body" maxlength="1000" rows="3" placeholder="ต้องใช้เลเวลบ้านเท่าไร เด่นตรงไหน"></textarea></label>`,
+    friend:`${srv}<label>UID ในเกม<input name="uid" maxlength="20" inputmode="numeric" pattern="[0-9]{6,20}" required></label><label>ชื่อในเกม (ไม่บังคับ)<input name="ign" maxlength="30"></label><label>หัวข้อ<input name="title" maxlength="80" required placeholder="เช่น หาทีม Egg Heist ระดับ Chaos ช่วงค่ำ"></label><label>รายละเอียด<textarea name="body" maxlength="500" rows="3" placeholder="เล่นช่วงไหน อยากเล่นอะไรด้วยกัน"></textarea></label>`};
+  f.innerHTML=`<h3>โพสต์ใหม่ · ${{build:'บิลด์',home:'โค้ดแปลนบ้าน',friend:'หาเพื่อนเล่น'}[k]}</h3>${fields[k]}<input name="website" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true">
+    <p class="small muted">โพสต์จะขึ้นเว็บหลังผู้ดูแลตรวจ ห้ามใส่เบอร์โทร อีเมล ลิงก์ หรือข้อมูลส่วนตัว และห้ามซื้อขายบัญชีหรือของในเกม</p>
+    <div class="cm-act"><button type="submit" class="btn primary">ส่งโพสต์</button><button type="button" class="btn" id="cmCancel">ยกเลิก</button><span class="small" id="cmMsg" aria-live="polite"></span></div>`;
+  f.hidden=false;CM.prefill=null;
+}
+document.addEventListener('click',e=>{
+  const t=e.target;
+  const sb=t.closest('#cmSeg button');if(sb){CM.kind=sb.dataset.k;document.querySelectorAll('#cmSeg button').forEach(x=>x.setAttribute('aria-pressed',x===sb));document.getElementById('cmForm').hidden=true;cmLoad();return}
+  if(t.closest('#cmNew')){cmForm();return}
+  if(t.closest('#cmCancel')){document.getElementById('cmForm').hidden=true;return}
+  const cp=t.closest('[data-cmcopy]');if(cp){try{navigator.clipboard.writeText(cp.dataset.cmcopy).then(()=>{cp.textContent='คัดลอกแล้ว'})}catch(_){}return}
+  if(t.closest('#bldToCm')){CM.kind='build';CM.prefill={slug:BLD.slug,code:bldCode()};go('community');document.querySelectorAll('#cmSeg button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.k==='build'));cmForm();return}
+});
+document.addEventListener('submit',async e=>{
+  if(e.target.id!=='cmForm')return;e.preventDefault();
+  const f=e.target,v=n=>(f.elements[n]?f.elements[n].value:'').trim(),msg=document.getElementById('cmMsg'),btn=f.querySelector('[type=submit]');
+  if(v('website')){msg.textContent='ส่งแล้ว รอผู้ดูแลตรวจ';return}
+  if(/https?:\/\/|www\.|@[a-z0-9]|\b0\d{8,9}\b/i.test(v('title')+' '+v('body'))){msg.textContent='ห้ามใส่ลิงก์ อีเมล หรือเบอร์โทร';return}
+  const k=CM.kind,data=k==='build'?{slug:v('slug'),code:/^builder-[\w~.-]+$/.test(v('code'))?v('code'):''}:k==='home'?{code:v('code')}:{uid:v('uid'),ign:v('ign')};
+  const row={kind:k,title:v('title'),body:v('body'),data,server:k==='build'?null:v('server'),visitor:VISITOR||null};
+  if(row.title.length<3){msg.textContent='ใส่หัวข้ออย่างน้อย 3 ตัวอักษร';return}
+  btn.disabled=true;msg.textContent='กำลังส่ง…';
+  try{
+    const r=await fetch(SB.url+'/rest/v1/community_posts',{method:'POST',headers:{apikey:SB.key,Authorization:'Bearer '+SB.key,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify(row)});
+    if(!r.ok){const j=await r.json().catch(()=>({}));throw new Error(j.code==='54000'?'many':r.status===404?'missing':'net')}
+    msg.textContent='ส่งแล้ว ผู้ดูแลจะตรวจและขึ้นเว็บเร็ว ๆ นี้ ขอบคุณที่แชร์ครับ';f.querySelectorAll('input,textarea').forEach(x=>{if(x.name!=='code'||k!=='build')x.value=''});
+  }catch(err){msg.textContent=err.message==='many'?'ส่งถี่เกินไป ลองใหม่ในอีกสักครู่':err.message==='missing'?'ระบบชุมชนยังไม่เปิด':'ส่งไม่สำเร็จ ลองใหม่อีกครั้ง'}
+  btn.disabled=false;
+});
+
+/* ===== back office: community moderation ===== */
+var CMA={filter:'pending',items:null,err:''};
+async function cmaLoad(){
+  if(AD.demo){CMA.items=[{id:1,at:new Date().toISOString(),kind:'friend',title:'หาทีม Egg Heist ช่วงค่ำ',body:'เล่นทุกวัน 2 ทุ่ม',data:{uid:'412000273795',ign:'Pathfinder'},server:'asia',status:'pending'}];CMA.err='';return}
+  try{CMA.items=await sbRpc('community_admin_list',{only_status:CMA.filter==='all'?null:CMA.filter,lim:200})||[];CMA.err=''}catch(e){CMA.items=[];CMA.err=e.message}
+}
+function communityPanel(){
+  const st={pending:'รอตรวจ',approved:'อนุมัติแล้ว',rejected:'ไม่อนุมัติ',all:'ทั้งหมด'},kn={build:'บิลด์',home:'แปลนบ้าน',friend:'หาเพื่อน'};
+  const head=`<div class="acard"><div class="ahead"><h3>ตรวจโพสต์ชุมชน</h3><small>โพสต์ขึ้นเว็บเมื่อกดอนุมัติเท่านั้น</small></div><div class="aseg" id="cmaFilter">${Object.entries(st).map(([k,l])=>`<button type="button" data-cmaf="${k}" aria-pressed="${CMA.filter===k}">${l}</button>`).join('')}</div></div>`;
+  if(CMA.err==='nofeedback')return head+'<div class="acard"><p class="amute">ยังไม่ได้ติดตั้งระบบชุมชนในฐานข้อมูล: เปิด Supabase → SQL Editor แล้วรันไฟล์ tools/admin/community.sql ครั้งเดียว</p></div>';
+  if(CMA.err)return head+'<div class="acard"><p class="amute">โหลดโพสต์ไม่สำเร็จ กดรีเฟรชเพื่อลองใหม่</p></div>';
+  const L=CMA.items||[];
+  return head+(L.length?L.map(p=>`<div class="acard"><div class="ahead"><h3>${esc(p.title)}</h3><small>${kn[p.kind]||p.kind} · ${new Date(p.at).toLocaleString(LOC,{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}${p.server?' · '+esc(SRV_TH[p.server]||p.server):''}</small></div>
+      ${p.body?`<p>${esc(p.body)}</p>`:''}<p class="amute">${esc(JSON.stringify(p.data||{}))}</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">${p.status!=='approved'?`<button type="button" class="abtn" data-cma="${p.id}" data-s="approved">อนุมัติ</button>`:''}${p.status!=='rejected'?`<button type="button" class="abtn" data-cma="${p.id}" data-s="rejected">ไม่อนุมัติ</button>`:''}<button type="button" class="abtn" data-cma="${p.id}" data-s="delete">ลบ</button></div></div>`).join(''):'<div class="acard"><div class="aempty"><b>ไม่มีโพสต์</b><span>ไม่มีรายการในหมวดนี้</span></div></div>');
+}
+document.addEventListener('click',async e=>{
+  const f=e.target.closest('[data-cmaf]');if(f){CMA.filter=f.dataset.cmaf;await cmaLoad();renderAdmin(true);return}
+  const b=e.target.closest('[data-cma]');if(!b)return;
+  if(b.dataset.s==='delete'&&!b.dataset.sure){b.dataset.sure='1';b.textContent='กดอีกครั้งเพื่อลบ';return}
+  if(AD.demo){CMA.items=CMA.items.filter(x=>x.id!==+b.dataset.cma);renderAdmin(true);return}
+  b.disabled=true;try{await sbRpc('community_set',{pid:+b.dataset.cma,new_status:b.dataset.s});CM.lists={};await cmaLoad();renderAdmin(true)}catch(_){b.disabled=false;b.textContent='ไม่สำเร็จ ลองใหม่'}
+});
+
+/* ===== installed-app users: logged as views 'app-installed' (once) and 'app-open' (once per visit) ===== */
+function logApp(key){if(!SB_ON||isOwner())return;try{sbInsert({kind:'view',key,visitor:VISITOR||null,device:DEVICE,lang:(navigator.language||'').slice(0,12),tz:TZ.slice(0,40)}).catch(()=>{})}catch(_){}}
+addEventListener('appinstalled',()=>logApp('app-installed'));
+setTimeout(()=>{const app=matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
+  if(app){try{if(!sessionStorage.getItem('aniimo-appopen')){sessionStorage.setItem('aniimo-appopen','1');logApp('app-open')}}catch(_){}}},2000);
 function renderBuilds(){
   const g=document.getElementById('bgrid');if(!g)return;
   const be=document.getElementById('be');if(!be.options.length)be.innerHTML='<option value="">ทุกธาตุ</option>'+E.map(x=>`<option value="${x.k}">${x.th}</option>`).join('');

@@ -119,7 +119,7 @@ window.NEWS = [
   {
     id: 'whisperwake-preview', date: '2026-09-29', type: 'news', tag: 'community',
     title: 'เตรียมตัวก่อน Whisperwake Isles เปิด 29 ต.ค.',
-    lede: 'พื้นที่ใหม่แห่งแรกหลังเปิดเกม มาพร้อม Season 1 ภาค 2 และ Aniimo ใหม่ 10 ชนิด สรุปสิ่งที่ยืนยันแล้วกับสิ่งที่มาจากไฟล์เกม',
+    lede: 'พื้นที่ใหม่แห่งแรกหลังเปิดเกม มาพร้อม Season 1 ภาค 2 และ Aniimo ใหม่ 10 ชนิด สรุปสิ่งที่ยืนยันแล้วกับข้อมูลเบื้องต้นที่อาจเปลี่ยน',
     source: 'https://aniimoguide.com/news/aniimo-where-is-gachapus-whisperwake-isles',
     sections: [
       { h: 'ยืนยันแล้ว', items: [
@@ -127,7 +127,7 @@ window.NEWS = [
         'Season 1 ภาค 1 จบ 29 ต.ค. 06:59 น. เวลาไทย แล้วเริ่มภาค 2 ต่อเนื่องถึง 10 ธ.ค.',
         'ประกาศทางการเดือน ก.ค. ระบุว่า Aniimo ที่อาศัยบนเกาะนี้มี Reefish, Coraliz, Cheekie, Wavwal, Bubbeep, Glameep, Popapus, Gachapus, Malangel และ Malevsera'
       ]},
-      { h: 'จากไฟล์เกมและช่วงเบต้า (อาจเปลี่ยน)', items: [
+      { h: 'ข้อมูลเบื้องต้น (อาจเปลี่ยน)', items: [
         'โซน Crescent Bay เลเวล 54–56 เป็นเกาะทางใต้ของทวีป (เห็นเป็นเงาบนแผนที่โลกแล้ว)',
         'มี Branch, Dewdrop Crystal, Whisperwake Coral และอีเวนต์ First Visit ของเกาะนี้',
         'บันทึกนิเวศบอกว่าน้ำขึ้นน้ำลงของเกาะทำให้ Aniimo บางตัวออกมาตอนกลางคืนและหลบตอนกลางวัน',
@@ -467,7 +467,7 @@ window.WHISPERWAKE = {
   slugs: ['reefish', 'coraliz', 'cheekie', 'wavwal', 'bubbeep', 'glameep', 'popapus', 'gachapus', 'malangel', 'malevsera'],
   confirmed: [
     'เปิด 29 ต.ค. 2026 เวลา 11:00 น. เวลาไทย หลังปิดปรับปรุง พร้อม Season 1 ภาค 2',
-    'Aniimo ทั้ง 10 ชนิดด้านล่างอยู่ในประกาศทางการเดือน ก.ค. และมีข้อมูลอยู่ในไฟล์เกมแล้ว'
+    'Aniimo ทั้ง 10 ชนิดด้านล่างอยู่ในประกาศทางการเดือน ก.ค.'
   ],
   datamined: [
     'โซน Crescent Bay เลเวล 54–56 อยู่บนเกาะทางใต้ของทวีป',
