@@ -126,6 +126,7 @@ const VIEWS=[
  {id:'community',th:'ชุมชน',ic:'team',g:'more',d:'บิลด์จากผู้เล่น โค้ดแปลนบ้าน หาเพื่อนเล่น'},
  {id:'feedback',th:'ส่งคำแนะนำ',ic:'chat',g:'more',d:'แนะนำฟีเจอร์ แจ้งข้อมูลผิด'},
  {id:'support',th:'สนับสนุนเว็บ',ic:'star',g:'more',d:'ช่วยให้เว็บอยู่ต่อ'},
+ {id:'about',th:'เกี่ยวกับเว็บ',ic:'help',g:'more',d:'ใครทำ ข้อมูลมาจากไหน'},
  {id:'privacy',th:'นโยบายความเป็นส่วนตัว',ic:'lock',hidden:1},
  {id:'admin',th:'หลังบ้าน',ic:'chart',hidden:1}];
 const navItem=(v,cls)=>`<button type="button" class="${cls}" data-go="${v.id}"><svg><use href="#i-${v.ic}"/></svg><span>${v.th}</span></button>`;
@@ -2415,8 +2416,16 @@ try{renderMHome()}catch(e){console.error(e)}
   bosses:'holo-battle-interlink',duels:'tracing-the-trail-the-shadow-of-legend',sanctums:'vein-abundance',homeland:'journey-handbook',cosmetics:'journey-moments',
   sets:'journey-moments',sparkling:'prismana-pact',forms:'prismana-pact',news:'sparkelf-aniimo',media:'aniimo-discovery',elements:'glamour-star',
   items:'idyll-ecology-field-notes',helditems:'glamour-star',buffs:'harvest-moon-festival',pskills:'set-out-pathfinder',howto:'tracing-the-trail-the-shadow-of-legend',
-  community:'set-off-together',support:'harvest-moon-festival',tier:'prismana-pact',builds:'sparkelf-aniimo',skills:'boundless-twining'};
+  community:'set-off-together',support:'harvest-moon-festival',about:'set-off-together',privacy:'journey-handbook',tier:'prismana-pact',builds:'sparkelf-aniimo',skills:'boundless-twining'};
   for(const [id,f] of Object.entries(BAN)){const h=document.querySelector(`[data-view="${id}"] > .vhead`);if(h){h.classList.add('vban');h.style.setProperty('--ban',`url(img/events/${f}.webp)`)}}}
+/* how-to guides: filter by words */
+{const q=document.getElementById('htQ');if(q)q.addEventListener('input',()=>{const w=q.value.trim().toLowerCase();document.querySelectorAll('.howtos .howto').forEach(d=>{d.hidden=!!w&&!d.textContent.toLowerCase().includes(w)})})}
+/* privacy page: one card per heading */
+{const pr=document.querySelector('[data-view="privacy"] .prose');if(pr&&!pr.classList.contains('pcards')){
+  const IC=[['สมัคร','👤'],['เครื่องของคุณ','💾'],['สถิติ','📊'],['คุกกี้','🍪'],['โฆษณา','📢'],['ไม่เก็บ','🚫'],['ลบ','🗑️'],['ติดต่อ','✉️'],['เงื่อนไข','📄'],['ลิขสิทธิ์','©️'],['เปลี่ยน','🔄']];
+  const kids=[...pr.children],out=[];let cur=null;
+  for(const el of kids){if(el.tagName==='H3'){cur=document.createElement('section');cur.className='pcard';const ic=(IC.find(([k])=>el.textContent.includes(k))||[0,'📌'])[1];cur.innerHTML=`<span class="abic" aria-hidden="true">${ic}</span>`;out.push(cur);cur.appendChild(el)}else if(cur)cur.appendChild(el);else{const c=document.createElement('section');c.className='pcard';c.innerHTML='<span class="abic" aria-hidden="true">ℹ️</span>';c.appendChild(el);out.push(c);cur=c}}
+  pr.classList.add('pcards');out.forEach(c=>pr.appendChild(c))}}
 function renderBuilds(){
   const g=document.getElementById('bgrid');if(!g)return;
   const be=document.getElementById('be');if(!be.options.length)be.innerHTML='<option value="">ทุกธาตุ</option>'+E.map(x=>`<option value="${x.k}">${x.th}</option>`).join('');
