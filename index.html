@@ -25,7 +25,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png?v=2">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@700&family=Noto+Serif:wght@700&family=Inter:wght@400;500;600;700&family=Mitr:wght@400;500;600&family=IBM+Plex+Sans+Thai:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@700&family=Noto+Serif:wght@700&family=Inter:wght@400;500;600;700&family=Mitr:wght@400;500;600&family=IBM+Plex+Sans+Thai:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap"></noscript>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Mitr:wght@400;500;600&family=IBM+Plex+Sans+Thai:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Mitr:wght@400;500;600&family=IBM+Plex+Sans+Thai:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap"></noscript>
 <style>
 @font-face{font-family:'M PLUS Rounded 1c';font-style:normal;font-weight:700;font-display:swap;src:url(fonts/mplusrounded1c-700-latin.woff2?v=1) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+2000-206F,U+20AC,U+2122,U+2212}@font-face{font-family:'M PLUS Rounded 1c';font-style:normal;font-weight:800;font-display:swap;src:url(fonts/mplusrounded1c-800-latin.woff2?v=1) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+2000-206F,U+20AC,U+2122,U+2212}@font-face{font-family:'M PLUS Rounded 1c';font-style:normal;font-weight:900;font-display:swap;src:url(fonts/mplusrounded1c-900-latin.woff2?v=1) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+2000-206F,U+20AC,U+2122,U+2212}
 
@@ -1571,12 +1571,9 @@ body{overflow-x:clip}
 /* ============ phone home (mockup): cream + teal ============ */
 .mhome,#menuBtn,.mmenu-top{display:none}
 @media (max-width:640px){
-  :root:not([data-theme="dark"]){--ground:#FBF8F2;--accent:#0E7C7B;--glow:rgba(14,124,123,.12)}
-  :root:not([data-theme="dark"]) body{background:#FBF8F2}
-  :root{--mserif:"Noto Serif","Noto Serif Thai",var(--display)}
+  :root{--mserif:var(--display)}
   /* header: logo, language pill, menu */
   .appbar .suppill,.appbar #themeBtn{display:none}
-  html[data-v="home"] .appbar .gsearch{display:none}
   #menuBtn{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--surface);border:1px solid var(--line);box-shadow:0 4px 14px rgba(40,60,80,.10)}
   #menuBtn svg{width:22px;height:22px}
   #langBtn{display:inline-flex;align-items:center;gap:6px;height:40px!important;padding:0 14px!important;background:var(--surface);border:1px solid var(--line);font-weight:600}
@@ -1602,7 +1599,7 @@ body{overflow-x:clip}
   .mh-daily .t small{margin-top:10px;font:600 .95rem var(--display)}
   .mh-daily .t b{font:700 2rem/1.1 var(--mserif)}
   .mh-daily .t span{font-size:.82rem;color:#4A4270}
-  .mh-daily .go{justify-self:start;margin-top:12px;display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:999px;background:#0D5C63;color:#fff;font:700 .92rem var(--display)}
+  .mh-daily .go{justify-self:start;margin-top:12px;display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:999px;background:linear-gradient(135deg,#34B4FF,var(--accent) 55%,#0A63C4);box-shadow:0 8px 18px rgba(16,130,230,.35);color:#fff;font:700 .92rem var(--display)}
   .mh-daily img{width:100%;height:200px;object-fit:contain;filter:drop-shadow(0 12px 18px rgba(80,60,160,.25))}
   .mh-quick{display:grid;grid-template-columns:1fr 1fr;gap:10px}
   .mh-quick button{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;padding:12px;border-radius:18px;text-align:left;cursor:pointer;color:var(--ink);border:1px solid var(--line)}
@@ -1610,7 +1607,7 @@ body{overflow-x:clip}
   .mh-quick .ic svg{width:26px;height:26px}
   .mh-quick b{display:block;font:700 .92rem var(--display)}
   .mh-quick small{display:block;font-size:.72rem;color:var(--ink-2);line-height:1.3}
-  .mh-quick .q1{background:#E7F6F2;border-color:#CBEDE4}.mh-quick .q1 .ic{background:#CFEEE6;color:#0E7C7B}
+  .mh-quick .q1{background:#E8F5FF;border-color:#CDE6FA}.mh-quick .q1 .ic{background:#D2EBFD;color:#1E8BE0}
   .mh-quick .q2{background:#FDF0E6;border-color:#F6DDC8}.mh-quick .q2 .ic{background:#F9DEC6;color:#C26A24}
   .mh-quick i{font-style:normal;color:var(--ink-2);font-size:1.2rem}
   .mh-h{display:flex;justify-content:space-between;align-items:baseline;margin-top:6px}
@@ -1631,7 +1628,7 @@ body{overflow-x:clip}
   .mh-news small{display:block;color:var(--ink-2);font-size:.72rem;margin-top:2px}
   .mh-news i{font-style:normal;color:var(--ink-2)}
   .mhome button:active,.mh-news a:active{transform:scale(.97)}
-  html[data-v="home"] #langBtn{margin-left:auto}
+  .appbar #langBtn{display:none}
   .mh-quick button{color:#1F2A2E}.mh-quick small,.mh-quick i{color:#5A6468}
   .mh-daily .t .go{color:#fff}
   .mh-daily .t b{font-size:1.75rem;word-break:keep-all}
@@ -1650,6 +1647,24 @@ body{overflow-x:clip}
   /* menu sheet: theme and support up top */
   .mmenu-top{display:flex;gap:8px;justify-content:center;margin-bottom:6px}
   .mmenu-top button{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:600 .86rem var(--display);cursor:pointer}
+}
+
+/* ============ phones, part 3: banners, segmented switches ============ */
+@media (max-width:640px){
+  .vhead .eyebrow{display:none}
+  .vhead h2{font:800 1.55rem/1.25 var(--display)}
+  .vhead.vban{position:relative;isolation:isolate;min-height:150px;align-content:center;padding:18px 16px;border-radius:22px;overflow:hidden;
+    background:var(--surface);border:1px solid var(--line);box-shadow:0 8px 22px rgba(20,60,120,.10);max-width:none}
+  .vhead.vban::before{content:"";position:absolute;inset:0;z-index:-2;background:var(--ban) right center/auto 100% no-repeat}
+  .vhead.vban::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,var(--surface) 38%,color-mix(in srgb,var(--surface) 70%,transparent) 58%,transparent 82%)}
+  .vhead.vban h2{max-width:68%}
+  .vhead.vban p.muted{max-width:64%;font-size:.8rem}
+  /* two- or three-way switches: one full-width segmented control */
+  .seg:not(:has(>:nth-child(4))){display:grid!important;grid-auto-flow:column;grid-auto-columns:1fr;gap:4px;margin:0!important;padding:4px!important;border-radius:16px;background:var(--sunk);overflow:visible}
+  .seg:not(:has(>:nth-child(4)))>button{border:0!important;background:transparent;box-shadow:none;border-radius:12px;padding:9px 6px;font-weight:600;white-space:nowrap}
+  .seg:not(:has(>:nth-child(4)))>button[aria-pressed="true"]{background:linear-gradient(135deg,#34B4FF,var(--accent) 60%);color:#fff;box-shadow:0 4px 12px rgba(16,130,230,.28)}
+  /* menu: language next to theme and support */
+  .mmenu-top{flex-wrap:wrap}
 }
 </style>
 
@@ -2907,8 +2922,8 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
 </dialog>
 <dialog id="menu" aria-label="เมนูทั้งหมด"><div class="inner" id="menuInner"></div></dialog>
 
-<script>try{if(localStorage.getItem('aniimo-lang')==='en')document.write('<script src="i18n-en.js?v=8acff24bf3"><\/script>')}catch(_){}</script>
-<script defer src="data.js?v=8acff24bf3"></script>
-<script defer src="thumbs.js?v=8acff24bf3"></script>
-<script defer src="content.js?v=8acff24bf3"></script>
-<script defer src="app.js?v=8acff24bf3"></script>
+<script>try{if(localStorage.getItem('aniimo-lang')==='en')document.write('<script src="i18n-en.js?v=0deb14ae45"><\/script>')}catch(_){}</script>
+<script defer src="data.js?v=0deb14ae45"></script>
+<script defer src="thumbs.js?v=0deb14ae45"></script>
+<script defer src="content.js?v=0deb14ae45"></script>
+<script defer src="app.js?v=0deb14ae45"></script>

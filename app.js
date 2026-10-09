@@ -132,7 +132,7 @@ const navItem=(v,cls)=>`<button type="button" class="${cls}" data-go="${v.id}"><
 document.getElementById('side').innerHTML=navItem(VIEWS[0],'navbtn')+GROUPS.map(g=>`<p class="grp">${g.th}</p>`+VIEWS.filter(v=>v.g===g.id).map(v=>navItem(v,'navbtn')).join('')).join('')+`<div class="foot"><button type="button" class="adentry" data-go="admin"><svg><use href="#i-lock"/></svg>หลังบ้าน</button><span>แฟนเมด · ข้อมูลจาก <a href="https://aniidex.com/" target="_blank" rel="noopener">AniiDex</a> · ${esc(META.scraped||'')}</span></div>`;
 document.getElementById('topnav').innerHTML=`<a class="tn-b" href="#home" data-go="home">หน้าแรก</a>`+GROUPS.map(g=>{const vs=VIEWS.filter(v=>v.g===g.id);return vs.length?`<div class="tn-g"><button type="button" class="tn-b" aria-haspopup="true">${g.th}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m6 9 6 6 6-6"/></svg></button><div class="tn-m">${vs.map(v=>navItem(v,'navbtn')).join('')}${g.id==='more'?`<button type="button" class="navbtn" data-go="admin"><svg><use href="#i-lock"/></svg><span>หลังบ้าน</span></button>`:''}</div></div>`:''}).join('');
 document.getElementById('tabbar').innerHTML=VIEWS.filter(v=>v.tab).map(v=>navItem({...v,th:v.tabTh||v.th},'')).join('')+`<button type="button" id="moreBtn"><svg><use href="#i-more"/></svg><span>เพิ่มเติม</span></button>`;
-document.getElementById('menuInner').innerHTML='<div class="grab"></div><div class="mmenu-top"><button type="button" id="mmTheme">🌙 โหมดสว่าง/มืด</button><button type="button" data-go="support">☕ สนับสนุนเว็บ</button></div>'+GROUPS.map(g=>`<div class="mgrp"><p>${g.th}</p><div class="mtiles">${VIEWS.filter(v=>v.g===g.id).map(v=>`<button type="button" data-go="${v.id}"><svg><use href="#i-${v.ic}"/></svg>${v.th}</button>`).join('')}</div></div>`).join('')+'<button type="button" class="adentry" data-go="admin" style="justify-self:center"><svg><use href="#i-lock"/></svg>หลังบ้าน</button>';
+document.getElementById('menuInner').innerHTML='<div class="grab"></div><div class="mmenu-top"><button type="button" id="mmTheme">🌙 โหมดสว่าง/มืด</button><button type="button" data-go="support">☕ สนับสนุนเว็บ</button><button type="button" id="mmLang">🌐 ไทย / English</button></div>'+GROUPS.map(g=>`<div class="mgrp"><p>${g.th}</p><div class="mtiles">${VIEWS.filter(v=>v.g===g.id).map(v=>`<button type="button" data-go="${v.id}"><svg><use href="#i-${v.ic}"/></svg>${v.th}</button>`).join('')}</div></div>`).join('')+'<button type="button" class="adentry" data-go="admin" style="justify-self:center"><svg><use href="#i-lock"/></svg>หลังบ้าน</button>';
 const FEAT=[
  {id:'dex',d:`${A.length} ตัว พร้อมค่าสถานะ สกิล และสายวิวัฒนาการ`},
  {id:'map',d:'หีบ ไข่ วัตถุดิบ และบอส 4,334 จุด'},
@@ -2389,7 +2389,7 @@ setTimeout(()=>{const app=matchMedia('(display-mode: standalone)').matches||navi
 /* phones: page intros are folded to two lines; a tap opens them */
 document.addEventListener('click',e=>{const m=e.target.closest('.vhead p.muted');if(m&&!e.target.closest('a'))m.classList.toggle('open')});
 /* ===== phone home (mockup layout; desktop keeps the classic home) ===== */
-document.addEventListener('click',e=>{if(e.target.closest('#mmTheme'))document.getElementById('themeBtn').click();if(e.target.closest('[data-msearch]')){const g=document.getElementById('gq');g.focus()}});
+document.addEventListener('click',e=>{if(e.target.closest('#mmTheme'))document.getElementById('themeBtn').click();if(e.target.closest('#mmLang'))document.getElementById('langBtn').click();if(e.target.closest('[data-msearch]')){const g=document.getElementById('gq');g.focus()}});
 function renderMHome(){
   const el=document.getElementById('mhome');if(!el)return;
   const rel=ANIIMO.filter(a=>!a.u&&!a.cut),day=Math.floor(Date.now()/864e5),dp=dailyPick();
@@ -2409,6 +2409,14 @@ function renderMHome(){
     ${N.map((n,i)=>`<a href="#news-${n.id}"><img src="${esc(nimg(n,i))}" alt="" loading="lazy"><span><b>${esc(n.title)}</b><small>${new Date(n.date+'T00:00:00+07:00').toLocaleDateString(LOC,{day:'numeric',month:'short'})}</small></span><i>›</i></a>`).join('')}</div>`;
 }
 try{renderMHome()}catch(e){console.error(e)}
+/* phones: page titles sit on a strip of game art (CSS shows it only on small screens) */
+{const BAN={events:'harvest-moon-festival',codes:'idyll-ecology-field-notes',daily:'journey-handbook',beginner:'aniimo-discovery',growth:'boundless-twining',
+  guide:'sparkelf-aniimo',systems:'holo-battle-interlink',heist:'set-off-together',eggs:'hatch-haste',whisperwake:'vein-abundance',regions:'set-out-pathfinder',
+  bosses:'holo-battle-interlink',duels:'tracing-the-trail-the-shadow-of-legend',sanctums:'vein-abundance',homeland:'journey-handbook',cosmetics:'journey-moments',
+  sets:'journey-moments',sparkling:'prismana-pact',forms:'prismana-pact',news:'sparkelf-aniimo',media:'aniimo-discovery',elements:'glamour-star',
+  items:'idyll-ecology-field-notes',helditems:'glamour-star',buffs:'harvest-moon-festival',pskills:'set-out-pathfinder',howto:'tracing-the-trail-the-shadow-of-legend',
+  community:'set-off-together',support:'harvest-moon-festival',tier:'prismana-pact',builds:'sparkelf-aniimo',skills:'boundless-twining'};
+  for(const [id,f] of Object.entries(BAN)){const h=document.querySelector(`[data-view="${id}"] > .vhead`);if(h){h.classList.add('vban');h.style.setProperty('--ban',`url(img/events/${f}.webp)`)}}}
 function renderBuilds(){
   const g=document.getElementById('bgrid');if(!g)return;
   const be=document.getElementById('be');if(!be.options.length)be.innerHTML='<option value="">ทุกธาตุ</option>'+E.map(x=>`<option value="${x.k}">${x.th}</option>`).join('');
