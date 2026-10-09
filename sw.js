@@ -1,5 +1,5 @@
 // Network-first service worker: always fresh when online, cached copy when offline.
-const CACHE = 'aniimo-v63';
+const CACHE = 'aniimo-v64';
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(['./', './index.html', './data.js', './thumbs.js', './skills.webp', './manifest.webmanifest', './icon-192.png', './favicon.png'])).then(() => self.skipWaiting()));
 });

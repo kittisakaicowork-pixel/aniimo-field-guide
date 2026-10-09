@@ -1400,11 +1400,32 @@ body{overflow-x:clip}
   .amain{padding:18px}.akpis{grid-template-columns:1fr 1fr}.agrid[style]{grid-template-columns:1fr!important}}
 @media (max-width:520px){.akpis{grid-template-columns:1fr}.aqual{grid-template-columns:1fr}}
 
-/* inner panels in the admin workspace take its palette */
-.adws{--surface:#1f2333;--sunk:#2a2f44;--ink:#eceefa;--ink-2:#9aa0bd;--line:#2e3346;--accent:#a497f5;--good:#a497f5;--bad:#5d6380;--glow:#2e2a52;--neutral:#5d6380}
-.adws .warnbox{background:#2e2a52;color:#e2ddff;border-color:#3a3470}
-.adws .esplit{background:#5d6380}.adws .esplit i{background:#a497f5}
-.adws .kpi.good b{color:#c9c1ff}.adws .kpi.bad b{color:#c3c7dc}
+/* ===== admin workspace in the site palette, full page (Oct 2026) ===== */
+.adws{--a-bg:var(--ground);--a-panel:var(--surface);--a-line:var(--line);--a-ink:var(--ink);--a-mute:var(--ink-2);--a-acc:var(--accent);--a-acc2:var(--accent);
+  --a-soft:color-mix(in srgb,var(--accent) 12%,var(--surface));--a-bad:color-mix(in srgb,var(--ink-2) 30%,var(--sunk));
+  margin-inline:calc(50% - 50vw);width:100vw;min-height:calc(100dvh - 61px);margin-top:-28px;margin-bottom:-28px;border:0;border-radius:0;background:transparent;overflow:visible} /* visible: a clipping box would push the sticky sidebar down */
+.adws .aside{background:var(--surface);border-right:1px solid var(--line);position:sticky;top:61px;height:calc(100dvh - 61px);overflow:auto;align-self:start}
+.abrand b{color:var(--ink)}.abrand small{color:var(--ink-2)}
+.adws nav button{color:var(--ink-2)}.adws nav button:hover{color:var(--ink)}
+.adws nav button[aria-current="true"]{background:var(--a-soft);color:var(--accent)}
+.adws nav em{background:var(--accent);color:#fff}
+.amain{padding:32px clamp(20px,3vw,48px) 40px;max-width:1500px;width:100%}
+.atop h2,.akpi b,.aqual b,.abig,.ahead h3,.aempty b,.arow b,.alink{color:var(--ink)}
+.akpi,.acard{background:var(--surface);border-color:var(--line);box-shadow:var(--shadow)}
+.aeye,.aqual span.g,.arule summary{color:var(--accent)}
+.apill,.ademo{background:var(--a-soft);color:var(--accent)}
+.aseg button{background:var(--surface);color:var(--ink);border-color:var(--line)}
+.aseg button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.abtn{color:var(--ink);border-color:var(--line);background:var(--surface)}.abtn:hover{border-color:var(--accent);color:var(--accent)}
+.abar{background:var(--a-bad)}.abar i{background:var(--accent)}
+.adws .dpanel,.adws .dpanel.flat{background:var(--surface);border-color:var(--line);color:var(--ink)}
+.adws .kpi{background:var(--sunk);border-color:var(--line)}.adws .kpi b{color:var(--ink)}
+.adws .fbitem{background:var(--sunk);border-color:var(--line)}
+.adws .rrow,.adws .rank,.adws .nm{color:var(--ink)}.adws .muted,.adws .dnote,.adws small{color:var(--ink-2)}
+.adws .esplit{background:var(--a-bad)}.adws .esplit i{background:var(--accent)}
+.adws .warnbox{background:var(--a-soft);color:var(--ink);border-color:color-mix(in srgb,var(--accent) 30%,transparent)}
+[data-view="admin"]{max-width:none}
+@media (max-width:980px){.adws{margin-top:-20px}.adws .aside{position:static;height:auto}}
 </style>
 
 <div id="boot" role="status" aria-live="polite"><div class="bootin"><b class="wm"><span aria-hidden="true">an<span class="ii"><i>ı</i><i>ı</i></span>guide</span><span class="sr">aniiguide</span></b><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><small id="bootMsg">กำลังโหลดข้อมูล Aniimo…</small></div></div>
