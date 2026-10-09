@@ -435,6 +435,9 @@ def check_codes():
     manual = json.loads((ROOT / "manual.json").read_text())
     have = {c["code"] for c in manual["codes"] if not c["expired"]}
     new, gone = sorted(live - have), sorted(have - live)
+    if not new and not gone and manual.get("codes_checked") != time.strftime("%Y-%m-%d"):
+        manual["codes_checked"] = time.strftime("%Y-%m-%d")  # checked today and nothing changed: the list is current
+        (ROOT / "manual.json").write_text(json.dumps(manual, ensure_ascii=False, indent=1) + "\n")
     print(f"codes (Game8, {m.group(2)}): {len(live)} active" + (f" · NEW: {', '.join(new)}" if new else "") + (f" · no longer listed: {', '.join(gone)}" if gone else " · manual.json is up to date"))
 
 

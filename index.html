@@ -1441,6 +1441,18 @@ body{overflow-x:clip}
 /* small item icon inside item links (recommended Held Items, builds, evolution costs, rewards) */
 .itemlink{display:inline-flex;align-items:center;gap:5px;vertical-align:middle}
 .itemlink .iicon{width:24px;height:24px;flex:none;border-width:1px;border-radius:7px}
+
+/* "ไปต่อ" row and previous/next Aniimo */
+.nextup{margin-top:28px;padding-top:18px;border-top:1px solid var(--line);display:grid;gap:10px}
+.nu{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.nu button{display:flex;gap:10px;align-items:center;text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:16px;padding:12px 14px;cursor:pointer;color:var(--ink);font:inherit;box-shadow:var(--shadow)}
+.nu button:hover{border-color:var(--accent);transform:translateY(-1px)}.nu svg{width:20px;height:20px;color:var(--accent);flex:none}
+.nu b{display:block;font:700 .95rem var(--display)}.nu small{display:block;color:var(--ink-2);font-size:.78rem;line-height:1.4}
+.mnavs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+.mnav{display:flex;gap:10px;align-items:center;border:1px solid var(--line);background:var(--surface);border-radius:16px;padding:8px 12px;cursor:pointer;color:var(--ink);font:inherit;text-align:left}
+.mnav.next{flex-direction:row-reverse;text-align:right}.mnav img{width:44px;height:44px;object-fit:cover;object-position:50% 10%;border-radius:50%;background:var(--sunk)}
+.mnav small{display:block;color:var(--ink-2);font-size:.74rem}.mnav b{font:700 .92rem var(--display)}.mnav:hover{border-color:var(--accent)}
+.apost{width:100%;font:inherit;font-size:.88rem;line-height:1.6;border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--sunk);color:var(--ink);resize:vertical}
 </style>
 
 <div id="boot" role="status" aria-live="polite"><div class="bootin"><b class="wm"><span aria-hidden="true">an<span class="ii"><i>ı</i><i>ı</i></span>guide</span><span class="sr">aniiguide</span></b><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><small id="bootMsg">กำลังโหลดข้อมูล Aniimo…</small></div></div>
@@ -2687,10 +2699,10 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
 </dialog>
 <dialog id="menu" aria-label="เมนูทั้งหมด"><div class="inner" id="menuInner"></div></dialog>
 
-<script src="data.js?v=e18a48712c"></script>
-<script src="thumbs.js?v=e18a48712c"></script>
-<script src="content.js?v=e18a48712c"></script>
-<script src="i18n-en.js?v=e18a48712c"></script>
+<script src="data.js?v=5707aeb544"></script>
+<script src="thumbs.js?v=5707aeb544"></script>
+<script src="content.js?v=5707aeb544"></script>
+<script src="i18n-en.js?v=5707aeb544"></script>
 <script>
 /* ===== theme ===== */
 (function(){
@@ -2853,7 +2865,8 @@ function go(id,push){
   if(id==='sets'&&typeof renderSets==='function')renderSets();
   if(id==='ranking'&&typeof renderStats==='function')renderStats();
   if(id==='pskills'&&typeof renderPSkills==='function')renderPSkills();
-  if(id==='items'&&!window.ITEMS_MORE&&!window.__imore){window.__imore=1;const sc=document.createElement('script');sc.src='items-more.js?v=e18a48712c';
+  if(typeof nextUp==='function')nextUp(id);
+  if(id==='items'&&!window.ITEMS_MORE&&!window.__imore){window.__imore=1;const sc=document.createElement('script');sc.src='items-more.js?v=5707aeb544';
     sc.onload=()=>{const have=new Set(ITEMS.map(i=>i.slug));(window.ITEMS_MORE||[]).forEach(i=>{if(!have.has(i.slug)){ITEMS.push(i);ITEM_BY_NAME[i.n.toLowerCase()]=ITEM_BY_NAME[i.n.toLowerCase()]||i}});
       const c=document.getElementById('ic');if(c){const cats=new Set([...c.options].map(o=>o.value));[...new Set(ITEMS.map(i=>i.c))].filter(x=>!cats.has(x)).forEach(x=>c.insertAdjacentHTML('beforeend',`<option value="${esc(x)}">${esc(CAT_TH[x]||x)}</option>`))}
       if(current==='items'&&typeof renderItems==='function')renderItems()};document.head.appendChild(sc)}
@@ -2966,6 +2979,12 @@ function radarsInfo(a,els){
   const df=`<div class="rbox"><p class="eyebrow">การป้องกัน · ยิ่งห่างจากกลางยิ่งแพ้ทาง</p>${radar(m,E.map(x=>x.th),1.6*1.6>Math.max(...m)?Math.max(1.6,...m):Math.max(...m),E.map(x=>x.k),v=>'×'+(Math.round(v*1000)/1000))}</div>`;
   return `<div class="radars">${st}${df}</div>`;
 }
+function monNav(a){ // previous / next by number, so a visitor from search keeps browsing
+  const L=A.filter(x=>!x.u),i=L.indexOf(a);if(i<0)return '';
+  const pv=L[(i-1+L.length)%L.length],nx=L[(i+1)%L.length];
+  const btn=(x,dir)=>`<button type="button" class="mnav ${dir}" data-open="${x.slug}"><img src="${TH(x.i)}" alt=""><span><small>${dir==='prev'?'← ก่อนหน้า':'ถัดไป →'} ${numLabel(x)}</small><b>${esc(x.th||x.name)}</b></span></button>`;
+  return `<div class="mnavs">${btn(pv,'prev')}${btn(nx,'next')}</div>`;
+}
 function foodInfo(a){
   const fs=a.b&&a.b.fs,F=window.FOOD||[];if(!fs||!F.length)return '';
   const dur=m=>{const d=Math.floor(m/1440),h=Math.floor(m%1440/60),mi=Math.round(m%60);return [d&&d+' วัน',h&&h+' ชม.',!d&&mi&&mi+' นาที'].filter(Boolean).join(' ')||'< 1 นาที'};
@@ -2996,7 +3015,7 @@ function renderDetail(){
     ${a.s&&a.s.HP?`<div><p class="eyebrow" style="margin-bottom:8px">ค่าสถานะพื้นฐาน</p><div class="stats">${STAT.map(k=>`<div class="stat"><span>${STAT_L[k]||k}</span><span class="bar"><i style="width:${Math.min(100,a.s[k]/130*100)}%"></i></span><b>${a.s[k]}</b></div>`).join('')}</div></div>`:''}
     ${line.length>1?`<div><p class="eyebrow" style="margin-bottom:8px">สายวิวัฒนาการ</p><div class="thumbs">${line.map(x=>`<button type="button" data-open="${x.slug}" aria-current="${x===a}"><img decoding="async" src="${TH(x.i)}" alt="" class="${x.cut?'cut':''}">${esc(x.name)}<small class="muted">${x.st}</small></button>`).join('')}</div></div>`:''}
     ${traits.length?`<div style="display:grid;gap:8px"><p class="eyebrow">Trait</p>${traits.map(t=>`<div class="trait"><h4>${esc(t[0])} <span class="chip" style="font-family:var(--body)">${esc(t[1])}</span></h4><p>${esc(tr(t[2]))}</p></div>`).join('')}</div>`:''}
-    ${radarsInfo(a,els)}${bioInfo(a)}${evoInfo(a)}${spawnInfo(a)}${homeInfo(a)}${foodInfo(a)}${setsInfo(a)}${itemsInfo(a)}`;
+    ${radarsInfo(a,els)}${bioInfo(a)}${evoInfo(a)}${spawnInfo(a)}${homeInfo(a)}${foodInfo(a)}${setsInfo(a)}${itemsInfo(a)}${monNav(a)}`;
   }else if(dState.tab==='skills'){
     pane=`<div><p class="eyebrow" style="margin-bottom:8px">สีสกิลของ ${esc(a.name)}</p><div class="palette">${cols.map(k=>`<span class="swatch"><i style="background:var(--${k})"></i>${EK[k].th} · ${sks.filter(s=>s.e===k).length} สกิล</span>`).join('')}</div></div>
     <div style="display:grid;gap:10px">${sks.map(skillCard).join('')}</div>`;
@@ -3429,7 +3448,7 @@ function renderMap(){
     MAP.count=MAP.layers.map(()=>0);MAP.m.forEach(m=>MAP.count[m[0]]++);
     mapLayersUI();
   };
-  if(window.MAP)boot();else{const sc=document.createElement('script');sc.src='map.js?v=e18a48712c';sc.onload=boot;sc.onerror=()=>{document.getElementById('mapLoad').textContent='โหลดข้อมูลแผนที่ไม่สำเร็จ'};document.head.appendChild(sc)}
+  if(window.MAP)boot();else{const sc=document.createElement('script');sc.src='map.js?v=5707aeb544';sc.onload=boot;sc.onerror=()=>{document.getElementById('mapLoad').textContent='โหลดข้อมูลแผนที่ไม่สำเร็จ'};document.head.appendChild(sc)}
 }
 function mapSaveLayers(){try{localStorage.setItem('aniimo-map-layers',JSON.stringify([...MV.on].map(i=>MAP.layers[i].id)))}catch(_){}}
 function mapLayersUI(){
@@ -4081,7 +4100,7 @@ async function renderAdmin(quiet){
     const newFb=(FB.items||[]).filter(f=>f.status==='new');
     const RULE='นับรอบนั้นว่า “ใช้งานจริง” เมื่อมีอย่างใดอย่างหนึ่ง: เปิดตั้งแต่ 2 หน้าที่ต่างกันขึ้นไป · เปิดดู Aniimo หรือไอเท็ม · ค้นหา · อยู่บนหน้าที่เปิดเห็นอยู่ 10 วินาทีขึ้นไปหลังแตะ เลื่อน หรือพิมพ์ · หรืออยู่ครบ 3 นาที นอกนั้นนับเป็น “ออกโดยไม่ได้ใช้งาน”';
     const kpi=(lab,val,unit,sub,cls='')=>`<div class="akpi ${cls}"><small>${lab}</small><b>${val}<i>${unit}</i></b><span>${sub}</span></div>`;
-    const tabs=[['overview','ภาพรวม','grid'],['usage','การใช้งาน','chart'],['search','การค้นหา','search'],['feedback','คำแนะนำ','chat']];
+    const tabs=[['overview','ภาพรวม','grid'],['usage','การใช้งาน','chart'],['search','การค้นหา','search'],['feedback','คำแนะนำ','chat'],['posts','โพสต์โซเชียล','news']];
     const range=`<div class="aseg" id="adRange" role="group" aria-label="ช่วงเวลา">${[[1,'วันนี้'],[7,'7 วัน'],[30,'30 วัน'],[90,'90 วัน'],[365,'ทั้งหมด']].map(([n,l])=>`<button type="button" data-r="${n}" aria-pressed="${AD.range===n}">${l}</button>`).join('')}</div>`;
     const meta=`<div class="ameta"><span>อัปเดต ${new Date().toLocaleTimeString(LOC,{hour:'2-digit',minute:'2-digit'})} · รีเฟรชเองทุก 1 นาที</span>${AD.demo?'<button type="button" class="abtn" id="adExitDemo">ออกจากข้อมูลตัวอย่าง</button>':`<span>${esc(AD.s.email||'')}</span><button type="button" class="abtn" id="adRefresh">รีเฟรช</button><button type="button" class="abtn" id="adLogout">ออกจากระบบ</button>`}</div>`;
     const quality=ok?`<div class="acard">
@@ -4120,6 +4139,7 @@ async function renderAdmin(quiet){
         <div class="acard"><div class="ahead"><h3>ไอเท็มที่คนเปิดดู</h3><small>ครั้ง</small></div><div class="rank">${rankList(d.top_items||[],(r,pct)=>plainRow(r.key,pct,r.n))}</div></div>
       </div>`;
     else if(AD.tab==='feedback')body=feedbackPanel();
+    else if(AD.tab==='posts')body=socialPosts();
     else body=`<div class="akpis">
         ${kpi('ผู้ใช้',fmtN(d.visitors),'คน',`เปิดหน้าเว็บ ${fmtN(d.views)} ครั้ง`)}
         ${kpi('รอบการเข้าเว็บ',ok?fmtN(S):'—','รอบ',ok?`เฉลี่ย ${eg.avg_pages||0} หน้าต่อรอบ${eg.est_sessions?' · บางส่วนเป็นค่าประมาณ':''}`:'ยังไม่มีข้อมูล')}
@@ -4128,7 +4148,7 @@ async function renderAdmin(quiet){
       </div>
       <div class="agrid" style="grid-template-columns:minmax(0,1.5fr) minmax(0,1fr)">${quality}${fbCard}</div>
       <div class="agrid" style="grid-template-columns:minmax(0,1.5fr) minmax(0,1fr)">${interest}${today}</div>`;
-    const title={overview:'ภาพรวมเว็บไซต์',usage:'การใช้งาน',search:'การค้นหา',feedback:'คำแนะนำจากผู้ใช้'}[AD.tab]||'ภาพรวมเว็บไซต์';
+    const title={overview:'ภาพรวมเว็บไซต์',usage:'การใช้งาน',search:'การค้นหา',feedback:'คำแนะนำจากผู้ใช้',posts:'โพสต์โซเชียล'}[AD.tab]||'ภาพรวมเว็บไซต์';
     out.innerHTML=`<div class="adws">
       <aside class="aside"><div class="abrand"><b>aniiguide</b><small>ADMIN WORKSPACE</small></div>
         <nav>${tabs.map(([k,l,ic])=>`<button type="button" data-adtab="${k}" aria-current="${AD.tab===k}"><svg><use href="#i-${ic}"/></svg>${l}${k==='feedback'&&newFb.length?`<em>${newFb.length}</em>`:''}</button>`).join('')}</nav></aside>
@@ -4168,7 +4188,7 @@ document.addEventListener('click',e=>{
 });
 
 /* ===== Pathfinder duels & Sanctums (from the map data) ===== */
-function withMap(fn){if(window.MAP){fn();return}const sc=document.createElement('script');sc.src='map.js?v=e18a48712c';sc.onload=fn;sc.onerror=()=>{};document.head.appendChild(sc)}
+function withMap(fn){if(window.MAP){fn();return}const sc=document.createElement('script');sc.src='map.js?v=5707aeb544';sc.onload=fn;sc.onerror=()=>{};document.head.appendChild(sc)}
 function regionAt(m){const x=m[1]/100,y=m[2]/100;return Object.keys(MAP.regions).find(n=>inPoly(x,y,MAP.regions[n]))||''}
 const mapBtn=i=>`<button type="button" class="chip" data-mapm-go="${i}" style="cursor:pointer">ดูบนแผนที่</button>`;
 const elBadges=a=>(a||[]).map(e=>badge(mEl(e))).join('');
@@ -4224,7 +4244,7 @@ function renderHeist(){
   hvCv=document.getElementById('hvCv');hvCtx=hvCv.getContext('2d');
   if(HV.ready){setTimeout(hvSize,0);return}if(HV.booting)return;HV.booting=true;
   const fail=()=>{document.getElementById('hvLoad').textContent='โหลดแผนที่ไม่สำเร็จ'};
-  const sc=document.createElement('script');sc.src='heist.js?v=e18a48712c';sc.onerror=fail;
+  const sc=document.createElement('script');sc.src='heist.js?v=5707aeb544';sc.onerror=fail;
   sc.onload=()=>{const ico=new Image();ico.onerror=fail;ico.onload=()=>{
     HV.ico=ico;HV.ready=true;
     const busy=new Set(['egg_lesser_chest','egg_loot_pile','sanctum_chest','sanctum_loot_pile']); // plain chests and piles crowd the map; off at first
@@ -4896,6 +4916,44 @@ document.addEventListener('click',e=>{
   if(e.target.closest('#heroCopy,[data-c],#tmShot,#bldSave,#supShare'))setTimeout(nudge,1200); // right after something useful
 });
 setTimeout(()=>{if(current==='home')nudge()},25000); // or after a while on the home page
+/* ===== "ไปต่อ": related pages under every page, so a visitor who came for one thing sees what else is here ===== */
+var NEXT; // filled below; a deep link can call nextUp() before this line runs
+NEXT={codes:['events','daily','dex','team'],events:['codes','daily','map','news'],dex:['tier','team','builder','ranking'],tier:['dex','team','builds','ranking'],
+  map:['eggs','bosses','events','regions'],news:['events','codes','whisperwake'],items:['helditems','builds','eggs'],helditems:['builds','builder','items'],
+  team:['builder','tier','elements'],builder:['builds','team','helditems'],builds:['builder','team','tier'],daily:['codes','events','collection'],
+  beginner:['howto','daily','growth','pskills'],howto:['beginner','map','events'],whisperwake:['dex','map','events'],bosses:['team','elements','map'],
+  ranking:['dex','tier','compare'],sets:['dex','cosmetics'],pskills:['beginner','howto','growth']};
+function nextUp(id){
+  if(id==='home'||id==='admin')return;
+  if(!NEXT){setTimeout(()=>nextUp(id));return}
+  const sec=document.querySelector(`.view[data-view="${id}"]`);if(!sec)return;
+  let box=sec.querySelector(':scope > .nextup');
+  if(!box){box=document.createElement('nav');box.className='nextup';box.setAttribute('aria-label','ไปต่อ');sec.appendChild(box)}
+  const ids=((NEXT||{})[id]||['codes','events','dex','team']).filter(x=>x!==id&&VIEWS.some(v=>v.id===x)).slice(0,4);
+  box.innerHTML=`<p class="eyebrow">ไปต่อ</p><div class="nu">${ids.map(x=>{const v=VIEWS.find(y=>y.id===x);return `<button type="button" data-go="${x}"><svg><use href="#i-${v.ic||'star'}"/></svg><span><b>${esc(v.th)}</b><small>${esc(v.d||'')}</small></span></button>`}).join('')}</div>`;
+}
+
+/* ===== social posts for the owner: Thai text built from today's data, ready to copy ===== */
+function socialPosts(){
+  const site='https://aniiguide.trade',D=(window.CODES||{}),codes=(D.codes||[]).filter(c=>!c.expired);
+  const dt=x=>new Date(x+'T00:00:00').toLocaleDateString('th-TH',{day:'numeric',month:'short'});
+  const now=Date.now(),left=t=>(t||'').replace(/(\d+)d/,'$1 วัน').replace(/(\d+)h/,'$1 ชม.').replace(/(\d+)m/,'$1 นาที');
+  const live=EVENTS.filter(e=>e.kind==='event'&&e.ends).slice(0,6),up=(window.UPCOMING||[]).slice(0,5);
+  const P=[];
+  P.push(['โค้ดที่ยังใช้ได้',`🎁 โค้ด Aniimo ที่ยังใช้ได้ (เช็ก ${D.codes_checked?dt(D.codes_checked):'ล่าสุด'})\n\n${codes.slice(0,10).map(c=>`▫️ ${c.code} — ${c.reward}`).join('\n')}\n\nแลกที่ Settings → Account → Gift Code Redemption\nกดคัดลอกโค้ดได้ที่ 👉 ${site}/p/codes/\n\n#Aniimo #โค้ดAniimo #AniiGuide`]);
+  P.push(['อีเวนต์ที่กำลังจัด',`📅 อีเวนต์ Aniimo ตอนนี้ (เวลาไทย)\n\n${live.map(e=>`🔸 ${tr(e.t)} — เหลือ ${left(e.ends)}`).join('\n')}${up.length?`\n\nกำลังจะมา\n${up.map(u=>`🔹 ${u.name} · ${u.dates}`).join('\n')}`:''}\n\nปฏิทินและรายละเอียดครบ 👉 ${site}/#events\n\n#Aniimo #อีเวนต์Aniimo`]);
+  const n=(window.NEWS||[])[0];
+  if(n)P.push(['ข่าวล่าสุด',`📰 ${n.title}\n\n${n.lede}\n\nอ่านสรุปภาษาไทย 👉 ${site}/p/news/${n.id}/\n\n#Aniimo #ข่าวAniimo`]);
+  if(typeof WW_OPEN!=='undefined'&&WW_OPEN&&now<WW_OPEN){const d=Math.ceil((WW_OPEN-now)/864e5);P.push(['นับถอยหลัง Whisperwake Isles',`🏝️ อีก ${d} วัน Whisperwake Isles เปิด!\n\nพื้นที่ใหม่พร้อม Aniimo ใหม่ เตรียมตัวยังไง ดูรายชื่อและธาตุที่ควรเตรียมได้ที่ 👉 ${site}/#whisperwake\n\n#Aniimo #WhisperwakeIsles`])}
+  const a=ANIIMO.filter(x=>!x.u)[Math.floor(now/864e5)%ANIIMO.filter(x=>!x.u).length];
+  if(a)P.push(['Aniimo ประจำวัน',`✨ Aniimo ประจำวัน: ${a.th||a.name} (${a.name})\nธาตุ ${a.e.map(k=>EK[k].th).join(' / ')} · บทบาท ${a.r}\n\nดูสกิล ค่าสถานะ ร่าง และโมเดล 3D 👉 ${site}/a/${a.slug}/\n\n#Aniimo #AniiGuide`]);
+  return `<div class="acard"><div class="ahead"><h3>โพสต์พร้อมแชร์</h3><small>สร้างจากข้อมูลวันนี้ · กดคัดลอกแล้ววางในเพจ กลุ่ม หรือ LINE OA</small></div>
+    <p class="amute">โพสต์สม่ำเสมอ โดยเฉพาะวันที่มีโค้ดหรืออีเวนต์ใหม่ ช่วยให้คนกลับมาเว็บมากที่สุด ลิงก์ในโพสต์พาไปหน้าที่ตรงเรื่องเลย</p></div>
+    ${P.map(([h,t],i)=>`<div class="acard"><div class="ahead"><h3>${h}</h3><button type="button" class="abtn" data-copypost="${i}">คัดลอก</button></div><textarea class="apost" id="post${i}" rows="${Math.min(14,t.split('\n').length+1)}" readonly>${esc(t)}</textarea></div>`).join('')}`;
+}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-copypost]');if(!b)return;const t=document.getElementById('post'+b.dataset.copypost);
+  try{navigator.clipboard.writeText(t.value).then(()=>{b.textContent='คัดลอกแล้ว'})}catch(_){t.select()}});
+
 function renderBuilds(){
   const g=document.getElementById('bgrid');if(!g)return;
   const be=document.getElementById('be');if(!be.options.length)be.innerHTML='<option value="">ทุกธาตุ</option>'+E.map(x=>`<option value="${x.k}">${x.th}</option>`).join('');

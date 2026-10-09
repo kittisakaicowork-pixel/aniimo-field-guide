@@ -46,6 +46,7 @@ TOPICS = [
     ("bosses", "บอส Alpha และ Omega Aniimo จุดอ่อนและตัวที่ควรใช้", "บอส Alpha และ Omega ทุกตัว ธาตุที่แพ้ทาง และ Aniimo ที่ควรใช้สู้", "bosses"),
     ("guide", "ข้อมูลเกม Aniimo สเปก ปุ่มควบคุม และมือถือ", "ข้อมูลเกม Aniimo สเปกคอมและมือถือ ปุ่มควบคุม PC PS5 Xbox การตั้งค่าที่แนะนำ", "guide"),
     ("howto", "วิธีหาตั๋ว Chaos, Lumin Amber, Prismana, ตัวเปล่งประกาย และ Vein Essence ใน Aniimo", "ไกด์ภาษาไทย: ราคาตั๋ว Chaos, เลื่อนยศและซ่อมอุปกรณ์ Egg Heist, รางวัลตู้โชว์ของสะสม, จุดเก็บ Lumin Amber, วิธีจับ Prismana และ Aniimo เปล่งประกาย", "howto"),
+    ("faq", "คำถามที่พบบ่อยเกี่ยวกับ Aniimo (ภาษาไทย)", "Aniimo เล่นฟรีไหม เล่นบนอะไรได้บ้าง คนไทยควรเลือกเซิร์ฟเวอร์ไหน ข้อมูลข้ามเครื่องได้ไหม และวิธีแก้ปัญหาที่เจอบ่อย", "faq"),
     ("privacy", "นโยบายความเป็นส่วนตัว AniiGuide", "AniiGuide เก็บข้อมูลอะไร เก็บไว้ที่ไหน ใช้บริการภายนอกอะไรบ้าง และขอลบข้อมูลได้อย่างไร", "privacy"),
 ]
 
@@ -68,7 +69,7 @@ def dump():
     code = """
     global.window={};require('./data.js');require('./content.js');const w=window;
     process.stdout.write(JSON.stringify({A:w.ANIIMO,SK:w.SKILLS,EVO:w.EVO,CODES:w.CODES,TH:w.TH,NTH:w.NAMES_TH,NEWS:w.NEWS,
-      WW:w.WHISPERWAKE,UP:w.UPCOMING,EVENTS:w.EVENTS,ITEMS:w.ITEMS&&w.ITEMS.list,META:w.META}))"""
+      WW:w.WHISPERWAKE,UP:w.UPCOMING,EVENTS:w.EVENTS,ITEMS:w.ITEMS&&w.ITEMS.list,META:w.META,FAQ:w.FAQ}))"""
     return json.loads(subprocess.run(["node", "-e", code], cwd=ROOT, check=True, capture_output=True, text=True).stdout)
 
 
@@ -184,9 +185,18 @@ def main():
     m = re.search(r'data-view="privacy".*?<div class="dpanel prose">(.*?)</div>\s*</section>', page_src, re.S)
     if m:
         extra["privacy"] = re.sub(r'<p class="small muted">รหัสสุ่ม.*?</p>', "", m.group(1), flags=re.S).replace('href="#', 'href="../../#')
+    faq = d.get("FAQ") or []
+    extra["faq"] = "".join(f"<section><h2>{E(f['q'])}</h2><p>{E(f['a'])}</p></section>" for f in faq)
+    MONTHS = ["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."]
+    checked = (d["CODES"] or {}).get("codes_checked", "")
+    thdate = f"{int(checked[8:10])} {MONTHS[int(checked[5:7]) - 1]} {int(checked[:4]) + 543}" if len(checked) == 10 else ""
     for key, title, desc, view in TOPICS:
+        if key == "codes" and thdate:  # the date in the title tells searchers (and Google) the list is current
+            title = f"{title} (อัปเดต {thdate})"
         body = f"<h1>{E(title)}</h1><p>{E(desc)}</p><a class='cta' href='../../#{view}'>เปิดหน้านี้ในคู่มือ</a>{extra.get(key, '')}"
-        urls.append(page(f"p/{key}/", title + " | AniiGuide", desc, body))
+        ld = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+            {"@type": "Question", "name": f["q"], "acceptedAnswer": {"@type": "Answer", "text": f["a"]}} for f in faq]} if key == "faq" and faq else None
+        urls.append(page(f"p/{key}/", title + " | AniiGuide", desc, body, jsonld=ld))
 
     sm = "".join(f"<url><loc>{u}</loc><lastmod>{TODAY}</lastmod></url>" for u in urls)
     (ROOT / "sitemap.xml").write_text(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{sm}</urlset>\n')
