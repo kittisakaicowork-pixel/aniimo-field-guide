@@ -2385,6 +2385,8 @@ setTimeout(()=>{const app=matchMedia('(display-mode: standalone)').matches||navi
   const count=()=>{const k=['de','dr','ds','dw','dc'].filter(id=>{const el=document.getElementById(id);return el&&el.value}).length+['dp','dsp'].filter(id=>{const el=document.getElementById(id);return el&&el.checked}).length;n.hidden=!k;n.textContent=k};
   btn.addEventListener('click',()=>{const on=!bar.classList.contains('open');bar.classList.toggle('open',on);more&&more.classList.toggle('open',on);btn.setAttribute('aria-expanded',on)});
   ['de','dr','ds','dw','dc','dp','dsp'].forEach(id=>{const el=document.getElementById(id);el&&el.addEventListener('change',count)});count()}}
+/* phones: page intros are folded to two lines; a tap opens them */
+document.addEventListener('click',e=>{const m=e.target.closest('.vhead p.muted');if(m&&!e.target.closest('a'))m.classList.toggle('open')});
 function renderBuilds(){
   const g=document.getElementById('bgrid');if(!g)return;
   const be=document.getElementById('be');if(!be.options.length)be.innerHTML='<option value="">ทุกธาตุ</option>'+E.map(x=>`<option value="${x.k}">${x.th}</option>`).join('');

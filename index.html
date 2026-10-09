@@ -1535,6 +1535,38 @@ body{overflow-x:clip}
   .vote .row b{flex-basis:100%}
   .vote .row button{flex:1;width:auto;height:40px}
 }
+
+/* ============ phones, part 2 ============ */
+@media (max-width:640px){
+  .vhead p.muted{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:.88rem;cursor:pointer}
+  .vhead p.muted.open{display:block;-webkit-line-clamp:none}
+  [data-view="dex"] .vhead p.muted{display:none}
+  /* rows of buttons and tabs: one line that slides */
+  .seg,.team-top{flex-wrap:nowrap!important;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;margin-left:-16px;margin-right:-16px;padding:2px 16px 4px}
+  .seg::-webkit-scrollbar,.team-top::-webkit-scrollbar{display:none}
+  .seg>*,.team-top>*{flex:none}
+  .team-top .count{order:9}
+  /* map: most of the screen */
+  .mapstage{height:calc(100svh - 230px);min-height:360px}
+  /* team: four slots in one row */
+  .slots{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+  .slot.empty{min-height:112px;font-size:.72rem;gap:4px;border-radius:16px}
+  .slot.empty .plus{width:38px;height:38px;font-size:1.4rem}
+  .slot.empty small,.slot.empty .muted{display:none}
+  .slot .info{padding:6px 6px 8px;gap:3px;font-size:.72rem;text-align:center;justify-items:center}
+  .slot .info .row,.slot .info .meta{justify-content:center}
+  .slot .no{top:6px;left:8px;font-size:.62rem}
+  .slot .info .nm{font-size:.84rem;line-height:1.2}
+  .slot .rm{width:26px;height:26px;top:4px;right:4px;font-size:.9rem}
+  .slot select{font-size:.7rem;padding:4px 18px 4px 6px;width:100%}
+  .slot .info .row:last-child{gap:2px}.slot .info .row:last-child>*{transform:scale(.82);margin:-3px}
+  /* community: tabs slide, a floating new-post button, a friendlier empty list */
+  .cm-top{flex-wrap:nowrap}
+  .cm-top .seg{flex:1;min-width:0;margin-right:0}
+  #cmNew{position:fixed;right:16px;bottom:calc(76px + env(safe-area-inset-bottom));z-index:25;height:52px;padding:0 20px;border-radius:26px;box-shadow:0 10px 26px rgba(16,120,220,.35)}
+  #cmList>p.muted{display:grid;justify-items:center;gap:8px;text-align:center;padding:36px 18px;border:1px dashed var(--line);border-radius:20px;background:var(--surface)}
+  #cmList>p.muted::before{content:"💬";font-size:2.2rem}
+}
 </style>
 
 <div id="boot" role="status" aria-live="polite"><div class="bootin"><b class="wm"><svg class="brandmark" viewBox="0 0 260 72" aria-hidden="true"><use href="img/aniiguide-logo.svg?v=4#wordmark"></use></svg><span class="sr">AniiGuide</span></b><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><small id="bootMsg">กำลังโหลดข้อมูล Aniimo…</small></div></div>
@@ -2789,8 +2821,8 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
 </dialog>
 <dialog id="menu" aria-label="เมนูทั้งหมด"><div class="inner" id="menuInner"></div></dialog>
 
-<script>try{if(localStorage.getItem('aniimo-lang')==='en')document.write('<script src="i18n-en.js?v=3835eec837"><\/script>')}catch(_){}</script>
-<script defer src="data.js?v=3835eec837"></script>
-<script defer src="thumbs.js?v=3835eec837"></script>
-<script defer src="content.js?v=3835eec837"></script>
-<script defer src="app.js?v=3835eec837"></script>
+<script>try{if(localStorage.getItem('aniimo-lang')==='en')document.write('<script src="i18n-en.js?v=b829480778"><\/script>')}catch(_){}</script>
+<script defer src="data.js?v=b829480778"></script>
+<script defer src="thumbs.js?v=b829480778"></script>
+<script defer src="content.js?v=b829480778"></script>
+<script defer src="app.js?v=b829480778"></script>
