@@ -1426,6 +1426,17 @@ body{overflow-x:clip}
 .adws .warnbox{background:var(--a-soft);color:var(--ink);border-color:color-mix(in srgb,var(--accent) 30%,transparent)}
 [data-view="admin"]{max-width:none}
 @media (max-width:980px){.adws{margin-top:-20px}.adws .aside{position:static;height:auto}}
+
+/* support: why + numbers + goal; nudge card */
+.supwhy{display:grid;gap:14px;margin-bottom:14px}.sw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+.supwhy h3{margin:0 0 8px}.supwhy ul{margin:0;padding-left:1.1em;display:grid;gap:6px;line-height:1.6}
+.sw-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:8px}.sw-stats span{display:grid;text-align:center;background:var(--sunk);border-radius:12px;padding:10px 4px;font-size:.78rem;color:var(--ink-2)}
+.sw-stats b{font:800 1.25rem var(--display);color:var(--ink)}
+.sw-gh{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:.9rem}.sw-bar{height:12px;border-radius:999px;background:var(--sunk);overflow:hidden;margin-top:6px}.sw-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--violet))}
+.nudge{position:fixed;right:18px;bottom:18px;z-index:60;width:min(360px,calc(100vw - 32px));background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px 18px;box-shadow:var(--shadow-up);display:grid;gap:8px}
+.nudge b{font:700 1rem var(--display)}.nudge p{margin:0;color:var(--ink-2);font-size:.88rem;line-height:1.6}.nudge .na{display:flex;gap:8px}
+.nudge .nx{position:absolute;right:8px;top:6px;border:0;background:none;font-size:1.2rem;color:var(--ink-2);cursor:pointer}
+@media (max-width:759px){.nudge{bottom:calc(76px + env(safe-area-inset-bottom,0px));right:16px}.sw-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
 </style>
 
 <div id="boot" role="status" aria-live="polite"><div class="bootin"><b class="wm"><span aria-hidden="true">an<span class="ii"><i>ı</i><i>ı</i></span>guide</span><span class="sr">aniiguide</span></b><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><small id="bootMsg">กำลังโหลดข้อมูล Aniimo…</small></div></div>
@@ -2144,8 +2155,10 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
       <div class="seg" id="psSeg" role="group" aria-label="ประเภท"><button type="button" data-k="" aria-pressed="true">ทั้งหมด</button><button type="button" data-k="active" aria-pressed="false">สกิลกดใช้</button><button type="button" data-k="passive" aria-pressed="false">พรสวรรค์ติดตัว</button></div>
       <div id="psList"></div>
     </section>
+    <aside class="nudge" id="nudge" hidden role="status"><button type="button" class="nx" id="nudgeX" aria-label="ปิด">×</button><b>☕ ใช้ AniiGuide มา <span id="nudgeDays"></span> วันแล้ว</b><p>เว็บนี้ฟรีและไม่มีโฆษณา ทำและอัปเดตทุกวันโดยแฟนเกมคนเดียว ถ้าช่วยคุณได้ เลี้ยงกาแฟสักแก้วช่วยให้เว็บอยู่ต่อได้</p><div class="na"><button type="button" class="btn primary" data-go="support" id="nudgeGo">สนับสนุนเว็บ</button><button type="button" class="btn" id="nudgeLater">ไว้ก่อน</button></div></aside>
     <section class="view" data-view="support" hidden>
       <div class="vhead"><p class="eyebrow">Support</p><h2>สนับสนุน AniiGuide</h2><p class="muted">เว็บนี้ทำโดยแฟนเกมคนเดียว เปิดให้ใช้ฟรีทุกฟีเจอร์ ไม่มีอะไรล็อกไว้ให้เฉพาะคนจ่ายเงิน</p></div>
+      <div class="dpanel supwhy" id="supWhy"></div>
       <div class="sup">
         <div class="dpanel sup-qr" id="supQr" hidden>
           <h3>เลี้ยงกาแฟคนทำเว็บ</h3>
@@ -2670,10 +2683,10 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
 </dialog>
 <dialog id="menu" aria-label="เมนูทั้งหมด"><div class="inner" id="menuInner"></div></dialog>
 
-<script src="data.js?v=45b1ed023a"></script>
-<script src="thumbs.js?v=45b1ed023a"></script>
-<script src="content.js?v=45b1ed023a"></script>
-<script src="i18n-en.js?v=45b1ed023a"></script>
+<script src="data.js?v=54703ca5fa"></script>
+<script src="thumbs.js?v=54703ca5fa"></script>
+<script src="content.js?v=54703ca5fa"></script>
+<script src="i18n-en.js?v=54703ca5fa"></script>
 <script>
 /* ===== theme ===== */
 (function(){
@@ -2836,7 +2849,7 @@ function go(id,push){
   if(id==='sets'&&typeof renderSets==='function')renderSets();
   if(id==='ranking'&&typeof renderStats==='function')renderStats();
   if(id==='pskills'&&typeof renderPSkills==='function')renderPSkills();
-  if(id==='items'&&!window.ITEMS_MORE&&!window.__imore){window.__imore=1;const sc=document.createElement('script');sc.src='items-more.js?v=45b1ed023a';
+  if(id==='items'&&!window.ITEMS_MORE&&!window.__imore){window.__imore=1;const sc=document.createElement('script');sc.src='items-more.js?v=54703ca5fa';
     sc.onload=()=>{const have=new Set(ITEMS.map(i=>i.slug));(window.ITEMS_MORE||[]).forEach(i=>{if(!have.has(i.slug)){ITEMS.push(i);ITEM_BY_NAME[i.n.toLowerCase()]=ITEM_BY_NAME[i.n.toLowerCase()]||i}});
       const c=document.getElementById('ic');if(c){const cats=new Set([...c.options].map(o=>o.value));[...new Set(ITEMS.map(i=>i.c))].filter(x=>!cats.has(x)).forEach(x=>c.insertAdjacentHTML('beforeend',`<option value="${esc(x)}">${esc(CAT_TH[x]||x)}</option>`))}
       if(current==='items'&&typeof renderItems==='function')renderItems()};document.head.appendChild(sc)}
@@ -3412,7 +3425,7 @@ function renderMap(){
     MAP.count=MAP.layers.map(()=>0);MAP.m.forEach(m=>MAP.count[m[0]]++);
     mapLayersUI();
   };
-  if(window.MAP)boot();else{const sc=document.createElement('script');sc.src='map.js?v=45b1ed023a';sc.onload=boot;sc.onerror=()=>{document.getElementById('mapLoad').textContent='โหลดข้อมูลแผนที่ไม่สำเร็จ'};document.head.appendChild(sc)}
+  if(window.MAP)boot();else{const sc=document.createElement('script');sc.src='map.js?v=54703ca5fa';sc.onload=boot;sc.onerror=()=>{document.getElementById('mapLoad').textContent='โหลดข้อมูลแผนที่ไม่สำเร็จ'};document.head.appendChild(sc)}
 }
 function mapSaveLayers(){try{localStorage.setItem('aniimo-map-layers',JSON.stringify([...MV.on].map(i=>MAP.layers[i].id)))}catch(_){}}
 function mapLayersUI(){
@@ -4151,7 +4164,7 @@ document.addEventListener('click',e=>{
 });
 
 /* ===== Pathfinder duels & Sanctums (from the map data) ===== */
-function withMap(fn){if(window.MAP){fn();return}const sc=document.createElement('script');sc.src='map.js?v=45b1ed023a';sc.onload=fn;sc.onerror=()=>{};document.head.appendChild(sc)}
+function withMap(fn){if(window.MAP){fn();return}const sc=document.createElement('script');sc.src='map.js?v=54703ca5fa';sc.onload=fn;sc.onerror=()=>{};document.head.appendChild(sc)}
 function regionAt(m){const x=m[1]/100,y=m[2]/100;return Object.keys(MAP.regions).find(n=>inPoly(x,y,MAP.regions[n]))||''}
 const mapBtn=i=>`<button type="button" class="chip" data-mapm-go="${i}" style="cursor:pointer">ดูบนแผนที่</button>`;
 const elBadges=a=>(a||[]).map(e=>badge(mEl(e))).join('');
@@ -4207,7 +4220,7 @@ function renderHeist(){
   hvCv=document.getElementById('hvCv');hvCtx=hvCv.getContext('2d');
   if(HV.ready){setTimeout(hvSize,0);return}if(HV.booting)return;HV.booting=true;
   const fail=()=>{document.getElementById('hvLoad').textContent='โหลดแผนที่ไม่สำเร็จ'};
-  const sc=document.createElement('script');sc.src='heist.js?v=45b1ed023a';sc.onerror=fail;
+  const sc=document.createElement('script');sc.src='heist.js?v=54703ca5fa';sc.onerror=fail;
   sc.onload=()=>{const ico=new Image();ico.onerror=fail;ico.onload=()=>{
     HV.ico=ico;HV.ready=true;
     const busy=new Set(['egg_lesser_chest','egg_loot_pile','sanctum_chest','sanctum_loot_pile']); // plain chests and piles crowd the map; off at first
@@ -4706,7 +4719,7 @@ route();
     skills:`<span class="wp els">${E.slice(0,5).map(e=>`<i style="background:var(--${e.k})"></i>`).join('')}</span>`,
     sets:`<span class="wp faces">${((window.SETS||[])[0]||{sets:[]}).sets.slice(0,3).map(x=>x.bust?`<img src="${x.bust}" alt="" loading="lazy">`:'').join('')}</span>`,
     map:'<span class="wp pins"><i></i><i></i><i></i></span>',helditems:'<span class="wp tiers"><i>R</i><i>E</i><i>L</i></span>'};
-  const itemN=(Array.isArray(ITEMS)?ITEMS:ITEMS.list).length,ptsN=(window.MAPSTAT&&MAPSTAT.n)||4334;
+  const itemN=(window.META&&META.items_total)||(Array.isArray(ITEMS)?ITEMS:ITEMS.list).length,ptsN=(window.MAPSTAT&&MAPSTAT.n)||4334;
   const setD=(id,t)=>{const el=document.getElementById(id);if(el)el.textContent=t};
   setD('dWiki',`Aniimo ทั้ง ${rel.length} ตัวพร้อม ${forms} ร่าง ค่าสถานะ สกิล และวิวัฒนาการ แผนที่ทวีป Idyll ${ptsN.toLocaleString(LOC)} จุด ไอเท็ม ${itemN.toLocaleString(LOC)} ชิ้น Tier List และบิลด์ แยกเป็นหน้าละเรื่อง อัปเดตตามข้อมูลเกมทุกวัน`);
   setD('dTools','จัดทีมและดูจุดอ่อน วางแผนวัสดุอัปเลเวล เช็กลิสต์งานรายวันและ Aniimo ที่สะสม ทุกอย่างบันทึกไว้ในเครื่องของคุณ ไม่ต้องสมัครสมาชิก');
@@ -4852,6 +4865,33 @@ function renderPSkills(){
 }
 document.addEventListener('click',e=>{const b=e.target.closest('#psSeg button');if(!b)return;psKind=b.dataset.k;document.querySelectorAll('#psSeg button').forEach(x=>x.setAttribute('aria-pressed',x===b));renderPSkills()});
 
+/* ===== support: why, live numbers, optional goal; gentle nudge for regular visitors ===== */
+(()=>{
+  const el=document.getElementById('supWhy');if(!el)return;
+  const D=(window.CODES&&CODES.donate)||{},rel=ANIIMO.filter(a=>!a.u).length,items=(window.META&&META.items_total)||(Array.isArray(ITEMS)?ITEMS:ITEMS.list).length;
+  const goal=+D.goal||0,raised=Math.min(+D.raised||0,goal),gp=goal?Math.round(raised/goal*100):0;
+  el.innerHTML=`<div class="sw-grid"><div><h3>เงินสนับสนุนใช้กับอะไร</h3><ul>
+      <li><b>ค่าโดเมน</b> aniiguide.trade ที่ต้องต่ออายุทุกปี</li>
+      <li><b>ที่เก็บไฟล์</b> โมเดล 3D และรูปทั้งหมด เมื่อคนเข้าเยอะจนเกินโควต้าฟรี</li>
+      <li><b>เวลาทำเว็บ</b> แปลข้อมูลเกมเป็นไทย สรุปข่าว เพิ่มเครื่องมือใหม่</li></ul></div>
+    <div><h3>ตอนนี้เว็บทำอะไรให้แล้ว</h3><div class="sw-stats"><span><b>${rel}</b>Aniimo</span><span><b>${items.toLocaleString(LOC)}</b>ไอเท็ม</span><span><b>${((window.MAPSTAT&&MAPSTAT.n)||4337).toLocaleString(LOC)}</b>จุดบนแผนที่</span><span><b>ทุกวัน</b>อัปเดตข้อมูล</span></div>
+      <p class="small muted">ไม่มีโฆษณา ไม่ต้องสมัคร ใช้ได้ทุกฟีเจอร์ฟรี เงินสนับสนุนไม่ได้ปลดล็อกอะไรเพิ่ม</p></div></div>
+    ${goal?`<div class="sw-goal"><div class="sw-gh"><b>${esc(D.for||'เป้าหมาย')}</b><span>${raised.toLocaleString(LOC)} / ${goal.toLocaleString(LOC)} บาท · ${gp}%</span></div><div class="sw-bar"><i style="width:${gp}%"></i></div></div>`:''}`;
+})();
+const NUDGE={days:[],last:0};
+try{Object.assign(NUDGE,JSON.parse(localStorage.getItem('aniimo-nudge')||'{}'))}catch(_){}
+{const d=new Date().toISOString().slice(0,10);if(!NUDGE.days.includes(d)){NUDGE.days=NUDGE.days.concat(d).slice(-60);try{localStorage.setItem('aniimo-nudge',JSON.stringify(NUDGE))}catch(_){}}}
+function nudge(){ // regular visitors only (3+ days), once per 14 days, never on the support or admin pages
+  if(!(window.META&&META.donate)||NUDGE.days.length<3||Date.now()-NUDGE.last<14*864e5||current==='support'||current==='admin')return;
+  const n=document.getElementById('nudge');if(!n||!n.hidden)return;
+  document.getElementById('nudgeDays').textContent=NUDGE.days.length;n.hidden=false;
+  NUDGE.last=Date.now();try{localStorage.setItem('aniimo-nudge',JSON.stringify(NUDGE))}catch(_){}track('view','nudge');
+}
+document.addEventListener('click',e=>{
+  if(e.target.closest('#nudgeX,#nudgeLater,#nudgeGo')){document.getElementById('nudge').hidden=true;if(e.target.closest('#nudgeGo'))track('view','nudge-go');return}
+  if(e.target.closest('#heroCopy,[data-c],#tmShot,#bldSave,#supShare'))setTimeout(nudge,1200); // right after something useful
+});
+setTimeout(()=>{if(current==='home')nudge()},25000); // or after a while on the home page
 function renderBuilds(){
   const g=document.getElementById('bgrid');if(!g)return;
   const be=document.getElementById('be');if(!be.options.length)be.innerHTML='<option value="">ทุกธาตุ</option>'+E.map(x=>`<option value="${x.k}">${x.th}</option>`).join('');

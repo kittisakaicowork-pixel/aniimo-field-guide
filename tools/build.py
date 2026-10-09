@@ -326,7 +326,7 @@ def main():
         ("PSKILLS", [dict(n=p["name"], k=p["kind"], mx=p["max"], d=p["desc"], lv=p["levels"],
                           th=(pth.get(p["name"]) or ["", ""])[0], dth=(pth.get(p["name"]) or ["", ""])[1]) for p in raw.get("pskills", [])]),
         ("SETS", json.loads((TOOLS / "sets.json").read_text()) if (TOOLS / "sets.json").exists() else []), ("RUSH", raw.get("boss_rush", [])),
-        ("META", dict(scraped=raw["scraped"], scraped_at=raw.get("scraped_at", ""), full=FULL, server="Asia-Pacific",
+        ("META", dict(scraped=raw["scraped"], scraped_at=raw.get("scraped_at", ""), full=FULL, server="Asia-Pacific", items_total=len(raw.get("items", [])),
                      # the owner's PromptPay QR for the support page; the block stays hidden until the file exists
                      donate=next((f"img/{f.name}" for f in sorted((ROOT / "img").glob("donate-qr.*"))), "")))])
     (out_dir / "data.js").write_text(js)
