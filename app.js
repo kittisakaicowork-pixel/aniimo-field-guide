@@ -92,7 +92,7 @@ const VIEWS=[
  {id:'daily',th:'เช็กลิสต์รายวัน',ic:'check',g:'start',d:'ติ๊กงานรายวัน รายสัปดาห์ รีเซ็ตเอง'},
  {id:'growth',th:'แนวทางพัฒนา',ic:'up',g:'start',d:'พัฒนา Aniimo และใช้ทรัพยากรให้คุ้ม'},
  {id:'guide',th:'ข้อมูลเกม',ic:'book',g:'start',d:'ระบบหลัก สเปกเครื่อง ปุ่มควบคุม มือถือ'},
- {id:'dex',th:'รายชื่อ Aniimo',ic:'dex',g:'mon',tab:1,tabTh:'Aniimo',d:A.length+' ตัว ค่าสถานะ สายวิวัฒนาการ'},
+ {id:'dex',th:'รายชื่อ Aniimo',ic:'dex',g:'mon',tab:1,tabTh:'Aniilog',d:A.length+' ตัว ค่าสถานะ สายวิวัฒนาการ'},
  {id:'skills',th:'สกิลและสีธาตุ',ic:'skill',g:'mon',d:'สกิลทุกตัวแยกตามสีธาตุ'},
  {id:'forms',th:'ร่างพิเศษ',ic:'forms',g:'mon',d:'ร่างตามพื้นที่ สภาพอากาศ Prismana'},
  {id:'sparkling',th:'เปล่งประกาย',ic:'spark',g:'mon',d:'12 แบบต่อร่าง'},
@@ -113,11 +113,11 @@ const VIEWS=[
  {id:'buffs',th:'ของกินและบัฟ',ic:'up',g:'world',d:'บัฟดาเมจ ป้องกัน ฮีล ซื้อที่ไหน'},
  {id:'cosmetics',th:'ชุดแต่งตัว',ic:'spark',g:'world',d:'ชุด เครื่องประดับ และวิธีได้'},
  {id:'systems',th:'ระบบเชิงลึก',ic:'layers',g:'world',d:'ยศ บ้าน ไข่ ร้านค้า ดันเจี้ยน Interlink'},
- {id:'builder',th:'ตัวจัดบิลด์',ic:'calc',g:'tools',d:'สกิล Held Item และ Rune ของแต่ละตัว'},
+ {id:'builder',th:'ตัวจัดบิลด์',ic:'calc',g:'tools',tab:1,tabTh:'บิลด์',d:'สกิล Held Item และ Rune ของแต่ละตัว'},
  {id:'builds',th:'บิลด์แนะนำ',ic:'star',g:'mon',d:'ไอเท็มและ Rune ที่เกมแนะนำ'},
  {id:'ranking',th:'จัดอันดับค่าสถานะ',ic:'chart',g:'mon',d:'เรียง Aniimo ตาม HP ATK DEF'},
  {id:'sets',th:'ชุดแต่งตัว',ic:'layers',g:'mon',d:'Transmog ทุกเซ็ตและทุกสี'},
- {id:'team',th:'จัดทีม',ic:'team',g:'tools',tab:1,d:'วิเคราะห์จุดแข็งจุดอ่อนของทีม'},
+ {id:'team',th:'จัดทีม',ic:'team',g:'tools',d:'วิเคราะห์จุดแข็งจุดอ่อนของทีม'},
  {id:'planner',th:'วางแผนวัสดุ',ic:'calc',g:'tools',d:'รวมวัสดุที่ต้องใช้'},
  {id:'compare',th:'เปรียบเทียบ',ic:'compare',g:'tools',d:'เทียบ 3 ตัวแบบเคียงกัน'},
  {id:'collection',th:'เช็กลิสต์สะสม',ic:'check',g:'tools',d:'ติ๊กตัวที่จับได้'},
@@ -132,7 +132,7 @@ const navItem=(v,cls)=>`<button type="button" class="${cls}" data-go="${v.id}"><
 document.getElementById('side').innerHTML=navItem(VIEWS[0],'navbtn')+GROUPS.map(g=>`<p class="grp">${g.th}</p>`+VIEWS.filter(v=>v.g===g.id).map(v=>navItem(v,'navbtn')).join('')).join('')+`<div class="foot"><button type="button" class="adentry" data-go="admin"><svg><use href="#i-lock"/></svg>หลังบ้าน</button><span>แฟนเมด · ข้อมูลจาก <a href="https://aniidex.com/" target="_blank" rel="noopener">AniiDex</a> · ${esc(META.scraped||'')}</span></div>`;
 document.getElementById('topnav').innerHTML=`<a class="tn-b" href="#home" data-go="home">หน้าแรก</a>`+GROUPS.map(g=>{const vs=VIEWS.filter(v=>v.g===g.id);return vs.length?`<div class="tn-g"><button type="button" class="tn-b" aria-haspopup="true">${g.th}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m6 9 6 6 6-6"/></svg></button><div class="tn-m">${vs.map(v=>navItem(v,'navbtn')).join('')}${g.id==='more'?`<button type="button" class="navbtn" data-go="admin"><svg><use href="#i-lock"/></svg><span>หลังบ้าน</span></button>`:''}</div></div>`:''}).join('');
 document.getElementById('tabbar').innerHTML=VIEWS.filter(v=>v.tab).map(v=>navItem({...v,th:v.tabTh||v.th},'')).join('')+`<button type="button" id="moreBtn"><svg><use href="#i-more"/></svg><span>เพิ่มเติม</span></button>`;
-document.getElementById('menuInner').innerHTML='<div class="grab"></div>'+GROUPS.map(g=>`<div class="mgrp"><p>${g.th}</p><div class="mtiles">${VIEWS.filter(v=>v.g===g.id).map(v=>`<button type="button" data-go="${v.id}"><svg><use href="#i-${v.ic}"/></svg>${v.th}</button>`).join('')}</div></div>`).join('')+'<button type="button" class="adentry" data-go="admin" style="justify-self:center"><svg><use href="#i-lock"/></svg>หลังบ้าน</button>';
+document.getElementById('menuInner').innerHTML='<div class="grab"></div><div class="mmenu-top"><button type="button" id="mmTheme">🌙 โหมดสว่าง/มืด</button><button type="button" data-go="support">☕ สนับสนุนเว็บ</button></div>'+GROUPS.map(g=>`<div class="mgrp"><p>${g.th}</p><div class="mtiles">${VIEWS.filter(v=>v.g===g.id).map(v=>`<button type="button" data-go="${v.id}"><svg><use href="#i-${v.ic}"/></svg>${v.th}</button>`).join('')}</div></div>`).join('')+'<button type="button" class="adentry" data-go="admin" style="justify-self:center"><svg><use href="#i-lock"/></svg>หลังบ้าน</button>';
 const FEAT=[
  {id:'dex',d:`${A.length} ตัว พร้อมค่าสถานะ สกิล และสายวิวัฒนาการ`},
  {id:'map',d:'หีบ ไข่ วัตถุดิบ และบอส 4,334 จุด'},
@@ -147,6 +147,7 @@ addEventListener('keydown',e=>{if(e.key!=='/'||e.ctrlKey||e.metaKey||e.altKey)re
 document.getElementById('hsearch').addEventListener('click',()=>{const g=document.getElementById('gq');g.focus();g.scrollIntoView({block:'nearest'})});
 const menu=document.getElementById('menu');
 document.getElementById('moreBtn').addEventListener('click',()=>menu.showModal());
+{const mb=document.getElementById('menuBtn');if(mb)mb.addEventListener('click',()=>menu.showModal())}
 menu.addEventListener('click',e=>{if(e.target===menu)menu.close()});
 let current='home';
 const RENDERED=new Set();
@@ -167,7 +168,7 @@ function go(id,push){
     sc.onload=()=>{const have=new Set(ITEMS.map(i=>i.slug));(window.ITEMS_MORE||[]).forEach(i=>{if(!have.has(i.slug)){ITEMS.push(i);ITEM_BY_NAME[i.n.toLowerCase()]=ITEM_BY_NAME[i.n.toLowerCase()]||i}});
       const c=document.getElementById('ic');if(c){const cats=new Set([...c.options].map(o=>o.value));[...new Set(ITEMS.map(i=>i.c))].filter(x=>!cats.has(x)).forEach(x=>c.insertAdjacentHTML('beforeend',`<option value="${esc(x)}">${esc(CAT_TH[x]||x)}</option>`))}
       if(current==='items'&&typeof renderItems==='function')renderItems()};document.head.appendChild(sc)}
-  current=id;if(typeof setTitle==='function'&&LANG!=='en')setTitle(id);
+  current=id;document.documentElement.dataset.v=id;if(typeof setTitle==='function'&&LANG!=='en')setTitle(id);
   document.querySelectorAll('.view').forEach(s=>s.hidden=s.dataset.view!==id);
   if(id==='map'&&MV.ready)setTimeout(mapSize,0);
   document.querySelectorAll('[data-go]').forEach(b=>{if(b.closest('.side,.tabbar,#menu,.topnav'))b.setAttribute('aria-current',b.dataset.go===id?'page':'false')});
@@ -2387,6 +2388,27 @@ setTimeout(()=>{const app=matchMedia('(display-mode: standalone)').matches||navi
   ['de','dr','ds','dw','dc','dp','dsp'].forEach(id=>{const el=document.getElementById(id);el&&el.addEventListener('change',count)});count()}}
 /* phones: page intros are folded to two lines; a tap opens them */
 document.addEventListener('click',e=>{const m=e.target.closest('.vhead p.muted');if(m&&!e.target.closest('a'))m.classList.toggle('open')});
+/* ===== phone home (mockup layout; desktop keeps the classic home) ===== */
+document.addEventListener('click',e=>{if(e.target.closest('#mmTheme'))document.getElementById('themeBtn').click();if(e.target.closest('[data-msearch]')){const g=document.getElementById('gq');g.focus()}});
+function renderMHome(){
+  const el=document.getElementById('mhome');if(!el)return;
+  const rel=ANIIMO.filter(a=>!a.u&&!a.cut),day=Math.floor(Date.now()/864e5),dp=dailyPick();
+  const ex=Array.from({length:4},(_,i)=>rel[(day*5+i*17+3)%rel.length]).filter((a,i,arr)=>arr.indexOf(a)===i);
+  const N=(window.NEWS||[]).slice().sort((a,b)=>b.date.localeCompare(a.date)).slice(0,3);
+  const ART=['aniimo-discovery','boundless-twining','idyll-ecology-field-notes','harvest-moon-festival'],nimg=(n,i)=>`img/events/${ART[i%ART.length]}.webp`;
+  const ic=i=>`<svg><use href="#i-${i}"/></svg>`;
+  el.innerHTML=`<div class="mh-hero"><img class="mh-art" src="img/hero-kv-720.webp?v=1" alt="" aria-hidden="true"><h1>คู่มือ Aniimo</h1><p>ออกสำรวจอิดิลล์ไปด้วยกัน</p>
+    <button type="button" class="mh-search" data-msearch><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>ค้นหา Aniimo หรือสกิล…</button></div>
+  <div class="mh-tiles"><button type="button" data-go="dex">${ic('dex')}Aniilog</button><button type="button" data-go="map">${ic('map')}แผนที่</button><button type="button" data-go="tier">${ic('tier')}Tier List</button><button type="button" data-go="builder">${ic('calc')}จัดบิลด์</button></div>
+  ${dp?`<button type="button" class="mh-daily" data-open="${dp.slug}"><span class="t"><span class="pill">✦ ANIIMO ประจำวัน</span><small>วันนี้พบกับ</small><b>${esc(dp.th||dp.name)}</b><span>ดูสกิลและสายวิวัฒนาการ</span><span class="go">ดูรายละเอียด ↗</span></span><img src="${dp.i}" alt=""></button>`:''}
+  <div class="mh-quick"><button type="button" class="q1" data-go="codes"><span class="ic">${ic('gift')}</span><span><b>โค้ดแลกรางวัล</b><small>รวมโค้ดไว้ที่เดียว</small></span><i>›</i></button><button type="button" class="q2" data-go="daily"><span class="ic">${ic('check')}</span><span><b>เช็กลิสต์รายวัน</b><small>เตรียมพร้อมก่อนออกล่า</small></span><i>›</i></button></div>
+  <div class="mh-h"><h2>สำรวจโลก Aniimo</h2><a href="#dex" data-go="dex">ดูทั้งหมด →</a></div>
+  <div class="mh-explore">${ex.map(a=>`<button type="button" data-open="${a.slug}" style="--c:var(--${a.e[0]||'neutral'})"><span class="art"><img src="${a.i}" alt="" loading="lazy"></span><span class="cap"><b>${esc(a.th||a.name)}</b>${a.e.slice(0,1).map(badge).join('')}<i>›</i></span></button>`).join('')}</div>
+  <div class="mh-h"><h2>อัปเดตและคู่มือ</h2><a href="#news" data-go="news">ทั้งหมด →</a></div>
+  <div class="mh-news"><a href="#beginner" data-go="beginner"><img src="img/events/journey-handbook.webp" alt="" loading="lazy"><span><b>เริ่มต้นผจญภัยในอิดิลล์</b><small>สิ่งที่ห้ามพลาดก่อนเริ่มเล่น</small></span><i>›</i></a>
+    ${N.map((n,i)=>`<a href="#news-${n.id}"><img src="${esc(nimg(n,i))}" alt="" loading="lazy"><span><b>${esc(n.title)}</b><small>${new Date(n.date+'T00:00:00+07:00').toLocaleDateString(LOC,{day:'numeric',month:'short'})}</small></span><i>›</i></a>`).join('')}</div>`;
+}
+try{renderMHome()}catch(e){console.error(e)}
 function renderBuilds(){
   const g=document.getElementById('bgrid');if(!g)return;
   const be=document.getElementById('be');if(!be.options.length)be.innerHTML='<option value="">ทุกธาตุ</option>'+E.map(x=>`<option value="${x.k}">${x.th}</option>`).join('');
