@@ -1312,6 +1312,17 @@ body{overflow-x:clip}
 .howto summary{cursor:pointer;display:grid;gap:2px;list-style:none}.howto summary::-webkit-details-marker{display:none}
 .howto summary b{font:700 1.05rem var(--display)}.howto summary b::before{content:"▸ ";color:var(--accent)}.howto[open] summary b::before{content:"▾ "}
 .howto .prose{margin-top:10px}.howto table{margin:8px 0}
+
+/* support pill in the top bar */
+.suppill{display:inline-flex;align-items:center;gap:6px;flex:none;padding:6px 12px;border-radius:999px;text-decoration:none;white-space:nowrap;
+  background:linear-gradient(90deg,color-mix(in srgb,var(--violet) 16%,var(--surface)),color-mix(in srgb,var(--peach) 16%,var(--surface)));
+  border:1px solid color-mix(in srgb,var(--violet) 28%,transparent);color:var(--ink);font:700 .82rem var(--display)}
+.suppill b{color:var(--violet)}.suppill small{font:500 .68rem var(--body);color:var(--ink-2)}
+.suppill:hover{box-shadow:var(--shadow);transform:translateY(-1px)}
+@media (max-width:1180px){.suppill small{display:none}}
+@media (max-width:759px){.suppill{padding:6px 9px}.suppill b{display:none}}
+
+.appbar .gsearch input{padding-left:38px} /* clear the magnifier icon */
 </style>
 
 <div id="boot" role="status" aria-live="polite"><div class="bootin"><b class="wm"><span aria-hidden="true">an<span class="ii"><i>ı</i><i>ı</i></span>guide</span><span class="sr">aniiguide</span></b><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><small id="bootMsg">กำลังโหลดข้อมูล Aniimo…</small></div></div>
@@ -1359,6 +1370,7 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
 <header class="appbar">
   <a class="logo" href="#home" data-go="home"><b class="wm"><span aria-hidden="true">an<span class="ii"><i>ı</i><i>ı</i></span>guide</span><span class="sr">aniiguide</span></b></a>
   <nav class="topnav" id="topnav" aria-label="เมนูหลัก"></nav>
+  <a class="suppill" href="#support" data-go="support" aria-label="สนับสนุนเว็บ"><span aria-hidden="true">☕</span><b>สนับสนุนเว็บ</b><small>เลี้ยงกาแฟ</small></a>
   <div class="gsearch">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
     <input type="search" id="gq" placeholder="ค้นหา Aniimo หรือสกิล" aria-label="ค้นหา Aniimo หรือสกิล" autocomplete="off">
