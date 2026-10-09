@@ -3882,7 +3882,7 @@ function engage(reason){if(SES.engaged)return;SES.engaged=reason;sesSave();track
   const touch=()=>{if(!SES.touched){SES.touched=true;sesSave()}};
   ['pointerdown','keydown','wheel'].forEach(t=>addEventListener(t,touch,{passive:true,capture:true}));
   addEventListener('scroll',()=>{if(scrollY>120)touch()},{passive:true});
-  setInterval(()=>{if(document.hidden||SES.active>=10800)return;SES.active++;if(SES.touched&&SES.active>=10)engage('active');if(SES.active>=180)engage('long');if(SES.active%5===0)sesSave()},1000);
+  setInterval(()=>{if(document.hidden||SES.active>=10800)return;SES.active++;if(SES.touched&&SES.active>=10)engage('active');if(SES.active>=180)engage('long');if(SES.active%5===0)sesSave();if(SES.active%60===0)leave()},1000); // every active minute too, so the back office sees visits still open
   let sent=-1;const leave=()=>{if(SES.active!==sent){sent=SES.active;sesSave();track('leave',String(SES.active))}};
   document.addEventListener('visibilitychange',()=>{if(document.hidden)leave()});addEventListener('pagehide',leave);
 }
@@ -4075,7 +4075,7 @@ async function renderAdmin(quiet){
         <div class="asep"></div>
         <small class="amute">เวลาใช้งานของรอบที่ใช้งานจริง · ค่ากลาง</small>
         <b class="abig">${eg.median_secs_engaged!=null?fmtSecs(eg.median_secs_engaged):'—'}</b>
-        <small class="amute">ค่าเฉลี่ย ${eg.avg_secs_engaged!=null?fmtSecs(eg.avg_secs_engaged):'—'} · ค่าเฉลี่ยสูงกว่าเพราะมีบางรอบเปิดค้างไว้นาน</small></div>`
+        <small class="amute">ค่าเฉลี่ย ${eg.avg_secs_engaged!=null?fmtSecs(eg.avg_secs_engaged):'—'} · ค่าเฉลี่ยสูงกว่าเพราะมีบางรอบเปิดค้างไว้นาน</small><small class="amute">นับเฉพาะเวลาที่หน้าเว็บเปิดอยู่บนจอ เบราว์เซอร์ส่งเวลาทุก 1 นาที หน้านี้ดึงใหม่ทุก 1 นาที · เป็นค่ากลางของทั้งช่วงที่เลือก เลือก “วันนี้” เพื่อดูตัวเลขที่ขยับเร็ว</small></div>`
       :`<div class="acard"><div class="ahead"><h3>คุณภาพการเข้าใช้งาน</h3></div><p class="amute">${eg&&eg.err==='missing'?'ยังไม่ได้ติดตั้งในฐานข้อมูล: รัน tools/admin/engagement.sql ใน Supabase SQL Editor':'โหลดข้อมูลส่วนนี้ไม่สำเร็จ กดรีเฟรชเพื่อลองใหม่'}</p></div>`;
     const fbCard=`<div class="acard"><div class="ahead"><h3>คำแนะนำจากผู้ใช้</h3>${newFb.length?`<span class="apill">ใหม่ ${newFb.length}</span>`:''}</div>
         ${newFb.length?newFb.slice(0,3).map(f=>`<div class="afb"><small>${esc(FB_TOPIC[f.topic]||f.topic)} · ${new Date(f.at).toLocaleDateString(LOC,{day:'numeric',month:'short'})}</small><p>${esc(f.message.slice(0,120))}${f.message.length>120?'…':''}</p></div>`).join(''):'<div class="aempty"><b>ไม่มีคำแนะนำใหม่</b><span>ไม่มีรายการในหมวดนี้</span></div>'}
