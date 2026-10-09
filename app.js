@@ -281,7 +281,7 @@ function radarsInfo(a,els){
 function monNav(a){ // previous / next by number, so a visitor from search keeps browsing
   const L=A.filter(x=>!x.u),i=L.indexOf(a);if(i<0)return '';
   const pv=L[(i-1+L.length)%L.length],nx=L[(i+1)%L.length];
-  const btn=(x,dir)=>`<button type="button" class="mnav ${dir}" data-open="${x.slug}"><img src="${TH(x.i)}" alt=""><span><small>${dir==='prev'?'← ก่อนหน้า':'ถัดไป →'} ${numLabel(x)}</small><b>${esc(x.th||x.name)}</b></span></button>`;
+  const btn=(x,dir)=>`<button type="button" class="mnav ${dir}" data-open="${x.slug}"><img src="${TH(x.i)}" alt=""><span><small>${dir==='prev'?'← ก่อนหน้า':'ถัดไป →'} ${numLabel(x)}</small><b>${esc(x.name)}</b></span></button>`;
   return `<div class="mnavs">${btn(pv,'prev')}${btn(nx,'next')}</div>`;
 }
 function foodInfo(a){
@@ -336,7 +336,7 @@ function renderDetail(){
   dlgBody.innerHTML=`<div class="dlg">
    <div class="hero-pic"><button type="button" class="dback" onclick="document.getElementById('dlg').close()" aria-label="กลับ">← กลับ</button>${a.f.length?`<div class="fsw" role="group" aria-label="เลือกร่าง"><button type="button" data-open="${a.slug}" data-form="" aria-pressed="${!cur}" title="ร่างปกติ"><img src="${TH(a.i)}" alt=""></button>${a.f.map((f,i)=>`<button type="button" data-open="${a.slug}" data-form="${i}" aria-pressed="${cur===f}" title="${esc(f.n)}">${f.i?`<img src="${TH(f.i)}" alt="">`:`<span>${esc(f.n.slice(0,2))}</span>`}</button>`).join('')}</div>`:''}${dState.spark&&spIdx!=null?(META.full&&SPK.ids?`<img src="spk/${SPK.ids[spIdx]}_${String(dState.spark).padStart(2,'0')}.webp" alt="${esc(a.name)} ${STYPES[dState.spark-1]}">`:`<span class="spr" style="${sprStyle(dState.spark,spIdx,1)}" role="img" aria-label="${esc(a.name)} ${STYPES[dState.spark-1]}"></span>`):`<img src="${img}" alt="${esc(a.name)}" class="${!cur&&a.cut?'cut':''}">`}<span class="fname">${cur?KIND[cur.k]+' · '+esc(cur.n):'ร่างปกติ'}${dState.spark?' · ✦ '+STYPES[dState.spark-1]:''}</span></div>
    <div class="body">
-    <div><p class="eyebrow">${numLabel(a)} · ${a.st}${a.u?' · ยังไม่เปิดให้จับ':''}</p><h3 id="dlgTitle">${esc(a.name)}</h3>${a.th&&a.th!==a.en?`<p class="muted small">${esc(LANG==='th'?a.en:a.th)}</p>`:''}</div>
+    <div><p class="eyebrow">${numLabel(a)} · ${a.st}${a.u?' · ยังไม่เปิดให้จับ':''}</p><h3 id="dlgTitle">${esc(a.name)}</h3>${LANG==='th'&&a.th&&a.th!==a.en?`<p class="muted small">${esc(a.en)}</p>`:''}</div>
     <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">${els.map(badge).join('')}${roleChip(a.r)}<span class="dots" style="margin-left:4px" title="สีสกิล">${cols.map(k=>`<i style="background:var(--${k})"></i>`).join('')}</span></div>
     <div class="dactions">${a.u?'':`<button type="button" data-col="${cur?'f':'c'}" data-key="${cur?a.slug+'|'+dState.form:a.slug}" aria-pressed="${!!(cur?COL.d.f[a.slug+'|'+dState.form]:COL.d.c[a.slug])}">${(cur?COL.d.f[a.slug+'|'+dState.form]:COL.d.c[a.slug])?'✓ จับแล้ว':'+ จับแล้ว'}${cur?' (ร่างนี้)':''}</button>`}<button type="button" data-cmp-add="${a.slug}">${CMP.includes(a.slug)?'✓ อยู่ในการเปรียบเทียบ':'+ เปรียบเทียบ'}</button><button type="button" data-team-add="${a.slug}">+ ใส่ทีม</button><button type="button" data-share="${a.slug}">แชร์</button></div>
     <div class="dtabs" role="tablist">${tabs.map(([k,l])=>`<button type="button" role="tab" data-dtab="${k}" aria-selected="${dState.tab===k}">${l}</button>`).join('')}</div>
@@ -2058,7 +2058,7 @@ route();
   document.getElementById('homeWiki').innerHTML=W.map(([id,t,b,d],i)=>`<button type="button" class="wcard${i<1?' big':''}" data-go="${id}">${PREV[id]||''}<span class="wtop"><svg><use href="#i-${(VIEWS.find(v=>v.id===id)||{}).ic||'star'}"/></svg><b>${t}</b><em>${b}</em></span><small>${d}</small></button>`).join('');
   const day=Math.floor(Date.now()/864e5),pool=rel.filter(a=>!a.cut);
   const picks=Array.from({length:6},(_,i)=>pool[(day*7+i*13)%pool.length]);
-  document.getElementById('homePicks').innerHTML=picks.map(a=>`<button type="button" class="pick" data-open="${a.slug}"><span class="no">${numLabel(a)}</span><img src="${TH(a.i)}" alt="" loading="lazy"><b>${esc(a.th||a.name)}</b><span style="display:flex;gap:3px;justify-content:center">${a.e.map(badge).join('')}</span><small class="muted">${a.r}</small></button>`).join('');
+  document.getElementById('homePicks').innerHTML=picks.map(a=>`<button type="button" class="pick" data-open="${a.slug}"><span class="no">${numLabel(a)}</span><img src="${TH(a.i)}" alt="" loading="lazy"><b>${esc(a.name)}</b><span style="display:flex;gap:3px;justify-content:center">${a.e.map(badge).join('')}</span><small class="muted">${a.r}</small></button>`).join('');
   const N=(window.NEWS||[]).slice().sort((a,b)=>b.date.localeCompare(a.date)).slice(0,3);
   document.getElementById('homeNews').innerHTML=N.map(n=>`<a class="hncard" href="#news-${n.id}"><small class="muted">${new Date(n.date+'T00:00:00+07:00').toLocaleDateString(LOC,{day:'numeric',month:'long',year:'numeric'})}</small><b>${esc(n.title)}</b><span class="small muted">${esc(n.lede||'')}</span></a>`).join('');
   document.getElementById('sitefoot').innerHTML=`<div class="sf-brand"><b class="wm"><svg class="brandmark" viewBox="0 0 260 72" aria-hidden="true"><use href="img/aniiguide-logo.svg?v=4#wordmark"></use></svg><span class="sr">AniiGuide</span></b><p class="small muted">คู่มือเกม Aniimo ภาษาไทย แฟนเมด ไม่เกี่ยวข้องกับ Pawprint Studio · ภาพตัวละคร แผนที่ อีเวนต์ และบอสใช้โดยได้รับอนุญาตจาก <a href="https://aniidex.com/" target="_blank" rel="noopener">AniiDex</a></p><p class="small"><a href="#privacy" data-go="privacy">นโยบายความเป็นส่วนตัว</a> · <a href="#support" data-go="support">สนับสนุนเว็บ</a></p></div>`+GROUPS.map(g=>{const vs=VIEWS.filter(v=>v.g===g.id);return vs.length?`<div><p class="sf-h">${g.th}</p>${vs.map(v=>`<a href="#${v.id}" data-go="${v.id}">${v.th}</a>`).join('')}</div>`:''}).join('');
@@ -2075,7 +2075,7 @@ function bldLoad(h){const [slug,lv,sk,he,ru]=h.slice(8).split('~');if(!BY[slug])
 function bldUseRec(a){BLD.held=a.rec&&a.rec.h?a.rec.h[0]:'';BLD.runes=a.rec&&a.rec.r?[a.rec.r[0]]:[];}
 function renderBuilder(){
   const el=document.getElementById('bld');if(!el)return;
-  const rel=A.filter(a=>!a.u).slice().sort((x,y)=>(x.th||x.name).localeCompare(y.th||y.name,'th'));
+  const rel=A.filter(a=>!a.u).slice().sort((x,y)=>x.name.localeCompare(y.th||y.name,'th'));
   if(!BLD.slug){BLD.slug=rel[0].slug;bldUseRec(rel[0])}
   const a=BY[BLD.slug],sks=skillsOf(a.slug).filter(s=>s.k!=='atk');
   BLD.sk=BLD.sk.filter(i=>i<sks.length);
@@ -2083,8 +2083,8 @@ function renderBuilder(){
   const bonus=m?{k:m[2].toUpperCase(),v:+m[1]*BLD.lv}:null;
   const statRows=STAT.map(k=>{const add=bonus&&(bonus.k===k||(bonus.k==='DEF'&&k==='PDEF'))?bonus.v:0;return `<div class="stat"><span>${STAT_L[k]||k}</span><span class="bar"><i style="width:${Math.min(100,a.s[k]/130*100)}%"></i></span><b>${a.s[k]}${add?` <em class="plus">+${Math.round(add*10)/10}</em>`:''}</b></div>`}).join('');
   el.innerHTML=`<div class="bld-l">
-    <label>Aniimo<select id="bldMon">${rel.map(x=>`<option value="${x.slug}"${x.slug===a.slug?' selected':''}>${esc(x.th||x.name)} · ${esc(x.name)}</option>`).join('')}</select></label>
-    <div class="bld-pic"><img src="${TH(a.i)}" alt=""><div><b>${esc(a.th||a.name)}</b><div style="display:flex;gap:4px;margin-top:4px">${a.e.map(badge).join('')}${roleChip(a.r)}</div></div></div>
+    <label>Aniimo<select id="bldMon">${rel.map(x=>`<option value="${x.slug}"${x.slug===a.slug?' selected':''}>${esc(x.name)} · ${esc(x.name)}</option>`).join('')}</select></label>
+    <div class="bld-pic"><img src="${TH(a.i)}" alt=""><div><b>${esc(a.name)}</b><div style="display:flex;gap:4px;margin-top:4px">${a.e.map(badge).join('')}${roleChip(a.r)}</div></div></div>
     <label>เลเวล <b id="bldLvV">${BLD.lv}</b><input type="range" id="bldLv" min="1" max="100" value="${BLD.lv}"></label>
     <label>Held Item<select id="bldHeld"><option value="">— ไม่ใส่ —</option>${BLD_HELD.map(n=>`<option${n===BLD.held?' selected':''}>${esc(n)}</option>`).join('')}</select></label>
     ${fx?`<p class="small muted">${esc(tr(fx))}</p>`:''}
@@ -2111,7 +2111,7 @@ document.addEventListener('click',e=>{
   const rr=t.closest('[data-rrm]');if(rr){BLD.runes.splice(+rr.dataset.rrm,1);renderBuilder();return}
   if(t.closest('#bldRec')){bldUseRec(BY[BLD.slug]);renderBuilder();return}
   if(t.closest('#bldShare')){const u=location.href.split('#')[0]+'#'+bldCode();navigator.clipboard&&navigator.clipboard.writeText(u);toast('คัดลอกลิงก์บิลด์แล้ว');return}
-  if(t.closest('#bldSave')){const l=bldSaved();const a=BY[BLD.slug];l.unshift({name:(a.th||a.name)+(BLD.held?' · '+BLD.held:''),code:bldCode()});try{localStorage.setItem('aniimo-builds',JSON.stringify(l.slice(0,20)))}catch(_){}renderBuilder();toast('บันทึกบิลด์แล้ว');return}
+  if(t.closest('#bldSave')){const l=bldSaved();const a=BY[BLD.slug];l.unshift({name:a.name+(BLD.held?' · '+BLD.held:''),code:bldCode()});try{localStorage.setItem('aniimo-builds',JSON.stringify(l.slice(0,20)))}catch(_){}renderBuilder();toast('บันทึกบิลด์แล้ว');return}
   const bo=t.closest('[data-bopen]');if(bo){bldLoad(bo.dataset.bopen);renderBuilder();return}
   const bd=t.closest('[data-bdel]');if(bd){const l=bldSaved();l.splice(+bd.dataset.bdel,1);try{localStorage.setItem('aniimo-builds',JSON.stringify(l))}catch(_){}renderBuilder();return}
   const ob=t.closest('[data-bbuild]');if(ob){const a=BY[ob.dataset.bbuild];BLD.slug=a.slug;BLD.sk=[];bldUseRec(a);go('builder');renderBuilder();return}
@@ -2130,12 +2130,12 @@ function renderSets(){
     const groups=[3,4,5].map(q=>{const cs=x.colours.filter(c=>c.q===q);return cs.length?`<p class="small"><span class="qtag q${q}">${SQ[q]}</span> <span class="muted">${cs.length} สี · สุ่มได้สีละ ${cs[0].o[0]}%</span></p><div class="swrow">${cs.map(c=>`<button type="button" class="sw q${c.q}" data-sset="${x.slug}" data-sc="${c.id}" aria-pressed="${c.id===col.id}" title="${nm(c)}" aria-label="${nm(c)}">${st.imgs[c.id]?`<img src="${st.imgs[c.id]}" alt="" loading="lazy">`:''}</button>`).join('')}</div>`:''}).join('');
     return `<div class="sset"><div>
       <div class="stabs">${x.sets.map(s=>`<button type="button" class="stab" data-sset="${x.slug}" data-sk="${s.k}" aria-pressed="${s.k===st.k}">${s.bust?`<img src="${s.bust}" alt="">`:''}${nm(s)}</button>`).join('')}</div>
-      <figure class="sstage" style="margin:0"><img src="${st.imgs[col.id]||''}" alt="${esc((a.th||a.name)+' '+st.th+' · '+col.th)}"><figcaption><b>${nm(st)}</b> · ${nm(col)}</figcaption></figure>
+      <figure class="sstage" style="margin:0"><img src="${st.imgs[col.id]||''}" alt="${esc(a.name+' '+st.th+' · '+col.th)}"><figcaption><b>${nm(st)}</b> · ${nm(col)}</figcaption></figure>
     </div><div>
-      <h3 style="margin:0 0 4px"><button type="button" style="border:0;background:none;padding:0;font:inherit;color:var(--accent);cursor:pointer" data-open="${x.slug}">${esc(a.th||a.name)}</button></h3>
+      <h3 style="margin:0 0 4px"><button type="button" style="border:0;background:none;padding:0;font:inherit;color:var(--accent);cursor:pointer" data-open="${x.slug}">${esc(a.name)}</button></h3>
       <p class="small muted" style="margin:0 0 10px">${x.sets.length} เซ็ต · ${x.colours.length} สี</p>
       <p class="eyebrow" style="margin-bottom:6px">${nm(st)} <span class="qtag q${st.q}">${st.base?'ร่างเริ่มต้น':'เซ็ต'+SQ[st.q]}</span></p>
-      ${st.base?'<p class="small muted">รูปลักษณ์ตั้งต้นของ '+esc(a.th||a.name)+' ไม่ต้องสุ่ม</p>':`<table class="plain spieces"><thead><tr><th>ช่อง</th><th>ชิ้น</th><th style="text-align:right">โอกาสสุ่ม (ล็อก 0/1/2/3 ช่อง)</th></tr></thead><tbody>${st.pieces.map(p=>`<tr><td>${esc(p.tn)}</td><td>${nm(p)} <span class="qtag q${p.q}">${SQ[p.q]}</span></td><td style="text-align:right" class="small">${pct(p)}</td></tr>`).join('')}</tbody></table>`}
+      ${st.base?'<p class="small muted">รูปลักษณ์ตั้งต้นของ '+esc(a.name)+' ไม่ต้องสุ่ม</p>':`<table class="plain spieces"><thead><tr><th>ช่อง</th><th>ชิ้น</th><th style="text-align:right">โอกาสสุ่ม (ล็อก 0/1/2/3 ช่อง)</th></tr></thead><tbody>${st.pieces.map(p=>`<tr><td>${esc(p.tn)}</td><td>${nm(p)} <span class="qtag q${p.q}">${SQ[p.q]}</span></td><td style="text-align:right" class="small">${pct(p)}</td></tr>`).join('')}</tbody></table>`}
       <p class="eyebrow" style="margin:14px 0 4px">สี</p>${groups}
       ${x.rule?`<p class="small muted">สุ่มแต่ละครั้งใช้ ${esc(LANG==='en'?x.rule.item[1]:x.rule.item[0])} ${x.rule.lock.map((n,i)=>i?`ล็อก ${i} ช่อง ${n} ชิ้น`:`${n} ชิ้น`).join(' · ')} ล็อกได้สูงสุด ${x.rule.max} ช่อง ยิ่งล็อกมากโอกาสได้ชิ้นระดับสูงยิ่งเพิ่ม</p>`:''}
     </div></div>`}).join('')||'<p class="muted">ยังไม่มีชุดแต่งตัว</p>';
@@ -2160,7 +2160,7 @@ function renderStats(){
   const list=A.filter(a=>!a.u&&a.s&&a.s.HP&&(!q||nameHit(a,q))&&(!ek||a.e.includes(ek))&&(!rk||a.r===rk)&&(!sk||a.st===sk)).sort((x,y)=>(val(x,STS.k)-val(y,STS.k))*STS.dir||x.no.localeCompare(y.no));
   const max={};STAT.concat('TOTAL').forEach(k=>max[k]=Math.max(1,...A.filter(a=>a.s&&a.s.HP).map(a=>val(a,k))));
   const head=STAT.concat('TOTAL').map(k=>`<th data-sk="${k}" class="${STS.k===k?'on':''}" style="text-align:right;cursor:pointer">${k==='TOTAL'?'รวม':STAT_L[k]||k}${STS.k===k?(STS.dir<0?' ↓':' ↑'):''}</th>`).join('');
-  t.innerHTML=`<thead><tr><th>#</th><th>Aniimo</th>${head}</tr></thead><tbody>${list.map((a,i)=>`<tr><td class="small muted">${i+1}</td><td><button type="button" class="stn" data-open="${a.slug}"><img src="${TH(a.i)}" alt="" loading="lazy"><span><b>${esc(a.th||a.name)}</b><span class="row">${a.e.map(badge).join('')}${roleChip(a.r)}</span></span></button></td>${STAT.concat('TOTAL').map(k=>`<td style="text-align:right"><span class="stv" style="--w:${Math.round(val(a,k)/max[k]*100)}%">${val(a,k)}</span></td>`).join('')}</tr>`).join('')}</tbody>`;
+  t.innerHTML=`<thead><tr><th>#</th><th>Aniimo</th>${head}</tr></thead><tbody>${list.map((a,i)=>`<tr><td class="small muted">${i+1}</td><td><button type="button" class="stn" data-open="${a.slug}"><img src="${TH(a.i)}" alt="" loading="lazy"><span><b>${esc(a.name)}</b><span class="row">${a.e.map(badge).join('')}${roleChip(a.r)}</span></span></button></td>${STAT.concat('TOTAL').map(k=>`<td style="text-align:right"><span class="stv" style="--w:${Math.round(val(a,k)/max[k]*100)}%">${val(a,k)}</span></td>`).join('')}</tr>`).join('')}</tbody>`;
 }
 document.addEventListener('click',e=>{const h=e.target.closest('#stTable th[data-sk]');if(!h)return;const k=h.dataset.sk;STS=STS.k===k?{k,dir:-STS.dir}:{k,dir:-1};renderStats()});
 ['stq','ste','str','sts'].forEach(id=>{const el=document.getElementById(id);el&&el.addEventListener(el.tagName==='INPUT'?'input':'change',renderStats)});
@@ -2271,7 +2271,7 @@ function cmCard(p){
   const srv=p.server?`<span class="chip">${esc(SRV_TH[p.server]||p.server)}</span>`:'';
   const rp=`<div class="cm-rp"><button type="button" class="btn" data-cmrep="${p.id}">💬 ${p.replies?`${p.replies} คำตอบ`:'ตอบกลับ'}</button><div class="cm-replies" id="cmr-${p.id}" hidden></div></div>`;
   if(p.kind==='question'||p.kind==='talk')return `<article class="dpanel cm-card ${p.kind}"><div class="cm-h"><div><b>${p.kind==='question'?'❓ ':''}${esc(p.title)}</b><small>${when}</small></div>${d.tag&&CM_TAGS[d.tag]?`<span class="chip">${CM_TAGS[d.tag]}</span>`:''}</div>${p.body?`<p>${esc(p.body)}</p>`:''}${rp}</article>`;
-  if(p.kind==='build'){const a=BY[d.slug];return `<article class="dpanel cm-card"><div class="cm-h">${a?`<img src="${TH(a.i)}" alt="">`:''}<div><b>${esc(p.title)}</b><small>${a?esc(a.th||a.name)+' · ':''}${when}</small></div></div>${p.body?`<p>${esc(p.body)}</p>`:''}${d.code&&/^builder-/.test(d.code)?`<a class="btn" href="#${esc(d.code)}">เปิดในตัวจัดบิลด์</a>`:''}${rp}</article>`}
+  if(p.kind==='build'){const a=BY[d.slug];return `<article class="dpanel cm-card"><div class="cm-h">${a?`<img src="${TH(a.i)}" alt="">`:''}<div><b>${esc(p.title)}</b><small>${a?esc(a.name)+' · ':''}${when}</small></div></div>${p.body?`<p>${esc(p.body)}</p>`:''}${d.code&&/^builder-/.test(d.code)?`<a class="btn" href="#${esc(d.code)}">เปิดในตัวจัดบิลด์</a>`:''}${rp}</article>`}
   if(p.kind==='home')return `<article class="dpanel cm-card"><div class="cm-h"><div><b>${esc(p.title)}</b><small>${when}</small></div>${srv}</div>${d.code?`<div class="cm-code"><code>${esc(d.code)}</code><button type="button" class="btn" data-cmcopy="${esc(d.code)}">คัดลอก</button></div>`:''}${p.body?`<p>${esc(p.body)}</p>`:''}${rp}</article>`;
   return `<article class="dpanel cm-card"><div class="cm-h"><div><b>${esc(p.title)}</b><small>${d.ign?esc(d.ign)+' · ':''}${when}</small></div>${srv}</div>${d.uid?`<div class="cm-code"><span class="small muted">UID</span><code>${esc(d.uid)}</code><button type="button" class="btn" data-cmcopy="${esc(d.uid)}">คัดลอก</button></div>`:''}${p.body?`<p>${esc(p.body)}</p>`:''}${rp}</article>`;
 }
@@ -2285,7 +2285,7 @@ function cmRender(){
 function cmForm(){
   const f=document.getElementById('cmForm'),k=CM.kind,pf=CM.prefill||{};
   const srv=`<label>เซิร์ฟเวอร์<select name="server"><option value="asia">Asia-Pacific</option><option value="america">Americas</option><option value="europe">Europe</option></select></label>`;
-  const opts=ANIIMO.filter(a=>!a.u).map(a=>`<option value="${a.slug}" ${pf.slug===a.slug?'selected':''}>${esc(a.th||a.name)}</option>`).join('');
+  const opts=ANIIMO.filter(a=>!a.u).map(a=>`<option value="${a.slug}" ${pf.slug===a.slug?'selected':''}>${esc(a.name)}</option>`).join('');
   const tagSel=`<label>หมวด<select name="tag">${Object.entries(CM_TAGS).map(([k,l])=>`<option value="${k}">${l}</option>`).join('')}</select></label>`;
   const fields={question:`${tagSel}<label>คำถาม<input name="title" maxlength="80" required placeholder="เช่น Aniimo ตัวไหนเหมาะกับ Egg Heist ระดับ Chaos"></label><label>รายละเอียด<textarea name="body" maxlength="1000" rows="4" placeholder="ตอนนี้มีตัวไหน เล่นถึงไหนแล้ว"></textarea></label>`,
     talk:`${tagSel}<label>หัวข้อ<input name="title" maxlength="80" required placeholder="เช่น ใครได้ Prismana จาก Vein Abundance บ้าง"></label><label>ข้อความ<textarea name="body" maxlength="1000" rows="4"></textarea></label>`,
@@ -2401,10 +2401,10 @@ function renderMHome(){
   el.innerHTML=`<div class="mh-hero"><img class="mh-art" src="img/hero-kv-720.webp?v=1" alt="" aria-hidden="true"><h1>คู่มือ Aniimo</h1><p>ออกสำรวจอิดิลล์ไปด้วยกัน</p>
     <button type="button" class="mh-search" data-msearch><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>ค้นหา Aniimo หรือสกิล…</button></div>
   <div class="mh-tiles"><button type="button" data-go="dex">${ic('dex')}Aniilog</button><button type="button" data-go="map">${ic('map')}แผนที่</button><button type="button" data-go="tier">${ic('tier')}Tier List</button><button type="button" data-go="builder">${ic('calc')}จัดบิลด์</button></div>
-  ${dp?`<button type="button" class="mh-daily" data-open="${dp.slug}"><span class="t"><span class="pill">✦ ANIIMO ประจำวัน</span><small>วันนี้พบกับ</small><b>${esc(dp.th||dp.name)}</b><span>ดูสกิลและสายวิวัฒนาการ</span><span class="go">ดูรายละเอียด ↗</span></span><img src="${dp.i}" alt=""></button>`:''}
+  ${dp?`<button type="button" class="mh-daily" data-open="${dp.slug}"><span class="t"><span class="pill">✦ ANIIMO ประจำวัน</span><small>วันนี้พบกับ</small><b>${esc(dp.name)}</b><span>ดูสกิลและสายวิวัฒนาการ</span><span class="go">ดูรายละเอียด ↗</span></span><img src="${dp.i}" alt=""></button>`:''}
   <div class="mh-quick"><button type="button" class="q1" data-go="codes"><span class="ic">${ic('gift')}</span><span><b>โค้ดแลกรางวัล</b><small>รวมโค้ดไว้ที่เดียว</small></span><i>›</i></button><button type="button" class="q2" data-go="daily"><span class="ic">${ic('check')}</span><span><b>เช็กลิสต์รายวัน</b><small>เตรียมพร้อมก่อนออกล่า</small></span><i>›</i></button></div>
   <div class="mh-h"><h2>สำรวจโลก Aniimo</h2><a href="#dex" data-go="dex">ดูทั้งหมด →</a></div>
-  <div class="mh-explore">${ex.map(a=>`<button type="button" data-open="${a.slug}" style="--c:var(--${a.e[0]||'neutral'})"><span class="art"><img src="${a.i}" alt="" loading="lazy"></span><span class="cap"><b>${esc(a.th||a.name)}</b>${a.e.slice(0,1).map(badge).join('')}<i>›</i></span></button>`).join('')}</div>
+  <div class="mh-explore">${ex.map(a=>`<button type="button" data-open="${a.slug}" style="--c:var(--${a.e[0]||'neutral'})"><span class="art"><img src="${a.i}" alt="" loading="lazy"></span><span class="cap"><b>${esc(a.name)}</b>${a.e.slice(0,1).map(badge).join('')}<i>›</i></span></button>`).join('')}</div>
   <div class="mh-h"><h2>อัปเดตและคู่มือ</h2><a href="#news" data-go="news">ทั้งหมด →</a></div>
   <div class="mh-news"><a href="#beginner" data-go="beginner"><img src="img/events/journey-handbook.webp" alt="" loading="lazy"><span><b>เริ่มต้นผจญภัยในอิดิลล์</b><small>สิ่งที่ห้ามพลาดก่อนเริ่มเล่น</small></span><i>›</i></a>
     ${N.map((n,i)=>`<a href="#news-${n.id}"><img src="${esc(nimg(n,i))}" alt="" loading="lazy"><span><b>${esc(n.title)}</b><small>${new Date(n.date+'T00:00:00+07:00').toLocaleDateString(LOC,{day:'numeric',month:'short'})}</small></span><i>›</i></a>`).join('')}</div>`;
@@ -2431,7 +2431,7 @@ function renderBuilds(){
   const be=document.getElementById('be');if(!be.options.length)be.innerHTML='<option value="">ทุกธาตุ</option>'+E.map(x=>`<option value="${x.k}">${x.th}</option>`).join('');
   const q=(document.getElementById('bq').value||'').trim().toLowerCase(),ek=be.value;
   const list=A.filter(a=>!a.u&&a.rec&&(!ek||a.e.includes(ek))&&(!q||nameHit(a,q)));
-  g.innerHTML=list.map(a=>`<div class="bcard2"><button type="button" class="bpic" data-open="${a.slug}"><img src="${TH(a.i)}" alt="" loading="lazy"></button><div><b>${esc(a.th||a.name)}</b><div style="display:flex;gap:3px;margin:3px 0">${a.e.map(badge).join('')}${roleChip(a.r)}</div>
+  g.innerHTML=list.map(a=>`<div class="bcard2"><button type="button" class="bpic" data-open="${a.slug}"><img src="${TH(a.i)}" alt="" loading="lazy"></button><div><b>${esc(a.name)}</b><div style="display:flex;gap:3px;margin:3px 0">${a.e.map(badge).join('')}${roleChip(a.r)}</div>
     ${a.rec.h?`<p class="small"><span class="muted">Held Item:</span> ${itemRef(a.rec.h[0])}${LANG==='th'?` <span class="muted">(${esc(a.rec.h[1])})</span>`:''}</p>`:''}
     ${a.rec.r?`<p class="small"><span class="muted">Rune:</span> ${itemRef(a.rec.r[0])}</p>`:''}
     <button type="button" class="btn" data-bbuild="${a.slug}" style="margin-top:6px">เปิดในตัวจัดบิลด์</button></div></div>`).join('')||'<p class="muted">ไม่พบ</p>';
