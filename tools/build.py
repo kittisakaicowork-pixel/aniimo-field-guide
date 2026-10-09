@@ -333,12 +333,12 @@ def main():
     # Script links carry a version from the files' contents, so browsers and Cloudflare fetch new data at once
     # (and an unchanged build leaves index.html unchanged).
     if not FULL:
-        parts = [(ROOT / f).read_bytes() for f in ("data.js", "thumbs.js", "content.js", "i18n-en.js", "map.js", "heist.js", "items-more.js")
+        parts = [(ROOT / f).read_bytes() for f in ("data.js", "thumbs.js", "content.js", "app.js", "i18n-en.js", "map.js", "heist.js", "items-more.js")
                  if (ROOT / f).exists()]
         stamp = hashlib.md5(b"".join(parts)).hexdigest()[:10]
         page = ROOT / "index.html"
         old = page.read_text()
-        new = re.sub(r"((?:data|thumbs|content|i18n-en|map|heist|items-more)\.js\?v=)[0-9a-z]+", lambda m: m.group(1) + stamp, old)
+        new = re.sub(r"((?:data|thumbs|content|app|i18n-en|map|heist|items-more)\.js\?v=)[0-9a-z]+", lambda m: m.group(1) + stamp, old)
         if new != old:
             page.write_text(new)
     print(f"data.js {len(js)/1e6:.2f} MB · Thai strings {len(th_used)} · untranslated {len(missing)}")
