@@ -67,7 +67,7 @@ footer{max-width:880px;margin:0 auto;padding:20px 16px;color:var(--ink2);font-si
 
 def dump():
     code = """
-    global.window={};require('./data.js');require('./content.js');const w=window;
+    global.window={};require('./data.js');require('./th.js');require('./items.js');require('./content.js');const w=window;
     process.stdout.write(JSON.stringify({A:w.ANIIMO,SK:w.SKILLS,EVO:w.EVO,CODES:w.CODES,TH:w.TH,NTH:w.NAMES_TH,NEWS:w.NEWS,
       WW:w.WHISPERWAKE,UP:w.UPCOMING,EVENTS:w.EVENTS,ITEMS:w.ITEMS&&w.ITEMS.list,META:w.META,FAQ:w.FAQ}))"""
     return json.loads(subprocess.run(["node", "-e", code], cwd=ROOT, check=True, capture_output=True, text=True).stdout)

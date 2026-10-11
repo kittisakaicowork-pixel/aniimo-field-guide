@@ -18,7 +18,7 @@ echo "== $(date '+%F %T')"
 
 say() { echo "$1"; osascript -e "display notification \"$1\" with title \"AniiGuide อัปเดตรายวัน\"" >/dev/null 2>&1 || true; }
 # the files this job writes; anything else in the working tree is someone's work in progress and is left alone
-OUT=(data.js app.js items-more.js map.js map.webp map-icons.webp index.html sw.js sitemap.xml a p img tools/sets.json tools/manual.json)
+OUT=(data.js th.js items.js app.js items-more.js map.js map.webp map-icons.webp index.html sw.js sitemap.xml a p img tools/sets.json tools/manual.json)
 undo() { git checkout -q -- "${OUT[@]}" 2>/dev/null; }
 fail() { say "ไม่ได้อัปเดต: $1 (ดู tools/daily.log)"; undo; exit 1; }
 
@@ -38,13 +38,13 @@ if [ "$(date +%u)" = 1 ]; then python3 tools/map.py --refresh || echo "map refre
 python3 tools/build.py | tee /tmp/aniguide-build.txt || fail "build ไม่สำเร็จ"
 untranslated=$(sed -nE 's/.*untranslated ([0-9]+).*/\1/p' /tmp/aniguide-build.txt)
 
-node --check data.js || fail "data.js เสีย"
+node --check data.js && node --check th.js && node --check items.js || fail "data.js เสีย"
 after=$(count)
 [ "$after" -ge "$before" ] || fail "จำนวน Aniimo ลดลงจาก $before เหลือ $after"
 
 # The build writes the scrape time into data.js every run; only publish when something else changed.
 # (Collected into a variable: with pipefail, grep -q stopping early would make the whole pipe look failed.)
-changed=$(git diff -U0 -- data.js items-more.js map.js tools/sets.json | grep '^[-+][^-+]' | grep -v '^[-+]window.META=' | cut -c1-40)
+changed=$(git diff -U0 -- data.js th.js items.js items-more.js map.js tools/sets.json | grep '^[-+][^-+]' | grep -v '^[-+]window.META=' | cut -c1-40)
 changed+=$(git status --porcelain -- img items-more.js)
 if [ -z "$changed" ]; then say "ข้อมูลเหมือนเดิม ไม่มีอะไรต้องอัปเดต"; undo; exit 0; fi
 echo "changed:"; echo "$changed" | sort -u

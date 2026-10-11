@@ -330,16 +330,22 @@ def main():
         ("META", dict(scraped=raw["scraped"], scraped_at=raw.get("scraped_at", ""), full=FULL, server="Asia-Pacific", items_total=len(raw.get("items", [])),
                      # the owner's PromptPay QR for the support page; the block stays hidden until the file exists
                      donate=next((f"img/{f.name}" for f in sorted((ROOT / "img").glob("donate-qr.*"))), "")))])
+    # the data is split in three files (core, Thai text, items) so no single download holds the whole site
+    SPLIT = {"TH": "th.js", "ITEMS": "items.js"}
+    lines = js.splitlines(keepends=True)
+    for name in SPLIT.values():
+        (out_dir / name).write_text("".join(l for l in lines if any(l.startswith(f"window.{k}=") and SPLIT[k] == name for k in SPLIT)))
+    js = "".join(l for l in lines if not any(l.startswith(f"window.{k}=") for k in SPLIT))
     (out_dir / "data.js").write_text(js)
     # Script links carry a version from the files' contents, so browsers and Cloudflare fetch new data at once
     # (and an unchanged build leaves index.html unchanged).
     if not FULL:
-        parts = [(ROOT / f).read_bytes() for f in ("data.js", "thumbs.js", "content.js", "app.js", "i18n-en.js", "map.js", "heist.js", "items-more.js")
+        parts = [(ROOT / f).read_bytes() for f in ("data.js", "th.js", "items.js", "thumbs.js", "content.js", "app.js", "i18n-en.js", "map.js", "heist.js", "items-more.js")
                  if (ROOT / f).exists()]
         stamp = hashlib.md5(b"".join(parts)).hexdigest()[:10]
         page = ROOT / "index.html"
         old = page.read_text()
-        new = re.sub(r"((?:data|thumbs|content|app|i18n-en|map|heist|items-more)\.js\?v=)[0-9a-z]+", lambda m: m.group(1) + stamp, old)
+        new = re.sub(r"((?:data|th|items|thumbs|content|app|i18n-en|map|heist|items-more)\.js\?v=)[0-9a-z]+", lambda m: m.group(1) + stamp, old)
         if new != old:
             page.write_text(new)
     print(f"data.js {len(js)/1e6:.2f} MB · Thai strings {len(th_used)} · untranslated {len(missing)}")
