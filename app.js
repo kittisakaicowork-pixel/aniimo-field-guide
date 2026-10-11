@@ -320,7 +320,8 @@ function renderDetail(){
     <div style="display:grid;gap:10px">${sks.map(skillCard).join('')}</div>`;
   }else if(dState.tab==='3d'&&m3){
     // the viewer is a separate app on R2; it loads only when this tab opens
-    const file=(cur&&m3.f&&m3.f[cur.id])||m3.b,src=`${M3D.url}/index.html?file=${encodeURIComponent(file)}&v=${M3D.v||1}`,emb=src+'&embed=1';  // v: new viewer build past Cloudflare's month-long cache
+    const spk=dState.spark&&(cur?(m3.sf||{})[cur.id]:m3.s);  // the Sparkling type picked on the Sparkling tab, when its model is public
+    const file=spk||(cur&&m3.f&&m3.f[cur.id])||m3.b,bg=(getComputedStyle(document.documentElement).getPropertyValue('--surface').trim().match(/^#([0-9a-f]{6})$/i)||[])[1]||(document.documentElement.dataset.theme==='dark'?'111a2e':'ffffff'),src=`${M3D.url}/index.html?file=${encodeURIComponent(file)}${spk?`&s=${dState.spark}`:''}&v=${M3D.v||1}`,emb=src+`&embed=1&bg=${bg}`;  // v: new viewer build past Cloudflare's month-long cache
     pane=`<div class="m3d"><iframe src="${emb}" title="โมเดล 3D ของ ${esc(a.name)}" allow="fullscreen"></iframe></div>
     <p class="small muted">หมุนด้วยการลาก ซูมด้วยล้อเมาส์หรือสองนิ้ว กดปุ่ม ☰ มุมขวาบนของกรอบเพื่อเลือกร่าง เปล่งประกาย ชุดแต่งตัว และท่าทาง · <a href="${src}" target="_blank" rel="noopener">เปิดเต็มจอ</a>${cur&&!(m3.f&&m3.f[cur.id])?' · ร่างนี้ยังไม่มีโมเดล แสดงร่างปกติแทน':''}</p>`;
   }else if(dState.tab==='sparkling'){

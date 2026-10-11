@@ -62,6 +62,13 @@ def main():
 
     m3d = {}
     for e in keep:
+        if e["variant"] == "shiny":  # Sparkling model per species ("s") or form ("sf"), its styles are Type I-X, Dazzling, Shadow
+            if e["id"] in species:
+                m3d.setdefault(species[e["id"]]["slug"], {})["s"] = e["file"]
+            elif e["id"] in forms:
+                a, f = forms[e["id"]]
+                m3d.setdefault(a["slug"], {}).setdefault("sf", {})[f["id"]] = e["file"]
+            continue
         if e["variant"] != "base":
             continue
         if e["id"] in species:
