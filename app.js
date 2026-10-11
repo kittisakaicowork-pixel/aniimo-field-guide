@@ -57,7 +57,8 @@ const SPK_IDX={};SPK.e.forEach(([s,fi],i)=>{SPK_IDX[s+'|'+(fi==null?'':fi)]=i});
 const hasSpark=slug=>(slug+'|') in SPK_IDX;
 const STYPES=['Type I','Type II','Type III','Type IV','Type V','Type VI','Type VII','Type VIII','Type IX','Type X','Dazzling','Shadow'];
 const STYPE_TH=['แบบ I','แบบ II','แบบ III','แบบ IV','แบบ V','แบบ VI','แบบ VII','แบบ VIII','แบบ IX','แบบ X','Dazzling','Shadow'];
-function sprStyle(n,idx,big){const c=idx%SPK.cols,r=Math.floor(idx/SPK.cols);return `background-image:url(spark-${big?'':'s-'}${String(n).padStart(2,'0')}.webp);background-size:${SPK.cols*100}% ${SPK.rows*100}%;background-position:${c/(SPK.cols-1)*100}% ${SPK.rows>1?r/(SPK.rows-1)*100:0}%`}
+const SPKIMG=new Set(window.SPKIMG||[]);
+function sprStyle(n,idx,big){const e=SPK.e[idx],tag=e&&`${e[0]}_${e[1]==null?'b':e[1]}`;if(n&&tag&&SPKIMG.has(tag))return `background-image:url(img/spk/${tag}_${n}.webp);background-size:contain;background-position:center bottom;background-repeat:no-repeat`;const c=idx%SPK.cols,r=Math.floor(idx/SPK.cols);return `background-image:url(spark-${big?'':'s-'}${String(n).padStart(2,'0')}.webp);background-size:${SPK.cols*100}% ${SPK.rows*100}%;background-position:${c/(SPK.cols-1)*100}% ${SPK.rows>1?r/(SPK.rows-1)*100:0}%`}
 function orb(s,sm){
   const col=s.ix%SPR.cols,row=Math.floor(s.ix/SPR.cols);
   const bg=s.ix>=0?`background-size:${SPR.cols*100}% ${SPR.rows*100}%;background-position:${col/(SPR.cols-1)*100}% ${row/(SPR.rows-1)*100}%`:'background:none';

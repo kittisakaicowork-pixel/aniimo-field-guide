@@ -322,6 +322,7 @@ def main():
         ("EVO", evo), ("BOSSES", bosses), ("REGIONS", regions), ("TH", th_used), ("NAMES_TH", names_th), ("CODES", manual),
         ("ITEMS", dict(cols=item_cols, rows=item_rows, list=items)), ("EVENTS", events), ("UPCOMING", raw.get("upcoming", [])),
         ("TERR", raw.get("territories", [])), ("FOOD", game.foods() if game else []),
+        ("SPKIMG", sorted({f.stem.rsplit("_", 1)[0] for f in (ROOT / "img" / "spk").glob("*.webp")})),  # species/forms with rendered Sparkling portraits
         ("M3D", dict(url=R2_3D, v=R2_3D_V, m=json.loads((TOOLS / "r2" / "m3d.json").read_text())) if (TOOLS / "r2" / "m3d.json").exists() else None),
         ("PSKILLS", [dict(n=p["name"], k=p["kind"], mx=p["max"], d=p["desc"], lv=p["levels"],
                           th=(pth.get(p["name"]) or ["", ""])[0], dth=(pth.get(p["name"]) or ["", ""])[1]) for p in raw.get("pskills", [])]),
