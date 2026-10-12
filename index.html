@@ -1776,6 +1776,11 @@ body{overflow-x:clip}
 }
 @media (min-width:981px){.adws{background:linear-gradient(90deg,var(--surface) 0 var(--adside,240px),transparent var(--adside,240px))}}
 @media (max-width:640px){.dbanner{display:grid;grid-template-columns:auto 1fr}.dbanner .dbtn{grid-column:1/-1;justify-self:start}}
+
+/* phone home: dynamic part lays out like the rest; bottom bar keeps its height from the first paint */
+.mh-dyn{display:grid;gap:18px}
+@media (max-width:640px){.tabbar{min-height:calc(58px + env(safe-area-inset-bottom,0px))}.mh-daily img{width:100%;height:170px}.mh-daily{min-height:190px}.mh-explore .art img{width:auto;height:140px}
+  .mh-art{width:78%;height:250px}.mh-hero{min-height:220px}}
 </style>
 
 <div id="boot" role="status" aria-live="polite"><div class="bootin"><b class="wm"><svg class="brandmark" viewBox="0 0 260 72" aria-hidden="true"><use href="img/aniiguide-logo.svg?v=4#wordmark"></use></svg><span class="sr">AniiGuide</span></b><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><small id="bootMsg">กำลังโหลดข้อมูล Aniimo…</small></div></div>
@@ -1846,7 +1851,12 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
   <main id="main">
     <!-- HOME -->
     <section class="view" data-view="home">
-      <div class="mhome" id="mhome"></div>
+      <div class="mhome" id="mhome">
+        <div class="mh-hero"><img class="mh-art" src="img/hero-kv-720.webp?v=1" alt="" aria-hidden="true" width="720" height="405" fetchpriority="high"><h1>คู่มือ Aniimo</h1><p>ออกสำรวจอิดิลล์ไปด้วยกัน</p>
+          <button type="button" class="mh-search" data-msearch><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>ค้นหา Aniimo หรือสกิล…</button></div>
+        <div class="mh-tiles"><button type="button" data-go="dex"><svg><use href="#i-dex"/></svg>Aniilog</button><button type="button" data-go="map"><svg><use href="#i-map"/></svg>แผนที่</button><button type="button" data-go="tier"><svg><use href="#i-tier"/></svg>Tier List</button><button type="button" data-go="builder"><svg><use href="#i-calc"/></svg>จัดบิลด์</button></div>
+        <div class="mh-dyn"></div>
+      </div>
       <div class="hero3">
         <div class="hbg" aria-hidden="true"><img src="img/hero-kv.webp" srcset="img/hero-kv-720.webp?v=1 720w, img/hero-kv-960.webp 960w, img/hero-kv.webp 1600w" sizes="(max-width: 760px) 100vw, 1280px" width="1600" height="900" alt="" fetchpriority="high"></div>
         <div class="h3text">
@@ -3026,7 +3036,7 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
   </main>
 </div>
 
-<nav class="tabbar" id="tabbar" aria-label="เมนูหลัก"></nav>
+<nav class="tabbar" id="tabbar" aria-label="เมนูหลัก"><button type="button" class="" data-go="home" aria-current="false"><svg><use href="#i-home"></use></svg><span>หน้าแรก</span></button><button type="button" class="" data-go="dex" aria-current="false"><svg><use href="#i-dex"></use></svg><span>Aniilog</span></button><button type="button" class="" data-go="map" aria-current="false"><svg><use href="#i-map"></use></svg><span>แผนที่</span></button><button type="button" class="" data-go="builder" aria-current="false"><svg><use href="#i-calc"></use></svg><span>บิลด์</span></button><button type="button" id="moreBtn" aria-current="false"><svg><use href="#i-more"></use></svg><span>เพิ่มเติม</span></button></nav>
 
 <dialog id="dlg" aria-labelledby="dlgTitle">
   <button class="x" type="button" id="dlgClose" aria-label="ปิด">×</button>
@@ -3046,10 +3056,10 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
 </dialog>
 <dialog id="menu" aria-label="เมนูทั้งหมด"><div class="inner" id="menuInner"></div></dialog>
 
-<script>try{if(localStorage.getItem('aniimo-lang')==='en')document.write('<script src="i18n-en.js?v=03b4fdd418"><\/script>')}catch(_){}</script>
-<script defer src="th.js?v=03b4fdd418"></script>
-<script defer src="items.js?v=03b4fdd418"></script>
-<script defer src="data.js?v=03b4fdd418"></script>
-<script defer src="thumbs.js?v=03b4fdd418"></script>
-<script defer src="content.js?v=03b4fdd418"></script>
-<script defer src="app.js?v=03b4fdd418"></script>
+<script>try{if(localStorage.getItem('aniimo-lang')==='en')document.write('<script src="i18n-en.js?v=0b1fa11188"><\/script>')}catch(_){}</script>
+<script defer src="th.js?v=0b1fa11188"></script>
+<script defer src="items.js?v=0b1fa11188"></script>
+<script defer src="data.js?v=0b1fa11188"></script>
+<script defer src="thumbs.js?v=0b1fa11188"></script>
+<script defer src="content.js?v=0b1fa11188"></script>
+<script defer src="app.js?v=0b1fa11188"></script>

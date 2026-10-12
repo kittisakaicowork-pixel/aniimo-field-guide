@@ -165,6 +165,12 @@ def main():
             im = Image.open(src).convert("RGBA")
             im.thumbnail((200, 200), Image.LANCZOS)
             im.save(dest, "WEBP", quality=80, method=4)
+        mid = out_dir / ("img/m/" + rel[6:])  # 400px for the phone home cards
+        if not mid.exists() or mid.stat().st_mtime < src.stat().st_mtime:
+            mid.parent.mkdir(parents=True, exist_ok=True)
+            im = Image.open(src).convert("RGBA")
+            im.thumbnail((400, 400), Image.LANCZOS)
+            im.save(mid, "WEBP", quality=78, method=4)
         thumbs[name] = rel
     (out_dir / "thumbs.js").write_text("window.THUMB=" + json.dumps(thumbs, separators=(",", ":")) + ";")
 

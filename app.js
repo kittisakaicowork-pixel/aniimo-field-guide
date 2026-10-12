@@ -47,6 +47,7 @@ const LINES=(()=>{const p={};const f=x=>p[x]===x?x:(p[x]=f(p[x]));A.forEach(a=>p
   const g={},SO={Lumin:0,Gamma:1,Nova:2,Legendary:3};A.forEach(a=>{(g[f(a.slug)]=g[f(a.slug)]||[]).push(a)});
   const out={};Object.values(g).forEach(l=>{l.sort((x,y)=>(SO[x.st]??2)-(SO[y.st]??2)||x.ord-y.ord);l.forEach(a=>out[a.slug]=l)});return out})();
 const TH=p=>(window.THUMB&&window.THUMB[p])||p;
+const MID=p=>{const t=window.THUMB&&window.THUMB[p];return t?t.replace('img/t/','img/m/'):p};
 if(Array.isArray(window.NEWS))window.NEWS.sort((x,y)=>y.date.localeCompare(x.date)); // newest first, whatever order content.js has
 const numLabel=a=>(+a.no>9000?'พิเศษ':'#'+a.no);
 const skillsOf=slug=>((SK[slug]||{}).s||[]).map(s=>({n:s[0],k:s[1],e:s[2],t:s[3],mi:s[4],cost:s[5],cd:s[6],r:s[7],ix:s[8],d:s[9],g:s[10]||[]}));
@@ -2499,13 +2500,11 @@ function renderMHome(){
   const N=(window.NEWS||[]).slice().sort((a,b)=>b.date.localeCompare(a.date)).slice(0,3);
   const ART=['aniimo-discovery','boundless-twining','idyll-ecology-field-notes','harvest-moon-festival'],nimg=(n,i)=>`img/events/${ART[i%ART.length]}.webp`;
   const ic=i=>`<svg><use href="#i-${i}"/></svg>`;
-  el.innerHTML=`<div class="mh-hero"><img class="mh-art" src="img/hero-kv-720.webp?v=1" alt="" aria-hidden="true"><h1>คู่มือ Aniimo</h1><p>ออกสำรวจอิดิลล์ไปด้วยกัน</p>
-    <button type="button" class="mh-search" data-msearch><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>ค้นหา Aniimo หรือสกิล…</button></div>
-  <div class="mh-tiles"><button type="button" data-go="dex">${ic('dex')}Aniilog</button><button type="button" data-go="map">${ic('map')}แผนที่</button><button type="button" data-go="tier">${ic('tier')}Tier List</button><button type="button" data-go="builder">${ic('calc')}จัดบิลด์</button></div>
-  ${dp?`<button type="button" class="mh-daily" data-open="${dp.slug}"><span class="t"><span class="pill">✦ ANIIMO ประจำวัน</span><small>วันนี้พบกับ</small><b>${esc(dp.name)}</b><span>ดูสกิลและสายวิวัฒนาการ</span><span class="go">ดูรายละเอียด ↗</span></span><img src="${dp.i}" alt=""></button>`:''}
+  el.querySelector('.mh-dyn').innerHTML=`
+  ${dp?`<button type="button" class="mh-daily" data-open="${dp.slug}"><span class="t"><span class="pill">✦ ANIIMO ประจำวัน</span><small>วันนี้พบกับ</small><b>${esc(dp.name)}</b><span>ดูสกิลและสายวิวัฒนาการ</span><span class="go">ดูรายละเอียด ↗</span></span><img src="${MID(dp.i)}" alt="" width="200" height="200"></button>`:''}
   <div class="mh-quick"><button type="button" class="q1" data-go="codes"><span class="ic">${ic('gift')}</span><span><b>โค้ดแลกรางวัล</b><small>รวมโค้ดไว้ที่เดียว</small></span><i>›</i></button><button type="button" class="q2" data-go="daily"><span class="ic">${ic('check')}</span><span><b>เช็กลิสต์รายวัน</b><small>เตรียมพร้อมก่อนออกล่า</small></span><i>›</i></button></div>
   <div class="mh-h"><h2>สำรวจโลก Aniimo</h2><a href="#dex" data-go="dex">ดูทั้งหมด →</a></div>
-  <div class="mh-explore">${ex.map(a=>`<button type="button" data-open="${a.slug}" style="--c:var(--${a.e[0]||'neutral'})"><span class="art"><img src="${a.i}" alt="" loading="lazy"></span><span class="cap"><b>${esc(a.name)}</b>${a.e.slice(0,1).map(badge).join('')}<i>›</i></span></button>`).join('')}</div>
+  <div class="mh-explore">${ex.map(a=>`<button type="button" data-open="${a.slug}" style="--c:var(--${a.e[0]||'neutral'})"><span class="art"><img src="${MID(a.i)}" alt="" loading="lazy" width="200" height="200"></span><span class="cap"><b>${esc(a.name)}</b>${a.e.slice(0,1).map(badge).join('')}<i>›</i></span></button>`).join('')}</div>
   <div class="mh-h"><h2>อัปเดตและคู่มือ</h2><a href="#news" data-go="news">ทั้งหมด →</a></div>
   <div class="mh-news"><a href="#beginner" data-go="beginner"><img src="img/events/journey-handbook.webp" alt="" loading="lazy"><span><b>เริ่มต้นผจญภัยในอิดิลล์</b><small>สิ่งที่ห้ามพลาดก่อนเริ่มเล่น</small></span><i>›</i></a>
     ${N.map((n,i)=>`<a href="#news-${n.id}"><img src="${esc(nimg(n,i))}" alt="" loading="lazy"><span><b>${esc(n.title)}</b><small>${new Date(n.date+'T00:00:00+07:00').toLocaleDateString(LOC,{day:'numeric',month:'short'})}</small></span><i>›</i></a>`).join('')}</div>`;
