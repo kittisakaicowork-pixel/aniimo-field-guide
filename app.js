@@ -1,4 +1,5 @@
 /* AniiGuide app (was inline in index.html; loaded with defer after data.js, thumbs.js, content.js) */
+var ADP=(()=>{try{if(/[?&]adpreview=1/.test(location.search))sessionStorage.setItem('adp','1');if(/[?&]adpreview=0/.test(location.search))sessionStorage.removeItem('adp');return sessionStorage.getItem('adp')==='1'}catch(_){return false}})();
 /* ===== theme ===== */
 (function(){
   const root=document.documentElement,btn=document.getElementById('themeBtn'),meta=document.querySelector('meta[name=theme-color]');
@@ -224,7 +225,7 @@ function renderDex(){
   const q=dq.value.trim().toLowerCase().replace(/^#/,'');
   const list=A.filter(a=>(!q||nameHit(a,q)||a.no.includes(q))&&(!de.value||a.e.includes(de.value))&&(!dr.value||a.r===dr.value)&&(!ds.value||a.st===ds.value)&&(!dp.checked||hasPr(a))&&(!dsp.checked||hasSpark(a.slug))&&(!dw.value||(a.w||[]).some(w=>w[0]===dw.value))&&(!dc.value||(dc.value==='have')===!!COL.d.c[a.slug]));
   document.getElementById('dcount').textContent=`แสดง ${list.length} จาก ${A.length} ตัว`;
-  document.getElementById('dexGrid').innerHTML=list.map(a=>`<button class="mon" type="button" data-open="${a.slug}" style="--c:var(--${a.e[0]||'neutral'})">
+  document.getElementById('dexGrid').innerHTML=list.map((a,ix)=>(ADP&&ix&&ix%16===0?adSlot('card'):'')+`<button class="mon" type="button" data-open="${a.slug}" style="--c:var(--${a.e[0]||'neutral'})">
     ${hasPr(a)?'<span class="flag pr">Prismana</span>':''}${hasSpark(a.slug)?'<span class="flag sp">✦</span>':''}${a.u?'<span class="flag un">ยังไม่เปิด</span>':a.f.length?`<span class="flag fc">${a.f.length+1} ร่าง</span>`:''}
     <span class="pic"><img decoding="async" src="${TH(a.i)}" alt="${esc(a.name)}" loading="lazy" class="${a.cut?'cut':''}">${COL.d.c[a.slug]?'<span class="caught" title="จับแล้ว">✓</span>':''}</span>
     <span class="info"><span class="no">${numLabel(a)}</span><span class="nm">${esc(a.name)}</span>
@@ -310,7 +311,7 @@ function renderDetail(){
   const tabs=[['overview','ภาพรวม'],['skills',`สกิล (${sks.length})`],['forms',`ร่าง (${a.f.length+1})`]].concat(spAny?[['sparkling','✦ เปล่งประกาย']]:[],m3?[['3d','3D']]:[]);
   let pane='';
   if(dState.tab==='overview'){
-    pane=`${a.u?'':voteBox(a.slug)}<p>${esc(tr(a.d))}</p>
+    pane=`${a.u?'':voteBox(a.slug)}<p>${esc(tr(a.d))}</p>${adSlot('box')}
     <div class="small"><b>แพ้ทาง:</b> ${weak.map(badge).join(' ')||'—'}<br><b>ต้านได้:</b> ${resist.map(badge).join(' ')||'—'}</div>
     ${a.s&&a.s.HP?`<div><p class="eyebrow" style="margin-bottom:8px">ค่าสถานะพื้นฐาน</p><div class="stats">${STAT.map(k=>`<div class="stat"><span>${STAT_L[k]||k}</span><span class="bar"><i style="width:${Math.min(100,a.s[k]/130*100)}%"></i></span><b>${a.s[k]}</b></div>`).join('')}</div></div>`:''}
     ${line.length>1?`<div><p class="eyebrow" style="margin-bottom:8px">สายวิวัฒนาการ</p><div class="thumbs">${line.map(x=>`<button type="button" data-open="${x.slug}" aria-current="${x===a}"><img decoding="async" src="${TH(x.i)}" alt="" class="${x.cut?'cut':''}">${esc(x.name)}<small class="muted">${x.st}</small></button>`).join('')}</div></div>`:''}
@@ -2325,12 +2326,15 @@ NEXT={codes:['events','daily','dex','team'],events:['codes','daily','map','news'
   team:['builder','tier','elements'],builder:['builds','team','helditems'],builds:['builder','team','tier'],daily:['codes','events','collection'],
   beginner:['howto','daily','growth','pskills'],howto:['beginner','map','events'],whisperwake:['dex','map','events'],bosses:['team','elements','map'],
   ranking:['dex','tier','compare'],sets:['dex','cosmetics'],pskills:['beginner','howto','growth']};
+/* ===== ad placement preview (?adpreview=1 only; nobody else sees these boxes) ===== */
+function adSlot(kind){if(!ADP)return '';const sz={wide:'728×90 · มือถือ 320×100',box:'300×250',card:'การ์ดในรายการ'}[kind]||'';return `<div class="adslot ${kind}" aria-hidden="true"><small>โฆษณา</small><span>พื้นที่โฆษณา · ${sz}</span></div>`}
 function nextUp(id){
   if(id==='home'||id==='admin')return;
   if(!NEXT){setTimeout(()=>nextUp(id));return}
   const sec=document.querySelector(`.view[data-view="${id}"]`);if(!sec)return;
   let box=sec.querySelector(':scope > .nextup');
   if(!box){box=document.createElement('nav');box.className='nextup';box.setAttribute('aria-label','ไปต่อ');sec.appendChild(box)}
+  if(ADP&&!sec.querySelector(':scope > .adslot.end')){box.insertAdjacentHTML('beforebegin',adSlot('wide').replace('adslot wide','adslot wide end'))}
   const ids=((NEXT||{})[id]||['codes','events','dex','team']).filter(x=>x!==id&&VIEWS.some(v=>v.id===x)).slice(0,4);
   box.innerHTML=`<p class="eyebrow">ไปต่อ</p><div class="nu">${ids.map(x=>{const v=VIEWS.find(y=>y.id===x);return `<button type="button" data-go="${x}"><svg><use href="#i-${v.ic||'star'}"/></svg><span><b>${esc(v.th)}</b><small>${esc(v.d||'')}</small></span></button>`}).join('')}</div>`;
 }
@@ -2492,6 +2496,7 @@ setTimeout(()=>{const app=matchMedia('(display-mode: standalone)').matches||navi
 document.addEventListener('click',e=>{const m=e.target.closest('.vhead p.muted');if(m&&!e.target.closest('a'))m.classList.toggle('open')});
 /* ===== phone home (mockup layout; desktop keeps the classic home) ===== */
 document.addEventListener('click',e=>{if(e.target.closest('#mmTheme'))document.getElementById('themeBtn').click();if(e.target.closest('#mmLang'))document.getElementById('langBtn').click();if(e.target.closest('[data-msearch]')){const g=document.getElementById('gq');g.focus()}});
+if(ADP){const hs=document.querySelector('[data-view="home"] > .hsec');if(hs)hs.insertAdjacentHTML('afterend',adSlot('wide'))}
 function renderMHome(){
   const el=document.getElementById('mhome');if(!el)return;
   const rel=ANIIMO.filter(a=>!a.u&&!a.cut),day=Math.floor(Date.now()/864e5),dp=dailyPick();
@@ -2503,7 +2508,7 @@ function renderMHome(){
     <button type="button" class="mh-search" data-msearch><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>ค้นหา Aniimo หรือสกิล…</button></div>
   <div class="mh-tiles"><button type="button" data-go="dex">${ic('dex')}Aniilog</button><button type="button" data-go="map">${ic('map')}แผนที่</button><button type="button" data-go="tier">${ic('tier')}Tier List</button><button type="button" data-go="builder">${ic('calc')}จัดบิลด์</button></div>
   ${dp?`<button type="button" class="mh-daily" data-open="${dp.slug}"><span class="t"><span class="pill">✦ ANIIMO ประจำวัน</span><small>วันนี้พบกับ</small><b>${esc(dp.name)}</b><span>ดูสกิลและสายวิวัฒนาการ</span><span class="go">ดูรายละเอียด ↗</span></span><img src="${dp.i}" alt=""></button>`:''}
-  <div class="mh-quick"><button type="button" class="q1" data-go="codes"><span class="ic">${ic('gift')}</span><span><b>โค้ดแลกรางวัล</b><small>รวมโค้ดไว้ที่เดียว</small></span><i>›</i></button><button type="button" class="q2" data-go="daily"><span class="ic">${ic('check')}</span><span><b>เช็กลิสต์รายวัน</b><small>เตรียมพร้อมก่อนออกล่า</small></span><i>›</i></button></div>
+  ${adSlot('box')}<div class="mh-quick"><button type="button" class="q1" data-go="codes"><span class="ic">${ic('gift')}</span><span><b>โค้ดแลกรางวัล</b><small>รวมโค้ดไว้ที่เดียว</small></span><i>›</i></button><button type="button" class="q2" data-go="daily"><span class="ic">${ic('check')}</span><span><b>เช็กลิสต์รายวัน</b><small>เตรียมพร้อมก่อนออกล่า</small></span><i>›</i></button></div>
   <div class="mh-h"><h2>สำรวจโลก Aniimo</h2><a href="#dex" data-go="dex">ดูทั้งหมด →</a></div>
   <div class="mh-explore">${ex.map(a=>`<button type="button" data-open="${a.slug}" style="--c:var(--${a.e[0]||'neutral'})"><span class="art"><img src="${a.i}" alt="" loading="lazy"></span><span class="cap"><b>${esc(a.name)}</b>${a.e.slice(0,1).map(badge).join('')}<i>›</i></span></button>`).join('')}</div>
   <div class="mh-h"><h2>อัปเดตและคู่มือ</h2><a href="#news" data-go="news">ทั้งหมด →</a></div>

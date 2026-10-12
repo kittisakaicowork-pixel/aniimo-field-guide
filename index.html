@@ -1776,6 +1776,15 @@ body{overflow-x:clip}
 }
 @media (min-width:981px){.adws{background:linear-gradient(90deg,var(--surface) 0 var(--adside,240px),transparent var(--adside,240px))}}
 @media (max-width:640px){.dbanner{display:grid;grid-template-columns:auto 1fr}.dbanner .dbtn{grid-column:1/-1;justify-self:start}}
+
+/* ad placement preview boxes */
+.adslot{display:grid;place-content:center;justify-items:center;gap:4px;border:2px dashed color-mix(in srgb,var(--ink-2) 40%,transparent);border-radius:16px;background:repeating-linear-gradient(45deg,var(--sunk) 0 12px,color-mix(in srgb,var(--sunk) 60%,var(--surface)) 12px 24px);color:var(--ink-2);text-align:center}
+.adslot small{font:700 .7rem var(--body);letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:6px;background:var(--surface)}
+.adslot span{font-size:.8rem}
+.adslot.wide{min-height:90px;max-width:728px;width:100%;margin:8px auto}
+.adslot.box{min-height:250px;max-width:336px;width:100%;margin:8px auto}
+.adslot.card{min-height:100%;border-radius:20px}
+@media (max-width:640px){.adslot.wide{min-height:100px;max-width:320px}}
 </style>
 
 <div id="boot" role="status" aria-live="polite"><div class="bootin"><b class="wm"><svg class="brandmark" viewBox="0 0 260 72" aria-hidden="true"><use href="img/aniiguide-logo.svg?v=4#wordmark"></use></svg><span class="sr">AniiGuide</span></b><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><small id="bootMsg">กำลังโหลดข้อมูล Aniimo…</small></div></div>
@@ -3046,10 +3055,10 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
 </dialog>
 <dialog id="menu" aria-label="เมนูทั้งหมด"><div class="inner" id="menuInner"></div></dialog>
 
-<script>try{if(localStorage.getItem('aniimo-lang')==='en')document.write('<script src="i18n-en.js?v=03b4fdd418"><\/script>')}catch(_){}</script>
-<script defer src="th.js?v=03b4fdd418"></script>
-<script defer src="items.js?v=03b4fdd418"></script>
-<script defer src="data.js?v=03b4fdd418"></script>
-<script defer src="thumbs.js?v=03b4fdd418"></script>
-<script defer src="content.js?v=03b4fdd418"></script>
-<script defer src="app.js?v=03b4fdd418"></script>
+<script>try{if(localStorage.getItem('aniimo-lang')==='en')document.write('<script src="i18n-en.js?v=78351b3d2a"><\/script>')}catch(_){}</script>
+<script defer src="th.js?v=78351b3d2a"></script>
+<script defer src="items.js?v=78351b3d2a"></script>
+<script defer src="data.js?v=78351b3d2a"></script>
+<script defer src="thumbs.js?v=78351b3d2a"></script>
+<script defer src="content.js?v=78351b3d2a"></script>
+<script defer src="app.js?v=78351b3d2a"></script>
