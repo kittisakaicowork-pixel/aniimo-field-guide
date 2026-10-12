@@ -2014,7 +2014,7 @@ function countAll(){if(!cuIO)return;document.querySelectorAll('.hnow b,.feat sma
 function dailyPick(){const d=new Date(Date.now()+7*3600e3).toISOString().slice(0,10);let h=0;for(const c of d)h=(h*31+c.charCodeAt(0))>>>0;return RELEASED[h%RELEASED.length]}
 function renderDaily(a,rolled){
   const el=document.getElementById('homeDaily');if(!el)return;const desc=String(tr(a.d)||'').split(/(?<=[.!?。])\s|\n/)[0];
-  el.innerHTML=`<button type="button" class="dart" data-open="${a.slug}" aria-label="ดู ${esc(a.name)}"><img src="${a.i}" alt="${esc(a.name)}" class="${a.cut?'cut':''}"></button>
+  el.innerHTML=`<button type="button" class="dart" data-open="${a.slug}" aria-label="ดู ${esc(a.name)}"><img src="${a.i}" loading="lazy" decoding="async" alt="${esc(a.name)}" class="${a.cut?'cut':''}"></button>
     <div class="dtxt"><p class="eyebrow">${numLabel(a)} · ${a.st}${a.r&&a.r!=='—'?' · '+a.r:''}</p><h3>${esc(a.name)}</h3><div class="row">${a.e.map(badge).join('')}</div>${desc?`<p class="muted">${esc(desc)}</p>`:''}
     <div class="dbtns"><button type="button" class="btn primary" data-open="${a.slug}">ดูรายละเอียด</button><button type="button" class="btn" id="dailyRoll">🎲 สุ่มตัวอื่น</button></div></div>`;
   if(rolled){const r=el.querySelector('.dart').getBoundingClientRect();el.classList.remove('pop');void el.offsetWidth;el.classList.add('pop');burst(r.left+r.width/2,r.top+r.height/2,16)}
