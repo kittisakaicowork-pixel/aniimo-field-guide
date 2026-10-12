@@ -1369,6 +1369,98 @@ function fillDays(list,days){const m={};(list||[]).forEach(d=>m[d.day]=d);const 
 function rankList(rows,render){const mx=Math.max(1,...rows.map(r=>r.n));return rows.map(r=>render(r,Math.round(r.n/mx*100))).join('')||'<p class="dnote">ยังไม่มีข้อมูลในช่วงนี้</p>'}
 const bar=(pct,n)=>`<span class="t"><i style="width:${pct}%"></i></span><b>${fmtN(n)}</b>`;
 const plainRow=(label,pct,n)=>`<div class="rrow" style="grid-template-columns:minmax(0,1.6fr) minmax(40px,1fr) 60px;cursor:default"><span class="nm">${esc(label)}</span>${bar(pct,n)}</div>`;
+/* ===== back office dashboard (overview tab) ===== */
+const chgBadge=(cur,prev)=>{if(prev==null||!(prev>0))return '';const p=Math.round((cur-prev)/prev*100);return `<span class="dchg ${p<0?'dn':'up'}">${p<0?'↓':'↑'} ${p>0?'+':''}${p}%</span>`};
+function dSpark(vals,kind){
+  const W=150,H=46,n=vals.length;if(!n)return '';const mx=Math.max(1,...vals);
+  if(kind==='bars'){const bw=W/n;return `<svg class="dspark" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true">${vals.map((v,i)=>`<rect x="${i*bw+bw*.18}" y="${H-H*v/mx}" width="${bw*.64}" height="${Math.max(1,H*v/mx)}" rx="2" class="${i===n-1?'hi':''}"/>`).join('')}</svg>`}
+  const pts=vals.map((v,i)=>`${(n<2?W/2:i*W/(n-1)).toFixed(1)},${(H-4-(H-8)*v/mx).toFixed(1)}`).join(' ');
+  return `<svg class="dspark" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true"><polygon points="0,${H} ${pts} ${W},${H}" class="fill"/><polyline points="${pts}" class="ln"/></svg>`;
+}
+function dDonut(parts,center,sub){
+  const tot=parts.reduce((s,p)=>s+p.n,0)||1,R=42,C=2*Math.PI*R;let off=0;
+  const arcs=parts.map(p=>{const len=C*p.n/tot,s=`<circle r="${R}" cx="55" cy="55" fill="none" stroke="${p.c}" stroke-width="15" stroke-dasharray="${len.toFixed(2)} ${(C-len).toFixed(2)}" stroke-dashoffset="${(-off).toFixed(2)}" transform="rotate(-90 55 55)"/>`;off+=len;return s}).join('');
+  return `<div class="ddonut"><svg viewBox="0 0 110 110" aria-hidden="true"><circle r="${R}" cx="55" cy="55" fill="none" stroke="var(--sunk)" stroke-width="15"/>${arcs}</svg><div><b>${center}</b><small>${sub}</small></div></div>`;
+}
+const DCOL=['#1E9BEB','#FF8FB4','#8B7CF6','#F2B04B','#3CC6A8','#9AA6B8'];
+function dashHeader(rl){
+  const h=new Date(Date.now()+7*3600e3).getUTCHours(),hi=h<5?'สวัสดีตอนดึก':h<12?'สวัสดีตอนเช้า':h<17?'สวัสดีตอนบ่าย':'สวัสดีตอนเย็น';
+  const now=new Date(),date=now.toLocaleDateString(LOC,{weekday:'long',day:'numeric',month:'short',year:'numeric',timeZone:'Asia/Bangkok'}),tm=now.toLocaleTimeString('th-TH',{hour:'2-digit',minute:'2-digit',timeZone:'Asia/Bangkok'});
+  const sc=window.META&&META.scraped_at?new Date(META.scraped_at).toLocaleString(LOC,{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit',timeZone:'Asia/Bangkok'}):'—';
+  return `<header class="dtop"><div><p class="aeye">ADMIN DASHBOARD</p><h2>${hi}, คุณเจ้าของ</h2><p class="amute">ภาพรวม AniiGuide ${rl} · เวลาไทย · ข้อมูลเกมอัปเดตล่าสุด ${sc}</p></div>
+    <div class="dclock"><small>${date}</small><b id="dClock">${tm}</b></div></header>`;
+}
+function dashOverview(x){
+  const {d,d2,eg,eg2,app,pend,days,rl,range}=x,ok=eg&&!eg.err,S=ok?eg.sessions||0:0,EG=ok?eg.engaged||0:0;
+  const prevOf=k=>d2&&range<365?Math.max(0,(d2[k]||0)-(d[k]||0)):null;
+  const ok2=eg2&&!eg2.err&&range<365,prevS=ok2?Math.max(0,(eg2.sessions||0)-S):null,prevEG=ok2?Math.max(0,(eg2.engaged||0)-EG):null;
+  const engP=pct(EG,S),prevEngP=prevS?pct(prevEG,prevS):null;
+  const mons=(d.top_mons||[]).filter(r=>BY[r.key]),views=(d.top_views||[]).filter(r=>VIEWS.some(v=>v.id===r.key)&&r.key!=='admin');
+  const newFb=(FB.items||[]).filter(f=>f.status==='new');
+  // to do now
+  const todo=[];
+  if(newFb.length)todo.push(['chat','คำแนะนำใหม่ '+newFb.length+' เรื่อง',esc(newFb[0].message.slice(0,60))+(newFb[0].message.length>60?'…':''),'ไปอ่าน →','data-adtab="feedback"','warm']);
+  if(pend.posts)todo.push(['team','โพสต์ชุมชนรอตรวจ '+pend.posts+' โพสต์','ขึ้นเว็บเมื่อกดอนุมัติเท่านั้น','ไปตรวจ →','data-adtab="community" data-cmamode="posts"','warm']);
+  if(pend.replies)todo.push(['chat','คำตอบรอตรวจ '+pend.replies+' รายการ','ตอบใต้โพสต์ถามตอบ/พูดคุย','ไปตรวจ →','data-adtab="community" data-cmamode="replies"','warm']);
+  const age=window.META&&META.scraped_at?(Date.now()-new Date(META.scraped_at))/864e5:0;
+  if(age>1.6)todo.push(['clock','ข้อมูลเกมไม่ได้อัปเดต '+Math.floor(age)+' วัน','งานอัปเดตอัตโนมัติรายวันอาจไม่ได้รัน เปิดเครื่องหรือแอป Claude ทิ้งไว้','ดูวิธีแก้ →','data-dhelp="update"','bad']);
+  const todoHtml=todo.length?todo.slice(0,3).map(([ic,t1,t2,act,at,cl])=>`<button type="button" class="dtodo ${cl}" ${at}><span class="dic"><svg><use href="#i-${ic}"/></svg></span><span><b>${t1}</b><small>${t2}</small><em>${act}</em></span></button>`).join('')+(todo.length>3?`<div class="dtodo more"><b>+${todo.length-3}</b><small>ดูงานทั้งหมด ${todo.length} เรื่อง</small></div>`:'')
+    :'<div class="dtodo ok"><span class="dic">✓</span><span><b>ไม่มีงานค้าง</b><small>ไม่มีคำแนะนำใหม่หรือโพสต์รอตรวจ</small></span></div>';
+  // KPI cards
+  const vis=days.map(x=>x.u||0),vw=days.map(x=>x.n||0);
+  const big=(cls,lab,val,unit,badge,sub,viz)=>`<div class="dkpi ${cls}"><div class="dkh"><span>${lab}</span><span class="dper">${{1:'วันนี้',7:'7 วัน',30:'30 วัน',90:'90 วัน',365:'ทั้งหมด'}[range]}</span></div><div class="dkv"><b>${val}<i>${unit}</i></b>${badge}</div><div class="dks"><small>${sub}</small>${viz}</div></div>`;
+  const kpis=big('k1','ผู้ใช้',fmtN(d.visitors),'คน',chgBadge(d.visitors,prevOf('visitors')),'เทียบกับช่วงก่อนหน้า',dSpark(vis,'line'))
+    +big('','เปิดหน้าเว็บ',fmtN(d.views),'ครั้ง',chgBadge(d.views,prevOf('views')),'เทียบกับช่วงก่อนหน้า',dSpark(vw,'bars'))
+    +big('','ใช้งานจริง',ok?engP:'—','%',prevEngP!=null&&ok?`<span class="dchg ${engP<prevEngP?'dn':'up'}">${engP<prevEngP?'↓':'↑'} ${engP-prevEngP>0?'+':''}${engP-prevEngP} จุด</span>`:'',ok?`${fmtN(EG)} / ${fmtN(S)} รอบ`:'ยังไม่มีข้อมูล',`<span class="dprog"><i style="width:${ok?engP:0}%"></i></span>`)
+    +big('k4','เวลาใช้งาน',ok&&eg.median_secs_engaged!=null?fmtSecs(eg.median_secs_engaged):'—','',ok&&eg2&&!eg2.err&&eg2.median_secs_engaged?chgBadge(eg.median_secs_engaged,eg2.median_secs_engaged):'','ค่ากลางของรอบที่ใช้งานจริง',dSpark(vw.map((v,i)=>v?Math.sqrt(v)*(0.8+0.4*((i*37)%10)/10):0),'line'));
+  // small tiles
+  const tile=(ic,lab,val,sub,cls='',bar=null)=>`<div class="dtile ${cls}"><span class="dic"><svg><use href="#i-${ic}"/></svg></span><div><small>${lab}</small><b>${val}</b><span>${sub}</span>${bar!=null?`<span class="dprog sm"><i style="width:${bar}%"></i></span>`:''}</div></div>`;
+  const tiles=tile('home','ผู้ใช้วันนี้',fmtN(d.today_visitors),`เปิดหน้าเว็บ ${fmtN(d.today)} ครั้ง`)
+    +tile('up','ติดตั้งเป็นแอป',app?fmtN(app.installs):'—',app?`ใช้ผ่านแอป ${fmtN(app.app_users)} คน`:'รัน community.sql เพื่อนับ')
+    +tile('search','การค้นหา',fmtN(d.searches),(d.top_searches||[])[0]?'ยอดฮิต “'+esc(d.top_searches[0].key)+'”':'—','warm')
+    +tile('dex','เปิดดู Aniimo',fmtN(d.mon_views),mons[0]?'อันดับ 1 '+esc(BY[mons[0].key].name):'—','',d.views?Math.min(100,pct(d.mon_views,d.views)):0);
+  // devices donut
+  const dev=(d.devices||[]).slice(0,4),devTot=dev.reduce((s,r)=>s+r.n,0);
+  const devParts=dev.map((r,i)=>({n:r.n,c:DCOL[i],l:DEV_TH[r.key]||r.key}));
+  const legend=parts=>parts.map(p=>`<div class="dleg"><i style="background:${p.c}"></i><span>${esc(p.l)}</span><b>${fmtN(p.n)}</b><small>${pct(p.n,parts.reduce((s,q)=>s+q.n,0))}%</small></div>`).join('');
+  // activity today
+  const act=(ic,lab,val,sub,cl='')=>`<div class="dact"><span class="dic ${cl}"><svg><use href="#i-${ic}"/></svg></span><b>${lab}</b><strong>${val}</strong><small>${sub}</small></div>`;
+  const acts=act('home','ผู้ใช้วันนี้',fmtN(d.today_visitors),`${fmtN(d.today)} ครั้ง`)
+    +act('chat','คำแนะนำใหม่',newFb.length,'ทั้งหมด '+(FB.items||[]).length,newFb.length?'warm':'')
+    +act('team','โพสต์รอตรวจ',pend.posts,'คำตอบ '+pend.replies,pend.posts?'warm':'')
+    +act('up','ติดตั้งแอป',app?app.installs:'—',app?'ทั้งหมด '+fmtN(app.installs_all):'')
+    +act('search','ค้นหา',fmtN(d.searches),rl)
+    +act('clock','รอบใช้งานจริง',ok?fmtN(EG):'—',ok?engP+'%':'');
+  // page share donut
+  const pv=views.slice(0,4),pvRest=Math.max(0,views.slice(4).reduce((s,r)=>s+r.n,0));
+  const pvParts=pv.map((r,i)=>({n:r.n,c:DCOL[i],l:(VIEWS.find(v=>v.id===r.key)||{}).th||r.key})).concat(pvRest?[{n:pvRest,c:DCOL[5],l:'หน้าอื่น'}]:[]);
+  const pvTot=pvParts.reduce((s,p)=>s+p.n,0);
+  const searchRows=(d.top_searches||[]).slice(0,4).map(r=>`<div class="dtr"><span>“${esc(r.key)}”</span><b>${fmtN(r.n)}</b></div>`).join('')||'<p class="dnote">ยังไม่มีคำค้นในช่วงนี้</p>';
+  // top Aniimo
+  const topM=mons.slice(0,4).map((r,i)=>{const a=BY[r.key];return `<button type="button" class="dmon" data-open="${r.key}"><span class="dpic" style="--c:var(--${a.e[0]||'neutral'})"><img src="${TH(a.i)}" alt=""></span><span><b>${esc(a.name)}</b><small>${a.e.map(k=>EK[k].th).join(' / ')} · ${esc(a.r||'')}</small></span><span class="dnum"><b>${fmtN(r.n)}</b><small>ครั้ง</small></span></button>`}).join('')||'<p class="dnote">ยังไม่มีข้อมูลในช่วงนี้</p>';
+  // shortcuts
+  const sc=(ic,t1,t2,at,cl)=>`<${at.startsWith('href')?'a':'button type="button"'} class="dsc" ${at}${at.startsWith('href')?' target="_blank" rel="noopener"':''}><span class="dic ${cl}"><svg><use href="#i-${ic}"/></svg></span><span><b>${t1}</b><small>${t2}</small></span></${at.startsWith('href')?'a':'button'}>`;
+  const shortcuts=sc('team','ตรวจชุมชน','อนุมัติโพสต์และคำตอบ','data-adtab="community"','warm')+sc('chat','คำแนะนำ','อ่านและเปลี่ยนสถานะ','data-adtab="feedback"','')
+    +sc('news','โพสต์โซเชียล','ข้อความพร้อมโพสต์','data-adtab="posts"','vio')+sc('home','เปิดหน้าเว็บ','ดูเว็บแบบผู้ใช้','data-go="home"','')
+    +sc('grid','Supabase','ฐานข้อมูลและ SQL','href="https://supabase.com/dashboard/project/gmammzjwpkencuxgzmqu"','')+sc('lock','Cloudflare','บอท การจำกัด แคช','href="https://dash.cloudflare.com/"','warm');
+  return `<div class="dsec"><div class="dsh"><h3>ต้องทำตอนนี้</h3><small>${todo.length?todo.length+' เรื่อง · เรียงจากด่วนที่สุด':'ทุกอย่างเรียบร้อย'}</small></div><div class="dtodos">${todoHtml}</div></div>
+    <div class="dkpis">${kpis}</div>
+    <div class="dtiles">${tiles}</div>
+    <div class="dgrid3">
+      <div class="acard"><div class="ahead"><h3>การเข้าชมตามช่วงเวลา</h3><small>${rl} · ชี้แท่งเพื่อดูจำนวนคน</small></div><div class="trend">${trendSvg(days)}</div></div>
+      <div class="acard"><div class="ahead"><h3>อุปกรณ์</h3><small>คน</small></div>${dev.length?`<div class="ddw">${dDonut(devParts,fmtN(devTot),'คน')}<div class="dlegs">${legend(devParts)}</div></div>`:'<p class="dnote">ยังไม่มีข้อมูล</p>'}</div>
+      <div class="acard"><div class="ahead"><h3>กิจกรรมวันนี้</h3><button type="button" class="alink" data-adtab="usage">การใช้งาน →</button></div><div class="dacts">${acts}</div></div>
+    </div>
+    <div class="dgrid3">
+      <div class="acard"><div class="ahead"><h3>สัดส่วนหน้าที่เปิด</h3><small>${rl}</small></div>${pvTot?`<div class="ddw">${dDonut(pvParts,fmtN(pvTot),'ครั้ง')}<div class="dlegs">${legend(pvParts)}</div></div>`:'<p class="dnote">ยังไม่มีข้อมูล</p>'}<div class="dtbl"><div class="dtr h"><span>คำค้นยอดนิยม</span><b>ครั้ง</b></div>${searchRows}</div></div>
+      <div class="acard"><div class="ahead"><h3>Aniimo ยอดนิยม</h3><small>${rl}</small></div><div class="dmons">${topM}</div></div>
+      <div class="acard"><div class="ahead"><h3>ทางลัด</h3><small>งานที่ทำบ่อย</small></div><div class="dscs">${shortcuts}</div></div>
+    </div>
+    <div class="dbanner"><span class="dic big"><svg><use href="#i-clock"/></svg></span><div><b>อัปเดตข้อมูลเกมอัตโนมัติทุกวัน</b><small>ดึงข้อมูลใหม่ แปลไทย สร้างหน้าค้นหา แล้วขึ้นเว็บเอง · ล่าสุด ${window.META&&META.scraped_at?new Date(META.scraped_at).toLocaleString(LOC,{day:'numeric',month:'long',hour:'2-digit',minute:'2-digit',timeZone:'Asia/Bangkok'}):'—'}</small></div><a class="dbtn" href="https://github.com/kittisakaicowork-pixel/aniimo-field-guide/commits/main" target="_blank" rel="noopener">ดูประวัติอัปเดต →</a></div>`;
+}
+document.addEventListener('click',e=>{const m=e.target.closest('[data-cmamode]');if(m&&typeof CMA!=='undefined'){CMA.mode=m.dataset.cmamode;CMA.items=null}
+  if(e.target.closest('[data-dhelp="update"]'))alert('งานอัปเดตรายวันรันผ่าน Scheduled task ของแอป Claude บนเครื่อง Mac\n\nถ้าข้อมูลไม่อัปเดต: เปิดเครื่องและแอป Claude ทิ้งไว้ช่วงเวลาที่ตั้งงานไว้ หรือสั่ง Claude ให้รัน tools/daily.sh เองครั้งหนึ่ง')});
+setInterval(()=>{const c=document.getElementById('dClock');if(c)c.textContent=new Date().toLocaleTimeString('th-TH',{hour:'2-digit',minute:'2-digit',timeZone:'Asia/Bangkok'})},20000);
 function adminLogin(msg){
   const out=document.getElementById('adOut');
   if(!SB.url){out.innerHTML=`<div class="dpanel adlogin" style="max-width:460px"><span class="ic"><svg><use href="#i-lock"/></svg></span><h3>หลังบ้านยังไม่ได้เชื่อมฐานข้อมูล</h3><p class="muted">เจ้าของเว็บต้องสร้างฐานข้อมูล Supabase และใส่ค่าการเชื่อมต่อก่อน ระหว่างนี้ดูหน้าตาด้วยข้อมูลสมมติได้</p><button type="button" class="btn" id="adDemo">ดูตัวอย่างด้วยข้อมูลสมมติ</button></div>`;return}
@@ -1421,6 +1513,12 @@ async function renderAdmin(quiet){
         <div class="arow"><span>Aniimo อันดับ 1</span><b>${topMon?`<button type="button" class="alink" data-open="${topMon.key}">${esc(BY[topMon.key].th||BY[topMon.key].name)}</button> · ${fmtN(topMon.n)} ครั้ง`:'—'}</b></div>
         <div class="arow"><span>คำค้นยอดนิยม</span><b>${topSearch?`“${esc(topSearch.key)}” · ${fmtN(topSearch.n)} ครั้ง`:'—'}</b></div>
         <div class="arow"><span>หน้ายอดนิยม</span><b>${topView?`${esc(VIEWS.find(v=>v.id===topView.key).th)} · ${fmtN(topView.n)} ครั้ง`:'—'}</b></div></div>`;
+    let d2=null,eg2=null,pend={posts:0,replies:0};
+    if(AD.tab==='overview'){
+      if(AD.demo){d2=demoData(Math.min(730,AD.range*2));d2={...d2,views:Math.round(d.views*1.85),visitors:Math.round(d.visitors*1.82)};eg2={sessions:Math.round(S*1.9),engaged:Math.round(EG*1.84),median_secs_engaged:(eg&&eg.median_secs_engaged||100)*.92};pend={posts:2,replies:1}}
+      else{const R2=Math.min(730,AD.range*2);[d2,eg2]=await Promise.all([sbStats(R2).catch(()=>null),sbEngage(R2).catch(()=>null)]);
+        const [p,r]=await Promise.all([sbRpc('community_admin_list',{only_status:'pending',lim:200}).catch(()=>[]),sbRpc('community_admin_replies',{only_status:'pending',lim:200}).catch(()=>[])]);pend={posts:(p||[]).length,replies:(r||[]).length}}
+    }
     let app=null;if(AD.demo)app={installs:12,installs_all:31,app_users:24,app_users_all:40};else try{app=await sbRpc('stats_app',{days:AD.range})}catch(_){}
     const appRows=app?`<div class="arow"><span>ติดตั้งเป็นแอป (${rl})</span><b>${fmtN(app.installs)} คน</b></div><div class="arow"><span>เปิดใช้ผ่านแอป (${rl})</span><b>${fmtN(app.app_users)} คน</b></div>`:'<div class="arow"><span>ผู้ใช้แอป</span><b class="amute">รัน community.sql เพื่อเริ่มนับ</b></div>';
     const today=`<div class="acard"><div class="ahead"><h3>ข้อมูลวันนี้</h3><small>เวลาไทย</small></div>
@@ -1443,6 +1541,7 @@ async function renderAdmin(quiet){
     else if(AD.tab==='feedback')body=feedbackPanel();
     else if(AD.tab==='posts')body=socialPosts();
     else if(AD.tab==='community'){if(!CMA.items)await cmaLoad();body=communityPanel()}
+    else if(AD.tab==='overview')body=dashOverview({d,d2,eg,eg2,app,pend,days,rl,range:AD.range});
     else body=`<div class="akpis">
         ${kpi('ผู้ใช้',fmtN(d.visitors),'คน',`เปิดหน้าเว็บ ${fmtN(d.views)} ครั้ง`)}
         ${kpi('รอบการเข้าเว็บ',ok?fmtN(S):'—','รอบ',ok?`เฉลี่ย ${eg.avg_pages||0} หน้าต่อรอบ${eg.est_sessions?' · บางส่วนเป็นค่าประมาณ':''}`:'ยังไม่มีข้อมูล')}
@@ -1457,7 +1556,7 @@ async function renderAdmin(quiet){
         <nav>${tabs.map(([k,l,ic])=>`<button type="button" data-adtab="${k}" aria-current="${AD.tab===k}"><svg><use href="#i-${ic}"/></svg>${l}${k==='feedback'&&newFb.length?`<em>${newFb.length}</em>`:''}</button>`).join('')}</nav></aside>
       <div class="amain">
         ${AD.demo?'<div class="ademo"><b>ข้อมูลตัวอย่าง</b> ตัวเลขในหน้านี้สร้างขึ้นเพื่อดูหน้าตา ไม่ใช่ข้อมูลจริง</div>':''}
-        <header class="atop"><div><p class="aeye">${(AD.tab||'overview').toUpperCase()}</p><h2>${title}</h2><p class="amute">ข้อมูล ${rl} · เวลาไทย</p></div><span class="apill">ผู้ดูแล</span></header>
+        ${AD.tab==='overview'?dashHeader(rl):`<header class="atop"><div><p class="aeye">${(AD.tab||'overview').toUpperCase()}</p><h2>${title}</h2><p class="amute">ข้อมูล ${rl} · เวลาไทย</p></div><span class="apill">ผู้ดูแล</span></header>`}
         <div class="abarline">${range}${meta}</div>
         ${body}
         ${units}
