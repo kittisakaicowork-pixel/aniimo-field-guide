@@ -1760,6 +1760,22 @@ body{overflow-x:clip}
 .dbtn{flex:none;padding:10px 18px;border-radius:99px;background:linear-gradient(135deg,#34B4FF,var(--accent));color:#fff;font:700 .9rem var(--display);text-decoration:none;box-shadow:0 6px 16px rgba(16,130,230,.3)}
 @media (max-width:1180px){.dgrid3{grid-template-columns:1fr 1fr}.dgrid3>:first-child{grid-column:1/-1}.dtodos,.dkpis,.dtiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:640px){.dgrid3,.dtodos,.dkpis,.dtiles,.dscs{grid-template-columns:1fr}.dtop{flex-direction:column;align-items:flex-start}.dclock{text-align:left}.dclock b{font-size:2rem}.dbanner{flex-wrap:wrap}.dkv b{font-size:1.8rem}}
+
+/* ============ mid-width screens: the header fits (search folds to a button), admin sidebar full height ============ */
+@media (min-width:641px) and (max-width:1279px){
+  .appbar{gap:8px;position:sticky}
+  .topnav .tn-b{padding:8px 7px;font-size:.86rem}
+  .appbar .suppill small,.appbar .suppill b{display:none}
+  .appbar .gsearch{flex:0 0 40px;margin-left:auto;position:relative}
+  .appbar .gsearch input{width:40px;height:40px;padding:0;border-radius:50%;color:transparent;cursor:pointer}
+  .appbar .gsearch input::placeholder{color:transparent}
+  .appbar .gsearch svg{left:12px;pointer-events:none}
+  .appbar .gsearch:focus-within{position:absolute;left:auto;right:110px;width:min(420px,60vw);top:50%;translate:0 -50%;z-index:5}
+  .appbar .gsearch:focus-within input{width:100%;padding:0 14px 0 38px;border-radius:999px;color:var(--ink);cursor:text;box-shadow:0 8px 24px rgba(20,40,80,.18)}
+  .appbar .gsearch:focus-within input::placeholder{color:var(--ink-2)}
+}
+@media (min-width:981px){.adws{background:linear-gradient(90deg,var(--surface) 0 var(--adside,240px),transparent var(--adside,240px))}}
+@media (max-width:640px){.dbanner{display:grid;grid-template-columns:auto 1fr}.dbanner .dbtn{grid-column:1/-1;justify-self:start}}
 </style>
 
 <div id="boot" role="status" aria-live="polite"><div class="bootin"><b class="wm"><svg class="brandmark" viewBox="0 0 260 72" aria-hidden="true"><use href="img/aniiguide-logo.svg?v=4#wordmark"></use></svg><span class="sr">AniiGuide</span></b><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><small id="bootMsg">กำลังโหลดข้อมูล Aniimo…</small></div></div>
