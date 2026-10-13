@@ -760,7 +760,7 @@ function mapLayersUI(){
     return `<details class="lcat"${onN?' open':''}><summary>${esc(c.th)} <small>${onN}/${c.ls.length}</small><button type="button" class="lall" data-mcat="${esc(c.n)}">${onN===c.ls.length?'ปิด':'เปิด'}ทั้งหมด</button></summary>
     ${c.ls.map(i=>{const l=MAP.layers[i];return `<label class="lrow"><input type="checkbox" data-mlayer="${i}"${MV.on.has(i)?' checked':''}><i style="${ic(l)}"></i>${esc(LANG==='th'?l.th:l.n)}<small>${MAP.count[i]}</small></label>`}).join('')}</details>`}).join('');
 }
-function mapSize(){const st=document.getElementById('mapStage');if(MV.ready){const b=contBounds(),w=st.clientWidth;st.style.height=Math.round(Math.max(380,Math.min(innerHeight*.8,w*(b.y1-b.y0)/(b.x1-b.x0))))+'px'}const r=mapCv.getBoundingClientRect(),d=window.devicePixelRatio||1;mapCv.width=Math.max(1,r.width*d|0);mapCv.height=Math.max(1,r.height*d|0);mapDraw()}
+function mapSize(){const st=document.getElementById('mapStage');if(MV.ready){const b=contBounds(),w=st.clientWidth;st.style.height=Math.round(Math.max(Math.min(380,innerHeight-120),Math.min(innerHeight*.8,innerHeight-100,w*(b.y1-b.y0)/(b.x1-b.x0))))+'px'}const r=mapCv.getBoundingClientRect(),d=window.devicePixelRatio||1;mapCv.width=Math.max(1,r.width*d|0);mapCv.height=Math.max(1,r.height*d|0);mapDraw()}
 /* the view is cropped to the continent: land markers give its bounds (region outlines run out to the image frame over the sea) */
 let CB=null;
 function contBounds(){if(CB)return CB;let x0=1,y0=1,x1=0,y1=0;

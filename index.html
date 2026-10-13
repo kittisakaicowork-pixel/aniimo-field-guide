@@ -1072,7 +1072,7 @@ kbd{font:600 .78rem var(--mono);border:1px solid var(--line);border-bottom-width
 .seolinks{font-size:.8rem;color:var(--ink-2);line-height:1.9}.seolinks a{color:var(--ink-2)}
 /* =================== v4 skin: AniiGuide (sky blue like the game, rounded type) =================== */
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-.wm{display:inline-flex;align-items:center;color:var(--ink);line-height:1;flex:none}.brandmark{display:block;width:124px;height:auto;overflow:visible}.logo .brandmark{width:124px}@media(max-width:640px){.logo .brandmark{width:108px}}.sf-brand .brandmark{width:132px}#boot .brandmark{width:min(300px,70vw)}
+.wm{display:inline-flex;align-items:center;color:var(--ink);line-height:1;flex:none}.brandmark{display:block;width:124px;height:auto;overflow:visible}.logo .brandmark{width:124px}@media (max-width:640px),(orientation:landscape) and (max-height:500px) and (pointer:coarse){.logo .brandmark{width:108px}}.sf-brand .brandmark{width:132px}#boot .brandmark{width:min(300px,70vw)}
 .logo img{border-radius:10px;box-shadow:0 4px 12px rgba(10,110,210,.25)}
 .logo b.wm span{background:none;-webkit-background-clip:border-box;background-clip:border-box;color:inherit}
 .logo b.wm{font-size:1.3rem}.logo b.wm,.sf-brand .wm,#boot .wm{font-family:"Unbounded","M PLUS Rounded 1c",system-ui,sans-serif;font-weight:800}
@@ -1474,7 +1474,7 @@ body{overflow-x:clip}
 
 /* ============ phones: calmer header, app-like home, two-column Aniimo list ============ */
 .ftoggle{display:none}
-@media (max-width:640px){
+@media (max-width:640px),(orientation:landscape) and (max-height:500px) and (pointer:coarse){
   /* header: search is a round button that opens across the bar */
   .appbar{gap:8px}
   .appbar .gsearch{flex:0 0 40px;margin-left:auto;position:relative}
@@ -1537,7 +1537,7 @@ body{overflow-x:clip}
 }
 
 /* ============ phones, part 2 ============ */
-@media (max-width:640px){
+@media (max-width:640px),(orientation:landscape) and (max-height:500px) and (pointer:coarse){
   .vhead p.muted{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:.88rem;cursor:pointer}
   .vhead p.muted.open{display:block;-webkit-line-clamp:none}
   [data-view="dex"] .vhead p.muted{display:none}
@@ -1570,7 +1570,7 @@ body{overflow-x:clip}
 
 /* ============ phone home (mockup): cream + teal ============ */
 .mhome,#menuBtn,.mmenu-top{display:none}
-@media (max-width:640px){
+@media (max-width:640px),(orientation:landscape) and (max-height:500px) and (pointer:coarse){
   :root{--mserif:var(--display)}
   /* header: logo, language pill, menu */
   .appbar #themeBtn{display:none}
@@ -1650,7 +1650,7 @@ body{overflow-x:clip}
 }
 
 /* ============ phones, part 3: banners, segmented switches ============ */
-@media (max-width:640px){
+@media (max-width:640px),(orientation:landscape) and (max-height:500px) and (pointer:coarse){
   .vhead .eyebrow{display:none}
   .vhead h2{font:800 1.55rem/1.25 var(--display)}
   .vhead.vban{position:relative;isolation:isolate;min-height:150px;align-content:center;padding:18px 16px;border-radius:22px;overflow:hidden;
@@ -1685,7 +1685,7 @@ body{overflow-x:clip}
 .pcard{display:grid;grid-template-columns:auto 1fr;gap:4px 12px}
 .pcard>.abic{grid-row:1/span 9}
 .pcard>h3{margin:0}
-@media (max-width:640px){
+@media (max-width:640px),(orientation:landscape) and (max-height:500px) and (pointer:coarse){
   /* tier list: portraits, four to a row */
   #tiers .trow{grid-template-columns:76px 1fr;border-radius:18px}
   #tiers .trow .t{align-content:center;gap:2px;font-size:2rem}
@@ -1759,10 +1759,10 @@ body{overflow-x:clip}
 .dbanner>div{flex:1;min-width:0}.dbanner b{display:block;font:800 1.15rem var(--display);color:var(--ink)}.dbanner small{color:var(--ink-2)}.dic.big{width:52px;height:52px;border-radius:50%;background:var(--surface)}
 .dbtn{flex:none;padding:10px 18px;border-radius:99px;background:linear-gradient(135deg,#34B4FF,var(--accent));color:#fff;font:700 .9rem var(--display);text-decoration:none;box-shadow:0 6px 16px rgba(16,130,230,.3)}
 @media (max-width:1180px){.dgrid3{grid-template-columns:1fr 1fr}.dgrid3>:first-child{grid-column:1/-1}.dtodos,.dkpis,.dtiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:640px){.dgrid3,.dtodos,.dkpis,.dtiles,.dscs{grid-template-columns:1fr}.dtop{flex-direction:column;align-items:flex-start}.dclock{text-align:left}.dclock b{font-size:2rem}.dbanner{flex-wrap:wrap}.dkv b{font-size:1.8rem}}
+@media (max-width:640px),(orientation:landscape) and (max-height:500px) and (pointer:coarse){.dgrid3,.dtodos,.dkpis,.dtiles,.dscs{grid-template-columns:1fr}.dtop{flex-direction:column;align-items:flex-start}.dclock{text-align:left}.dclock b{font-size:2rem}.dbanner{flex-wrap:wrap}.dkv b{font-size:1.8rem}}
 
 /* ============ mid-width screens: the header fits (search folds to a button), admin sidebar full height ============ */
-@media (min-width:641px) and (max-width:1279px){
+@media (min-width:641px) and (max-width:1279px) and (min-height:501px),(min-width:641px) and (max-width:1279px) and (pointer:fine){
   .appbar{gap:8px;position:sticky}
   .topnav .tn-b{padding:8px 7px;font-size:.86rem}
   .appbar .suppill small,.appbar .suppill b{display:none}
@@ -1775,12 +1775,37 @@ body{overflow-x:clip}
   .appbar .gsearch:focus-within input::placeholder{color:var(--ink-2)}
 }
 @media (min-width:981px){.adws{background:linear-gradient(90deg,var(--surface) 0 var(--adside,240px),transparent var(--adside,240px))}}
-@media (max-width:640px){.dbanner{display:grid;grid-template-columns:auto 1fr}.dbanner .dbtn{grid-column:1/-1;justify-self:start}}
+@media (max-width:640px),(orientation:landscape) and (max-height:500px) and (pointer:coarse){.dbanner{display:grid;grid-template-columns:auto 1fr}.dbanner .dbtn{grid-column:1/-1;justify-self:start}}
 
 /* phone home: dynamic part lays out like the rest; bottom bar keeps its height from the first paint */
 .mh-dyn{display:grid;gap:18px}
-@media (max-width:640px){.tabbar{min-height:calc(58px + env(safe-area-inset-bottom,0px))}.mh-daily img{width:100%;height:170px}.mh-daily{min-height:190px}.mh-explore .art img{width:auto;height:140px}
+@media (max-width:640px),(orientation:landscape) and (max-height:500px) and (pointer:coarse){.tabbar{min-height:calc(58px + env(safe-area-inset-bottom,0px))}.mh-daily img{width:100%;height:170px}.mh-daily{min-height:190px}.mh-explore .art img{width:auto;height:140px}
   .mh-art{width:78%;height:250px}.mh-hero{min-height:220px}}
+
+/* ============ phones held sideways: slim bars, more columns, room around the notch ============ */
+@media (orientation:landscape) and (max-height:500px) and (pointer:coarse){
+  .appbar{padding-top:calc(4px + env(safe-area-inset-top,0px));padding-bottom:4px;padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}
+  .appbar .brandmark,.logo .brandmark{width:96px}
+  #menuBtn{width:38px;height:38px}
+  #main{padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}
+  .tabbar{min-height:calc(44px + env(safe-area-inset-bottom,0px));padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right)}
+  .tabbar button{grid-auto-flow:column;align-items:center;justify-content:center;gap:6px;padding:6px 2px;font-size:.78rem}
+  .tabbar button svg{width:18px;height:18px;padding:2px 8px}
+  .tabbar button[aria-current="page"]::after{display:none}
+  .mhome{margin-top:-50px}
+  .mh-hero{padding-top:52px;min-height:0}
+  .mh-hero h1{font-size:2rem}
+  .mh-art{width:55%;height:190px}
+  .mh-explore{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .mh-daily{min-height:160px}
+  .mh-daily img{height:150px}
+  .mh-news{grid-template-columns:1fr 1fr}
+  #dexGrid.dex{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .mapstage{height:min(calc(100vh - 120px),calc(100dvh - 120px));min-height:220px}
+  .vhead.vban{min-height:110px}
+  .slot.empty{min-height:90px}
+  #cmNew{bottom:calc(56px + env(safe-area-inset-bottom))}
+}
 </style>
 
 <div id="boot" role="status" aria-live="polite"><div class="bootin"><b class="wm"><svg class="brandmark" viewBox="0 0 260 72" aria-hidden="true"><use href="img/aniiguide-logo.svg?v=4#wordmark"></use></svg><span class="sr">AniiGuide</span></b><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><small id="bootMsg">กำลังโหลดข้อมูล Aniimo…</small></div></div>
@@ -3056,10 +3081,10 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
 </dialog>
 <dialog id="menu" aria-label="เมนูทั้งหมด"><div class="inner" id="menuInner"></div></dialog>
 
-<script>try{if(localStorage.getItem('aniimo-lang')==='en')document.write('<script src="i18n-en.js?v=31d41819f6"><\/script>')}catch(_){}</script>
-<script defer src="th.js?v=31d41819f6"></script>
-<script defer src="items.js?v=31d41819f6"></script>
-<script defer src="data.js?v=31d41819f6"></script>
-<script defer src="thumbs.js?v=31d41819f6"></script>
-<script defer src="content.js?v=31d41819f6"></script>
-<script defer src="app.js?v=31d41819f6"></script>
+<script>try{if(localStorage.getItem('aniimo-lang')==='en')document.write('<script src="i18n-en.js?v=5ec9a990d5"><\/script>')}catch(_){}</script>
+<script defer src="th.js?v=5ec9a990d5"></script>
+<script defer src="items.js?v=5ec9a990d5"></script>
+<script defer src="data.js?v=5ec9a990d5"></script>
+<script defer src="thumbs.js?v=5ec9a990d5"></script>
+<script defer src="content.js?v=5ec9a990d5"></script>
+<script defer src="app.js?v=5ec9a990d5"></script>
