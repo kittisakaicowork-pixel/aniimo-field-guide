@@ -1033,6 +1033,8 @@ dialog[open]::backdrop{animation:bdIn .25s ease}
 .picks>.pick.rv{transform:translateY(-70px) rotate(var(--rr,-7deg)) scale(.9);filter:blur(4px)}
 .picks>.pick:nth-child(even).rv{--rr:6deg}
 .picks>.pick.rv.rv-in{transform:none;filter:blur(0);transition:opacity .4s ease,transform .8s cubic-bezier(.3,1.45,.45,1),filter .5s}
+/* phones: nothing may widen the page sideways (clip keeps sticky working, unlike hidden) */
+@media (max-width:640px),(orientation:landscape) and (max-height:500px) and (pointer:coarse){html,body{overflow-x:clip}}
 /* phone home: shortcut tiles pop in on load, explore cards are tossed in, news rows slide in, the tagline cycles */
 @media (prefers-reduced-motion:no-preference){.mh-tiles>button{animation:tileIn .6s cubic-bezier(.3,1.4,.5,1) backwards}
   .mh-tiles>button:nth-child(2){animation-delay:.08s}.mh-tiles>button:nth-child(3){animation-delay:.16s}.mh-tiles>button:nth-child(4){animation-delay:.24s}}
@@ -1040,7 +1042,7 @@ dialog[open]::backdrop{animation:bdIn .25s ease}
 .mh-explore>button.rv{transform:translateY(-60px) rotate(var(--rr,-6deg)) scale(.9);filter:blur(4px)}
 .mh-explore>button:nth-child(even).rv{--rr:6deg}
 .mh-explore>button.rv.rv-in{transform:none;filter:blur(0);transition:opacity .4s ease,transform .8s cubic-bezier(.3,1.45,.45,1),filter .5s}
-.mh-news>a.rv{transform:translateX(48px);filter:blur(6px)}
+.mh-news>a.rv{transform:translateY(28px);filter:blur(6px)}
 .mh-news>a.rv.rv-in{transform:none;filter:blur(0)}
 .wrot{display:inline-block;transition:transform .38s cubic-bezier(.3,.7,.2,1),opacity .3s,filter .38s}
 .wrot.out{transform:translateY(-55%);opacity:0;filter:blur(6px)}
@@ -3138,10 +3140,10 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
 </dialog>
 <dialog id="menu" aria-label="เมนูทั้งหมด"><div class="inner" id="menuInner"></div></dialog>
 
-<script>try{if(localStorage.getItem('aniimo-lang')==='en')document.write('<script src="i18n-en.js?v=0c74feee41"><\/script>')}catch(_){}</script>
-<script defer src="th.js?v=0c74feee41"></script>
-<script defer src="items.js?v=0c74feee41"></script>
-<script defer src="data.js?v=0c74feee41"></script>
-<script defer src="thumbs.js?v=0c74feee41"></script>
-<script defer src="content.js?v=0c74feee41"></script>
-<script defer src="app.js?v=0c74feee41"></script>
+<script>try{if(localStorage.getItem('aniimo-lang')==='en')document.write('<script src="i18n-en.js?v=f57ac1ef81"><\/script>')}catch(_){}</script>
+<script defer src="th.js?v=f57ac1ef81"></script>
+<script defer src="items.js?v=f57ac1ef81"></script>
+<script defer src="data.js?v=f57ac1ef81"></script>
+<script defer src="thumbs.js?v=f57ac1ef81"></script>
+<script defer src="content.js?v=f57ac1ef81"></script>
+<script defer src="app.js?v=f57ac1ef81"></script>

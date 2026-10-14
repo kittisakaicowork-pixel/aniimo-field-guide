@@ -2059,7 +2059,7 @@ if(!RM){const home=document.querySelector('[data-view="home"]'),EN=LANG==='en',s
     h3.appendChild(fl);if(getComputedStyle(fl).position!=='absolute')fl.remove()} // a stale cached page lacks the CSS: drop rather than show huge pictures
   // and two small Aniimo bubbles float by the phone hero picture
   const mh=document.querySelector('.mh-hero');
-  if(mh){const pk=RELEASED.filter(a=>!a.cut).sort(()=>Math.random()-.5).slice(0,2),P=['--x:calc(100% - 54px);--y:64px;--dx:1;--dy:-.6;--e:.2s','--x:calc(100% - 112px);--y:94px;--dx:-.4;--dy:-1;--e:.4s'];
+  if(mh){const pk=RELEASED.filter(a=>!a.cut).sort(()=>Math.random()-.5).slice(0,2),P=['--x:calc(100% - 54px);--y:64px;--dx:-.35;--dy:-1;--e:.2s','--x:calc(100% - 112px);--y:94px;--dx:-.7;--dy:-.8;--e:.4s'] // drift up and inward, never past the screen edge;
     const fl=document.createElement('div');fl.className='mhfloat';fl.setAttribute('aria-hidden','true');
     fl.innerHTML=pk.map((a,i)=>`<button type="button" tabindex="-1" class="mhf" data-open="${a.slug}" style="${P[i]}"><img src="${TH(a.i)}" alt="" width="40" height="40"></button>`).join('');mh.appendChild(fl);if(getComputedStyle(fl).position!=='absolute')fl.remove()}
   // section titles fill with colour from left to right as they scroll up into view
