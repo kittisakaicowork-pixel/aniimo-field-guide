@@ -2055,13 +2055,13 @@ if(!RM){const home=document.querySelector('[data-view="home"]'),EN=LANG==='en',s
     const P=['--x:calc(50% + 70px);--y:9%;--r:-8deg;--dx:-.5;--dy:-1;--e:.15s','--x:calc(100% - 170px);--y:6%;--r:7deg;--dx:1;--dy:-.7;--e:.3s',
       '--x:calc(100% - 150px);--y:60%;--r:-5deg;--dx:1;--dy:.8;--e:.45s','--x:calc(50% + 70px);--y:70%;--r:6deg;--dx:-.6;--dy:1;--e:.6s'];
     const fl=document.createElement('div');fl.className='hfloat';fl.setAttribute('aria-hidden','true');
-    fl.innerHTML=pk.map((a,i)=>`<button type="button" tabindex="-1" class="hf" data-open="${a.slug}" style="${P[i]}"><span class="hfi"><span class="hfb"><img src="${TH(a.i)}" alt=""><b>${esc(a.name)}</b><small>${numLabel(a)}</small></span></span></button>`).join('');
-    h3.appendChild(fl)}
+    fl.innerHTML=pk.map((a,i)=>`<button type="button" tabindex="-1" class="hf" data-open="${a.slug}" style="${P[i]}"><span class="hfi"><span class="hfb"><img src="${TH(a.i)}" alt="" width="84" height="84"><b>${esc(a.name)}</b><small>${numLabel(a)}</small></span></span></button>`).join('');
+    h3.appendChild(fl);if(getComputedStyle(fl).position!=='absolute')fl.remove()} // a stale cached page lacks the CSS: drop rather than show huge pictures
   // and two small Aniimo bubbles float by the phone hero picture
   const mh=document.querySelector('.mh-hero');
   if(mh){const pk=RELEASED.filter(a=>!a.cut).sort(()=>Math.random()-.5).slice(0,2),P=['--x:calc(100% - 54px);--y:64px;--dx:1;--dy:-.6;--e:.2s','--x:calc(100% - 112px);--y:94px;--dx:-.4;--dy:-1;--e:.4s'];
     const fl=document.createElement('div');fl.className='mhfloat';fl.setAttribute('aria-hidden','true');
-    fl.innerHTML=pk.map((a,i)=>`<button type="button" tabindex="-1" class="mhf" data-open="${a.slug}" style="${P[i]}"><img src="${TH(a.i)}" alt=""></button>`).join('');mh.appendChild(fl)}
+    fl.innerHTML=pk.map((a,i)=>`<button type="button" tabindex="-1" class="mhf" data-open="${a.slug}" style="${P[i]}"><img src="${TH(a.i)}" alt="" width="40" height="40"></button>`).join('');mh.appendChild(fl);if(getComputedStyle(fl).position!=='absolute')fl.remove()}
   // section titles fill with colour from left to right as they scroll up into view
   let ff=0;const fill=()=>{ff=0;if(current!=='home')return;home.querySelectorAll('.hsec>.shead>h2,.mh-h>h2').forEach(h=>{if(!h.querySelector(':scope>.tfill')){const sp=document.createElement('span');sp.className='tfill';while(h.firstChild)sp.appendChild(h.firstChild);h.appendChild(sp)}const v=Math.round(Math.min(1,Math.max(0,(innerHeight*.95-h.getBoundingClientRect().top)/(innerHeight*.4)))*100)/100;if(h.style.getPropertyValue('--tp')!=String(v))h.style.setProperty('--tp',v)})};
   addEventListener('scroll',()=>{if(!ff)ff=requestAnimationFrame(fill)},{passive:true});fill()}
