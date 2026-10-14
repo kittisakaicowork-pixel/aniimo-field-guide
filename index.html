@@ -993,6 +993,12 @@ dialog[open]::backdrop{animation:bdIn .25s ease}
 .hero3.hs .hbg{opacity:calc(1 - var(--hp)*.7);transform:scale(calc(1 + var(--hp)*.06));filter:blur(calc(var(--hp)*6px))}
 /* home sections stack like cards: each sticks, then shrinks, dims and blurs back as the next one slides over it; --sp is 0..1 from app.js */
 .view.stack>.hsec.ctr{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:28px;padding:clamp(22px,3vw,36px);box-shadow:var(--shadow-up)}
+.mh-sec{display:grid;gap:14px;min-width:0}.mh-dyn{grid-template-columns:minmax(0,1fr)}
+.view.stack .mh-dyn>.mh-sec{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:28px;padding:12px;box-shadow:var(--shadow-up)}
+.view.stack .mh-dyn>.mh-sec .mh-h{margin:4px 4px 0}
+.view.stack .mh-dyn>.mh-sec:first-child{padding:8px}
+.view.stack .mh-dyn>.mh-sec.stk{position:sticky;transform-origin:50% 0;transform:translateY(calc(var(--sp,0)*-12px)) scale(calc(1 - var(--sp,0)*.05));opacity:calc(1 - var(--sq,0))}
+.view.stack .mh-dyn>.mh-sec.sh{filter:blur(calc(var(--sp)*2px)) brightness(calc(1 - var(--sp)*.08))}
 .view.stack>.hsec.ctr.stk{position:sticky;transform-origin:50% 0;transform:translateY(calc(var(--sp,0)*-14px)) scale(calc(1 - var(--sp,0)*.05));opacity:calc(1 - var(--sq,0))}
 .view.stack>.hsec.ctr.sh{filter:blur(calc(var(--sp)*2px)) brightness(calc(1 - var(--sp)*.08))}
 /* fastwork-style home motion (app.js): tagline word cycles, search types examples, floating Aniimo cards, title fill, picks tossed in */
@@ -1015,11 +1021,30 @@ dialog[open]::backdrop{animation:bdIn .25s ease}
 @keyframes hfIn{from{opacity:0;scale:.5;rotate:0deg;translate:0 50px}}
 @keyframes hfBob{from{translate:0 -7px}to{translate:0 8px}}
 @media (max-width:999px){.hfloat{display:none}}
+.view.stack .mh-h h2 .tfill{padding:.25em 0;background:linear-gradient(90deg,var(--ink) calc(var(--tp,1)*115% - 15%),color-mix(in srgb,var(--ink) 18%,transparent) calc(var(--tp,1)*115%));
+  -webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+.mhfloat{position:absolute;inset:0;pointer-events:none;z-index:0}
+.mhf{position:absolute;left:var(--x);top:var(--y);width:50px;height:50px;border-radius:50%;padding:0;display:grid;place-items:center;pointer-events:auto;cursor:pointer;
+  background:color-mix(in srgb,var(--surface) 85%,transparent);border:1px solid var(--line);box-shadow:0 8px 20px rgba(40,30,110,.18);
+  translate:calc(var(--dx)*var(--hp,0)*120px) calc(var(--dy)*var(--hp,0)*90px);animation:hfIn .9s cubic-bezier(.2,.9,.25,1.2) var(--e) backwards}
+.mhf img{width:40px;height:40px;object-fit:contain;animation:hfBob 3.8s ease-in-out var(--e) infinite alternate}
 .view.stack .shead h2 .tfill{flex:none;padding:.25em 0;margin:-.25em 0;background:linear-gradient(90deg,var(--ink) calc(var(--tp,1)*115% - 15%),color-mix(in srgb,var(--ink) 18%,transparent) calc(var(--tp,1)*115%));
   -webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
 .picks>.pick.rv{transform:translateY(-70px) rotate(var(--rr,-7deg)) scale(.9);filter:blur(4px)}
 .picks>.pick:nth-child(even).rv{--rr:6deg}
 .picks>.pick.rv.rv-in{transform:none;filter:blur(0);transition:opacity .4s ease,transform .8s cubic-bezier(.3,1.45,.45,1),filter .5s}
+/* phone home: shortcut tiles pop in on load, explore cards are tossed in, news rows slide in, the tagline cycles */
+@media (prefers-reduced-motion:no-preference){.mh-tiles>button{animation:tileIn .6s cubic-bezier(.3,1.4,.5,1) backwards}
+  .mh-tiles>button:nth-child(2){animation-delay:.08s}.mh-tiles>button:nth-child(3){animation-delay:.16s}.mh-tiles>button:nth-child(4){animation-delay:.24s}}
+@keyframes tileIn{from{opacity:0;transform:translateY(18px) scale(.85)}}
+.mh-explore>button.rv{transform:translateY(-60px) rotate(var(--rr,-6deg)) scale(.9);filter:blur(4px)}
+.mh-explore>button:nth-child(even).rv{--rr:6deg}
+.mh-explore>button.rv.rv-in{transform:none;filter:blur(0);transition:opacity .4s ease,transform .8s cubic-bezier(.3,1.45,.45,1),filter .5s}
+.mh-news>a.rv{transform:translateX(48px);filter:blur(6px)}
+.mh-news>a.rv.rv-in{transform:none;filter:blur(0)}
+.wrot{display:inline-block;transition:transform .38s cubic-bezier(.3,.7,.2,1),opacity .3s,filter .38s}
+.wrot.out{transform:translateY(-55%);opacity:0;filter:blur(6px)}
+.wrot.in{transform:translateY(55%);opacity:0;filter:blur(6px);transition:none}
 .mon,.feat>button,.daily .dart{transform-style:preserve-3d}
 .tilt{transform:perspective(700px) rotateX(var(--rx,0)) rotateY(var(--ry,0)) translateY(-3px)!important;transition:transform .08s linear!important}
 .mon::after,.feat>button::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .2s;background:radial-gradient(circle at var(--gx,50%) var(--gy,50%),rgba(255,255,255,.28),transparent 55%)}
@@ -3113,10 +3138,10 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
 </dialog>
 <dialog id="menu" aria-label="เมนูทั้งหมด"><div class="inner" id="menuInner"></div></dialog>
 
-<script>try{if(localStorage.getItem('aniimo-lang')==='en')document.write('<script src="i18n-en.js?v=a9dd253a70"><\/script>')}catch(_){}</script>
-<script defer src="th.js?v=a9dd253a70"></script>
-<script defer src="items.js?v=a9dd253a70"></script>
-<script defer src="data.js?v=a9dd253a70"></script>
-<script defer src="thumbs.js?v=a9dd253a70"></script>
-<script defer src="content.js?v=a9dd253a70"></script>
-<script defer src="app.js?v=a9dd253a70"></script>
+<script>try{if(localStorage.getItem('aniimo-lang')==='en')document.write('<script src="i18n-en.js?v=4211c2967d"><\/script>')}catch(_){}</script>
+<script defer src="th.js?v=4211c2967d"></script>
+<script defer src="items.js?v=4211c2967d"></script>
+<script defer src="data.js?v=4211c2967d"></script>
+<script defer src="thumbs.js?v=4211c2967d"></script>
+<script defer src="content.js?v=4211c2967d"></script>
+<script defer src="app.js?v=4211c2967d"></script>

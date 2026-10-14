@@ -1986,7 +1986,7 @@ document.addEventListener('click',e=>{const t=e.target.closest('[data-col]');if(
 document.addEventListener('change',e=>{const c=e.target;if(c.matches&&c.matches('.checklist input')&&c.checked){const r=c.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,12)}});
 document.addEventListener('click',e=>{const b=e.target.closest('#heroCopy,button[data-c]');if(!b)return;const r=b.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,14);toast('คัดลอกโค้ดแล้ว ไปแลกในเกมได้เลย')});
 // cards float up as they scroll into view
-const RV_SEL='.hsec>.shead,.picks>.pick,.feat>button,.hnow>*,.daily,.card,.ducard,.ecard,.rcard,.bcard,.mon,.fcard,.slot,.tl,.checklist li,.hall>div';
+const RV_SEL='.hsec>.shead,.picks>.pick,.mh-explore>button,.mh-news>a,.feat>button,.hnow>*,.daily,.card,.ducard,.ecard,.rcard,.bcard,.mon,.fcard,.slot,.tl,.checklist li,.hall>div';
 const rvIO=!RM&&'IntersectionObserver' in window?new IntersectionObserver(es=>{let k=0;es.forEach(en=>{if(!en.isIntersecting)return;const el=en.target;rvIO.unobserve(el);el.style.transitionDelay=Math.min(k++*45,360)+'ms';el.classList.add('rv-in');setTimeout(()=>{el.classList.remove('rv','rv-in');el.style.transitionDelay=''},900)})},{rootMargin:'0px 0px -40px 0px'}):null;
 function reveal(){if(!rvIO)return;const v=document.querySelector(`.view[data-view="${current}"]`);if(!v)return;
   v.querySelectorAll(RV_SEL).forEach(el=>{if(el.dataset.rv)return;el.dataset.rv=1;if(el.getBoundingClientRect().top<innerHeight)return;el.classList.add('rv');rvIO.observe(el)})}
@@ -2017,10 +2017,10 @@ if(!RM){let f=0;
   addEventListener('scroll',()=>{if(!f)f=requestAnimationFrame(upd)},{passive:true});upd()}
 // home sections stack like cards: each sticks below the bar (tall ones by their bottom edge), and shrinks back as the next slides over it
 if(!RM){const home=document.querySelector('[data-view="home"]');home.classList.add('stack');let f=0;
-  const run=()=>{f=0;if(current!=='home')return;const cs=[...home.querySelectorAll(':scope>.hsec.ctr')].filter(x=>x.offsetHeight),bar=document.querySelector('.appbar'),top=(bar?bar.getBoundingClientRect().bottom:0)+16;
+  const run=()=>{f=0;if(current!=='home')return;const cs=[...home.querySelectorAll(':scope>.hsec.ctr,.mh-dyn>.mh-sec')].filter(x=>x.offsetHeight),bar=document.querySelector('.appbar'),top=(bar?bar.getBoundingClientRect().bottom:0)+(innerWidth<641?8:16),tb=document.querySelector('.tabbar'),bb=tb&&tb.offsetHeight||0;
     const end=cs.length?cs[cs.length-1].getBoundingClientRect().bottom:0,ps=[];
     cs.forEach((x,i)=>{const nx=cs[i+1];x.classList.toggle('stk',!!nx);if(!nx){x.classList.remove('sh');return}
-      const h=x.offsetHeight;x.style.top=Math.min(top,innerHeight-h-24)+'px';
+      const h=x.offsetHeight;x.style.top=Math.min(top,innerHeight-bb-h-16)+'px';
       ps[i]=Math.round(Math.min(1,Math.max(0,(x.getBoundingClientRect().top+(+x.style.getPropertyValue('--sp')||0)*14+h-nx.getBoundingClientRect().top)/h))*200)/200});
     cs.forEach((x,i)=>{if(ps[i]==null)return;const p=ps[i],r=x.getBoundingClientRect();
       // only one card shows behind the front one: fade once the card in front starts shrinking too, or once the last section scrolls up past it
@@ -2033,6 +2033,11 @@ if(!RM){const home=document.querySelector('[data-view="home"]'),EN=LANG==='en',s
   const hl=document.querySelector('.hero3 .lede .hl');
   if(hl&&!EN){const W=[hl.textContent,'แผนที่ครบทุกจุด','Tier List ล่าสุด','จัดบิลด์ทีมได้เอง','โค้ดของขวัญที่ยังใช้ได้'];let i=0;hl.classList.add('rot');
     setInterval(()=>{if(!onTop())return;hl.classList.add('out');setTimeout(()=>{i=(i+1)%W.length;hl.textContent=W[i];hl.classList.replace('out','in');void hl.offsetWidth;hl.classList.remove('in')},380)},2800)}
+  // the phone tagline cycles the same way
+  const mp=document.querySelector('.mh-hero>p');
+  if(mp&&!EN){const w=document.createElement('span');w.className='wrot';w.textContent=mp.textContent;mp.textContent='';mp.appendChild(w);
+    const W=[w.textContent,'แผนที่ครบทุกจุดในอิดิลล์','Tier List อัปเดตล่าสุด','จัดบิลด์ทีมได้เอง','โค้ดของขวัญที่ยังใช้ได้'];let i=0;
+    setInterval(()=>{if(!onTop())return;w.classList.add('out');setTimeout(()=>{i=(i+1)%W.length;w.textContent=W[i];w.classList.replace('out','in');void w.offsetWidth;w.classList.remove('in')},380)},2800)}
   // the search boxes type out example searches (Thai is typed by whole letters, so vowel marks never float alone)
   {const seg=window.Intl&&Intl.Segmenter?new Intl.Segmenter('th',{granularity:'grapheme'}):null,gr=t=>seg?[...seg.segment(t)].map(x=>x.segment):[...t];
     const tg=[document.querySelector('#hsearch>span')];const ms=document.querySelector('.mh-search'),tn=ms&&[...ms.childNodes].find(n=>n.nodeType===3&&n.nodeValue.trim());
@@ -2052,9 +2057,13 @@ if(!RM){const home=document.querySelector('[data-view="home"]'),EN=LANG==='en',s
     const fl=document.createElement('div');fl.className='hfloat';fl.setAttribute('aria-hidden','true');
     fl.innerHTML=pk.map((a,i)=>`<button type="button" tabindex="-1" class="hf" data-open="${a.slug}" style="${P[i]}"><span class="hfi"><span class="hfb"><img src="${TH(a.i)}" alt=""><b>${esc(a.name)}</b><small>${numLabel(a)}</small></span></span></button>`).join('');
     h3.appendChild(fl)}
+  // and two small Aniimo bubbles float by the phone hero picture
+  const mh=document.querySelector('.mh-hero');
+  if(mh){const pk=RELEASED.filter(a=>!a.cut).sort(()=>Math.random()-.5).slice(0,2),P=['--x:calc(100% - 54px);--y:64px;--dx:1;--dy:-.6;--e:.2s','--x:calc(100% - 112px);--y:94px;--dx:-.4;--dy:-1;--e:.4s'];
+    const fl=document.createElement('div');fl.className='mhfloat';fl.setAttribute('aria-hidden','true');
+    fl.innerHTML=pk.map((a,i)=>`<button type="button" tabindex="-1" class="mhf" data-open="${a.slug}" style="${P[i]}"><img src="${TH(a.i)}" alt=""></button>`).join('');mh.appendChild(fl)}
   // section titles fill with colour from left to right as they scroll up into view
-  const hts=[...home.querySelectorAll('.hsec>.shead>h2')];hts.forEach(h=>{const sp=document.createElement('span');sp.className='tfill';while(h.firstChild)sp.appendChild(h.firstChild);h.appendChild(sp)});
-  let ff=0;const fill=()=>{ff=0;if(current!=='home')return;hts.forEach(h=>{const v=Math.round(Math.min(1,Math.max(0,(innerHeight*.95-h.getBoundingClientRect().top)/(innerHeight*.4)))*100)/100;if(h.style.getPropertyValue('--tp')!=String(v))h.style.setProperty('--tp',v)})};
+  let ff=0;const fill=()=>{ff=0;if(current!=='home')return;home.querySelectorAll('.hsec>.shead>h2,.mh-h>h2').forEach(h=>{if(!h.querySelector(':scope>.tfill')){const sp=document.createElement('span');sp.className='tfill';while(h.firstChild)sp.appendChild(h.firstChild);h.appendChild(sp)}const v=Math.round(Math.min(1,Math.max(0,(innerHeight*.95-h.getBoundingClientRect().top)/(innerHeight*.4)))*100)/100;if(h.style.getPropertyValue('--tp')!=String(v))h.style.setProperty('--tp',v)})};
   addEventListener('scroll',()=>{if(!ff)ff=requestAnimationFrame(fill)},{passive:true});fill()}
 // Aniimo of the day, with a slot-machine reroll
 function dailyPick(){const d=new Date(Date.now()+7*3600e3).toISOString().slice(0,10);let h=0;for(const c of d)h=(h*31+c.charCodeAt(0))>>>0;return RELEASED[h%RELEASED.length]}
@@ -2547,13 +2556,13 @@ function renderMHome(){
   const ART=['aniimo-discovery','boundless-twining','idyll-ecology-field-notes','harvest-moon-festival'],nimg=(n,i)=>`img/events/${ART[i%ART.length]}.webp`;
   const ic=i=>`<svg><use href="#i-${i}"/></svg>`;
   el.querySelector('.mh-dyn').innerHTML=`
-  ${dp?`<button type="button" class="mh-daily" data-open="${dp.slug}"><span class="t"><span class="pill">✦ ANIIMO ประจำวัน</span><small>วันนี้พบกับ</small><b>${esc(dp.name)}</b><span>ดูสกิลและสายวิวัฒนาการ</span><span class="go">ดูรายละเอียด ↗</span></span><img src="${MID(dp.i)}" alt="" width="200" height="200"></button>`:''}
-  <div class="mh-quick"><button type="button" class="q1" data-go="codes"><span class="ic">${ic('gift')}</span><span><b>โค้ดแลกรางวัล</b><small>รวมโค้ดไว้ที่เดียว</small></span><i>›</i></button><button type="button" class="q2" data-go="daily"><span class="ic">${ic('check')}</span><span><b>เช็กลิสต์รายวัน</b><small>เตรียมพร้อมก่อนออกล่า</small></span><i>›</i></button></div>
-  <div class="mh-h"><h2>สำรวจโลก Aniimo</h2><a href="#dex" data-go="dex">ดูทั้งหมด →</a></div>
-  <div class="mh-explore">${ex.map(a=>`<button type="button" data-open="${a.slug}" style="--c:var(--${a.e[0]||'neutral'})"><span class="art"><img src="${MID(a.i)}" alt="" loading="lazy" width="200" height="200"></span><span class="cap"><b>${esc(a.name)}</b>${a.e.slice(0,1).map(badge).join('')}<i>›</i></span></button>`).join('')}</div>
-  <div class="mh-h"><h2>อัปเดตและคู่มือ</h2><a href="#news" data-go="news">ทั้งหมด →</a></div>
+  <section class="mh-sec">${dp?`<button type="button" class="mh-daily" data-open="${dp.slug}"><span class="t"><span class="pill">✦ ANIIMO ประจำวัน</span><small>วันนี้พบกับ</small><b>${esc(dp.name)}</b><span>ดูสกิลและสายวิวัฒนาการ</span><span class="go">ดูรายละเอียด ↗</span></span><img src="${MID(dp.i)}" alt="" width="200" height="200"></button>`:''}
+  <div class="mh-quick"><button type="button" class="q1" data-go="codes"><span class="ic">${ic('gift')}</span><span><b>โค้ดแลกรางวัล</b><small>รวมโค้ดไว้ที่เดียว</small></span><i>›</i></button><button type="button" class="q2" data-go="daily"><span class="ic">${ic('check')}</span><span><b>เช็กลิสต์รายวัน</b><small>เตรียมพร้อมก่อนออกล่า</small></span><i>›</i></button></div></section>
+  <section class="mh-sec"><div class="mh-h"><h2>สำรวจโลก Aniimo</h2><a href="#dex" data-go="dex">ดูทั้งหมด →</a></div>
+  <div class="mh-explore">${ex.map(a=>`<button type="button" data-open="${a.slug}" style="--c:var(--${a.e[0]||'neutral'})"><span class="art"><img src="${MID(a.i)}" alt="" loading="lazy" width="200" height="200"></span><span class="cap"><b>${esc(a.name)}</b>${a.e.slice(0,1).map(badge).join('')}<i>›</i></span></button>`).join('')}</div></section>
+  <section class="mh-sec"><div class="mh-h"><h2>อัปเดตและคู่มือ</h2><a href="#news" data-go="news">ทั้งหมด →</a></div>
   <div class="mh-news"><a href="#beginner" data-go="beginner"><img src="img/events/journey-handbook.webp" alt="" loading="lazy"><span><b>เริ่มต้นผจญภัยในอิดิลล์</b><small>สิ่งที่ห้ามพลาดก่อนเริ่มเล่น</small></span><i>›</i></a>
-    ${N.map((n,i)=>`<a href="#news-${n.id}"><img src="${esc(nimg(n,i))}" alt="" loading="lazy"><span><b>${esc(n.title)}</b><small>${new Date(n.date+'T00:00:00+07:00').toLocaleDateString(LOC,{day:'numeric',month:'short'})}</small></span><i>›</i></a>`).join('')}</div>`;
+    ${N.map((n,i)=>`<a href="#news-${n.id}"><img src="${esc(nimg(n,i))}" alt="" loading="lazy"><span><b>${esc(n.title)}</b><small>${new Date(n.date+'T00:00:00+07:00').toLocaleDateString(LOC,{day:'numeric',month:'short'})}</small></span><i>›</i></a>`).join('')}</div></section>`;
 }
 try{renderMHome()}catch(e){console.error(e)}
 /* phones: page titles sit on a strip of game art (CSS shows it only on small screens) */
