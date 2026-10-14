@@ -986,8 +986,40 @@ dialog[open]::backdrop{animation:bdIn .25s ease}
 #toast.on{transform:translate(-50%,0);opacity:1}
 .fxp{position:fixed;z-index:80;width:8px;height:8px;border-radius:2px;pointer-events:none}
 .fxp.star{width:11px;height:11px;border-radius:0;clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)}
-.rv{opacity:0;transform:translateY(22px) scale(.98)}
-.rv.rv-in{opacity:1;transform:none;transition:opacity .55s ease,transform .6s cubic-bezier(.2,.75,.25,1)}
+.rv{opacity:0;transform:translateY(22px) scale(.98);filter:blur(10px)}
+.rv.rv-in{opacity:1;transform:none;filter:blur(0);transition:opacity .55s ease,transform .6s cubic-bezier(.2,.75,.25,1),filter .7s cubic-bezier(.2,.75,.25,1)}
+/* home hero melts away (blur, fade, lift) as the page scrolls past it; --hp is 0..1 from app.js */
+.hero3.hs .h3text,.mh-hero.hs>*{filter:blur(calc(var(--hp)*16px));opacity:calc(1 - var(--hp)*1.15);transform:translateY(calc(var(--hp)*-48px))}
+.hero3.hs .hbg{opacity:calc(1 - var(--hp)*.7);transform:scale(calc(1 + var(--hp)*.06));filter:blur(calc(var(--hp)*6px))}
+/* home sections stack like cards: each sticks, then shrinks, dims and blurs back as the next one slides over it; --sp is 0..1 from app.js */
+.view.stack>.hsec.ctr{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:28px;padding:clamp(22px,3vw,36px);box-shadow:var(--shadow-up)}
+.view.stack>.hsec.ctr.stk{position:sticky;transform-origin:50% 0;transform:translateY(calc(var(--sp,0)*-14px)) scale(calc(1 - var(--sp,0)*.05));opacity:calc(1 - var(--sq,0))}
+.view.stack>.hsec.ctr.sh{filter:blur(calc(var(--sp)*2px)) brightness(calc(1 - var(--sp)*.08))}
+/* fastwork-style home motion (app.js): tagline word cycles, search types examples, floating Aniimo cards, title fill, picks tossed in */
+.hero3 .lede .hl.rot{display:inline-block;transition:transform .38s cubic-bezier(.3,.7,.2,1),opacity .3s,filter .38s}
+.hero3 .lede .hl.rot.out{transform:translateY(-55%);opacity:0;filter:blur(6px)}
+.hero3 .lede .hl.rot.in{transform:translateY(55%);opacity:0;filter:blur(6px);transition:none}
+.typing::after{content:"";display:inline-block;width:2px;height:1.1em;margin-left:2px;vertical-align:-.18em;background:var(--accent);animation:caret 1s steps(1) infinite}
+@keyframes caret{50%{opacity:0}}
+.hfloat{position:absolute;inset:0;z-index:1;pointer-events:none}
+.hf{position:absolute;left:var(--x);top:var(--y);pointer-events:auto;border:0;padding:0;background:none;cursor:pointer;
+  translate:calc(var(--dx)*var(--hp,0)*240px) calc(var(--dy)*var(--hp,0)*200px);opacity:calc(1 - var(--hp,0)*1.4)}
+.hfi{display:block;rotate:var(--r);animation:hfIn 1s cubic-bezier(.2,.9,.25,1.2) var(--e) backwards}
+.hfb{display:grid;justify-items:center;gap:2px;width:118px;padding:10px 10px 9px;border-radius:18px;background:color-mix(in srgb,var(--surface) 80%,transparent);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid color-mix(in srgb,var(--line) 80%,transparent);box-shadow:0 14px 34px rgba(40,30,110,.16);
+  animation:hfBob 4.6s ease-in-out var(--e) infinite alternate;transition:scale .25s cubic-bezier(.3,1.4,.5,1)}
+.hf:hover .hfb{scale:1.08}
+.hfb img{width:84px;height:84px;object-fit:contain;filter:drop-shadow(0 6px 8px rgba(40,30,90,.18))}
+.hfb b{font:700 .78rem/1.2 var(--display);color:var(--ink);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hfb small{font:600 .66rem var(--mono);color:var(--ink-2)}
+@keyframes hfIn{from{opacity:0;scale:.5;rotate:0deg;translate:0 50px}}
+@keyframes hfBob{from{translate:0 -7px}to{translate:0 8px}}
+@media (max-width:999px){.hfloat{display:none}}
+.view.stack .shead h2 .tfill{flex:none;padding:.25em 0;margin:-.25em 0;background:linear-gradient(90deg,var(--ink) calc(var(--tp,1)*115% - 15%),color-mix(in srgb,var(--ink) 18%,transparent) calc(var(--tp,1)*115%));
+  -webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+.picks>.pick.rv{transform:translateY(-70px) rotate(var(--rr,-7deg)) scale(.9);filter:blur(4px)}
+.picks>.pick:nth-child(even).rv{--rr:6deg}
+.picks>.pick.rv.rv-in{transform:none;filter:blur(0);transition:opacity .4s ease,transform .8s cubic-bezier(.3,1.45,.45,1),filter .5s}
 .mon,.feat>button,.daily .dart{transform-style:preserve-3d}
 .tilt{transform:perspective(700px) rotateX(var(--rx,0)) rotateY(var(--ry,0)) translateY(-3px)!important;transition:transform .08s linear!important}
 .mon::after,.feat>button::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .2s;background:radial-gradient(circle at var(--gx,50%) var(--gy,50%),rgba(255,255,255,.28),transparent 55%)}
@@ -3081,10 +3113,10 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
 </dialog>
 <dialog id="menu" aria-label="เมนูทั้งหมด"><div class="inner" id="menuInner"></div></dialog>
 
-<script>try{if(localStorage.getItem('aniimo-lang')==='en')document.write('<script src="i18n-en.js?v=5ec9a990d5"><\/script>')}catch(_){}</script>
-<script defer src="th.js?v=5ec9a990d5"></script>
-<script defer src="items.js?v=5ec9a990d5"></script>
-<script defer src="data.js?v=5ec9a990d5"></script>
-<script defer src="thumbs.js?v=5ec9a990d5"></script>
-<script defer src="content.js?v=5ec9a990d5"></script>
-<script defer src="app.js?v=5ec9a990d5"></script>
+<script>try{if(localStorage.getItem('aniimo-lang')==='en')document.write('<script src="i18n-en.js?v=a9dd253a70"><\/script>')}catch(_){}</script>
+<script defer src="th.js?v=a9dd253a70"></script>
+<script defer src="items.js?v=a9dd253a70"></script>
+<script defer src="data.js?v=a9dd253a70"></script>
+<script defer src="thumbs.js?v=a9dd253a70"></script>
+<script defer src="content.js?v=a9dd253a70"></script>
+<script defer src="app.js?v=a9dd253a70"></script>

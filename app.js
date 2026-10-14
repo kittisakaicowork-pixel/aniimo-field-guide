@@ -1986,7 +1986,7 @@ document.addEventListener('click',e=>{const t=e.target.closest('[data-col]');if(
 document.addEventListener('change',e=>{const c=e.target;if(c.matches&&c.matches('.checklist input')&&c.checked){const r=c.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,12)}});
 document.addEventListener('click',e=>{const b=e.target.closest('#heroCopy,button[data-c]');if(!b)return;const r=b.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,14);toast('คัดลอกโค้ดแล้ว ไปแลกในเกมได้เลย')});
 // cards float up as they scroll into view
-const RV_SEL='.feat>button,.hnow>*,.daily,.card,.ducard,.ecard,.rcard,.bcard,.mon,.fcard,.slot,.tl,.checklist li,.hall>div';
+const RV_SEL='.hsec>.shead,.picks>.pick,.feat>button,.hnow>*,.daily,.card,.ducard,.ecard,.rcard,.bcard,.mon,.fcard,.slot,.tl,.checklist li,.hall>div';
 const rvIO=!RM&&'IntersectionObserver' in window?new IntersectionObserver(es=>{let k=0;es.forEach(en=>{if(!en.isIntersecting)return;const el=en.target;rvIO.unobserve(el);el.style.transitionDelay=Math.min(k++*45,360)+'ms';el.classList.add('rv-in');setTimeout(()=>{el.classList.remove('rv','rv-in');el.style.transitionDelay=''},900)})},{rootMargin:'0px 0px -40px 0px'}):null;
 function reveal(){if(!rvIO)return;const v=document.querySelector(`.view[data-view="${current}"]`);if(!v)return;
   v.querySelectorAll(RV_SEL).forEach(el=>{if(el.dataset.rv)return;el.dataset.rv=1;if(el.getBoundingClientRect().top<innerHeight)return;el.classList.add('rv');rvIO.observe(el)})}
@@ -2010,6 +2010,52 @@ function countAll(){if(!cuIO)return;document.querySelectorAll('.hnow b,.feat sma
 {const hero=document.querySelector('.hero3'),bg=hero&&hero.querySelector('.hbg img');
   if(bg&&FINE&&!RM)hero.addEventListener('pointermove',e=>{const r=hero.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;bg.style.translate=`${(-x*16).toFixed(1)}px ${(-y*10).toFixed(1)}px`});
 }
+// home hero blurs, fades and lifts away as the page scrolls past it
+if(!RM){let f=0;
+  const upd=()=>{f=0;if(current!=='home')return;const p=Math.round(Math.min(1,Math.max(0,scrollY/(innerHeight*.55)))*200)/200;
+    document.querySelectorAll('.hero3,.mh-hero').forEach(h=>{if(h.style.getPropertyValue('--hp')==String(p))return;h.classList.toggle('hs',p>0);h.style.setProperty('--hp',p)})};
+  addEventListener('scroll',()=>{if(!f)f=requestAnimationFrame(upd)},{passive:true});upd()}
+// home sections stack like cards: each sticks below the bar (tall ones by their bottom edge), and shrinks back as the next slides over it
+if(!RM){const home=document.querySelector('[data-view="home"]');home.classList.add('stack');let f=0;
+  const run=()=>{f=0;if(current!=='home')return;const cs=[...home.querySelectorAll(':scope>.hsec.ctr')].filter(x=>x.offsetHeight),bar=document.querySelector('.appbar'),top=(bar?bar.getBoundingClientRect().bottom:0)+16;
+    const end=cs.length?cs[cs.length-1].getBoundingClientRect().bottom:0,ps=[];
+    cs.forEach((x,i)=>{const nx=cs[i+1];x.classList.toggle('stk',!!nx);if(!nx){x.classList.remove('sh');return}
+      const h=x.offsetHeight;x.style.top=Math.min(top,innerHeight-h-24)+'px';
+      ps[i]=Math.round(Math.min(1,Math.max(0,(x.getBoundingClientRect().top+(+x.style.getPropertyValue('--sp')||0)*14+h-nx.getBoundingClientRect().top)/h))*200)/200});
+    cs.forEach((x,i)=>{if(ps[i]==null)return;const p=ps[i],r=x.getBoundingClientRect();
+      // only one card shows behind the front one: fade once the card in front starts shrinking too, or once the last section scrolls up past it
+      const q=Math.max(ps[i+1]||0,Math.round(Math.min(1,Math.max(0,(r.bottom-end+100)/100))*100)/100);
+      x.classList.toggle('sh',p>0);x.style.setProperty('--sp',p);x.style.setProperty('--sq',q)})};
+  const kick=()=>{if(!f)f=requestAnimationFrame(run)};addEventListener('scroll',kick,{passive:true});addEventListener('resize',kick);setTimeout(run,300)}
+// more fastwork-style motion on the home page
+if(!RM){const home=document.querySelector('[data-view="home"]'),EN=LANG==='en',sleep=ms=>new Promise(r=>setTimeout(r,ms)),onTop=()=>current==='home'&&!document.hidden&&scrollY<innerHeight*.8;
+  // the tagline highlight cycles through what the guide covers, sliding up through a blur
+  const hl=document.querySelector('.hero3 .lede .hl');
+  if(hl&&!EN){const W=[hl.textContent,'แผนที่ครบทุกจุด','Tier List ล่าสุด','จัดบิลด์ทีมได้เอง','โค้ดของขวัญที่ยังใช้ได้'];let i=0;hl.classList.add('rot');
+    setInterval(()=>{if(!onTop())return;hl.classList.add('out');setTimeout(()=>{i=(i+1)%W.length;hl.textContent=W[i];hl.classList.replace('out','in');void hl.offsetWidth;hl.classList.remove('in')},380)},2800)}
+  // the search boxes type out example searches (Thai is typed by whole letters, so vowel marks never float alone)
+  {const seg=window.Intl&&Intl.Segmenter?new Intl.Segmenter('th',{granularity:'grapheme'}):null,gr=t=>seg?[...seg.segment(t)].map(x=>x.segment):[...t];
+    const tg=[document.querySelector('#hsearch>span')];const ms=document.querySelector('.mh-search'),tn=ms&&[...ms.childNodes].find(n=>n.nodeType===3&&n.nodeValue.trim());
+    if(tn){const sp=document.createElement('span');sp.textContent=tn.nodeValue;tn.replaceWith(sp);tg.push(sp)}
+    const T=tg.filter(Boolean),put=v=>T.forEach(x=>x.textContent=v);
+    (async()=>{await sleep(2500);T.forEach(x=>{const b=x.closest('button');if(b&&!b.hasAttribute('aria-label'))b.setAttribute('aria-label',x.textContent.trim());x.dataset.ph=x.textContent;x.setAttribute('aria-hidden','true')});
+      for(;;){if(!onTop()||document.activeElement===gq){await sleep(900);continue}
+        const a=RELEASED[Math.random()*RELEASED.length|0],g=gr((EN?'Try “':'ลองค้นหา “')+a.name+'”');T.forEach(x=>x.classList.add('typing'));
+        for(let k=1;k<=g.length;k++){put(g.slice(0,k).join(''));await sleep(55+Math.random()*55)}
+        await sleep(1800);for(let k=g.length-1;k>=0;k--){put(g.slice(0,k).join(''));await sleep(24)}
+        T.forEach(x=>{x.textContent=x.dataset.ph;x.classList.remove('typing')});await sleep(2600)}})()}
+  // Aniimo cards float around the desktop hero, bob gently, and fly apart as the page scrolls (--hp from the hero code above)
+  const h3=document.querySelector('.hero3');
+  if(h3&&matchMedia('(min-width: 1000px)').matches){const pk=RELEASED.filter(a=>!a.cut).sort(()=>Math.random()-.5).slice(0,4);
+    const P=['--x:calc(50% + 70px);--y:9%;--r:-8deg;--dx:-.5;--dy:-1;--e:.15s','--x:calc(100% - 170px);--y:6%;--r:7deg;--dx:1;--dy:-.7;--e:.3s',
+      '--x:calc(100% - 150px);--y:60%;--r:-5deg;--dx:1;--dy:.8;--e:.45s','--x:calc(50% + 70px);--y:70%;--r:6deg;--dx:-.6;--dy:1;--e:.6s'];
+    const fl=document.createElement('div');fl.className='hfloat';fl.setAttribute('aria-hidden','true');
+    fl.innerHTML=pk.map((a,i)=>`<button type="button" tabindex="-1" class="hf" data-open="${a.slug}" style="${P[i]}"><span class="hfi"><span class="hfb"><img src="${TH(a.i)}" alt=""><b>${esc(a.name)}</b><small>${numLabel(a)}</small></span></span></button>`).join('');
+    h3.appendChild(fl)}
+  // section titles fill with colour from left to right as they scroll up into view
+  const hts=[...home.querySelectorAll('.hsec>.shead>h2')];hts.forEach(h=>{const sp=document.createElement('span');sp.className='tfill';while(h.firstChild)sp.appendChild(h.firstChild);h.appendChild(sp)});
+  let ff=0;const fill=()=>{ff=0;if(current!=='home')return;hts.forEach(h=>{const v=Math.round(Math.min(1,Math.max(0,(innerHeight*.95-h.getBoundingClientRect().top)/(innerHeight*.4)))*100)/100;if(h.style.getPropertyValue('--tp')!=String(v))h.style.setProperty('--tp',v)})};
+  addEventListener('scroll',()=>{if(!ff)ff=requestAnimationFrame(fill)},{passive:true});fill()}
 // Aniimo of the day, with a slot-machine reroll
 function dailyPick(){const d=new Date(Date.now()+7*3600e3).toISOString().slice(0,10);let h=0;for(const c of d)h=(h*31+c.charCodeAt(0))>>>0;return RELEASED[h%RELEASED.length]}
 function renderDaily(a,rolled){
