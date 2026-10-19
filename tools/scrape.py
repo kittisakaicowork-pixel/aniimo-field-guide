@@ -83,11 +83,15 @@ def parse_list(page):
         slug, cls, b = m.groups()
         name = html.unescape(re.search(r'class="char-name"[^>]*>([^<]+)', b).group(1).strip())
         num = re.search(r"char-num[^>]*>#(\d+)", b)
-        sub = re.search(r'class="char-sub"[^>]*>(.*?)</span><span class="level-pills"', b, re.S)
+        sub = re.search(r'class="char-sub"[^>]*>(.*?)</span><span class="level-pills"', b, re.S) or re.search(r'class="char-sub"[^>]*>(.*?<!--\]-->)', b, re.S)  # upcoming ones have no work levels yet
         # role and stage: "DPS · Lumin" before Oct 2026, now one char-meta span each ("BREAK", "Lumin Stage")
-        metas = [text(x) for x in re.findall(r'class="char-meta"[^>]*>(.*?)</span>(?=<span class="char-meta"|$)', sub.group(1), re.S)] if sub else []
-        if len(metas) >= 2:
-            role, stage = metas[0], re.sub(r"\s*Stage$", "", metas[1])
+        # (Vue's <!--[--> list markers are dropped first: since Oct 19 they wrap the spans and hid the last one)
+        sb = re.sub(r"<!--.*?-->", "", sub.group(1), flags=re.S) if sub else ""
+        metas = [text(x) for x in re.findall(r'class="char-meta"[^>]*>(.*?)</span>(?=<span class="char-meta"|$)', sb, re.S)]
+        if metas:  # the role is one of a few names, the other span is the stage; an upcoming Aniimo may have only the stage
+            is_role = lambda x: x.upper() in ("DPS", "BREAK", "SUPPORT", "HEAL", "REGEN", "NO ROLE")
+            role = next((x for x in metas if is_role(x)), "No role")
+            stage = next((re.sub(r"\s*Stage$", "", x) for x in metas if not is_role(x)), "")
         else:
             role, _, stage = text(sub.group(1)).partition(" · ") if sub else ("", "", "")
         role = {"BREAK": "Break", "REGEN": "Regen", "SUPPORT": "Support", "HEAL": "Heal"}.get(role.upper(), role) if role.upper() != "DPS" else "DPS"
