@@ -1887,6 +1887,12 @@ html.lg-on .mh-search{visibility:hidden}
 html.lg-on [data-view="home"] .hsearch{display:none}
 @media (min-width:960px){#lgDock,#lgSearch{display:none}}
 @media (max-width:959px){#lgDockD,#lgSearchD{display:none}}
+
+/* the active-tab dot sits on top of the bar instead of adding height (no layout shift when the bar is filled in) */
+.tabbar button{position:relative}.tabbar button[aria-current="page"]::after{position:absolute;left:50%;bottom:3px;translate:-50% 0;margin:0}
+
+/* phone home: hold the space of the cards drawn by app.js so the footer is not seen first and then pushed down */
+.mh-dyn:empty{min-height:1500px}
 </style>
 
 <div id="boot" role="status" aria-live="polite"><div class="bootin"><b class="wm"><svg class="brandmark" viewBox="0 0 260 72" aria-hidden="true"><use href="img/aniiguide-logo.svg?v=4#wordmark"></use></svg><span class="sr">AniiGuide</span></b><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><small id="bootMsg">กำลังโหลดข้อมูล Aniimo…</small></div></div>
