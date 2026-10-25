@@ -1865,6 +1865,28 @@ body{overflow-x:clip}
   .slot.empty{min-height:90px}
   #cmNew{bottom:calc(56px + env(safe-area-inset-bottom))}
 }
+
+/* ============ Liquid Glass (glass.js) ============ */
+#lgDock{position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom,0px));translate:-50% 0;z-index:40}
+#lgDock .glass-container{gap:4px;padding:6px}
+#lgDock .glass-button,#lgDockD .glass-button{box-shadow:0 10px 30px rgba(20,40,90,.28)}
+#lgDock .glass-button-text,#lgDockD .glass-button-text,#lgSearch .glass-button-text,#lgSearchD .glass-button-text{color:#13233f;text-shadow:0 1px 0 rgba(255,255,255,.6)}
+#lgDock .glass-button-text{font:700 13px var(--display)}
+#lgDock .on .glass-button-text{color:#0A63C4}
+#lgSearch{position:absolute;left:16px;right:16px;top:170px;z-index:3;display:flex;justify-content:center}
+#lgSearch .glass-button-text{font:600 15px var(--body)}
+#lgDockD{position:fixed;left:50%;bottom:22px;translate:-50% 0;z-index:40}
+#lgDockD .glass-container{gap:6px;padding:8px}
+#lgDockD .glass-button-text{font:700 15px var(--display)}
+#lgSearchD{margin:4px 0 6px}
+#lgSearchD .glass-button-text{font:600 17px var(--body)}
+[data-theme="dark"] #lgDock .glass-button-text,[data-theme="dark"] #lgDockD .glass-button-text,[data-theme="dark"] #lgSearch .glass-button-text,[data-theme="dark"] #lgSearchD .glass-button-text{color:#eef4ff;text-shadow:0 1px 2px rgba(0,0,0,.5)}
+[data-theme="dark"] #lgDock .on .glass-button-text{color:#7cc8ff}
+html.lg-on .tabbar{visibility:hidden}
+html.lg-on .mh-search{visibility:hidden}
+html.lg-on [data-view="home"] .hsearch{display:none}
+@media (min-width:960px){#lgDock,#lgSearch{display:none}}
+@media (max-width:959px){#lgDockD,#lgSearchD{display:none}}
 </style>
 
 <div id="boot" role="status" aria-live="polite"><div class="bootin"><b class="wm"><svg class="brandmark" viewBox="0 0 260 72" aria-hidden="true"><use href="img/aniiguide-logo.svg?v=4#wordmark"></use></svg><span class="sr">AniiGuide</span></b><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><small id="bootMsg">กำลังโหลดข้อมูล Aniimo…</small></div></div>
@@ -3172,3 +3194,9 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
 <script defer src="thumbs.js?v=b4ea64d478"></script>
 <script defer src="content.js?v=b4ea64d478"></script>
 <script defer src="app.js?v=b4ea64d478"></script>
+<script>/* Liquid Glass (glass.js): fetched after the page has fully shown, only with WebGL and when motion is welcome */
+addEventListener('load',function(){try{if(matchMedia('(prefers-reduced-motion: reduce)').matches||(navigator.connection&&navigator.connection.saveData)||!document.createElement('canvas').getContext('webgl'))return}catch(_){return}
+var add=function(src){return new Promise(function(ok,no){var s=document.createElement('script');s.src=src;s.onload=ok;s.onerror=no;document.head.appendChild(s)})};
+var start=function(){var imgs=[].slice.call(document.images).filter(function(i){return i.offsetParent&&!i.complete});Promise.all(imgs.map(function(i){return new Promise(function(r){i.addEventListener('load',r,{once:true});i.addEventListener('error',r,{once:true})})})).then(function(){return add('vendor/html2canvas-pro.min.js?v=1')}).then(function(){return add('vendor/liquid-glass/container.js?v=1')}).then(function(){return add('vendor/liquid-glass/button.js?v=1')}).then(function(){return add('glass.js?v=1')}).catch(function(){})};
+var once=false,kick=function(){if(once)return;once=true;['pointerdown','touchstart','scroll','keydown'].forEach(function(e){removeEventListener(e,kick)});(window.requestIdleCallback||function(f){setTimeout(f,1)})(start,{timeout:2000})};
+['pointerdown','touchstart','scroll','keydown'].forEach(function(e){addEventListener(e,kick,{passive:true,once:true})});setTimeout(kick,5000)});</script>
