@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ชมแบบภาพยนตร์ · AniiGuide</title>
+<meta name="description" content="ชม Aniimo แบบภาพยนตร์ 3D เลื่อนเพื่อหมุนรอบตัว ดูธาตุ บทบาท และค่าสถานะ จาก AniiGuide คู่มือเกม Aniimo ภาษาไทย">
+<link rel="canonical" href="https://aniiguide.trade/story.html">
+<meta name="theme-color" content="#0B1426">
+<link rel="icon" href="favicon.png?v=2" sizes="64x64" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Mitr:wght@400;500&family=IBM+Plex+Sans+Thai:wght@300;400;500&display=swap">
+<link rel="preconnect" href="https://3d.aniiguide.trade">
+<style>
+@font-face{font-family:'M PLUS Rounded 1c';font-weight:900;font-display:swap;src:url(fonts/mplusrounded1c-900-latin.woff2?v=1) format('woff2')}
+:root{
+  --ground:#0B1426; --ink:#EAF4FF; --ink-2:#9BB1CC; --accent:#0A84D6; --accent-2:#6CC6FF; --el:#7457B5;
+  --display:"M PLUS Rounded 1c","Mitr","IBM Plex Sans Thai",system-ui,sans-serif;
+  --body:"Inter","IBM Plex Sans Thai",system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;background:var(--ground);scrollbar-width:none}
+::-webkit-scrollbar{display:none}
+body{min-height:700vh;font-family:var(--body);color:var(--ink);overflow-x:hidden}
+@media (hover:hover) and (pointer:fine){body,body *{cursor:none!important}}
+
+/* the 3D stage lives on 3d.aniiguide.trade; until it is ready (or without WebGL) a gradient and the Aniilog art stand in */
+#stage{position:fixed;inset:0;width:100%;height:100%;border:0;z-index:1;pointer-events:none;opacity:0;transition:opacity 1s ease}
+#stage.on{opacity:1}
+.backdrop{position:fixed;inset:0;z-index:0;background:radial-gradient(60% 70% at 70% 40%,color-mix(in srgb,var(--el) 45%,transparent),transparent 70%),radial-gradient(50% 60% at 15% 90%,rgba(46,139,216,.35),transparent 70%),var(--ground)}
+#art{position:fixed;z-index:2;right:6vw;top:50%;width:min(44vw,560px);aspect-ratio:1;object-fit:contain;transform:translateY(-50%);filter:drop-shadow(0 30px 60px rgba(0,0,0,.45));animation:bob 6s ease-in-out infinite;transition:opacity .8s}
+body.live #art{opacity:0}
+@keyframes bob{50%{transform:translateY(calc(-50% - 14px))}}
+
+#loader{position:fixed;inset:0;z-index:50;display:grid;place-items:center;background:var(--ground);transition:opacity .8s ease,visibility .8s}
+#loader.done{opacity:0;visibility:hidden}
+#loader .ring{width:56px;height:56px;margin:auto;border-radius:50%;border:2px solid rgba(108,198,255,.18);border-top-color:var(--accent-2);animation:spin 1s linear infinite}
+#loader p{margin-top:14px;font:400 13px "Mitr",var(--body);letter-spacing:1px;color:var(--ink-2);text-align:center}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.cursor-inner,.cursor-outer{position:fixed;top:0;left:0;border-radius:50%;transform:translate(-50%,-50%);pointer-events:none}
+.cursor-inner{width:6px;height:6px;background:var(--accent-2);z-index:9999}
+.cursor-outer{width:40px;height:40px;border:1.5px solid rgba(108,198,255,.6);z-index:9998;transition:width .3s,height .3s,background .3s}
+.cursor-outer.hover{width:64px;height:64px;background:rgba(108,198,255,.08)}
+@media not ((hover:hover) and (pointer:fine)){.cursor-inner,.cursor-outer{display:none}}
+
+.cinematic-container{position:fixed;inset:0;z-index:10;pointer-events:none;padding:0 60px 40px}
+.main-header{display:flex;justify-content:space-between;align-items:center;height:70px;pointer-events:auto}
+.brand{display:flex;color:var(--ink)}
+.header-nav{display:flex;align-items:center;gap:24px}
+.nav-link{color:var(--ink-2);text-decoration:none;font:400 13px "Mitr",var(--body);letter-spacing:1px;transition:color .3s}
+.nav-link:hover,.nav-link.on{color:var(--ink)}
+.nav-dot{width:3px;height:3px;background:rgba(155,177,204,.35);border-radius:50%}
+.home-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:999px;background:var(--accent);color:#fff;text-decoration:none;font:400 13px "Mitr",var(--body);transition:transform .3s,background .3s}
+.home-btn:hover{transform:scale(1.05);background:#1593e6}
+
+.slide{position:absolute;bottom:12%;pointer-events:none}
+.kicker{font:600 12px var(--body);letter-spacing:4px;text-transform:uppercase;color:var(--accent-2);margin-bottom:14px;opacity:0;transform:translateY(20px);transition:opacity .8s,transform .8s}
+.slide.active .kicker{opacity:1;transform:none}
+.slide-title{font-family:var(--display);font-weight:900;font-size:clamp(64px,8vw,120px);line-height:1.02;letter-spacing:1px;margin-bottom:22px;color:#F4FAFF;text-shadow:0 0 40px rgba(108,198,255,.25)}
+.slide-title.th{font-family:"Mitr",var(--display);font-weight:500;font-size:clamp(56px,6.6vw,100px);line-height:1.15}
+.slide-desc{font-size:16px;line-height:1.8;font-weight:300;color:#C8D6E8;text-shadow:0 1px 12px rgba(11,20,38,.8);opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.25,1,.5,1),transform .8s cubic-bezier(.25,1,.5,1);transition-delay:.4s}
+.slide-desc b{color:var(--ink);font-weight:500}
+.slide.active .slide-desc{opacity:1;transform:none}
+.slide-title .char{display:inline-block;opacity:0;transform:translateY(50px);filter:blur(12px);transition:opacity .8s cubic-bezier(.25,1,.5,1),transform .8s cubic-bezier(.25,1,.5,1),filter .8s cubic-bezier(.25,1,.5,1)}
+.slide.active .slide-title .char{opacity:1;transform:none;filter:blur(0)}
+.slide.active{pointer-events:auto}
+
+#slide-1{left:0;width:100%}
+#slide-1 .kicker,#slide-1 .slide-title{margin-left:60px}
+#slide-1 .desc-row{position:relative;display:flex;width:100%}
+#slide-1 .col-1{margin-left:60px;width:calc(25vw - 60px)}
+#slide-1 .col-2{position:absolute;left:calc(25vw + 40px);width:calc(25vw - 60px)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;border:1px solid rgba(108,198,255,.25);background:rgba(11,20,38,.45);backdrop-filter:blur(6px);font:400 13px "Mitr",var(--body);color:var(--ink);text-shadow:none}
+.chip i{width:8px;height:8px;border-radius:50%;background:var(--c);box-shadow:0 0 10px var(--c)}
+
+#slide-2{left:0;width:100%}
+#slide-2 .kicker,#slide-2 .slide-title{margin-left:calc(25vw + 40px)}
+#slide-2 .slide-desc{margin-left:calc(50vw + 20px);width:calc(25vw - 60px)}
+#slide-2-img{position:fixed;top:90px;left:60px;width:calc(25vw - 60px);aspect-ratio:1/1;overflow:hidden;z-index:2;pointer-events:none;border-radius:22px;
+  background:radial-gradient(circle at 50% 40%,color-mix(in srgb,var(--el) 60%,transparent),rgba(11,20,38,.9) 70%);border:1px solid rgba(108,198,255,.18);
+  clip-path:inset(0 0 100% 0 round 22px);opacity:0;transition:clip-path 1.8s cubic-bezier(.16,1,.3,1),opacity .8s ease}
+#slide-2-img img{width:100%;height:100%;object-fit:contain;transform:scale(1.15);transition:transform 1.8s cubic-bezier(.16,1,.3,1)}
+#slide-2-img.active{clip-path:inset(0 0 0 0 round 22px);opacity:1}
+#slide-2-img.active img{transform:scale(1)}
+
+#slide-3{left:calc(50vw + 20px);width:calc(50vw - 100px)}
+.stats{display:grid;grid-template-columns:auto 1fr auto;gap:10px 14px;align-items:center;max-width:420px}
+.stats span{font:500 12px var(--body);letter-spacing:1.5px;color:var(--ink-2)}
+.stats b{font:600 14px var(--body);color:var(--ink);text-align:right;min-width:32px}
+.bar{height:6px;border-radius:6px;background:rgba(155,177,204,.15);overflow:hidden}
+.bar i{display:block;height:100%;width:0;border-radius:6px;background:linear-gradient(90deg,var(--el),var(--accent-2));transition:width 1.2s cubic-bezier(.25,1,.5,1)}
+#slide-3.active .bar i{width:var(--w)}
+
+#slide-4{left:calc(25% + 40px);max-width:680px}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.cta a{pointer-events:auto;display:inline-flex;align-items:center;gap:8px;padding:14px 26px;border-radius:999px;text-decoration:none;font:400 15px "Mitr",var(--body);transition:transform .3s,background .3s;text-shadow:none}
+.cta .p{background:var(--accent);color:#fff;box-shadow:0 10px 30px rgba(10,132,214,.35)}
+.cta .s{border:1px solid rgba(108,198,255,.35);color:var(--ink);background:rgba(11,20,38,.4)}
+.cta a:hover{transform:translateY(-2px) scale(1.03)}
+
+.grid-horizontal-line{position:fixed;top:70px;left:0;right:0;height:1px;background:rgba(108,198,255,.12);z-index:5;pointer-events:none}
+.grid-lines{position:fixed;top:0;left:40px;right:40px;height:100vh;display:flex;justify-content:space-between;z-index:5;pointer-events:none}
+.grid-line{position:relative;width:1px;height:100%;background:rgba(108,198,255,.10)}
+.grid-line:nth-child(3){margin-top:70px;height:calc(100vh - 70px)}
+.grid-dot{position:absolute;left:50%;transform:translate(-50%,-50%);width:6px;height:6px;border-radius:50%;background:rgba(108,198,255,.45);box-shadow:0 0 6px rgba(108,198,255,.35)}
+.story-dashes{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);display:flex;flex-direction:column;gap:12px}
+.story-dash{width:2px;height:40px;background:rgba(155,177,204,.18);border-radius:2px}
+.story-dash-fill{width:100%;height:0;background:var(--accent-2);border-radius:2px;box-shadow:0 0 8px var(--accent-2)}
+
+.scroll-hint{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);z-index:11;font:400 12px "Mitr",var(--body);letter-spacing:2px;color:var(--ink-2);transition:opacity .6s;pointer-events:none}
+.scroll-hint::after{content:"";display:block;width:1px;height:36px;margin:10px auto 0;background:linear-gradient(var(--accent-2),transparent);animation:drip 1.8s ease-in-out infinite}
+@keyframes drip{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+@media (max-width:900px){
+  .cinematic-container{padding:0 20px 24px}
+  .header-nav,.grid-lines,.grid-horizontal-line{display:none}
+  .slide,#slide-1,#slide-2,#slide-3,#slide-4{left:20px!important;right:20px;width:auto!important;max-width:none;bottom:7%}
+  #slide-1 .kicker,#slide-1 .slide-title,#slide-1 .col-1,#slide-2 .kicker,#slide-2 .slide-title,#slide-2 .slide-desc{margin-left:0!important}
+  #slide-1 .desc-row{flex-direction:column;gap:14px}
+  #slide-1 .col-1,#slide-1 .col-2,#slide-2 .slide-desc{position:static;width:auto!important}
+  #slide-1 .col-1{display:none}
+  #slide-2-img{top:84px;left:20px;width:38vw}
+  #art{right:50%;top:34%;width:78vw;transform:translate(50%,-50%);animation:none}
+  .slide-desc{font-size:15px;line-height:1.7}
+  .slide-title{font-size:clamp(44px,13vw,72px)}
+  .slide-title.th{font-size:clamp(38px,10.5vw,60px)}
+  .stats{max-width:none}
+  .home-btn{padding:9px 16px}
+  .scroll-hint{display:none}  /* the first slide's chips sit where the hint would be */
+}
+@media (prefers-reduced-motion:reduce){
+  .slide-title .char,.slide-desc,.kicker{transition-duration:.01s!important;transition-delay:0s!important;filter:none!important}
+  #art{animation:none}
+}
+</style>
+<script defer src="data.js?v=0a2158e8f5"></script>
+<script defer src="th.js?v=0a2158e8f5"></script>
+</head>
+<body>
+<div id="loader"><div><div class="ring"></div><p id="loadMsg">กำลังเตรียมเวที…</p></div></div>
+<div class="backdrop"></div>
+<img id="art" alt="" decoding="async">
+<div class="cursor-inner"></div>
+<div class="cursor-outer"></div>
+
+<div class="cinematic-container">
+  <div class="main-header">
+    <a class="brand" href="./" aria-label="AniiGuide หน้าแรก"><svg viewBox="0 0 260 72" width="130" height="36" aria-hidden="true"><use href="img/aniiguide-logo.svg?v=4#wordmark"></use></svg></a>
+    <nav class="header-nav" aria-label="ช่วงของเรื่อง">
+      <a href="#s1" class="nav-link">ข้อมูล</a><span class="nav-dot"></span>
+      <a href="#s2" class="nav-link">ธาตุ</a><span class="nav-dot"></span>
+      <a href="#s3" class="nav-link">สถานะ</a><span class="nav-dot"></span>
+      <a href="#s4" class="nav-link">ต่อไป</a>
+    </nav>
+    <a href="./" class="home-btn">เข้าสู่เว็บ →</a>
+  </div>
+
+  <div class="slide" id="slide-1">
+    <div class="kicker" id="k1"></div>
+    <h1 class="slide-title" id="t1"></h1>
+    <div class="desc-row">
+      <p class="slide-desc col-1" id="d1a"></p>
+      <div class="slide-desc col-2"><p id="d1b"></p><div class="chips" id="chips"></div></div>
+    </div>
+  </div>
+  <div class="slide" id="slide-2">
+    <div class="kicker" id="k2"></div>
+    <h2 class="slide-title th" id="t2"></h2>
+    <p class="slide-desc" id="d2"></p>
+  </div>
+  <div class="slide" id="slide-3">
+    <div class="kicker">Base stats</div>
+    <h2 class="slide-title th">ค่าสถานะ</h2>
+    <div class="slide-desc stats" id="stats"></div>
+  </div>
+  <div class="slide" id="slide-4">
+    <div class="kicker">AniiGuide · คู่มือ Aniimo ภาษาไทย</div>
+    <h2 class="slide-title th">ดูครบ<br>ทุกตัว</h2>
+    <div class="slide-desc">
+      <p style="margin-bottom:22px" id="d4"></p>
+      <div class="cta" id="cta"></div>
+    </div>
+  </div>
+</div>
+
+<div id="slide-2-img"><img id="img2" alt="" decoding="async"></div>
+
+<div class="grid-horizontal-line"></div>
+<div class="grid-lines" aria-hidden="true">
+  <div class="grid-line"><div class="grid-dot"></div><div class="grid-dot"></div></div>
+  <div class="grid-line"><div class="grid-dot"></div><div class="grid-dot"></div></div>
+  <div class="grid-line"><div class="grid-dot"></div><div class="grid-dot"></div></div>
+  <div class="grid-line"><div class="grid-dot"></div><div class="grid-dot"></div></div>
+  <div class="grid-line">
+    <div class="grid-dot"></div><div class="grid-dot"></div>
+    <div class="story-dashes">
+      <div class="story-dash"><div class="story-dash-fill"></div></div>
+      <div class="story-dash"><div class="story-dash-fill"></div></div>
+      <div class="story-dash"><div class="story-dash-fill"></div></div>
+      <div class="story-dash"><div class="story-dash-fill"></div></div>
+    </div>
+  </div>
+</div>
+<div class="scroll-hint">เลื่อนลง</div>
+
+<script>
+addEventListener('DOMContentLoaded', () => {
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]));
+  const A = (window.ANIIMO || []).filter((a) => !a.u), M = window.M3D || { m:{} }, TR = window.TH || {}, NTH = window.NAMES_TH || {};
+  const EL = { fire:['ไฟ','เปลวเพลิง','#E0613E'], water:['น้ำ','สายน้ำ','#3B7BD6'], grass:['พืช','พงไพร','#4A9E5C'], lightning:['สายฟ้า','อัสนี','#D09C12'],
+    ice:['น้ำแข็ง','น้ำแข็ง','#34A9C2'], earth:['ดิน','ผืนดิน','#A2724A'], wind:['ลม','สายลม','#3FAE93'], light:['แสง','แสงสว่าง','#C9A12A'], dark:['มืด','รัตติกาล','#7457B5'] };
+  const ROLE = { DPS:'เน้นทำดาเมจหลักของทีม', Break:'ถนัดทำลายการ์ดและโล่ของศัตรู', Support:'คอยสนับสนุนและเสริมพลังให้ทีม', Heal:'คอยฟื้นฟูพลังชีวิตให้เพื่อนร่วมทีม', Regen:'ฟื้นตัวเร็วและยืนระยะได้นาน' };
+  const STAT = ['HP','ATK','PDEF','REGEN','MDEF','BREAK'], SL = { PDEF:'P.DEF', MDEF:'M.DEF' };
+  const withModel = A.filter((a) => M.m[a.slug]);
+  if (!A.length) { $('loadMsg').textContent = 'โหลดข้อมูลไม่สำเร็จ ลองรีเฟรชอีกครั้ง'; return; }
+
+  // ?a=slug, otherwise the Aniimo of the day (same pick as the home page)
+  const day = () => { const d = new Date(Date.now() + 7 * 3600e3).toISOString().slice(0, 10); let h = 0; for (const c of d) h = (h * 31 + c.charCodeAt(0)) >>> 0; return h; };
+  const want = new URLSearchParams(location.search).get('a');
+  const daily = A[day() % A.length];
+  const a = A.find((x) => x.slug === want) || (M.m[daily.slug] ? daily : withModel[day() % withModel.length]) || daily;
+  const isDaily = a === daily && !want;
+  const el = EL[a.e[0]] || EL.dark, thName = NTH[a.slug] || '', desc = TR[a.d] || a.d || '';
+  document.documentElement.style.setProperty('--el', el[2]);
+  document.title = `${a.name}${thName ? ` (${thName})` : ''} · ชมแบบภาพยนตร์ · AniiGuide`;
+
+  // slide 1: who
+  $('k1').textContent = `${+a.no > 9000 ? 'พิเศษ' : 'No.' + a.no}${isDaily ? ' · Aniimo ประจำวัน' : ' · ' + a.st}`;
+  $('t1').textContent = a.name;
+  $('d1a').innerHTML = `<b>${esc(thName || a.name)}</b><br>ขั้น ${esc(a.st)}${a.r && a.r !== '—' ? ` · บทบาท ${esc(a.r)}` : ''}`;
+  $('d1b').textContent = desc;
+  $('chips').innerHTML = a.e.map((k) => `<span class="chip" style="--c:${(EL[k] || el)[2]}"><i></i>ธาตุ${(EL[k] || el)[0]}</span>`).join('')
+    + `<span class="chip">${esc(a.st)}</span>` + (a.r && a.r !== '—' ? `<span class="chip">${esc(a.r)}</span>` : '');
+
+  // slide 2: element and role
+  const k2 = a.e.map((k) => k[0].toUpperCase() + k.slice(1)).join(' · ');
+  $('k2').textContent = `Element · ${k2}`;
+  $('t2').innerHTML = `พลังแห่ง<br>${el[1]}`;
+  const top = a.s && a.s.HP ? STAT.slice().sort((x, y) => a.s[y] - a.s[x])[0] : null;
+  $('d2').textContent = `${a.name} เป็น Aniimo ธาตุ${a.e.map((k) => (EL[k] || el)[0]).join('/')}` + (ROLE[a.r] ? ` ${ROLE[a.r]}` : '')
+    + (top ? ` ค่าเด่นที่สุดคือ ${SL[top] || top} ${a.s[top]}` : '') + ` เปิดหน้า ${a.name} เพื่อดูสกิล บิลด์ และสายวิวัฒนาการ`;
+  $('img2').src = a.i; $('img2').alt = a.name;
+
+  // slide 3: stats, bars scaled to the highest value among released Aniimo
+  if (a.s && a.s.HP) {
+    const mx = Object.fromEntries(STAT.map((k) => [k, Math.max(...A.filter((x) => x.s && x.s[k]).map((x) => x.s[k]))]));
+    $('stats').innerHTML = STAT.map((k) => `<span>${SL[k] || k}</span><div class="bar"><i style="--w:${Math.round(a.s[k] / mx[k] * 100)}%"></i></div><b>${a.s[k]}</b>`).join('');
+  } else $('stats').innerHTML = '<span style="grid-column:1/-1">ยังไม่มีข้อมูลค่าสถานะ</span>';
+
+  // slide 4: where next
+  const i = withModel.indexOf(a), next = withModel[(i + 1) % withModel.length] || withModel[0], prev = withModel[(i - 1 + withModel.length) % withModel.length];
+  $('d4').textContent = 'โมเดล 3D ทุกร่าง ร่างเปล่งประกาย ค่าสถานะ สกิล แผนที่ และโค้ดล่าสุด รวมไว้ที่เดียว';
+  $('cta').innerHTML = `<a class="p" href="./#${esc(a.slug)}">ดูข้อมูล ${esc(a.name)}</a>`
+    + (next && next !== a ? `<a class="s" href="story.html?a=${esc(next.slug)}">ตัวถัดไป: ${esc(next.name)} →</a>` : '')
+    + (prev && prev !== a && prev !== next ? `<a class="s" href="story.html?a=${esc(prev.slug)}">← ${esc(prev.name)}</a>` : '');
+
+  // titles reveal letter by letter; Thai splits by whole letters so vowels and tone marks stay on their consonant
+  const seg = window.Intl && Intl.Segmenter ? new Intl.Segmenter('th', { granularity:'grapheme' }) : null;
+  document.querySelectorAll('.slide-title').forEach((t) => {
+    let n = 0;
+    t.innerHTML = t.innerHTML.split(/(<br\s*\/?>)/i).map((part) => /^<br/i.test(part) ? part
+      : (seg ? [...seg.segment(part)].map((s) => s.segment) : [...part]).map((ch) => ch === ' ' ? ' ' : `<span class="char" style="transition-delay:${(n++) * .035}s">${ch}</span>`).join('')).join('');
+  });
+
+  // the stage: 3D on 3d.aniiguide.trade (a local copy when previewing), the Aniilog art as fallback
+  const art = $('art'); art.src = a.i; art.alt = a.name;
+  const done = () => $('loader').classList.add('done');
+  const local = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+  const base = local ? new URL('web3d_deploy/', location.href).href : (M.url || 'https://3d.aniiguide.trade') + '/';
+  const m3 = M.m[a.slug], saver = navigator.connection && navigator.connection.saveData;
+  const gl = (() => { try { return !!document.createElement('canvas').getContext('webgl2'); } catch (_) { return false; } })();
+  let frame = null;
+  if (m3 && gl && !saver) {
+    frame = document.createElement('iframe');
+    frame.id = 'stage'; frame.title = `${a.name} 3D`; frame.setAttribute('aria-hidden', 'true'); frame.tabIndex = -1;
+    frame.src = `${base}story3d.html?file=${encodeURIComponent(m3.b)}&el=${a.e[0] || 'dark'}&mode=story&v=${M.v || 1}`;
+    document.body.insertBefore(frame, document.querySelector('.cinematic-container'));
+    let booted = false;
+    const fail = () => { if (frame) { frame.remove(); frame = null; } done(); };
+    addEventListener('message', (e) => {
+      if (!frame || e.source !== frame.contentWindow || !e.data || e.data.k !== 'aniistory') return;
+      if (e.data.t === 'boot') { booted = true; return; }
+      if (e.data.t === 'ready') { frame.classList.add('on'); document.body.classList.add('live'); done(); }
+      else fail();
+    });
+    frame.addEventListener('load', () => setTimeout(() => { if (!booted) fail(); }, 1500)); // the stage page itself is missing (404): show the art now
+    setTimeout(done, 9000); // slow line: show the art and text while the model keeps loading
+  } else done();
+
+  // pointer, scroll and the overlay
+  const ci = document.querySelector('.cursor-inner'), co = document.querySelector('.cursor-outer');
+  let cx = innerWidth / 2, cy = innerHeight / 2, ox = cx, oy = cy, mx = 0, my = 0, cur = 0;
+  addEventListener('mousemove', (e) => { cx = e.clientX; cy = e.clientY; ci.style.left = cx + 'px'; ci.style.top = cy + 'px'; mx = cx / innerWidth * 2 - 1; my = cy / innerHeight * 2 - 1; });
+  document.querySelectorAll('a').forEach((l) => { l.addEventListener('mouseenter', () => co.classList.add('hover')); l.addEventListener('mouseleave', () => co.classList.remove('hover')); });
+  const links = document.querySelectorAll('.nav-link'), stops = [0, .34, .62, .94];
+  links.forEach((l, i) => l.addEventListener('click', (e) => { e.preventDefault(); scrollTo({ top:(document.documentElement.scrollHeight - innerHeight) * stops[i], behavior:'smooth' }); }));
+  const slides = [1, 2, 3, 4].map((i) => $('slide-' + i)), fills = document.querySelectorAll('.story-dash-fill'), dots = document.querySelectorAll('.grid-dot');
+  const hint = document.querySelector('.scroll-hint'), img2 = $('slide-2-img');
+  const reduced = matchMedia('(prefers-reduced-motion:reduce)').matches;
+  (function tick() {
+    requestAnimationFrame(tick);
+    const max = document.documentElement.scrollHeight - innerHeight, s = max > 0 ? scrollY / max : 0;
+    cur += (s - cur) * (reduced ? .3 : .08);
+    ox += (cx - ox) * .2; oy += (cy - oy) * .2; co.style.left = ox + 'px'; co.style.top = oy + 'px';
+    if (frame && frame.contentWindow) frame.contentWindow.postMessage({ k:'aniistory', s, mx, my, vis:!document.hidden }, '*');
+    fills.forEach((f, i) => { f.style.height = Math.max(0, Math.min(1, (cur - i * .25) / .25)) * 100 + '%'; });
+    // one slide is always on: each owns the stretch around its nav stop (0, .34, .62, .94), split halfway between stops
+    const on = [cur < .17, cur >= .17 && cur < .48, cur >= .48 && cur < .78, cur >= .78];
+    slides.forEach((x, i) => { x.classList.toggle('active', on[i]); links[i].classList.toggle('on', on[i]); });
+    img2.classList.toggle('active', on[1]);
+    hint.style.opacity = cur > .03 ? 0 : 1;
+    dots.forEach((d, i) => { let sp = 90 + (i * 55) % 180; if (i % 2 === 0) sp = -sp; d.style.top = ((((i * 17) % 80 + 10 + cur * sp) % 100) + 100) % 100 + '%'; });
+  })();
+});
+</script>
+</body>
+</html>
