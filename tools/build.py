@@ -133,6 +133,12 @@ def main():
             srcs[n] = dest
             from_game.add(n)
     print(f"art: {sum(ok)}/{len(ok)} full-body renders (AniiDex), {len(from_game)} from the game's Research Book")
+    # AniiDex can list a new form as having art before the picture is up (and older game files lack it):
+    # leave such a form without art, so the page shows the base picture instead of a broken one
+    for key, n in list(art.items()):
+        if key[1] is not None and not srcs[n].exists():
+            del art[key]
+            print(f"  no art yet for {key[0]} form {key[1]}, using the base picture")
     (out_dir / "img").mkdir(exist_ok=True)
     for _, _, name in img_jobs:
         if srcs[name].exists():

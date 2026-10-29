@@ -66,7 +66,9 @@ def find_chunk():
             continue
         seen.add(name)
         src = curl(f"{BASE}/_nuxt/{name}", CACHE / "js" / name).read_text()
-        if "map_3000_full" in src and "regionMeta" in src and not src.lstrip().startswith("import"):
+        # the data chunk itself defines the scene (since the Oct 29 update the map page module also names
+        # map_3000_full and regionMeta but only imports the data, so match the definition, not the names)
+        if "map_3000_full" in src and "regionMeta" in src and "metadata:{sceneId" in src and not src.lstrip().startswith(("import", "const __vite__mapDeps")):
             return CACHE / "js" / name
         queue += re.findall(r'\./([\w-]+\.js)', src)
     sys.exit("map data chunk not found")
@@ -139,11 +141,24 @@ def main():
     rmeta = {n: {"lv": [v.get("minLevel"), v.get("maxLevel")]} for n, v in data["regionMeta"].items()}
 
     # images: the base map and one sprite with every layer icon
-    src = curl(BASE + data["metadata"]["image"], CACHE / "map_full.webp")
+    meta = data["metadata"]
+    src = curl(BASE + meta["image"], CACHE / "map_full.webp")
     out_dir = ROOT / "dist-full" if FULL else ROOT
     im = Image.open(src).convert("RGB")
     if not FULL:
         im = im.resize((3072, 3072), Image.LANCZOS)
+    # Since the Oct 29 update (Whisperwake Isles) the continent reaches past the base map: AniiDex adds pieces
+    # placed in base-map units, and markers run up to `extent`. Stitch them onto one picture on the sea colour.
+    ext = (meta.get("extent") or [1])[0]
+    if ext > 1:
+        s = im.width
+        whole = Image.new("RGB", (round(s * ext),) * 2, im.getpixel((4, 4)))
+        whole.paste(im, (0, 0))
+        for p in meta.get("pieces", []):
+            piece = Image.open(curl(BASE + p["image"], CACHE / Path(p["image"]).name)).convert("RGBA")
+            piece = piece.resize((round(p["w"] * s), round(p["h"] * s)), Image.LANCZOS)
+            whole.paste(piece, (round(p["x"] * s), round(p["y"] * s)), piece)
+        im = whole
     im.save(out_dir / "map.webp", "WEBP", quality=80 if not FULL else 90, method=5)
     paths = [curl(f"{BASE}/_ipx/q_95&s_96x96/{i}", CACHE / "icons" / Path(i).name) if i else None for i in icons]
     sheet = Image.new("RGBA", (len(paths) * ICON, ICON), (0, 0, 0, 0))
@@ -164,7 +179,7 @@ def main():
         miss_file.unlink()
 
     payload = {"layers": layers, "icons": len(icons), "cell": ICON, "m": marks, "info": infos,
-               "regions": regions, "rmeta": rmeta, "th": th_used}
+               "regions": regions, "rmeta": rmeta, "th": th_used, "ext": ext}
     js = "window.MAP=" + json.dumps(payload, ensure_ascii=False, separators=(",", ":")) + ";\n"
     (out_dir / "map.js").write_text(js)
     print(f"map.js {len(js)/1e3:.0f} KB · {len(marks)} markers · {len(infos)} infos · {len(layers)} layers · "

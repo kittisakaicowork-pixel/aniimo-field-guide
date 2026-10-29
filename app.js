@@ -695,7 +695,7 @@ document.addEventListener('click',e=>{
 
 /* ===== bosses ===== */
 let bossKind='';
-const bossImg=b=>BY[b.species]?TH(BY[b.species].i):'';
+const bossImg=b=>BY[b.species]?TH(BY[b.species].i):b.el?`img/ui/el-${b.el}.webp`:'img/aniiguide-logo.svg';  // a boss whose Aniimo has no page yet shows its element
 function renderBosses(){
   document.getElementById('bossGrid').innerHTML=BOSSES.filter(b=>!bossKind||b.kind===bossKind).map(b=>`<button type="button" class="bcard" data-boss="${b.slug}"><img decoding="async" loading="lazy" src="${bossImg(b)}" alt=""><span><b>${esc(b.name)}</b><small>${esc(b.region||'')}${b.lv?' · Lv. '+esc(b.lv):''}</small>
     <span class="row"><span class="ebadge kind-${b.kind.toLowerCase()}">${b.kind}</span>${badge(b.el)}</span>
@@ -781,7 +781,7 @@ function mapDraw(){if(MV.ready)mapClamp();if(mapRaf)return;mapRaf=requestAnimati
 function mapPaint(){
   if(!MV.ready)return;const c=mapCtx,d=window.devicePixelRatio||1,W=mapCv.width/d,H=mapCv.height/d;
   c.setTransform(d,0,0,d,0,0);c.fillStyle=MV.sea||'#16324d';c.fillRect(0,0,W,H);
-  c.imageSmoothingQuality='high';c.drawImage(MV.img,MV.x,MV.y,MV.s,MV.s);
+  c.imageSmoothingQuality='high';c.drawImage(MV.img,MV.x,MV.y,MV.s*(MAP.ext||1),MV.s*(MAP.ext||1));  // ext: the picture reaches past the base map (new islands)
   if(MV.reg){c.lineWidth=1.5;c.strokeStyle='rgba(255,255,255,.55)';c.setLineDash([5,4]);
     for(const [n,pts] of Object.entries(MAP.regions)){c.beginPath();if(MV.sel&&MV.sel.region===n){c.beginPath();pts.forEach(([x,y],i)=>{const X=MV.x+x/100*MV.s,Y=MV.y+y/100*MV.s;i?c.lineTo(X,Y):c.moveTo(X,Y)});c.closePath();c.fillStyle='rgba(98,195,250,.18)';c.fill();c.beginPath()}
       const edge=(a,b)=>(a[0]<.3&&b[0]<.3)||(a[0]>99.7&&b[0]>99.7)||(a[1]<.3&&b[1]<.3)||(a[1]>70.5&&b[1]>70.5);
