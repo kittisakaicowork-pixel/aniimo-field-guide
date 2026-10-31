@@ -138,11 +138,21 @@ const navItem=(v,cls)=>`<button type="button" class="${cls}" data-go="${v.id}"><
 {const GI={start:'book',info:'news',mon:'dex',world:'map',tools:'calc',more:'grid'},ls=k=>{try{return localStorage.getItem(k)}catch(_){return null}},
   ss=(k,v)=>{try{localStorage.setItem(k,v)}catch(_){}},open=new Set((ls('aniimo-rail-open')||'').split(',').filter(Boolean)),rail=document.createElement('nav');
   rail.className='rail';rail.setAttribute('aria-label','เมนูหลัก');
-  rail.innerHTML=`<div class="rtop">${navItem(VIEWS[0],'')}<button type="button" class="rfold" aria-label="ย่อเมนู" title="ย่อ / ขยายเมนู"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button></div>`
+  rail.innerHTML=`<div class="rtools"><button type="button" data-rtool="theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><span>โหมดสว่าง/มืด</span></button><button type="button" data-rtool="lang"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span>${LANG==='en'?'ภาษาไทย':'English'}</span></button></div><div class="rtop">${navItem(VIEWS[0],'')}<button type="button" class="rfold" aria-label="ย่อเมนู" title="ย่อ / ขยายเมนู"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button></div>`
     +GROUPS.map(g=>{const vs=VIEWS.filter(v=>v.g===g.id);return vs.length?`<div class="rg${open.has(g.id)?' open':''}" data-g="${g.id}"><button type="button" class="rgh" aria-expanded="${open.has(g.id)}"><svg><use href="#i-${GI[g.id]||'grid'}"/></svg><span>${g.th}</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></button><div class="rgl"><p class="rgt">${g.th}</p>${vs.map(v=>navItem(v,'')).join('')}</div></div>`:''}).join('')
     +'<button type="button" class="radmin" data-go="admin"><svg><use href="#i-lock"/></svg><span>หลังบ้าน</span></button>';
   const setMin=on=>{document.documentElement.classList.toggle('rail-min',on);ss('aniimo-rail-min',on?'1':'')};setMin(ls('aniimo-rail-min')==='1');
-  rail.querySelector('.rfold').addEventListener('click',()=>setMin(!document.documentElement.classList.contains('rail-min')));
+  // phones and tablets: the same sidebar slides in from the left as a drawer (the ☰ button and "เพิ่มเติม" open it)
+  const dim=document.createElement('div');dim.className='raildim';document.body.appendChild(dim);
+  const wide=()=>innerWidth>=1200,openR=()=>{rail.classList.add('open');dim.classList.add('on');document.documentElement.classList.add('rail-open')},
+    closeR=()=>{rail.classList.remove('open');dim.classList.remove('on');document.documentElement.classList.remove('rail-open')};
+  document.addEventListener('click',e=>{if(wide()||!e.target.closest('#menuBtn,#moreBtn'))return;e.preventDefault();e.stopImmediatePropagation();openR()},true);
+  dim.addEventListener('click',closeR);addEventListener('keydown',e=>{if(e.key==='Escape'&&rail.classList.contains('open'))closeR()});
+  rail.addEventListener('click',e=>{if(wide())return;if(e.target.closest('[data-go]'))closeR();const t=e.target.closest('[data-rtool]');
+    if(t){document.getElementById(t.dataset.rtool==='theme'?'themeBtn':'langBtn').click();if(t.dataset.rtool==='lang')closeR()}});
+  let sx=null;rail.addEventListener('touchstart',e=>{sx=e.touches[0].clientX},{passive:true});
+  rail.addEventListener('touchmove',e=>{if(sx!=null&&e.touches[0].clientX-sx<-60){sx=null;closeR()}},{passive:true});
+  rail.querySelector('.rfold').addEventListener('click',()=>{if(!wide()){closeR();return}setMin(!document.documentElement.classList.contains('rail-min'))});
   rail.addEventListener('click',e=>{const h=e.target.closest('.rgh');if(!h||document.documentElement.classList.contains('rail-min'))return;const g=h.parentElement,on=!g.classList.contains('open');
     g.classList.toggle('open',on);h.setAttribute('aria-expanded',on);on?open.add(g.dataset.g):open.delete(g.dataset.g);ss('aniimo-rail-open',[...open].join(','))});
   const showCur=()=>setTimeout(()=>{const b=rail.querySelector('.rgl [aria-current="page"]'),g=b&&b.closest('.rg');rail.querySelectorAll('.rg').forEach(x=>x.classList.toggle('cur',x===g));

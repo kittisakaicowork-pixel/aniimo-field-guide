@@ -1942,6 +1942,39 @@ dialog#dlg,dialog#menu,dialog#pick{background:color-mix(in srgb,var(--ground) 72
 /* computers: a glass sidebar on the left (filled by app.js) takes over from the top menu and the bottom shortcut
    dock: the same groups as the top menu, folding open; « folds it to icons, where a group's pages pop out on hover */
 .rail{display:none}
+.rail .rtools,.raildim{display:none}
+/* phones and tablets: the same sidebar is a drawer that slides in from the left (☰ or "เพิ่มเติม") */
+@media (max-width:1199px){
+  .rail{display:flex;position:fixed;z-index:95;left:0;top:0;bottom:0;width:min(300px,86vw);flex-direction:column;gap:2px;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none;
+    padding:calc(14px + env(safe-area-inset-top,0px)) 12px calc(16px + env(safe-area-inset-bottom,0px));border-radius:0 26px 26px 0;
+    background:color-mix(in srgb,var(--ground) 80%,transparent);border-right:1px solid var(--glass-line);box-shadow:0 0 60px rgba(10,20,40,.3);
+    -webkit-backdrop-filter:blur(26px) saturate(1.6);backdrop-filter:blur(26px) saturate(1.6);transform:translateX(-104%);visibility:hidden;
+    transition:transform .38s cubic-bezier(.2,.8,.2,1),visibility 0s .38s}
+  .rail.open{transform:none;visibility:visible;transition:transform .38s cubic-bezier(.2,.8,.2,1)}
+  .raildim{display:block;position:fixed;inset:0;z-index:94;background:rgba(5,12,28,.38);opacity:0;pointer-events:none;transition:opacity .3s;-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+  .raildim.on{opacity:1;pointer-events:auto}
+  .rail-open body{overflow:hidden}
+  .rail button{display:flex;align-items:center;gap:12px;width:100%;min-height:44px;padding:0 12px;border:0;border-radius:13px;background:none;color:var(--ink-2);
+    font:600 .92rem var(--display);text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .2s,color .2s,transform .15s}
+  .rail button:active{transform:scale(.97)}
+  .rail button svg{flex:none;width:20px;height:20px}
+  .rail button span{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .rail button[aria-current="page"]{background:var(--accent);color:var(--accent-ink);box-shadow:0 4px 12px color-mix(in srgb,var(--accent) 35%,transparent)}
+  .rail .rtools{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:6px}
+  .rail .rtools button{justify-content:center;gap:8px;background:color-mix(in srgb,var(--surface) 70%,transparent);border:1px solid var(--line);font-size:.8rem;min-height:40px}
+  .rail .rtop{display:flex;gap:6px;margin-bottom:4px}
+  .rail .rfold{flex:none;width:44px;padding:0;justify-content:center}
+  .rail .rg{display:grid}.rail .rgh{color:var(--ink);font-weight:700}.rail .rg.cur>.rgh{color:var(--accent)}
+  .rail .rgh .chev{width:14px;height:14px;opacity:.6;transition:rotate .2s}.rail .rg.open>.rgh .chev{rotate:90deg}
+  .rail .rgl{display:none;padding:1px 0 6px 12px;margin-left:10px;border-left:1px solid var(--line)}.rail .rg.open>.rgl{display:grid;gap:1px}
+  .rail .rgt{display:none}
+  .rail .radmin{margin-top:auto;opacity:.85}
+}
+/* phone fixes: the home "quick" pair shares the width instead of sizing to its text; guide-page Aniimo cards one per row */
+.mh-dyn>.mh-sec{grid-template-columns:minmax(0,1fr)}
+.mh-quick{grid-template-columns:repeat(2,minmax(0,1fr))}
+.mh-quick>button{min-width:0}
+@media (max-width:560px){.gsec .dex{grid-template-columns:minmax(0,1fr)}}
 @media (min-width:1200px){
   .topnav,#lgDockD{display:none!important}
   .rail{position:fixed;z-index:25;left:14px;top:calc(var(--bar) + 10px);bottom:14px;width:192px;display:flex;flex-direction:column;gap:1px;padding:8px;
@@ -2157,16 +2190,31 @@ dialog#dlg,dialog#menu,dialog#pick{background:color-mix(in srgb,var(--ground) 72
   .adws nav em{position:absolute;top:0;right:0;margin:0;min-width:16px;height:16px;padding:0 4px;border-radius:999px;background:var(--g-hot);color:var(--g-hot-ink);font:700 .6rem/16px var(--display);font-style:normal}
 }
 @media (max-width:980px){
-  .alogo,.adws .afoot span,.adws .abrand{display:none}
-  .adws .aside{display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--g-side);border-bottom:1px solid var(--g-line);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px)}
-  .adws .aside nav{flex:1;min-width:0}
-  .adws .afoot{display:flex;gap:6px;flex:none}
-  .adws .afoot button{display:grid;place-items:center;width:40px;height:40px;padding:0;border:0;border-radius:12px;background:var(--g-soft);color:var(--g-ink);cursor:pointer}
-  .adws .afoot svg{width:18px;height:18px}
-  .gtop{grid-template-columns:1fr;gap:10px}.gtop .gtime{display:none}.gacts{justify-content:flex-start;flex-wrap:wrap}
-  .gkpis{grid-template-columns:repeat(2,minmax(0,1fr))}.ggrid{grid-template-columns:1fr}.grev,.gpie{grid-row:auto;grid-column:auto}
-  .gchart{height:240px}
-  .gk .gkv{flex-wrap:wrap;margin-top:8px}.gk .gkv b{font-size:1.5rem}.gcard{padding:14px 16px}
+  /* phones: the admin is a full-screen app too: no site header or tab bar, its own compact top bar, and its menu as a
+     glass icon bar along the bottom (the picked tab a filled circle) */
+  .on-admin :is(.appbar,.tabbar,#lgDock,footer){display:none!important}
+  .on-admin main{padding:0!important}
+  .on-admin .adws{margin:0;width:auto;min-height:100vh;padding:calc(12px + env(safe-area-inset-top,0px)) 14px calc(104px + env(safe-area-inset-bottom,0px))}
+  .adws .amain{padding:0;display:grid;gap:14px}
+  .alogo,.adws .abrand,.adws :is(nav,.afoot) button span{display:none}
+  .adws .aside{position:fixed;z-index:30;left:12px;right:12px;top:auto;bottom:calc(12px + env(safe-area-inset-bottom,0px));height:64px;padding:0 10px;display:flex;align-items:center;gap:6px;
+    border:1px solid var(--g-line);border-radius:24px;background:var(--g-side);box-shadow:var(--g-shadow);-webkit-backdrop-filter:blur(24px) saturate(1.5);backdrop-filter:blur(24px) saturate(1.5)}
+  .adws .aside nav{flex:1;min-width:0;display:flex!important;justify-content:space-around;gap:4px;overflow-x:auto;scrollbar-width:none}
+  .adws .afoot{display:flex;gap:4px;flex:none;padding-left:6px;border-left:1px solid var(--g-line)}
+  .adws :is(nav,.afoot) button{position:relative;display:grid;place-items:center;flex:none;width:44px;height:44px;padding:0;border:0;border-radius:50%;background:none;color:var(--g-mute)}
+  .adws :is(nav,.afoot) button svg{width:20px;height:20px}
+  .adws nav button[aria-current="true"]{background:var(--g-pick);color:var(--g-pick-ink);box-shadow:0 6px 16px rgba(0,0,0,.25)}
+  .adws nav em{position:absolute;top:0;right:0;margin:0;min-width:16px;height:16px;padding:0 4px;border-radius:999px;background:var(--g-hot);color:#fff;font:700 .6rem/16px var(--display);font-style:normal}
+  .gtop{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"brand acts" "find find";gap:10px}
+  .gcrumb{grid-area:brand}.gtop>.gacts{grid-area:acts;flex-wrap:nowrap;gap:8px}.gfind{grid-area:find}
+  .gsep,.gnow,.gtop .gtime,.gchev,.gfind kbd{display:none}
+  .gtop .gbtn.hot{width:40px;padding:0;justify-content:center;font-size:0}.gtop .gbtn.hot b{font-size:1.2rem}
+  .ghello h2{font-size:1.35rem}.ghello .gacts{width:100%;justify-content:flex-start;flex-wrap:wrap}
+  .gkpis{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.ggrid{grid-template-columns:1fr;gap:12px}.grev,.gpie{grid-row:auto;grid-column:auto}
+  .gchart{height:230px}.gbig{min-height:160px}
+  .gk .gkv{flex-wrap:wrap;margin-top:8px}.gk .gkv b{font-size:1.45rem}.gcard{padding:14px 16px}
+  .adws .dgrid3,.adws .agrid2,.adws .agrid{grid-template-columns:1fr!important}
+  .adws .ahead{flex-direction:column;align-items:flex-start;gap:2px}
 }
 </style>
 
@@ -3468,13 +3516,13 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
 </dialog>
 <dialog id="menu" aria-label="เมนูทั้งหมด"><div class="inner" id="menuInner"></div></dialog>
 
-<script>try{if(localStorage.getItem('aniimo-lang')==='en')document.write('<script src="i18n-en.js?v=3a25ba38fb"><\/script>')}catch(_){}</script>
-<script defer src="th.js?v=3a25ba38fb"></script>
-<script defer src="items.js?v=3a25ba38fb"></script>
-<script defer src="data.js?v=3a25ba38fb"></script>
-<script defer src="thumbs.js?v=3a25ba38fb"></script>
-<script defer src="content.js?v=3a25ba38fb"></script>
-<script defer src="app.js?v=3a25ba38fb"></script>
+<script>try{if(localStorage.getItem('aniimo-lang')==='en')document.write('<script src="i18n-en.js?v=3ea764d3c9"><\/script>')}catch(_){}</script>
+<script defer src="th.js?v=3ea764d3c9"></script>
+<script defer src="items.js?v=3ea764d3c9"></script>
+<script defer src="data.js?v=3ea764d3c9"></script>
+<script defer src="thumbs.js?v=3ea764d3c9"></script>
+<script defer src="content.js?v=3ea764d3c9"></script>
+<script defer src="app.js?v=3ea764d3c9"></script>
 <script>/* Liquid Glass (glass.js): fetched after the page has fully shown, only with WebGL and when motion is welcome */
 addEventListener('load',function(){try{if(matchMedia('(prefers-reduced-motion: reduce)').matches||(navigator.connection&&navigator.connection.saveData)||!document.createElement('canvas').getContext('webgl'))return}catch(_){return}
 var add=function(src){return new Promise(function(ok,no){var s=document.createElement('script');s.src=src;s.onload=ok;s.onerror=no;document.head.appendChild(s)})};
