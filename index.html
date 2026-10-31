@@ -2216,6 +2216,108 @@ dialog#dlg,dialog#menu,dialog#pick{background:color-mix(in srgb,var(--ground) 72
   .adws .dgrid3,.adws .agrid2,.adws .agrid{grid-template-columns:1fr!important}
   .adws .ahead{flex-direction:column;align-items:flex-start;gap:2px}
 }
+/* ---------- admin sign-in, adapted from the "Glassy Login Form" clip: cut-corner glass card with two glass tiles, light
+   streaks flowing behind, staggered entrance, a 3D turn to the "forgot password" side, shake on a wrong password ---------- */
+.on-admin [data-view="admin"] .vhead{display:none}
+.glog{--l-glass:rgba(255,255,255,.46);--l-line:rgba(255,255,255,.8);--l-ink:#172238;--l-mute:rgba(23,34,56,.62);--l-field:rgba(255,255,255,.55);--l-streak:rgba(30,143,224,.55);
+  position:relative;min-height:100vh;display:grid;place-items:center;padding:40px 16px;perspective:1600px;color:var(--l-ink);overflow:hidden}
+:root[data-theme="dark"] .glog{--l-glass:rgba(12,24,48,.46);--l-line:rgba(255,255,255,.12);--l-ink:#EAF4FF;--l-mute:rgba(234,244,255,.6);--l-field:rgba(255,255,255,.06);--l-streak:rgba(108,198,255,.7)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .glog{--l-glass:rgba(12,24,48,.46);--l-line:rgba(255,255,255,.12);--l-ink:#EAF4FF;--l-mute:rgba(234,244,255,.6);--l-field:rgba(255,255,255,.06);--l-streak:rgba(108,198,255,.7)}}
+.gstreaks{position:absolute;inset:0;pointer-events:none;z-index:0}
+.gstreaks i{position:absolute;left:-30%;width:160%;height:70vh;border-radius:50%;border-top:2px solid var(--l-streak);filter:drop-shadow(0 0 10px var(--l-streak)) blur(.4px);opacity:.75}
+.gstreaks i:nth-child(1){top:8%;rotate:-14deg;animation:gStreak 11s ease-in-out infinite alternate}
+.gstreaks i:nth-child(2){top:46%;rotate:-22deg;opacity:.45;border-top-width:1px;animation:gStreak 14s ease-in-out -6s infinite alternate-reverse}
+.gstreaks i:nth-child(3){top:-18%;rotate:12deg;opacity:.35;border-top-width:3px;animation:gStreak 17s ease-in-out -3s infinite alternate}
+.gstreaks i::after{content:"";position:absolute;inset:-2px 0 0;border-radius:inherit;border-top:inherit;border-top-color:#fff;filter:drop-shadow(0 0 8px #fff);
+  -webkit-mask-image:linear-gradient(90deg,transparent 40%,#000 48%,#000 52%,transparent 60%);mask-image:linear-gradient(90deg,transparent 40%,#000 48%,#000 52%,transparent 60%);
+  -webkit-mask-size:250% 100%;mask-size:250% 100%;animation:gGlint 4.5s linear infinite}
+.gstreaks i:nth-child(2)::after{animation-duration:6.5s;animation-delay:-2s}.gstreaks i:nth-child(3)::after{animation-duration:8s;animation-delay:-5s}
+@keyframes gGlint{from{-webkit-mask-position:120% 0;mask-position:120% 0}to{-webkit-mask-position:-20% 0;mask-position:-20% 0}}
+@keyframes gStreak{from{translate:-6% 0}to{translate:6% -5%}}
+.gflip{position:relative;z-index:1;display:grid;width:min(450px,100%);transform-style:preserve-3d;transform:rotateX(var(--rx,0)) rotateY(var(--ry,0));transition:transform .25s ease-out}
+.gcardb::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .4s;background:radial-gradient(380px circle at var(--gx,50%) var(--gy,0%),rgba(255,255,255,.16),transparent 50%)}
+.gflip.lit .gcardb::after{opacity:1}
+.gside{grid-area:1/1;align-self:center;position:relative;transition:opacity .45s,transform .9s cubic-bezier(.2,.8,.2,1),filter .45s}
+.gcardb{position:relative;display:grid;gap:14px;padding:36px 34px 26px;background:var(--l-glass);border:1px solid var(--l-line);
+  clip-path:polygon(34px 0,100% 0,100% calc(100% - 34px),calc(100% - 34px) 100%,0 100%,0 34px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.25);-webkit-backdrop-filter:blur(26px) saturate(1.5);backdrop-filter:blur(26px) saturate(1.5)}
+.gtile{position:absolute;z-index:2;width:62px;height:62px;border-radius:14px;background:var(--l-glass);border:1px solid var(--l-line);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 10px 30px rgba(10,40,90,.2);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}
+.gtile.t1{left:calc(-22px + var(--px,0)*-14px);top:calc(-22px + var(--py,0)*-14px);rotate:-8deg}
+.gtile.t2{right:calc(-18px + var(--px,0)*14px);bottom:calc(-18px + var(--py,0)*14px);rotate:10deg;width:52px;height:52px}
+.gtile{transition:left .3s ease-out,top .3s ease-out,right .3s ease-out,bottom .3s ease-out;animation:gFloat 5.5s ease-in-out 1.4s infinite alternate}
+.gtile.t2{animation-duration:6.5s;animation-delay:1.6s}
+@keyframes gFloat{to{transform:translateY(-9px) rotate(6deg)}}
+.gtile::after{content:"";position:absolute;inset:14px;border-radius:8px;background:linear-gradient(135deg,rgba(108,198,255,.9),rgba(30,143,224,.4));filter:blur(.3px)}
+.glogo{display:block;color:var(--l-ink);margin-bottom:2px}.glogo .brandmark{width:150px;animation:gLogoGlow 3.2s ease-in-out infinite alternate}
+@keyframes gLogoGlow{from{filter:drop-shadow(0 0 4px rgba(77,178,255,.2))}to{filter:drop-shadow(0 0 16px rgba(77,178,255,.55))}}
+.gcardb h2{margin:0;font:800 1.9rem/1.15 var(--display);color:var(--l-ink)}
+.gcardb h2 span{margin-left:8px;background:linear-gradient(90deg,#6CC6FF,#1E8FE0);-webkit-background-clip:text;background-clip:text;color:transparent}
+.gsub{margin:-6px 0 6px;color:var(--l-mute);font-size:.88rem;line-height:1.55}
+.gerr{margin:0;padding:9px 12px;border-radius:12px;background:rgba(208,74,85,.14);color:#E0606B;font-size:.85rem;border:1px solid rgba(208,74,85,.3)}
+.gfield{display:grid;gap:6px;font:600 .82rem var(--display);color:var(--l-ink)}
+.gin{display:flex;align-items:center;gap:10px;height:46px;padding:0 12px;border:1px solid var(--l-line);border-radius:13px;background:var(--l-field);color:var(--l-mute);transition:border-color .2s,box-shadow .25s,background .2s}
+.gin svg{width:18px;height:18px;flex:none}
+.gin input{flex:1;min-width:0;border:0;background:none;outline:none;color:var(--l-ink);font:500 .95rem var(--body)}
+.gin input::placeholder{color:var(--l-mute);opacity:.7}
+.gin:focus-within{border-color:#4DB2FF;box-shadow:0 0 0 4px rgba(77,178,255,.18),0 0 24px rgba(77,178,255,.25);color:#4DB2FF}
+.geye{display:grid;place-items:center;width:32px;height:32px;margin-right:-6px;border:0;border-radius:9px;background:none;color:var(--l-mute);cursor:pointer}
+.geye:hover,.geye.on{color:#4DB2FF}.geye svg{width:18px;height:18px}
+.grow{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.gcheck{display:flex;align-items:center;gap:8px;font-size:.82rem;color:var(--l-mute);cursor:pointer}
+.gcheck input{position:absolute;opacity:0;width:1px;height:1px}
+.gcheck i{display:grid;place-items:center;width:18px;height:18px;border-radius:6px;border:1.5px solid var(--l-line);background:var(--l-field);transition:background .2s,border-color .2s}
+.gcheck input:checked+i{background:#3DA9F5;border-color:#3DA9F5}
+.gcheck input:checked+i::after{content:"";width:5px;height:9px;border:solid #fff;border-width:0 2px 2px 0;rotate:45deg;margin-top:-2px}
+.gcheck input:focus-visible+i{box-shadow:0 0 0 3px rgba(77,178,255,.35)}
+.glink{border:0;background:none;padding:0;color:#3DA9F5;font:600 .82rem var(--display);cursor:pointer}.glink:hover{text-decoration:underline}
+.gprimary{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:8px;height:48px;border:0;border-radius:14px;cursor:pointer;text-decoration:none;
+  background:linear-gradient(180deg,#8FD6FF,#3DA9F5);color:#06182E;font:700 .95rem var(--display);box-shadow:0 10px 28px rgba(61,169,245,.42),inset 0 1px 0 rgba(255,255,255,.5);
+  transition:transform .15s cubic-bezier(.3,1.4,.5,1),box-shadow .25s}
+.gprimary b{transition:translate .25s}
+.gprimary::before{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.55) 50%,transparent 70%);translate:-120% 0;transition:translate .7s}
+@media (hover:hover){.gprimary:hover{box-shadow:0 14px 36px rgba(61,169,245,.6),inset 0 1px 0 rgba(255,255,255,.5)}.gprimary:hover b{translate:4px 0}.gprimary:hover::before{translate:120% 0}}
+.gprimary:active{transform:scale(.97)}
+.gprimary.busy{pointer-events:none;opacity:.9}
+.gprimary.busy::after{content:"";width:16px;height:16px;border-radius:50%;border:2px solid rgba(6,24,46,.3);border-top-color:#06182E;animation:gSpin .7s linear infinite}
+@keyframes gSpin{to{rotate:360deg}}
+.gor{display:flex;align-items:center;gap:12px;margin:0;color:var(--l-mute);font:600 .7rem var(--display);letter-spacing:.14em;text-transform:uppercase}
+.gor::before,.gor::after{content:"";flex:1;height:1px;background:var(--l-line)}
+.galt{display:grid;grid-template-columns:1fr 1fr;gap:10px}.galt.one{grid-template-columns:1fr}
+.galt button{display:flex;align-items:center;justify-content:center;gap:8px;height:42px;border:1px solid var(--l-line);border-radius:13px;background:var(--l-field);color:var(--l-ink);
+  font:600 .85rem var(--display);cursor:pointer;transition:transform .15s,background .2s,border-color .2s}
+.galt button svg{width:17px;height:17px}.galt button:hover{border-color:#4DB2FF}.galt button:active{transform:scale(.96)}
+.gback{position:absolute;z-index:2;left:max(16px,env(safe-area-inset-left,0px));top:calc(16px + env(safe-area-inset-top,0px));padding:8px 14px;border:1px solid var(--l-line);border-radius:999px;
+  background:var(--l-glass);color:var(--l-ink);font:600 .82rem var(--display);cursor:pointer;-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);transition:transform .15s}
+.gback:active{transform:scale(.95)}
+.gfoot{margin:2px 0 0;text-align:center;font-size:.78rem;color:var(--l-mute)}.gfoot b{color:var(--l-ink)}
+.gsteps{margin:0;padding-left:1.2em;display:grid;gap:8px;font-size:.88rem;line-height:1.55;color:var(--l-ink)}.gsteps b{color:#3DA9F5}
+/* the turn between the two sides: the face going away blurs and swings back, the other swings in */
+.gside.back{opacity:0;pointer-events:none;transform:rotateY(70deg) scale(.92);filter:blur(10px)}
+.gflip.flipped .front{opacity:0;pointer-events:none;transform:rotateY(-70deg) scale(.92);filter:blur(10px)}
+.gflip.flipped .back{opacity:1;pointer-events:auto;transform:none;filter:none;transition-delay:.18s}
+.gflip:not(.flipped) .front{transition-delay:.18s}
+.gflip.turning .gtile{animation:gTileSpin .9s cubic-bezier(.2,.8,.2,1)}
+@keyframes gTileSpin{50%{scale:.6;rotate:45deg}}
+/* entrance: the card rises out of a tilt and a blur, its rows follow one by one, the tiles slide in from the corners */
+.glog:not(.again) .front .gcardb{animation:gLogIn .9s cubic-bezier(.2,.8,.2,1) backwards}
+.glog:not(.again) .front .gst>*{animation:gIn .6s cubic-bezier(.2,.8,.2,1) calc(.25s + var(--i,0)*60ms) backwards}
+.glog:not(.again) .front .gtile.t1{animation:gTileIn .9s cubic-bezier(.3,1.3,.5,1) .35s backwards,gFloat 5.5s ease-in-out 1.4s infinite alternate}
+.glog:not(.again) .front .gtile.t2{animation:gTileIn2 .9s cubic-bezier(.3,1.3,.5,1) .45s backwards,gFloat 6.5s ease-in-out 1.6s infinite alternate}
+/* a good sign-in swings the card away in 3D through a blur, the tiles fly off, before the dashboard draws */
+.gflip.leaving{transition:none}
+.gflip.leaving .gcardb{animation:gLeave .65s cubic-bezier(.6,0,.4,1) forwards}
+.gflip.leaving .gtile.t1{animation:gTileOut .6s cubic-bezier(.6,0,.4,1) forwards}.gflip.leaving .gtile.t2{animation:gTileOut2 .6s cubic-bezier(.6,0,.4,1) forwards}
+@keyframes gLeave{to{opacity:0;transform:rotateY(-58deg) translateX(-30px) scale(.9);filter:blur(14px)}}
+@keyframes gTileOut{to{opacity:0;translate:-60px -50px;scale:.4}}@keyframes gTileOut2{to{opacity:0;translate:60px 50px;scale:.4}}
+.gback{overflow:hidden}
+@keyframes gLogIn{from{opacity:0;transform:translateY(40px) rotateX(18deg) scale(.95);filter:blur(14px)}}
+@keyframes gTileIn{from{opacity:0;translate:-40px -40px;scale:.5}}
+@keyframes gTileIn2{from{opacity:0;translate:40px 40px;scale:.5}}
+.gside.shake{animation:gShake .5s cubic-bezier(.36,.07,.19,.97)}
+@keyframes gShake{20%,60%{translate:-10px 0}40%,80%{translate:10px 0}}
+@media (max-width:560px){.gcardb{padding:30px 22px 22px}.gcardb h2{font-size:1.6rem}.gtile.t1{left:-10px;top:-14px;width:50px;height:50px}.gtile.t2{right:-8px;bottom:-10px;width:42px;height:42px}}
+@media (prefers-reduced-motion:reduce){.glog *,.glog{animation:none!important;transition:none!important}}
 </style>
 
 <div id="boot" role="status" aria-live="polite"><div class="bootin"><b class="wm"><svg class="brandmark" viewBox="0 0 260 72" aria-hidden="true"><use href="img/aniiguide-logo.svg?v=4#wordmark"></use></svg><span class="sr">AniiGuide</span></b><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><small id="bootMsg">กำลังโหลดข้อมูล Aniimo…</small></div></div>
@@ -3516,13 +3618,13 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
 </dialog>
 <dialog id="menu" aria-label="เมนูทั้งหมด"><div class="inner" id="menuInner"></div></dialog>
 
-<script>try{if(localStorage.getItem('aniimo-lang')==='en')document.write('<script src="i18n-en.js?v=3ea764d3c9"><\/script>')}catch(_){}</script>
-<script defer src="th.js?v=3ea764d3c9"></script>
-<script defer src="items.js?v=3ea764d3c9"></script>
-<script defer src="data.js?v=3ea764d3c9"></script>
-<script defer src="thumbs.js?v=3ea764d3c9"></script>
-<script defer src="content.js?v=3ea764d3c9"></script>
-<script defer src="app.js?v=3ea764d3c9"></script>
+<script>try{if(localStorage.getItem('aniimo-lang')==='en')document.write('<script src="i18n-en.js?v=a66243c905"><\/script>')}catch(_){}</script>
+<script defer src="th.js?v=a66243c905"></script>
+<script defer src="items.js?v=a66243c905"></script>
+<script defer src="data.js?v=a66243c905"></script>
+<script defer src="thumbs.js?v=a66243c905"></script>
+<script defer src="content.js?v=a66243c905"></script>
+<script defer src="app.js?v=a66243c905"></script>
 <script>/* Liquid Glass (glass.js): fetched after the page has fully shown, only with WebGL and when motion is welcome */
 addEventListener('load',function(){try{if(matchMedia('(prefers-reduced-motion: reduce)').matches||(navigator.connection&&navigator.connection.saveData)||!document.createElement('canvas').getContext('webgl'))return}catch(_){return}
 var add=function(src){return new Promise(function(ok,no){var s=document.createElement('script');s.src=src;s.onload=ok;s.onerror=no;document.head.appendChild(s)})};

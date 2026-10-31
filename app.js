@@ -1547,7 +1547,7 @@ function dashOverview(x){
 document.addEventListener('click',e=>{const m=e.target.closest('[data-cmamode]');if(m&&typeof CMA!=='undefined'){CMA.mode=m.dataset.cmamode;CMA.items=null}
   if(e.target.closest('[data-dhelp="update"]'))alert('งานอัปเดตรายวันรันผ่าน Scheduled task ของแอป Claude บนเครื่อง Mac\n\nถ้าข้อมูลไม่อัปเดต: เปิดเครื่องและแอป Claude ทิ้งไว้ช่วงเวลาที่ตั้งงานไว้ หรือสั่ง Claude ให้รัน tools/daily.sh เองครั้งหนึ่ง')});
 // admin: a soft ripple spreads from the finger or pointer on buttons, like the clip's press feedback
-document.addEventListener('pointerdown',e=>{const b=e.target.closest('.adws :is(.gbtn,.gpill,.garrow,.gbrand,.gme,.gmenu button,.dtodo,.dsc,.abtn,.aseg button)');if(!b||RM)return;
+document.addEventListener('pointerdown',e=>{const b=e.target.closest('.adws :is(.gbtn,.gpill,.garrow,.gbrand,.gme,.gmenu button,.dtodo,.dsc,.abtn,.aseg button),.glog :is(.gprimary,.gback)');if(!b||RM)return;
   const r=b.getBoundingClientRect(),d=Math.max(r.width,r.height)*2.2,s=document.createElement('i');s.className='gripple';
   s.style.cssText=`width:${d}px;height:${d}px;left:${e.clientX-r.left-d/2}px;top:${e.clientY-r.top-d/2}px`;b.appendChild(s);setTimeout(()=>s.remove(),650)});
 // admin: glass cards tilt a little toward the pointer and a soft light follows it across the glass
@@ -1562,19 +1562,40 @@ addEventListener('keydown',e=>{const f=document.getElementById('gFind');if(!f||c
   if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();f.focus();return}
   if(e.target===f&&e.key==='Enter'&&f.value.trim()){const q=f.value.trim();go('dex');setTimeout(()=>{const i=document.getElementById('q');if(i){i.value=q;i.dispatchEvent(new Event('input',{bubbles:true}))}},50)}});
 setInterval(()=>{const c=document.getElementById('dClock');if(c)c.textContent=new Date().toLocaleTimeString('th-TH',{hour:'2-digit',minute:'2-digit',timeZone:'Asia/Bangkok'})},20000);
+// admin sign-in (the only thing this page is for), Nov 2026: adapted from the "Glassy Login Form" clip the owner picked: a glass card with cut corners and
+// two small glass tiles, light streaks flowing behind, fields with icons and a show-password eye; a wrong password
+// shakes the card and keeps the typed email.
 function adminLogin(msg){
-  const out=document.getElementById('adOut');
-  if(!SB.url){out.innerHTML=`<div class="dpanel adlogin" style="max-width:460px"><span class="ic"><svg><use href="#i-lock"/></svg></span><h3>หลังบ้านยังไม่ได้เชื่อมฐานข้อมูล</h3><p class="muted">เจ้าของเว็บต้องสร้างฐานข้อมูล Supabase และใส่ค่าการเชื่อมต่อก่อน ระหว่างนี้ดูหน้าตาด้วยข้อมูลสมมติได้</p><button type="button" class="btn" id="adDemo">ดูตัวอย่างด้วยข้อมูลสมมติ</button></div>`;return}
-  out.innerHTML=`<form class="dpanel adlogin" id="adForm" style="max-width:420px">
-   <span class="ic"><svg><use href="#i-lock"/></svg></span><h3>เข้าสู่หลังบ้าน</h3>
-   ${msg?`<p class="warnbox" style="margin:0">${msg}</p>`:''}
-   <label for="adEmail">อีเมล<input type="email" id="adEmail" autocomplete="username" required></label>
-   <label for="adPw">รหัสผ่าน<input type="password" id="adPw" autocomplete="current-password" required></label>
-   <label for="adRemember" style="display:flex;flex-direction:row;gap:8px;align-items:center;color:var(--ink)"><input type="checkbox" id="adRemember"> จำการเข้าสู่ระบบในเครื่องนี้</label>
-   <button type="submit" class="btn primary" id="adGo">เข้าสู่หลังบ้าน</button>
-   <p class="dnote">ใช้เครื่องสาธารณะ ไม่ต้องติ๊กจำ และกดออกจากระบบทุกครั้ง</p></form>`;
-  setTimeout(()=>{const i=document.getElementById('adEmail');i&&i.focus()},50);
+  const out=document.getElementById('adOut'),again=!!document.querySelector('#adOut .glog'),keep=(document.getElementById('adEmail')||{}).value||'';
+  const ic=d=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
+  const MAIL='<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>',LOCK='<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',EYE='<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>';
+  const tiles='<i class="gtile t1" aria-hidden="true"></i><i class="gtile t2" aria-hidden="true"></i>';
+  const front=SB.url?`<form class="gside front${msg?' shake':''}" id="adForm" novalidate>${tiles}<div class="gcardb gst">
+      <b class="wm glogo"><svg class="brandmark" viewBox="0 0 260 72" aria-hidden="true"><use href="img/aniiguide-logo.svg?v=4#wordmark"></use></svg><span class="sr">AniiGuide</span></b>
+      <h2>ยินดีต้อนรับ<span>กลับมา</span></h2><p class="gsub">เข้าสู่หลังบ้าน AniiGuide ด้วยบัญชีผู้ดูแล</p>
+      ${msg?`<p class="gerr" role="alert">${msg}</p>`:''}
+      <label class="gfield"><span>อีเมล</span><span class="gin">${ic(MAIL)}<input type="email" id="adEmail" autocomplete="username" placeholder="name@domain.com" required></span></label>
+      <label class="gfield"><span>รหัสผ่าน</span><span class="gin">${ic(LOCK)}<input type="password" id="adPw" autocomplete="current-password" placeholder="••••••••••" required><button type="button" class="geye" id="adEye" aria-label="แสดงรหัสผ่าน">${ic(EYE)}</button></span></label>
+      <div class="grow"><label class="gcheck"><input type="checkbox" id="adRemember"><i></i>จำการเข้าสู่ระบบในเครื่องนี้</label></div>
+      <button type="submit" class="gprimary" id="adGo">เข้าสู่หลังบ้าน <b>→</b></button>
+      <p class="gfoot">ใช้เครื่องสาธารณะ? ไม่ต้องติ๊กจำ และ<b>ออกจากระบบ</b>ทุกครั้ง</p></div></form>`
+    :`<div class="gside front">${tiles}<div class="gcardb gst"><b class="wm glogo"><svg class="brandmark" viewBox="0 0 260 72" aria-hidden="true"><use href="img/aniiguide-logo.svg?v=4#wordmark"></use></svg><span class="sr">AniiGuide</span></b><h2>หลังบ้าน<span>ยังไม่พร้อม</span></h2>
+      <p class="gsub">เจ้าของเว็บต้องสร้างฐานข้อมูล Supabase และใส่ค่าการเชื่อมต่อก่อน</p>
+      <button type="button" class="gprimary" data-go="home">กลับหน้าเว็บ <b>→</b></button></div></div>`;
+  out.innerHTML=`<div class="glog${again?' again':''}"><div class="gstreaks" aria-hidden="true"><i></i><i></i><i></i></div><button type="button" class="gback" data-go="home">← กลับหน้าเว็บ</button><div class="gflip" id="gFlip">${front}</div></div>`;
+  out.querySelectorAll('.gst').forEach(g=>[...g.children].forEach((el,i)=>el.style.setProperty('--i',i)));
+  const em=document.getElementById('adEmail');if(em&&keep)em.value=keep; // a wrong password keeps the typed email
+  setTimeout(()=>{const i=document.getElementById(keep?'adPw':'adEmail');i&&i.focus()},again?50:700);
 }
+// sign-in card: tilts toward the pointer with a light on the glass, its corner tiles drift further (parallax)
+addEventListener('pointermove',e=>{const g=e.target.closest&&e.target.closest('.glog');if(!g||!FINE||RM)return;const f=g.querySelector('.gflip');if(!f)return;
+  const r=g.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5,c=f.getBoundingClientRect();
+  f.style.setProperty('--rx',(-y*9).toFixed(2)+'deg');f.style.setProperty('--ry',(x*12).toFixed(2)+'deg');f.style.setProperty('--px',(x*2).toFixed(3));f.style.setProperty('--py',(y*2).toFixed(3));
+  f.style.setProperty('--gx',((e.clientX-c.left)/c.width*100).toFixed(1)+'%');f.style.setProperty('--gy',((e.clientY-c.top)/c.height*100).toFixed(1)+'%');f.classList.add('lit')},{passive:true});
+document.addEventListener('pointerleave',()=>{const f=document.querySelector('.glog .gflip');if(f){['--rx','--ry','--px','--py'].forEach(k=>f.style.removeProperty(k));f.classList.remove('lit')}},true);
+document.addEventListener('click',e=>{
+  const eye=e.target.closest('#adEye');if(eye){const i=document.getElementById('adPw');const show=i.type==='password';i.type=show?'text':'password';eye.classList.toggle('on',show);eye.setAttribute('aria-label',show?'ซ่อนรหัสผ่าน':'แสดงรหัสผ่าน');i.focus()}
+});
 async function renderAdmin(quiet){
   const out=document.getElementById('adOut');
   if(!AD.demo&&(!SB.url||!AD.s)){adminLogin();return}
@@ -1681,8 +1702,9 @@ setInterval(()=>{if(current==='admin'&&!document.hidden&&AD.s&&!AD.demo&&!AD.bus
 let adTries=0;
 document.addEventListener('submit',async e=>{if(e.target.id!=='adForm')return;e.preventDefault();
   const email=document.getElementById('adEmail').value.trim(),pw=document.getElementById('adPw').value,btn=document.getElementById('adGo');if(!email||!pw)return;
-  btn.disabled=true;btn.textContent='กำลังเข้าสู่ระบบ…';if(adTries>=3)await sleep(Math.min(8000,1000*2**(adTries-3)));
-  try{const remember=document.getElementById('adRemember').checked;const s=await sbAuth({email,password:pw},'password');adTries=0;adSave({...s,remember},remember);AD.demo=false;renderAdmin()}
+  btn.disabled=true;btn.classList.add('busy');btn.innerHTML='กำลังเข้าสู่ระบบ…';if(adTries>=3)await sleep(Math.min(8000,1000*2**(adTries-3)));
+  try{const remember=document.getElementById('adRemember').checked;const s=await sbAuth({email,password:pw},'password');adTries=0;adSave({...s,remember},remember);AD.demo=false;
+    const f=document.getElementById('gFlip');if(f&&!RM){f.classList.add('leaving');await sleep(650)}renderAdmin()}
   catch(err){adTries++;adminLogin(err.message==='badlogin'?'อีเมลหรือรหัสผ่านไม่ถูกต้อง':'เชื่อมต่อไม่ได้ ลองใหม่อีกครั้ง')}});
 document.addEventListener('click',e=>{
   if(e.target.closest('#adDemo')){AD.demo=true;renderAdmin();return}
