@@ -1893,6 +1893,281 @@ html.lg-on [data-view="home"] .hsearch{display:none}
 
 /* phone home: hold the space of the cards drawn by app.js so the footer is not seen first and then pushed down */
 .mh-dyn:empty{min-height:1500px}
+
+/* ---------- Glass theme (Nov 2026): every page sits on the game's key art, blurred and tinted, with translucent
+   glass cards on top, the site's own blue accent and a glass icon rail on the left on computers. The art is
+   already blurred, so cards are see-through without a blur of their own (cheap on phones); only what overlaps
+   scrolling content (top bar, rail, dialogs, stacked home sections) gets a real frosted blur. To go back to the
+   old look, delete this block and the rail lines in app.js. ---------- */
+:root,:root[data-theme="light"]{
+  --surface:rgba(255,255,255,.3); --sunk:rgba(255,255,255,.2); --line:rgba(255,255,255,.72);
+  --glass:rgba(255,255,255,.55); --glass-line:rgba(255,255,255,.85);
+  --shadow:0 1px 2px rgba(20,70,130,.05),0 10px 30px rgba(20,70,130,.10);
+  --shadow-up:0 2px 6px rgba(20,70,130,.08),0 22px 48px rgba(20,70,130,.18);
+  --veil:linear-gradient(180deg,rgba(240,248,255,.64),rgba(236,246,255,.74)),radial-gradient(900px 600px at 85% 0,rgba(110,200,255,.22),transparent 65%);
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --surface:rgba(18,32,58,.32); --sunk:rgba(14,26,49,.26); --line:rgba(255,255,255,.1);
+  --glass:rgba(16,30,56,.6); --glass-line:rgba(255,255,255,.1);
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35); --shadow-up:0 2px 6px rgba(0,0,0,.4),0 22px 48px rgba(0,0,0,.5);
+  --veil:linear-gradient(180deg,rgba(11,20,38,.8),rgba(11,20,38,.88)),radial-gradient(900px 600px at 85% 0,rgba(60,150,255,.16),transparent 65%);
+}}
+:root[data-theme="dark"]{
+  --surface:rgba(18,32,58,.32); --sunk:rgba(14,26,49,.26); --line:rgba(255,255,255,.1);
+  --glass:rgba(16,30,56,.6); --glass-line:rgba(255,255,255,.1);
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35); --shadow-up:0 2px 6px rgba(0,0,0,.4),0 22px 48px rgba(0,0,0,.5);
+  --veil:linear-gradient(180deg,rgba(11,20,38,.8),rgba(11,20,38,.88)),radial-gradient(900px 600px at 85% 0,rgba(60,150,255,.16),transparent 65%);
+}
+html{background:var(--ground)}
+html body,:root[data-theme] body{background:transparent}
+body::before,body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none}
+body::before{inset:-48px;background:url(img/hero.webp) center/cover no-repeat;filter:blur(20px) saturate(1.15);transform:translateZ(0)}
+body::after{background:var(--veil)}
+@media (max-width:760px){body::before{filter:blur(16px) saturate(1.15)}}
+/* glass edge: a thin light rim on top of the usual line */
+.panel,.mon,.pcard,.rcard,.scard,.icard,.kpi,.wcard,.region,.trow,.step,.spec,.rbox,.tl,.lcat,.sset,.slot,.preset,.mapinfo,
+.bar-tools,.hncard,.nudge,details.more,table.plain,.mh-tiles button,.mh-news a,.mh-explore button,.quick button,.recent button{
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),var(--shadow)}
+:root[data-theme="dark"] :is(.panel,.mon,.pcard,.rcard,.scard,.icard,.kpi,.wcard,.region,.bar-tools){box-shadow:inset 0 1px 0 rgba(255,255,255,.06),var(--shadow)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) :is(.panel,.mon,.pcard,.rcard,.scard,.icard,.kpi,.wcard,.region,.bar-tools){box-shadow:inset 0 1px 0 rgba(255,255,255,.06),var(--shadow)}}
+/* frosted where content scrolls underneath */
+.appbar,dialog#dlg,dialog#menu,dialog#pick,.view.stack>.hsec.ctr,.view.stack .mh-dyn>.mh-sec{
+  -webkit-backdrop-filter:blur(22px) saturate(1.6);backdrop-filter:blur(22px) saturate(1.6)}
+.appbar{background:var(--glass);border-bottom:1px solid var(--glass-line)}
+dialog#dlg,dialog#menu,dialog#pick{background:color-mix(in srgb,var(--ground) 72%,transparent)}
+.view.stack>.hsec.ctr,.view.stack .mh-dyn>.mh-sec{background:color-mix(in srgb,var(--ground) 62%,transparent);border:1px solid var(--glass-line)}
+/* cards lift a little more on hover, like the clip */
+@media (hover:hover){.mon:hover,.pcard:hover,.rcard:hover,.scard:hover,.icard:hover,.hncard:hover{transform:translateY(-5px);box-shadow:var(--shadow-up)}}
+@media (prefers-reduced-motion:reduce){.mon:hover,.pcard:hover,.rcard:hover,.scard:hover,.icard:hover,.hncard:hover{transform:none}}
+/* computers: a glass sidebar on the left (filled by app.js) takes over from the top menu and the bottom shortcut
+   dock: the same groups as the top menu, folding open; « folds it to icons, where a group's pages pop out on hover */
+.rail{display:none}
+@media (min-width:1200px){
+  .topnav,#lgDockD{display:none!important}
+  .rail{position:fixed;z-index:25;left:14px;top:calc(var(--bar) + 10px);bottom:14px;width:192px;display:flex;flex-direction:column;gap:1px;padding:8px;
+    overflow-y:auto;scrollbar-width:none;border-radius:20px;background:var(--glass);border:1px solid var(--glass-line);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.5),var(--shadow-up);-webkit-backdrop-filter:blur(22px) saturate(1.6);backdrop-filter:blur(22px) saturate(1.6);transition:width .25s}
+  .rail button{display:flex;align-items:center;gap:10px;width:100%;min-height:34px;padding:0 10px;border:0;border-radius:11px;background:none;color:var(--ink-2);
+    font:600 .8rem var(--display);text-align:left;cursor:pointer;transition:background .2s,color .2s}
+  .rail button svg{flex:none;width:17px;height:17px}
+  .rail button span{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .rail button:hover{background:color-mix(in srgb,var(--accent) 12%,transparent);color:var(--accent)}
+  .rail button[aria-current="page"]{background:var(--accent);color:var(--accent-ink);box-shadow:0 4px 12px color-mix(in srgb,var(--accent) 35%,transparent)}
+  .rail .rtop{display:flex;gap:4px;margin-bottom:4px}
+  .rail .rfold{flex:none;width:34px;padding:0;justify-content:center}
+  .rail .rg{display:grid}
+  .rail .rgh{color:var(--ink);font-weight:700}
+  .rail .rg.cur>.rgh{color:var(--accent)}
+  .rail .rgh .chev{width:13px;height:13px;opacity:.6;transition:rotate .2s}
+  .rail .rg.open>.rgh .chev{rotate:90deg}
+  .rail .rgl{display:none;padding:1px 0 6px 12px;margin-left:8px;border-left:1px solid var(--line)}
+  .rail .rg.open>.rgl{display:grid;gap:1px}
+  .rail .rgt{display:none}
+  .rail .radmin{margin-top:auto;color:var(--ink-2);opacity:.85}
+  .shell{padding-left:220px;max-width:calc(1240px + 220px)}
+  /* folded: icons only; a group's pages pop out beside it */
+  .rail-min .rail{width:52px;overflow:visible}
+  .rail-min .rail button{justify-content:center;padding:0}
+  .rail-min .rail :is(.rtop,.rg)>button span,.rail-min .rail .radmin span,.rail-min .rail .rgh .chev{display:none}
+  .rail-min .rail .rtop{flex-direction:column}
+  .rail-min .rail .rfold{width:100%}.rail-min .rail .rfold svg{rotate:180deg}
+  .rail-min .rail .rg{position:relative}
+  .rail-min .rail .rg>.rgl,.rail-min .rail .rg.open>.rgl{display:none;position:absolute;left:calc(100% + 10px);top:-8px;width:200px;margin:0;padding:8px;border:1px solid var(--glass-line);border-radius:16px;
+    background:color-mix(in srgb,var(--ground) 94%,transparent);box-shadow:var(--shadow-up);-webkit-backdrop-filter:blur(22px) saturate(1.6);backdrop-filter:blur(22px) saturate(1.6)}
+  .rail-min .rail .rg>.rgl::before{content:"";position:absolute;right:100%;top:0;bottom:0;width:12px}
+  .rail-min .rail .rg:hover>.rgl,.rail-min .rail .rg:focus-within>.rgl{display:grid;gap:1px}
+  .rail-min .rail .rgt{display:block;margin:2px 10px 6px;font:700 .72rem var(--display);letter-spacing:.08em;color:var(--ink-2)}
+  .rail-min .rail .rgl button{justify-content:flex-start;padding:0 10px}
+  .rail-min .shell{padding-left:76px;max-width:calc(1240px + 76px)}
+}
+@media (min-width:1200px){
+  /* the home hero spans the full width with a formula that assumes a centred page: beside the sidebar it becomes a card */
+  [data-view="home"] .hero3{margin-inline:0;width:auto;border-radius:28px;overflow:hidden;padding-inline:44px}
+  /* the admin page has its own menu: no site sidebar there, and the page takes the whole width again */
+  .on-admin .rail{display:none}
+  .on-admin .shell,.on-admin.rail-min .shell{padding-left:0;max-width:none}
+}
+/* ---------- admin page like the "Glassy Dashboard" clip the owner picked: a full-screen app (no site header) on a
+   dim photo, dark navy glass cards with white text, the site's blue accent, a full-height icon sidebar with names on
+   hover, its own top bar. Follows the site's dark/light mode (sun/moon button in its top bar). Admin page only. ---------- */
+.on-admin body::before{background-image:url(img/hero-kv.webp);filter:blur(16px) saturate(1.05) brightness(1.02);animation:gDrift 40s ease-in-out infinite alternate}
+:root.on-admin[data-theme="dark"] body::before{filter:blur(16px) saturate(1.05) brightness(.8)}
+@media (prefers-color-scheme: dark){:root.on-admin:not([data-theme="light"]) body::before{filter:blur(16px) saturate(1.05) brightness(.8)}}
+@keyframes gDrift{from{transform:scale(1.04) translate(0,0)}to{transform:scale(1.12) translate(-2%,-1.5%)}}
+@media (prefers-reduced-motion:reduce){.on-admin body::before{animation:none}}
+:root.on-admin,:root.on-admin[data-theme="light"]{--veil:linear-gradient(180deg,rgba(236,246,255,.34),rgba(230,242,255,.5))}
+:root.on-admin[data-theme="dark"]{--veil:linear-gradient(180deg,rgba(8,16,34,.5),rgba(8,16,34,.64))}
+@media (prefers-color-scheme: dark){:root.on-admin:not([data-theme="light"]){--veil:linear-gradient(180deg,rgba(8,16,34,.5),rgba(8,16,34,.64))}}
+.adws{--g-glass:rgba(255,255,255,.4);--g-line:rgba(255,255,255,.72);--g-ink:#172238;--g-mute:rgba(23,34,56,.62);--g-hot:#0A84D6;--g-hot-ink:#06182E;
+  --g-soft:rgba(23,34,56,.07);--g-side:rgba(255,255,255,.55);--g-menu:rgba(255,255,255,.96);--g-shadow:0 18px 44px rgba(20,60,120,.16);--g-bar:linear-gradient(180deg,rgba(23,34,56,.32),rgba(23,34,56,.08));
+  --g-pick:#172238;--g-pick-ink:#fff;--g-up:#1F9E62;--g-up-bg:rgba(46,148,99,.14);--g-dn:#C93E4A;--g-dn-bg:rgba(208,74,85,.12);
+  --ink:var(--g-ink);--ink-2:var(--g-mute);--line:var(--g-line);--surface:var(--g-glass);--sunk:rgba(255,255,255,.07);--accent:var(--g-hot);--accent-ink:var(--g-hot-ink);
+  --a-panel:var(--g-glass);--a-line:var(--g-line);--a-ink:var(--g-ink);--a-mute:var(--g-mute);--a-acc:var(--g-hot);--a-acc2:var(--g-hot);--a-soft:rgba(77,178,255,.16);
+  color:var(--g-ink);background:transparent}
+:root[data-theme="dark"] .adws{--g-glass:rgba(14,26,50,.36);--g-line:rgba(255,255,255,.09);--g-ink:#EAF4FF;--g-mute:rgba(234,244,255,.6);--g-hot:#4DB2FF;
+  --g-soft:rgba(255,255,255,.08);--g-side:rgba(10,20,40,.64);--g-menu:rgba(12,22,42,.94);--g-shadow:0 20px 50px rgba(0,0,0,.28);--g-bar:linear-gradient(180deg,rgba(255,255,255,.62),rgba(255,255,255,.1));
+  --g-pick:#fff;--g-pick-ink:#0B1426;--g-up:#7EE0A6;--g-up-bg:rgba(111,207,151,.16);--g-dn:#FF8A8A;--g-dn-bg:rgba(235,87,87,.16)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .adws{--g-glass:rgba(14,26,50,.36);--g-line:rgba(255,255,255,.09);--g-ink:#EAF4FF;--g-mute:rgba(234,244,255,.6);--g-hot:#4DB2FF;
+  --g-soft:rgba(255,255,255,.08);--g-side:rgba(10,20,40,.64);--g-menu:rgba(12,22,42,.94);--g-shadow:0 20px 50px rgba(0,0,0,.28);--g-bar:linear-gradient(180deg,rgba(255,255,255,.62),rgba(255,255,255,.1));
+  --g-pick:#fff;--g-pick-ink:#0B1426;--g-up:#7EE0A6;--g-up-bg:rgba(111,207,151,.16);--g-dn:#FF8A8A;--g-dn-bg:rgba(235,87,87,.16)}}
+.adws :is(h2,h3,b,strong){color:var(--g-ink)}
+.adws :is(.gcard,.akpi,.acard,.dkpi,.dtile,.dtodo,.dpanel,.kpi,.fbitem,.dbanner,.ademo){background:var(--g-glass);border:1px solid var(--g-line);border-radius:22px;color:var(--g-ink);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.12),var(--g-shadow);-webkit-backdrop-filter:blur(26px) saturate(1.3);backdrop-filter:blur(26px) saturate(1.3)}
+.adws :is(.gcard,.acard,.dtile,.dtodo){transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s}
+@media (hover:hover){.adws :is(.gcard,.acard,.dtile,.dtodo):hover{transform:translateY(-5px);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 28px 60px rgba(0,0,0,.36)}}
+.adws .ademo{padding:10px 16px;font-size:.86rem}.adws .ademo b{color:var(--g-hot)}
+.adws .dchg{display:inline-flex;align-items:center;gap:3px;padding:3px 9px;border-radius:999px;font:600 .74rem var(--display)}
+.adws .dchg.up{background:var(--g-up-bg);color:var(--g-up)}.adws .dchg.dn{background:var(--g-dn-bg);color:var(--g-dn)}
+.adws :is(.aseg button,.abtn){background:var(--g-soft);border:1px solid var(--g-line);color:var(--g-ink);border-radius:999px}
+.adws .aseg button[aria-pressed="true"]{background:var(--g-hot);border-color:var(--g-hot);color:var(--g-hot-ink)}
+/* top bar */
+.gtop{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,440px) minmax(0,1fr);align-items:center;gap:14px}
+.gcrumb{display:flex;align-items:center;gap:10px;min-width:0}
+.gbrand{display:flex;align-items:center;gap:10px;padding:5px 12px 5px 5px;border:1px solid var(--g-line);border-radius:999px;background:var(--g-glass);color:var(--g-ink);cursor:pointer;
+  -webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);text-align:left}
+.gbrand b{display:block;font:700 .82rem/1.1 var(--display)}.gbrand small{display:block;font-size:.68rem;color:var(--g-mute)}
+.gav{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#8FE4FF,#1E8FE0);color:#fff}.gav svg{width:16px;height:16px}
+.gchev{width:14px;height:14px;opacity:.6}
+.gsep{color:var(--g-mute)}.gnow{font:600 .85rem var(--display);color:var(--g-mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gfind{display:flex;align-items:center;gap:10px;height:42px;padding:0 8px 0 16px;border:1px solid var(--g-line);border-radius:999px;background:var(--g-glass);
+  -webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);color:var(--g-mute)}
+.gfind svg{width:16px;height:16px;flex:none}.gfind input{flex:1;min-width:0;border:0;background:none;color:var(--g-ink);font:500 .86rem var(--body);outline:none}
+.gfind input::placeholder{color:var(--g-mute)}
+.gfind kbd{padding:3px 8px;border-radius:8px;background:var(--g-soft);font:600 .7rem var(--display);color:var(--g-mute)}
+.gacts{display:flex;align-items:center;justify-content:flex-end;gap:10px}
+.gbtn{display:inline-flex;align-items:center;gap:6px;height:40px;padding:0 18px;border:0;border-radius:999px;font:700 .85rem var(--display);cursor:pointer;white-space:nowrap}
+.gbtn.hot{background:linear-gradient(180deg,#8FD6FF,#3DA9F5);color:var(--g-hot-ink);box-shadow:0 8px 22px rgba(61,169,245,.38)}
+.gbtn.hot b{color:var(--g-hot-ink);font-size:1.05rem}
+.gtime{display:grid;justify-items:center;height:40px;align-content:center;padding:0 14px;border:1px solid var(--g-line);border-radius:14px;background:var(--g-glass);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px)}
+.gtime b{font:700 .82rem/1.1 var(--display)}.gtime small{font-size:.64rem;color:var(--g-mute)}
+.gicon{position:relative;display:grid;place-items:center;width:40px;height:40px;border:1px solid var(--g-line);border-radius:50%;background:var(--g-glass);color:var(--g-ink);cursor:pointer;
+  -webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px)}
+.gicon svg{width:17px;height:17px}.gicon em{position:absolute;top:-3px;right:-3px;min-width:17px;height:17px;padding:0 4px;border-radius:999px;background:#EB5757;color:#fff;font:700 .62rem/17px var(--display);font-style:normal}
+.gtheme .sun{display:none}
+:root[data-theme="dark"] .gtheme .sun{display:block}:root[data-theme="dark"] .gtheme .moon{display:none}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .gtheme .sun{display:block}:root:not([data-theme="light"]) .gtheme .moon{display:none}}
+.gme{display:grid;place-items:center;width:40px;height:40px;border:2px solid rgba(255,255,255,.25);border-radius:50%;background:linear-gradient(135deg,#8FE4FF,#1E8FE0);color:#fff;font:800 .78rem var(--display);cursor:pointer}
+/* greeting row */
+.ghello{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
+.ghello h2{margin:0;font:800 1.75rem/1.2 var(--display);color:var(--g-ink)}.ghello p{margin:4px 0 0;color:var(--g-mute);font-size:.88rem}
+.gpill{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 16px;border:1px solid var(--g-line);border-radius:999px;background:var(--g-glass);color:var(--g-ink);font:600 .85rem var(--display);cursor:pointer;
+  -webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px)}
+.gpill svg{width:14px;height:14px;opacity:.7}
+.gsel{position:relative}
+.gmenu{position:absolute;right:0;top:calc(100% + 6px);z-index:5;display:none;min-width:150px;padding:6px;border:1px solid var(--g-line);border-radius:16px;background:var(--g-menu);box-shadow:0 20px 40px rgba(0,0,0,.25)}
+.gsel:focus-within .gmenu{display:grid;gap:2px}
+.gmenu button{border:0;background:none;color:var(--g-ink);text-align:left;padding:8px 12px;border-radius:10px;font:600 .84rem var(--display);cursor:pointer}
+.gmenu button:hover{background:var(--g-soft)}.gmenu button[aria-pressed="true"]{color:var(--g-hot)}
+/* KPI row, chart, big numbers, donut */
+.gkpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.gcard{padding:18px 20px;display:grid;gap:10px;align-content:start;min-width:0}
+.gkh{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.gkh span{font:600 .86rem var(--display);color:var(--g-ink)}.gkh small{display:block;font-size:.72rem;color:var(--g-mute);margin-top:2px}
+.garrow{display:grid;place-items:center;flex:none;width:30px;height:30px;border:0;border-radius:50%;background:var(--g-soft);color:var(--g-ink);cursor:pointer}
+.garrow svg{width:14px;height:14px}
+.gk .gkv{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:14px}
+.gk .gkv b{font:700 1.95rem/1 var(--display);letter-spacing:-.01em}.gk .gkv i{font:600 .82rem var(--display);font-style:normal;color:var(--g-mute);margin-left:5px}
+.gk>small{font-size:.74rem;color:var(--g-mute)}
+.adws .gk.warm{background:linear-gradient(160deg,rgba(90,180,255,.72),rgba(28,84,170,.58));border-color:rgba(190,230,255,.3)}
+.adws .gk.warm,.adws .gk.warm :is(b,span){color:#fff}.gk.warm .garrow{background:#fff;color:#06182E}.gk.warm .gkv i,.gk.warm>small{color:rgba(255,255,255,.75)}
+.ggrid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr) minmax(0,1fr);gap:16px}
+.grev{grid-row:span 2}
+.gchart{display:grid;grid-template-columns:42px minmax(0,1fr);gap:8px;height:330px;margin-top:8px}
+.gaxis{display:flex;flex-direction:column;justify-content:space-between;padding-bottom:24px}.gaxis small{font-size:.66rem;color:var(--g-mute)}
+.gbars{display:flex;align-items:stretch;justify-content:space-around;gap:6px}
+.gbar{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px}
+.gbar span{position:relative;margin-top:auto;width:min(22px,70%);border-radius:999px;background:var(--g-bar);box-shadow:inset 0 1px 0 rgba(255,255,255,.5)}
+.gbar.hot span{background:linear-gradient(180deg,#8FE4FF,rgba(30,143,224,.35))}
+.gbar em{position:absolute;left:50%;bottom:calc(100% + 8px);translate:-50% 0;padding:4px 9px;border-radius:999px;background:var(--g-pick);color:var(--g-pick-ink);font:700 .7rem var(--display);font-style:normal;white-space:nowrap}
+.gbar small{font-size:.66rem;color:var(--g-mute)}.gbar.hot small{color:var(--g-ink);font-weight:700}
+.gbig{align-content:space-between;min-height:200px}
+.gic{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--g-soft)}.gic svg{width:18px;height:18px}
+.gbig>b{font:700 2.5rem/1 var(--display);margin-top:auto}.gbig>b i{font:600 1.1rem var(--display);font-style:normal;margin-left:8px}
+.gbig>small{font-size:.8rem;color:var(--g-mute)}.gbig>small em{font-style:normal;color:var(--g-hot);font-weight:700}
+.gpie{grid-column:2 / span 2}
+.gpiew{display:flex;align-items:center;gap:28px;flex-wrap:wrap}
+.gpiew .ddonut{width:170px;flex:none}
+.gpiew ul{list-style:none;margin:0;padding:0;display:grid;gap:9px;flex:1;min-width:180px}
+.gpiew li{display:flex;align-items:center;gap:10px;font-size:.84rem;color:var(--g-ink)}.gpiew li i{width:9px;height:9px;border-radius:50%;flex:none}.gpiew li b{margin-left:auto;font-size:.8rem;color:var(--g-mute)}
+/* movement: cards glide up out of a blur one after another, bars grow from the floor, the donut swings in, the busiest
+   day's bubble pops, the picked sidebar icon springs; presses squeeze and ripple */
+@keyframes gIn{from{opacity:0;transform:translateY(24px) scale(.97);filter:blur(10px)}}
+@keyframes gGrow{from{transform:scaleY(0)}}
+@keyframes gSwing{from{opacity:0;transform:rotate(-140deg) scale(.8)}}
+@keyframes gPop{from{opacity:0;scale:.5}}
+@keyframes gPick{from{scale:.55}60%{scale:1.12}}
+@keyframes gRip{to{transform:scale(1);opacity:0}}
+.adws.g-anim :is(.gtop,.ghello,.ademo,.atop,.abarline,.gcard,.acard,.dsh,.dtodo,.dtile,.dbanner){animation:gIn .75s cubic-bezier(.2,.8,.2,1) calc(var(--i,0)*55ms) backwards}
+.adws.g-anim .gbar span{transform-origin:50% 100%;animation:gGrow 1s cubic-bezier(.2,.9,.25,1) calc(.35s + var(--b,0)*70ms) backwards}
+.adws.g-anim .gbar em{animation:gPop .45s cubic-bezier(.3,1.6,.5,1) 1.15s backwards}
+.adws.g-anim .ddonut svg{animation:gSwing 1.1s cubic-bezier(.2,.8,.2,1) .4s backwards}
+.adws.g-anim :is(.dprog,.abar) i{transform-origin:0 50%;animation:gGrow 1s cubic-bezier(.2,.8,.2,1) .5s backwards;animation-name:gGrowX}
+@keyframes gGrowX{from{transform:scaleX(0)}}
+.adws.g-anim nav button[aria-current="true"]{animation:gPick .5s cubic-bezier(.3,1.4,.5,1)}
+/* the usage tab's daily chart (an SVG) in the same pill-bar glass look */
+.adws .trend rect.bar{fill:rgba(23,34,56,.2);rx:9px}
+:root[data-theme="dark"] .adws .trend rect.bar{fill:rgba(255,255,255,.42)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .adws .trend rect.bar{fill:rgba(255,255,255,.42)}}
+.adws .trend rect.bar.today{fill:#4DB2FF}
+.adws .trend rect.bar:hover{fill:var(--g-hot)}
+.adws .trend text.ax{font-size:7px;fill:var(--g-mute)}
+.adws .trend text.val{font-size:7.5px;font-weight:700;fill:var(--g-ink)}
+.adws .trend line.gl{stroke:var(--g-soft)}
+.adws.g-anim .trend rect.bar{transform-box:fill-box;transform-origin:50% 100%;animation:gGrow .9s cubic-bezier(.2,.9,.25,1) .3s backwards}
+.adws :is(button,a){-webkit-tap-highlight-color:transparent}
+.adws :is(.gbtn,.gpill,.gicon,.garrow,.gbrand,.gme,.abtn,.aseg button,.gmenu button,nav button,.afoot button){transition:transform .15s cubic-bezier(.3,1.4,.5,1),background .2s,color .2s,box-shadow .2s}
+.adws :is(.gbtn,.gpill,.gicon,.garrow,.gbrand,.gme,.abtn,.aseg button,.gmenu button,nav button,.afoot button):active{transform:scale(.92)}
+.adws :is(.dtodo,.dsc,.dmon,.gcard):active{transform:translateY(-1px) scale(.985);transition-duration:.12s}
+@media (hover:hover){.adws :is(.gbtn,.gme,.garrow):hover{transform:translateY(-2px)}.adws .gbtn.hot:hover{box-shadow:0 12px 28px rgba(61,169,245,.5)}}
+.adws :is(.gbtn,.gpill,.garrow,.gbrand,.gme,.gmenu button,.dtodo,.dsc,.abtn,.aseg button){position:relative;overflow:hidden}
+.gripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.35);transform:scale(0);pointer-events:none;animation:gRip .65s ease-out forwards}
+.gmenu{transform-origin:100% 0;animation:none}.gsel:focus-within .gmenu{animation:gIn .25s cubic-bezier(.2,.8,.2,1)}
+/* pointer tilt and the light that follows it (set by app.js on computers) */
+.adws :is(.gcard,.acard,.dtile,.dtodo){position:relative;transform-style:preserve-3d}
+.adws :is(.gcard,.acard,.dtile,.dtodo)::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .35s;
+  background:radial-gradient(420px circle at var(--gx,50%) var(--gy,0%),rgba(255,255,255,.16),transparent 45%)}
+.adws :is(.gcard,.acard,.dtile,.dtodo).gtilt{transform:perspective(1000px) rotateX(var(--rx,0)) rotateY(var(--ry,0)) translateY(-5px);transition:transform .14s ease-out,box-shadow .3s;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 30px 60px rgba(20,40,90,.28)}
+.adws :is(.gcard,.acard,.dtile,.dtodo).gtilt::after{opacity:1}
+.adws :is(.gcard,.acard,.dtile,.dtodo).gtilt:active{transform:perspective(1000px) rotateX(var(--rx,0)) rotateY(var(--ry,0)) translateY(-2px) scale(.985)}
+.garrow svg{transition:rotate .3s cubic-bezier(.3,1.4,.5,1)}
+@media (hover:hover){.adws :is(.gcard,.acard):hover .garrow svg,.garrow:hover svg{rotate:45deg}}
+.gpill>svg:first-child{width:16px;height:16px;opacity:.85}
+@media (prefers-reduced-motion:reduce){.adws *,.adws{animation:none!important;transition:none!important}}
+@media (min-width:981px){
+  .on-admin .appbar,.on-admin footer{display:none!important}
+  .on-admin main{padding:0 !important}
+  .on-admin .adws{display:block;margin:0;width:auto;min-height:100vh;padding:16px 22px 28px 104px}
+  .adws .amain{max-width:1500px;margin:0 auto;padding:0;display:grid;gap:18px}
+  .adws .dgrid3{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .adws .agrid2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+  .adws .aside{position:fixed;z-index:26;left:14px;top:14px;bottom:auto;translate:none;width:64px;height:calc(100vh - 28px);height:calc(100dvh - 28px);padding:12px 0;display:flex;flex-direction:column;align-items:center;gap:14px;
+    border:1px solid var(--g-line);border-radius:32px;background:var(--g-side);box-shadow:var(--g-shadow);-webkit-backdrop-filter:blur(26px);backdrop-filter:blur(26px);overflow:visible}
+  .adws .abrand{display:none}
+  .alogo{display:grid;place-items:center;width:40px;height:40px;border-radius:13px;background:linear-gradient(135deg,#8FE4FF,#1E8FE0);color:#fff;font:800 1.1rem var(--display);box-shadow:0 8px 20px rgba(30,143,224,.45)}
+  .adws nav,.adws .afoot{display:flex!important;flex-direction:column;align-items:center;gap:8px}
+  .adws .afoot{margin-top:auto}
+  .adws :is(nav,.afoot) button{position:relative;display:grid;place-items:center;width:42px;height:42px;padding:0;border:0;border-radius:50%;background:none;color:var(--g-mute);cursor:pointer;transition:background .2s,color .2s}
+  .adws :is(nav,.afoot) button svg{width:19px;height:19px}
+  .adws :is(nav,.afoot) button:hover{color:var(--g-ink);background:var(--g-soft)}
+  .adws nav button[aria-current="true"]{background:var(--g-pick);color:var(--g-pick-ink);box-shadow:0 6px 18px rgba(0,0,0,.3)}
+  .adws :is(nav,.afoot) button span{position:absolute;left:calc(100% + 14px);top:50%;translate:-4px -50%;white-space:nowrap;padding:6px 12px;border-radius:10px;background:rgba(8,16,32,.95);
+    color:#fff;font:600 .78rem var(--display);opacity:0;pointer-events:none;transition:opacity .15s,translate .15s}
+  .adws :is(nav,.afoot) button:hover span{opacity:1;translate:0 -50%}
+  .adws nav em{position:absolute;top:0;right:0;margin:0;min-width:16px;height:16px;padding:0 4px;border-radius:999px;background:var(--g-hot);color:var(--g-hot-ink);font:700 .6rem/16px var(--display);font-style:normal}
+}
+@media (max-width:980px){
+  .alogo,.adws .afoot span,.adws .abrand{display:none}
+  .adws .aside{display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--g-side);border-bottom:1px solid var(--g-line);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px)}
+  .adws .aside nav{flex:1;min-width:0}
+  .adws .afoot{display:flex;gap:6px;flex:none}
+  .adws .afoot button{display:grid;place-items:center;width:40px;height:40px;padding:0;border:0;border-radius:12px;background:var(--g-soft);color:var(--g-ink);cursor:pointer}
+  .adws .afoot svg{width:18px;height:18px}
+  .gtop{grid-template-columns:1fr;gap:10px}.gtop .gtime{display:none}.gacts{justify-content:flex-start;flex-wrap:wrap}
+  .gkpis{grid-template-columns:repeat(2,minmax(0,1fr))}.ggrid{grid-template-columns:1fr}.grev,.gpie{grid-row:auto;grid-column:auto}
+  .gchart{height:240px}
+  .gk .gkv{flex-wrap:wrap;margin-top:8px}.gk .gkv b{font-size:1.5rem}.gcard{padding:14px 16px}
+}
 </style>
 
 <div id="boot" role="status" aria-live="polite"><div class="bootin"><b class="wm"><svg class="brandmark" viewBox="0 0 260 72" aria-hidden="true"><use href="img/aniiguide-logo.svg?v=4#wordmark"></use></svg><span class="sr">AniiGuide</span></b><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><small id="bootMsg">กำลังโหลดข้อมูล Aniimo…</small></div></div>
@@ -3193,13 +3468,13 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
 </dialog>
 <dialog id="menu" aria-label="เมนูทั้งหมด"><div class="inner" id="menuInner"></div></dialog>
 
-<script>try{if(localStorage.getItem('aniimo-lang')==='en')document.write('<script src="i18n-en.js?v=4bb1ecebea"><\/script>')}catch(_){}</script>
-<script defer src="th.js?v=4bb1ecebea"></script>
-<script defer src="items.js?v=4bb1ecebea"></script>
-<script defer src="data.js?v=4bb1ecebea"></script>
-<script defer src="thumbs.js?v=4bb1ecebea"></script>
-<script defer src="content.js?v=4bb1ecebea"></script>
-<script defer src="app.js?v=4bb1ecebea"></script>
+<script>try{if(localStorage.getItem('aniimo-lang')==='en')document.write('<script src="i18n-en.js?v=3a25ba38fb"><\/script>')}catch(_){}</script>
+<script defer src="th.js?v=3a25ba38fb"></script>
+<script defer src="items.js?v=3a25ba38fb"></script>
+<script defer src="data.js?v=3a25ba38fb"></script>
+<script defer src="thumbs.js?v=3a25ba38fb"></script>
+<script defer src="content.js?v=3a25ba38fb"></script>
+<script defer src="app.js?v=3a25ba38fb"></script>
 <script>/* Liquid Glass (glass.js): fetched after the page has fully shown, only with WebGL and when motion is welcome */
 addEventListener('load',function(){try{if(matchMedia('(prefers-reduced-motion: reduce)').matches||(navigator.connection&&navigator.connection.saveData)||!document.createElement('canvas').getContext('webgl'))return}catch(_){return}
 var add=function(src){return new Promise(function(ok,no){var s=document.createElement('script');s.src=src;s.onload=ok;s.onerror=no;document.head.appendChild(s)})};
