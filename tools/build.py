@@ -119,6 +119,15 @@ def main():
     urls = [((RAW_URL if FULL else IPX.format(s=size)) + art_path(a, f), cache / Path(n).name)
             for a, f, n in img_jobs if (f is None or f["has_image"])]
     ok = download(urls)
+    # a new Aniimo can be listed before its full-body render is up: use its head icon until the render exists
+    # (kept apart from the render cache, so the next build still tries for the render first)
+    heads = {}
+    for a, f, n in img_jobs:
+        if f is None and a["full_id"] and a["head"] and not (cache / Path(n).name).exists():
+            heads[n] = CACHE / "head" / a["head"]
+    if heads:
+        download([(IPX.format(s=256) + f"images/aniimo/{p.name}", p) for p in heads.values()])
+        print(f"  {sum(p.exists() for p in heads.values())} new Aniimo use their head icon until AniiDex has the full-body render")
     srcs, from_game = {}, set()
     for a, f, n in img_jobs:
         srcs[n] = cache / Path(n).name
@@ -132,6 +141,8 @@ def main():
                 game.stylize(g).save(dest, "WEBP", quality=88, method=4)
             srcs[n] = dest
             from_game.add(n)
+        elif n in heads and heads[n].exists():
+            srcs[n] = heads[n]
     print(f"art: {sum(ok)}/{len(ok)} full-body renders (AniiDex), {len(from_game)} from the game's Research Book")
     # AniiDex can list a new form as having art before the picture is up (and older game files lack it):
     # leave such a form without art, so the page shows the base picture instead of a broken one
