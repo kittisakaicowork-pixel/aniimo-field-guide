@@ -200,7 +200,7 @@ function go(id,push){
   current=id;document.documentElement.dataset.v=id;if(typeof setTitle==='function'&&LANG!=='en')setTitle(id);
   document.querySelectorAll('.view').forEach(s=>s.hidden=s.dataset.view!==id);
   if(id==='map'&&MV.ready)setTimeout(mapSize,0);
-  document.querySelectorAll('[data-go]').forEach(b=>{if(b.closest('.side,.rail,.tabbar,#menu,.topnav'))b.setAttribute('aria-current',b.dataset.go===id?'page':'false')});document.documentElement.classList.toggle('on-admin',id==='admin');if(window.railCur)railCur();
+  document.querySelectorAll('[data-go]').forEach(b=>{if(b.closest('.side,.rail,.tabbar,#menu,.topnav'))b.setAttribute('aria-current',b.dataset.go===id?'page':'false')});document.documentElement.classList.toggle('on-admin',id==='admin');if(window.railCur)railCur();if(window.lgPageChanged)lgPageChanged();
   const more=document.getElementById('moreBtn');more.setAttribute('aria-current',VIEWS.find(v=>v.id===id).tab?'false':'page');
   if(push!==false&&location.hash!=='#'+id){try{history.pushState(null,'','#'+id)}catch(_){location.hash=id}}
   try{localStorage.setItem('aniimo-view',id)}catch(_){}
@@ -1422,14 +1422,15 @@ function dashHeader(rl){
 // two big-number cards and a donut, all in dark smoky glass over a dim photo
 function gTop(title,newFb){
   const now=new Date(),tm=now.toLocaleTimeString('th-TH',{hour:'2-digit',minute:'2-digit',timeZone:'Asia/Bangkok'}),dt=now.toLocaleDateString(LOC,{weekday:'short',day:'numeric',month:'short',timeZone:'Asia/Bangkok'});
-  return `<header class="gtop"><div class="gcrumb"><button type="button" class="gbrand" data-adtab="overview"><span class="gav"><svg><use href="#i-grid"/></svg></span><span><b>AniiGuide</b><small>หลังบ้าน</small></span><svg class="gchev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><span class="gsep">/</span><span class="gnow">${title}</span></div>
+  return `<header class="gtop"><div class="gcrumb"><button type="button" class="gbrand" data-adtab="overview"><span class="gav"><svg><use href="#i-grid"/></svg></span><span><b>AniiGuide</b><small>หลังบ้าน</small></span></button><span class="gsep">/</span><span class="gnow">${title}</span></div>
     <label class="gfind"><svg><use href="#i-search"/></svg><input type="search" id="gFind" placeholder="ค้นหา Aniimo แล้วกด Enter" autocomplete="off"><kbd>⌘K</kbd></label>
-    <div class="gacts"><button type="button" class="gbtn hot" data-adtab="posts"><b>+</b> โพสต์ใหม่</button><span class="gtime"><b id="dClock">${tm}</b><small>${dt}</small></span>
+    <div class="gacts"><button type="button" class="gbtn hot" data-adtab="posts" aria-label="โพสต์โซเชียล"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11v2a1 1 0 0 0 1 1h2l5 4V6L7 10H5a1 1 0 0 0-1 1zM16 9a4 4 0 0 1 0 6"/></svg><span>โพสต์โซเชียล</span></button><span class="gtime"><b id="dClock">${tm}</b><small>${dt}</small></span>
       <button type="button" class="gicon" data-adtab="feedback" aria-label="คำแนะนำใหม่ ${newFb} เรื่อง"><svg><use href="#i-chat"/></svg>${newFb?`<em>${newFb}</em>`:''}</button>
       <button type="button" class="gicon gtheme" id="gTheme" aria-label="สลับโหมดสว่าง/มืด" title="สลับโหมดสว่าง/มืด"><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+      <button type="button" class="gicon gfindbtn" aria-label="ค้นหา"><svg><use href="#i-search"/></svg></button>${AD.demo?'':'<button type="button" class="gicon glogout" data-adlogout aria-label="ออกจากระบบ" title="ออกจากระบบ"><svg><use href="#i-lock"/></svg></button>'}
       <button type="button" class="gme" data-go="home" title="กลับหน้าเว็บ">AG</button></div></header>`;
 }
-const gArrow=t=>`<button type="button" class="garrow" data-adtab="${t}" aria-label="ดูรายละเอียด"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M9 7h8v8"/></svg></button>`;
+const gArrow=t=>t===AD.tab?'':`<button type="button" class="garrow" data-adtab="${t}" aria-label="ดูรายละเอียด"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M9 7h8v8"/></svg></button>`;
 const gKpi=(cls,lab,val,unit,badge,sub,tab='usage')=>`<div class="gcard gk ${cls}"><div class="gkh"><span>${lab}</span>${gArrow(tab)}</div><div class="gkv"><b>${val}${unit?`<i>${unit}</i>`:''}</b>${badge}</div><small>${sub}</small></div>`;
 // the other admin tabs get the clip's page header: a big title with an emoji, a line under it, glass buttons and one blue action
 function gHead(tab,rl,range,demo){
@@ -1456,7 +1457,7 @@ function glassOverview(x){
   const prevOf=k=>d2&&range<365?Math.max(0,(d2[k]||0)-(d[k]||0)):null;
   const ok2=eg2&&!eg2.err&&range<365,prevS=ok2?Math.max(0,(eg2.sessions||0)-S):null,prevEG=ok2?Math.max(0,(eg2.engaged||0)-EG):null;
   const engP=pct(EG,S),prevEngP=prevS?pct(prevEG,prevS):null,newFb=(FB.items||[]).filter(f=>f.status==='new');
-  const arrow=t=>`<button type="button" class="garrow" data-adtab="${t}" aria-label="ดูรายละเอียด"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M9 7h8v8"/></svg></button>`;
+  const arrow=gArrow;
   const kpi=(cls,lab,val,unit,badge,sub)=>`<div class="gcard gk ${cls}"><div class="gkh"><span>${lab}</span>${arrow('usage')}</div><div class="gkv"><b>${val}${unit?`<i>${unit}</i>`:''}</b>${badge}</div><small>${sub}</small></div>`;
   const kpis=kpi('warm','ผู้ใช้',fmtN(d.visitors),'คน',chgBadge(d.visitors,prevOf('visitors')),'เทียบกับช่วงก่อนหน้า')
     +kpi('','เปิดหน้าเว็บ',fmtN(d.views),'ครั้ง',chgBadge(d.views,prevOf('views')),'เทียบกับช่วงก่อนหน้า')
@@ -1558,7 +1559,7 @@ document.addEventListener('pointerdown',e=>{const b=e.target.closest('.adws :is(
     c.style.setProperty('--gx',(x*100).toFixed(1)+'%');c.style.setProperty('--gy',(y*100).toFixed(1)+'%')},{passive:true});
   document.addEventListener('pointerleave',()=>{if(tc)off(tc);tc=null},true)}
 // admin search box (the site header is hidden on the admin page): Enter opens the Aniimo list filtered by it; ⌘K / Ctrl+K focuses it
-addEventListener('keydown',e=>{const f=document.getElementById('gFind');if(!f||current!=='admin')return;
+addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.gsel.open').forEach(g=>g.classList.remove('open'));const f=document.getElementById('gFind');if(!f||current!=='admin')return;
   if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();f.focus();return}
   if(e.target===f&&e.key==='Enter'&&f.value.trim()){const q=f.value.trim();go('dex');setTimeout(()=>{const i=document.getElementById('q');if(i){i.value=q;i.dispatchEvent(new Event('input',{bubbles:true}))}},50)}});
 setInterval(()=>{const c=document.getElementById('dClock');if(c)c.textContent=new Date().toLocaleTimeString('th-TH',{hour:'2-digit',minute:'2-digit',timeZone:'Asia/Bangkok'})},20000);
@@ -1692,6 +1693,7 @@ async function renderAdmin(quiet){
       ws.querySelectorAll('.gtop,.ghello,.ademo,.atop,.abarline,.gcard,.acard,.dsh,.dtodo,.dtile,.dbanner').forEach((el,i)=>el.style.setProperty('--i',Math.min(i,16)));
       ws.querySelectorAll('.gkv b,.gbig>b,.ddonut b,.dtile b').forEach(el=>countUp(el))}
     AD.lastTab=AD.tab;
+    if(window.lgAdminSync)lgAdminSync();
   }catch(e){
     if(e.message==='nologin')adminLogin('เซสชันหมดอายุ เข้าสู่ระบบอีกครั้ง');
     else if(e.message==='notowner'){adSave(null);adminLogin('บัญชีนี้ไม่มีสิทธิ์ดูหลังบ้าน')}
@@ -1708,6 +1710,11 @@ document.addEventListener('submit',async e=>{if(e.target.id!=='adForm')return;e.
   catch(err){adTries++;adminLogin(err.message==='badlogin'?'อีเมลหรือรหัสผ่านไม่ถูกต้อง':'เชื่อมต่อไม่ได้ ลองใหม่อีกครั้ง')}});
 document.addEventListener('click',e=>{
   if(e.target.closest('#adDemo')){AD.demo=true;renderAdmin();return}
+  // the period menu opens on a tap (iPhone Safari never focuses a tapped button, so a :focus-within menu never opened there)
+  const sel=e.target.closest('.gsel');document.querySelectorAll('.gsel.open').forEach(g=>{if(g!==sel)g.classList.remove('open')});
+  if(sel&&e.target.closest('.gsel>.gpill')){sel.classList.toggle('open');return}
+  if(e.target.closest('.gfindbtn')){const t=e.target.closest('.gtop');t.classList.toggle('find-open');if(t.classList.contains('find-open'))document.getElementById('gFind').focus();return}
+  if(e.target.closest('[data-adlogout]')){const l=document.getElementById('adLogout');if(l)l.click();return}
   if(e.target.closest('#gTheme')){document.getElementById('themeBtn').click();return} // the site's own switch (its header is hidden here), so the choice is shared
   if(e.target.closest('#adExitDemo')){AD.demo=false;renderAdmin();return}
   if(e.target.closest('#adRefresh')){renderAdmin();return}
@@ -1719,7 +1726,7 @@ document.addEventListener('click',e=>{
     fa.disabled=true;sbRpc('feedback_set',{fid:id,new_status:s}).then(refreshFeedback).catch(()=>{fa.disabled=false;fa.textContent='ไม่สำเร็จ ลองใหม่'});return}
   if(e.target.closest('#adLogout')){if(AD.s)fetch(SB.url+'/auth/v1/logout',{method:'POST',headers:{apikey:SB.key,Authorization:'Bearer '+AD.s.access}}).catch(()=>{});adSave(null);renderAdmin();return}
   const r=e.target.closest('#adRange [data-r]');if(r){AD.range=+r.dataset.r;renderAdmin()}
-  const at=e.target.closest('[data-adtab]');if(at){AD.tab=at.dataset.adtab;renderAdmin(true);return}
+  const at=e.target.closest('[data-adtab]');if(at){if(at.dataset.adtab===AD.tab){scrollTo({top:0,behavior:RM?'auto':'smooth'});return}AD.tab=at.dataset.adtab;renderAdmin(true);return}
 });
 
 /* ===== Pathfinder duels & Sanctums (from the map data) ===== */

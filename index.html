@@ -1873,6 +1873,17 @@ body{overflow-x:clip}
 #lgDock .glass-button-text,#lgDockD .glass-button-text,#lgSearch .glass-button-text,#lgSearchD .glass-button-text{color:#13233f;text-shadow:0 1px 0 rgba(255,255,255,.6)}
 #lgDock .glass-button-text{font:700 13px var(--display)}
 #lgDock .on .glass-button-text{color:#0A63C4}
+/* phone dock: an icon over a short label on each tile, with a soft halo so they read over any background; the page
+   you are on gets a tinted backing. Admin on phones: round icon buttons, the open tab in a white circle */
+#lgDock .glass-button-text{display:flex;flex-direction:column;align-items:center;gap:3px;font:700 10.5px/1.1 var(--display);color:#0d1b33;
+  text-shadow:0 0 6px rgba(255,255,255,.95),0 0 2px rgba(255,255,255,.9)}
+#lgDock .glass-button-text svg{width:21px;height:21px;filter:drop-shadow(0 0 3px rgba(255,255,255,.9))}
+#lgDock .glass-button::after{content:"";position:absolute;inset:4px;border-radius:inherit;background:rgba(10,132,214,.18);opacity:0;transition:opacity .2s;z-index:0}
+#lgDock .on::after{opacity:1}
+#lgDock .glass-button:active{transform:scale(.92);transition:transform .12s}
+#lgDock.admin .glass-button-text svg{width:20px;height:20px}
+#lgDock.admin .glass-button::after{inset:3px;border-radius:50%;background:#fff;box-shadow:0 4px 12px rgba(0,0,0,.25)}
+#lgDock.admin .on .glass-button-text{color:#0B1426;text-shadow:none}#lgDock.admin .on .glass-button-text svg{filter:none}
 #lgSearch{position:absolute;left:16px;right:16px;top:170px;z-index:3;display:flex;justify-content:center}
 #lgSearch .glass-button-text{font:600 15px var(--body)}
 #lgDockD{position:fixed;left:50%;bottom:22px;translate:-50% 0;z-index:40}
@@ -1882,11 +1893,17 @@ body{overflow-x:clip}
 #lgSearchD .glass-button-text{font:600 17px var(--body)}
 [data-theme="dark"] #lgDock .glass-button-text,[data-theme="dark"] #lgDockD .glass-button-text,[data-theme="dark"] #lgSearch .glass-button-text,[data-theme="dark"] #lgSearchD .glass-button-text{color:#eef4ff;text-shadow:0 1px 2px rgba(0,0,0,.5)}
 [data-theme="dark"] #lgDock .on .glass-button-text{color:#7cc8ff}
+[data-theme="dark"] #lgDock .glass-button-text{color:#fff;text-shadow:0 0 6px rgba(0,0,0,.85),0 0 2px rgba(0,0,0,.8)}
+[data-theme="dark"] #lgDock .glass-button-text svg{filter:drop-shadow(0 0 3px rgba(0,0,0,.8))}
+[data-theme="dark"] #lgDock .glass-button::after{background:rgba(124,200,255,.22)}
+[data-theme="dark"] #lgDock.admin .glass-button::after{background:#fff}
+[data-theme="dark"] #lgDock.admin .on .glass-button-text{color:#0B1426;text-shadow:none}
 html.lg-on .tabbar{visibility:hidden}
 html.lg-on .mh-search{visibility:hidden}
 html.lg-on [data-view="home"] .hsearch{display:none}
 @media (min-width:960px){#lgDock,#lgSearch{display:none}}
 @media (max-width:959px){#lgDockD,#lgSearchD{display:none}}
+.on-admin #lgDockD{display:none} /* the admin has its own menu */
 
 /* the active-tab dot sits on top of the bar instead of adding height (no layout shift when the bar is filled in) */
 .tabbar button{position:relative}.tabbar button[aria-current="page"]::after{position:absolute;left:50%;bottom:3px;translate:-50% 0;margin:0}
@@ -2071,6 +2088,7 @@ dialog#dlg,dialog#menu,dialog#pick{background:color-mix(in srgb,var(--ground) 72
 .gbtn{display:inline-flex;align-items:center;gap:6px;height:40px;padding:0 18px;border:0;border-radius:999px;font:700 .85rem var(--display);cursor:pointer;white-space:nowrap}
 .gbtn.hot{background:linear-gradient(180deg,#8FD6FF,#3DA9F5);color:var(--g-hot-ink);box-shadow:0 8px 22px rgba(61,169,245,.38)}
 .gbtn.hot b{color:var(--g-hot-ink);font-size:1.05rem}
+.gbtn svg{width:17px;height:17px;flex:none}
 .gtime{display:grid;justify-items:center;height:40px;align-content:center;padding:0 14px;border:1px solid var(--g-line);border-radius:14px;background:var(--g-glass);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px)}
 .gtime b{font:700 .82rem/1.1 var(--display)}.gtime small{font-size:.64rem;color:var(--g-mute)}
 .gicon{position:relative;display:grid;place-items:center;width:40px;height:40px;border:1px solid var(--g-line);border-radius:50%;background:var(--g-glass);color:var(--g-ink);cursor:pointer;
@@ -2079,6 +2097,7 @@ dialog#dlg,dialog#menu,dialog#pick{background:color-mix(in srgb,var(--ground) 72
 .gtheme .sun{display:none}
 :root[data-theme="dark"] .gtheme .sun{display:block}:root[data-theme="dark"] .gtheme .moon{display:none}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .gtheme .sun{display:block}:root:not([data-theme="light"]) .gtheme .moon{display:none}}
+.gfindbtn,.glogout{display:none!important}
 .gme{display:grid;place-items:center;width:40px;height:40px;border:2px solid rgba(255,255,255,.25);border-radius:50%;background:linear-gradient(135deg,#8FE4FF,#1E8FE0);color:#fff;font:800 .78rem var(--display);cursor:pointer}
 /* greeting row */
 .ghello{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
@@ -2088,7 +2107,7 @@ dialog#dlg,dialog#menu,dialog#pick{background:color-mix(in srgb,var(--ground) 72
 .gpill svg{width:14px;height:14px;opacity:.7}
 .gsel{position:relative}
 .gmenu{position:absolute;right:0;top:calc(100% + 6px);z-index:5;display:none;min-width:150px;padding:6px;border:1px solid var(--g-line);border-radius:16px;background:var(--g-menu);box-shadow:0 20px 40px rgba(0,0,0,.25)}
-.gsel:focus-within .gmenu{display:grid;gap:2px}
+.gsel.open .gmenu{display:grid;gap:2px}
 .gmenu button{border:0;background:none;color:var(--g-ink);text-align:left;padding:8px 12px;border-radius:10px;font:600 .84rem var(--display);cursor:pointer}
 .gmenu button:hover{background:var(--g-soft)}.gmenu button[aria-pressed="true"]{color:var(--g-hot)}
 /* KPI row, chart, big numbers, donut */
@@ -2154,7 +2173,7 @@ dialog#dlg,dialog#menu,dialog#pick{background:color-mix(in srgb,var(--ground) 72
 @media (hover:hover){.adws :is(.gbtn,.gme,.garrow):hover{transform:translateY(-2px)}.adws .gbtn.hot:hover{box-shadow:0 12px 28px rgba(61,169,245,.5)}}
 .adws :is(.gbtn,.gpill,.garrow,.gbrand,.gme,.gmenu button,.dtodo,.dsc,.abtn,.aseg button){position:relative;overflow:hidden}
 .gripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.35);transform:scale(0);pointer-events:none;animation:gRip .65s ease-out forwards}
-.gmenu{transform-origin:100% 0;animation:none}.gsel:focus-within .gmenu{animation:gIn .25s cubic-bezier(.2,.8,.2,1)}
+.gmenu{transform-origin:100% 0;animation:none}.gsel.open .gmenu{animation:gIn .25s cubic-bezier(.2,.8,.2,1)}
 /* pointer tilt and the light that follows it (set by app.js on computers) */
 .adws :is(.gcard,.acard,.dtile,.dtodo){position:relative;transform-style:preserve-3d}
 .adws :is(.gcard,.acard,.dtile,.dtodo)::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .35s;
@@ -2192,7 +2211,8 @@ dialog#dlg,dialog#menu,dialog#pick{background:color-mix(in srgb,var(--ground) 72
 @media (max-width:980px){
   /* phones: the admin is a full-screen app too: no site header or tab bar, its own compact top bar, and its menu as a
      glass icon bar along the bottom (the picked tab a filled circle) */
-  .on-admin :is(.appbar,.tabbar,#lgDock,footer){display:none!important}
+  .on-admin :is(.appbar,.tabbar,footer){display:none!important}
+  .lg-on .adws .aside{display:none!important}
   .on-admin main{padding:0!important}
   .on-admin .adws{margin:0;width:auto;min-height:100vh;padding:calc(12px + env(safe-area-inset-top,0px)) 14px calc(104px + env(safe-area-inset-bottom,0px))}
   .adws .amain{padding:0;display:grid;gap:14px}
@@ -2205,11 +2225,16 @@ dialog#dlg,dialog#menu,dialog#pick{background:color-mix(in srgb,var(--ground) 72
   .adws :is(nav,.afoot) button svg{width:20px;height:20px}
   .adws nav button[aria-current="true"]{background:var(--g-pick);color:var(--g-pick-ink);box-shadow:0 6px 16px rgba(0,0,0,.25)}
   .adws nav em{position:absolute;top:0;right:0;margin:0;min-width:16px;height:16px;padding:0 4px;border-radius:999px;background:var(--g-hot);color:#fff;font:700 .6rem/16px var(--display);font-style:normal}
-  .gtop{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"brand acts" "find find";gap:10px}
-  .gcrumb{grid-area:brand}.gtop>.gacts{grid-area:acts;flex-wrap:nowrap;gap:8px}.gfind{grid-area:find}
-  .gsep,.gnow,.gtop .gtime,.gchev,.gfind kbd{display:none}
-  .gtop .gbtn.hot{width:40px;padding:0;justify-content:center;font-size:0}.gtop .gbtn.hot b{font-size:1.2rem}
+  .gtop{grid-template-columns:auto minmax(0,1fr);grid-template-areas:"brand acts" "find find";gap:8px 10px}
+  .gcrumb{grid-area:brand}.gtop>.gacts{grid-area:acts;flex-wrap:nowrap;gap:6px}.gfind{grid-area:find;display:none}
+  .gtop.find-open .gfind{display:flex;animation:gIn .3s cubic-bezier(.2,.8,.2,1)}
+  .gsep,.gnow,.gtop .gtime,.gchev,.gfind kbd,.gbrand>span:not(.gav),.gtop .gme{display:none}
+  .gbrand{padding:4px}
+  .gtop :is(.gfindbtn,.glogout){display:grid!important}
+  .gtop.find-open .gfindbtn{background:var(--g-hot);color:#fff;border-color:transparent}
+  .gtop .gbtn.hot{width:40px;padding:0;justify-content:center}.gtop .gbtn.hot span{display:none}.gtop .gbtn.hot svg{width:19px;height:19px}
   .ghello h2{font-size:1.35rem}.ghello .gacts{width:100%;justify-content:flex-start;flex-wrap:wrap}
+  .ghello .gmenu{left:0;right:auto;transform-origin:0 0}
   .gkpis{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.ggrid{grid-template-columns:1fr;gap:12px}.grev,.gpie{grid-row:auto;grid-column:auto}
   .gchart{height:230px}.gbig{min-height:160px}
   .gk .gkv{flex-wrap:wrap;margin-top:8px}.gk .gkv b{font-size:1.45rem}.gcard{padding:14px 16px}
@@ -3618,16 +3643,16 @@ setTimeout(function(){var b=document.getElementById('boot');if(b&&!b.classList.c
 </dialog>
 <dialog id="menu" aria-label="เมนูทั้งหมด"><div class="inner" id="menuInner"></div></dialog>
 
-<script>try{if(localStorage.getItem('aniimo-lang')==='en')document.write('<script src="i18n-en.js?v=a66243c905"><\/script>')}catch(_){}</script>
-<script defer src="th.js?v=a66243c905"></script>
-<script defer src="items.js?v=a66243c905"></script>
-<script defer src="data.js?v=a66243c905"></script>
-<script defer src="thumbs.js?v=a66243c905"></script>
-<script defer src="content.js?v=a66243c905"></script>
-<script defer src="app.js?v=a66243c905"></script>
+<script>try{if(localStorage.getItem('aniimo-lang')==='en')document.write('<script src="i18n-en.js?v=e14e962374"><\/script>')}catch(_){}</script>
+<script defer src="th.js?v=e14e962374"></script>
+<script defer src="items.js?v=e14e962374"></script>
+<script defer src="data.js?v=e14e962374"></script>
+<script defer src="thumbs.js?v=e14e962374"></script>
+<script defer src="content.js?v=e14e962374"></script>
+<script defer src="app.js?v=e14e962374"></script>
 <script>/* Liquid Glass (glass.js): fetched after the page has fully shown, only with WebGL and when motion is welcome */
 addEventListener('load',function(){try{if(matchMedia('(prefers-reduced-motion: reduce)').matches||(navigator.connection&&navigator.connection.saveData)||!document.createElement('canvas').getContext('webgl'))return}catch(_){return}
 var add=function(src){return new Promise(function(ok,no){var s=document.createElement('script');s.src=src;s.onload=ok;s.onerror=no;document.head.appendChild(s)})};
-var start=function(){var imgs=[].slice.call(document.images).filter(function(i){return i.offsetParent&&!i.complete});Promise.all(imgs.map(function(i){return new Promise(function(r){i.addEventListener('load',r,{once:true});i.addEventListener('error',r,{once:true})})})).then(function(){return add('vendor/html2canvas-pro.min.js?v=1')}).then(function(){return add('vendor/liquid-glass/container.js?v=1')}).then(function(){return add('vendor/liquid-glass/button.js?v=1')}).then(function(){return add('glass.js?v=1')}).catch(function(){})};
+var start=function(){var imgs=[].slice.call(document.images).filter(function(i){return i.offsetParent&&!i.complete});Promise.all(imgs.map(function(i){return new Promise(function(r){i.addEventListener('load',r,{once:true});i.addEventListener('error',r,{once:true})})})).then(function(){return add('vendor/html2canvas-pro.min.js?v=1')}).then(function(){return add('vendor/liquid-glass/container.js?v=1')}).then(function(){return add('vendor/liquid-glass/button.js?v=1')}).then(function(){return add('glass.js?v=34465695')}).catch(function(){})};
 var once=false,kick=function(){if(once)return;once=true;['pointerdown','touchstart','scroll','keydown'].forEach(function(e){removeEventListener(e,kick)});(window.requestIdleCallback||function(f){setTimeout(f,1)})(start,{timeout:2000})};
 ['pointerdown','touchstart','scroll','keydown'].forEach(function(e){addEventListener(e,kick,{passive:true,once:true})});setTimeout(kick,5000)});</script>
