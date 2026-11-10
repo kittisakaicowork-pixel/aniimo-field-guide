@@ -34,7 +34,7 @@ UA = "Mozilla/5.0 (AniimoFieldGuide fan project)"
 FULL = "--full" in sys.argv
 # 3D viewer package (web3d_deploy/, too big for GitHub Pages) lives in this Cloudflare R2 bucket; tools/r2/
 R2_3D = "https://3d.aniiguide.trade"
-R2_3D_V = 26  # bump after uploading a changed web3d_deploy/index.html (the edge keeps 3D files a month)
+R2_3D_V = 27  # bump after uploading a changed web3d_deploy/index.html (the edge keeps 3D files a month)
 KINDS = {"Basic attack": "atk", "Ultimate": "ult"}
 SPARK_TYPES = 12
 
@@ -346,7 +346,7 @@ def main():
         ("ITEMS", dict(cols=item_cols, rows=item_rows, list=items)), ("EVENTS", events), ("UPCOMING", raw.get("upcoming", [])),
         ("TERR", raw.get("territories", [])), ("FOOD", game.foods() if game else []),
         ("SPKIMG", sorted({f.stem.rsplit("_", 1)[0] for f in (ROOT / "img" / "spk").glob("*.webp")})),  # species/forms with rendered Sparkling portraits
-        ("M3D", dict(url=R2_3D, v=R2_3D_V, m=json.loads((TOOLS / "r2" / "m3d.json").read_text())) if (TOOLS / "r2" / "m3d.json").exists() else None),
+        ("M3D", dict(url=R2_3D, v=R2_3D_V, m={**json.loads((TOOLS / "lite" / "m3d_lite.json").read_text() if (TOOLS / "lite" / "m3d_lite.json").exists() else "{}"), **json.loads((TOOLS / "r2" / "m3d.json").read_text())}) if (TOOLS / "r2" / "m3d.json").exists() else None),  # lite = models shrunk from the drive export (lite.html), never override a game-accurate one
         ("PSKILLS", [dict(n=p["name"], k=p["kind"], mx=p["max"], d=p["desc"], lv=p["levels"],
                           th=(pth.get(p["name"]) or ["", ""])[0], dth=(pth.get(p["name"]) or ["", ""])[1]) for p in raw.get("pskills", [])]),
         ("SETS", json.loads((TOOLS / "sets.json").read_text()) if (TOOLS / "sets.json").exists() else []), ("RUSH", raw.get("boss_rush", [])),

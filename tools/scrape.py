@@ -56,8 +56,10 @@ def fetch(path, dest):
         return dest.read_text()
     url = BASE + urllib.parse.quote(path, safe="/-_.~%")
     old = dest.with_suffix(".old")
-    if dest.exists():
+    try:
         dest.replace(old)  # fetch again, but keep the old copy if the fetch fails
+    except FileNotFoundError:
+        pass  # (another run moved it first, or it was never there)
     polite.get(url, dest)  # low rate, never player profiles (the owner's terms)
     if not dest.exists() or dest.stat().st_size < 5000:
         if old.exists():
