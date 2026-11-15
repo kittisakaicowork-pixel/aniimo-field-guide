@@ -608,15 +608,31 @@ class Button extends Container {
       gl.drawArrays(gl.TRIANGLES, 0, 6)
     }
 
-    // Render every frame to keep sampling parent's live output
-    const animationLoop = () => {
+    // AniiGuide patch: the original drew every frame, forever (and kept going after the dock was rebuilt, so the
+    // work piled up with each page change). Now it draws only when something can have changed (scroll, resize,
+    // pointer on the button) plus a short tail, and stops for good once the button has left the page.
+    let raf = 0, left = 0
+    const tick = () => {
+      raf = 0
+      if (!this.element.isConnected) { stop(); return }
       render()
-      requestAnimationFrame(animationLoop)
+      if (--left > 0) raf = requestAnimationFrame(tick)
     }
-
-    animationLoop()
+    const wake = (n = 40) => { left = Math.max(left, n); if (!raf) raf = requestAnimationFrame(tick) }
+    const evs = ['pointerenter', 'pointermove', 'pointerdown', 'pointerup', 'pointerleave', 'focus', 'blur']
+    const stop = () => {
+      window.removeEventListener('scroll', wake); window.removeEventListener('resize', wake)
+      evs.forEach(e => this.element.removeEventListener(e, wake))
+      if (raf) cancelAnimationFrame(raf); raf = 0
+      try { this.gl_refs.gl.getExtension('WEBGL_lose_context')?.loseContext() } catch (e) {}
+      this.gl_refs.gl = null
+    }
+    window.addEventListener('scroll', wake, { passive: true }); window.addEventListener('resize', wake, { passive: true })
+    evs.forEach(e => this.element.addEventListener(e, wake, { passive: true }))
+    wake(120)
 
     // Store render function for external calls
     this.render = render
+    this.wake = wake
   }
 }

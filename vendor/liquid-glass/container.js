@@ -657,7 +657,12 @@ class Container {
 
     render()
 
-    const handleScroll = () => render()
+    // AniiGuide patch: forget the scroll listener once the glass has been removed from the page (it used to stay,
+    // so every rebuilt dock added another WebGL redraw to each scroll)
+    const handleScroll = () => {
+      if (!this.element.isConnected) { window.removeEventListener('scroll', handleScroll); try { this.gl_refs.gl?.getExtension('WEBGL_lose_context')?.loseContext() } catch (e) {} this.gl_refs.gl = null; return }
+      render()
+    }
     window.addEventListener('scroll', handleScroll, { passive: true })
 
     // Store render function for external calls
