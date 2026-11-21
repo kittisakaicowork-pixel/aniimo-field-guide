@@ -3,6 +3,164 @@
    src tags: official = from an official announcement; community = gathered from player guides. */
 window.NEWS = [
   {
+    id: "update-1112", date: "2026-11-09", type: 'update', tag: 'official',
+    title: "อัปเดต 12 พ.ย.: ระบบ Affinity, Aniimo Dash และอีเวนต์ Prismana Snapshots",
+    lede: "ปิดปรับปรุง 12 พ.ย. 13:00–18:00 น. (เวลาไทย, เซิร์ฟ Europe) ชดเชย Glimmer ×500 ให้ผู้ที่สมัครก่อนอัปเดต",
+    source: "https://www.aniimo.com/newslist/detail/100298",
+    sections: [
+      { h: "ระบบใหม่", items: [
+        "Aniimo Affinity: เพิ่มค่าความผูกพันเพื่อปลดล็อกการตั้งชื่อ Aniimo และเพิ่มผลสกิล Heal กับ Swoleshroom",
+        "เพิ่ม Affinity ได้จากการใส่ในทีมหรือ Home, Star Up/Ascend, Pathfinder Challenge, Operation: Egg Heist และการปราบ Aniimo ป่ากับ Alpha (มีลิมิตรายวันและรายสัปดาห์)",
+        "เควสต์ Journey ใหม่ 2 เรื่องใน Crescent Bay: The Coral Sea of Dreams และ Squarrel’s Poem of Revolution"
+      ]},
+      { h: "อีเวนต์", items: [
+        "Prismana Snapshots: ถ่ายรูป Sparkling แบบต่าง ๆ ของ Aniimo ร่าง Prismana ประจำช่วง รับรางวัล 5 แบบแรก + โบนัส Dazzling/Shadow Sparkling ต้องเป็น Student II",
+        "ช่วง 2: 16–23 พ.ย. · ช่วง 3: 23–30 พ.ย. (เริ่ม 04:00 เวลาเซิร์ฟเวอร์)",
+        "Aniimo Dash: แข่งความเร็วกับ Aniimo ต้อง Pathfinder Level 40 โหมดเดี่ยวเปิดทั้งวัน โหมดหลายคน (สูงสุด 8 คน) 18:00–24:00 ทุกวัน",
+        "สนาม Greenfield Shallows, Gullcove Cliffs (19 พ.ย.) และ Redrock Trail (หลังอัปเดต 26 พ.ย.) เปิดถึง 10 ธ.ค. 06:59 น. เวลาไทย"
+      ]},
+      { h: "ร้านค้าและการปรับ", items: [
+        "ชุดใหม่ Valiant Knight และ Shadow Rose ที่ Shop > Recommended (ทยอยวางขาย)",
+        "รีเซ็ต Whirlbite ฟรี (Basic/Prismana Form) คืน EXP Item, วัสดุ Star Up, Capability Awakening และ Capafruit ถึง 27 พ.ย. 04:00 เวลาเซิร์ฟเวอร์",
+        "Egg Heist Team Mode ลดเพดานเลเวล Umbral Aniimo ให้ผู้เล่นเลเวลต่ำเล่นง่ายขึ้น เพิ่มปุ่มรีพอร์ตในแมตช์",
+        "มือถือ: ย้ายตำแหน่งปุ่มควบคุมได้ ปรับกล้องโหมดจับ และลดอาการกระตุก"
+      ]},
+      { h: "แก้บั๊กที่น่าสนใจ", items: [
+        "ร่างโคลนจากสกิลของ Irisalis หน้าตาไม่ตรงกับตัวจริง",
+        "Ultimate ของ Crocobask ใช้ไม่ออกตอน sparring และสกิลของ Ekrim ถูกขัดบนบางพื้นที่",
+        "Glynsera ได้แต้ม Ultimate ไม่ถูกต้องเมื่อใช้ Boomerang Blade",
+        "แก้บั๊ก Home อีก 19 รายการ และอาการกระตุก/เกมเด้งบน PS5 และ Xbox"
+      ]}
+    ]
+  },
+  {
+    id: "known-issues-1029", date: "2026-10-29", type: 'news', tag: 'official',
+    title: "ปัญหาที่พบและการแก้ไข: รางวัลแรงก์ Egg Emperor ใน Egg Heist",
+    lede: "รายการบั๊กที่ทีมกำลังแก้ และสิ่งที่แก้แล้วในวันที่ 12, 13 และ 17 พ.ย.",
+    source: "https://www.aniimo.com/newslist/detail/100275",
+    sections: [
+      { h: "ปรับปรุง 17 พ.ย.", items: [
+        "Operation: Egg Heist ถึงแรงก์ Egg Emperor 200 ดาว รับ Departure with the Wind: Collectible Gift Box เลือกของสะสมประจำซีซันได้ 1 ชิ้น",
+        "ร้าน Egg Heist ขาย Departure with the Wind: Collectible Blind Box ให้ผู้ที่ถึง Egg Emperor (จำกัดต่อสัปดาห์)",
+        "Giga-Egg กระโดดได้น้อยลง และถูกตีแล้วกระเด็นเล็กน้อย"
+      ]},
+      { h: "แก้แล้ว 12–13 พ.ย.", items: [
+        "บั๊กหลายจุดใน Nighttime Gathering เช่น ส่งเควสต์ Premium Gemstone Dust ไม่ได้ แต้มสะสมหายเมื่อย้ายออกจาก Park",
+        "Season Orders หาย, เฟอร์นิเจอร์ใน RV Park หาย (จะส่งคืนภายหลัง)",
+        "Aniimo Dash: แปลงร่างเป็น Thundercloud แล้วขยับไม่ได้ และเริ่มแมตช์ไม่ได้เมื่อมีคนหลุด",
+        "รับเครื่องประดับ Huffy ใน Whisperwake Isles ไม่ได้"
+      ]},
+      { h: "ยังรอแก้", items: [
+        "คูลดาวน์ Ultimate ที่แสดงอาจนานกว่าจริงเล็กน้อย",
+        "ผล Holo-Battle Interlink อาจสรุปก่อนหมดเวลา",
+        "เอฟเฟกต์สกิลของ Lunara อาจหายไป"
+      ]}
+    ]
+  },
+  {
+    id: "balance-s1p2", date: "2026-10-28", type: 'update', tag: 'official',
+    title: "Season 1 Part 2: ปรับสมดุล Aniimo 19 ตัว และสูตรคำนวณ ATK ใหม่",
+    lede: "ATK ส่งผลกับดาเมจทุกตัวชัดขึ้น พร้อมบัฟ Hexxin, Sherro, Inferlupa, Ignitis และ Irisalis Crystal Amber ให้เจ้าของ Irisalis",
+    source: "https://www.aniimo.com/newslist/detail/100263",
+    sections: [
+      { h: "ระบบคำนวณ", items: [
+        "Aniimo สาย Breaker และ Support ได้ดาเมจจาก ATK ด้วย เมื่อ ATK ต่ำจะคิดร่วมกับ BREAK หรือเลเวล"
+      ]},
+      { h: "ปรับสมดุลเด่น ๆ", items: [
+        "Hexxin: ATK Family 88→100 และ Might ทุกสกิล +20%",
+        "Sherro: Flowing Water Slash คูลดาวน์ 5→3 วิ, Prismana Slam ใช้ Energy 20→15",
+        "Ignitis: Fire Dash Might 15→22 · Inferlupa: Flame Wolf Assault ใช้ Energy 20→15",
+        "Panpanta: Splash Shield 8%→11% · Fenmane: Thunder Imprint 1→2 ต่อครั้ง",
+        "Lavazar: Fiery Punch ใช้ Energy 10→20 · Blazen ATK 100→90 แต่ HP และ REGEN เพิ่ม"
+      ]},
+      { h: "ของแถม", items: [
+        "ผู้ที่มี Irisalis ก่อนอัปเดตได้ Irisalis Crystal Amber ทางเมล ทำให้ Innate Potential สมบูรณ์ (ATK 10, REGEN 10 ที่เหลือ 5) และคืน Starcryst Essence กับ Capafruit",
+        "Daily Supply Pack ได้รางวัลเพิ่มเมื่อถึงยศที่กำหนด และของ Weston (Mysterious Vendor) เหมือนกันทุกคน"
+      ]}
+    ]
+  },
+  {
+    id: "update-s1p2", date: "2026-10-27", type: 'update', tag: 'official',
+    title: "Season 1 Part 2: เปิด Whisperwake Isles, Aniimo ใหม่ 51 ตัว และโหมด Giga-Egg",
+    lede: "ปิดปรับปรุง 29 ต.ค. 05:00–14:00 น. (เวลาไทย, เซิร์ฟ Europe) ชดเชย Glimmer ×500",
+    source: "https://www.aniimo.com/newslist/detail/100244",
+    sections: [
+      { h: "Aniimo ใหม่", items: [
+        "เพิ่ม Aniimo ใหม่ 51 ตัว และร่าง Prismana ใหม่หลายตัว",
+        "Prismana ประจำซีซัน: Jeburst, Glameep, Pouchwisp, Royalby · Prismana ประจำพื้นที่: Gachapus, Sugartini, Jabster, Whirlbite",
+        "Hypnyto (ลม) จาก Companion Handbook, Prismana Ekrim (มืด) จากความสำเร็จซีซัน และ Jaguaraun (สายฟ้า) Aniimo ที่ผู้เล่นร่วมออกแบบตัวแรก"
+      ]},
+      { h: "แผนที่และเนื้อเรื่อง", items: [
+        "Whisperwake Isles เปิด 4 พื้นที่: Crescent Bay, Rosy Mirelands, Wildwater Gorge, Cloudreach Falls",
+        "เนื้อเรื่องใหม่กับ Lyrelle และ Thesseo ปลดล็อกอัตโนมัติเมื่อจบเควสต์ก่อนหน้า",
+        "เควสต์ Journey ใหม่ 5 เรื่อง และจะทยอยเพิ่มอีก 4 เรื่อง"
+      ]},
+      { h: "การเติบโต", items: [
+        "Pathfinder เลเวล 60 ขึ้นไปสอบเลื่อนยศ Trailblazer II และ III ได้",
+        "Trailblazer II: Aniimo เลเวลสูงสุด 60→65 · Trailblazer III: ตัวละครและ Aniimo สูงสุด 70",
+        "Elite Training เพิ่ม Chapter of Whisperwake"
+      ]},
+      { h: "Operation: Egg Heist", items: [
+        "โหมด PVP ทดสอบ 3 ทีมแย่ง Giga-Egg เปิด 18:00–24:00 ทุกวัน ต้องเลเวล 50 และแรงก์ Rising Egg Scout",
+        "ทีมที่ชนะได้ Giga-Egg (การันตี Umbral Egg มีโอกาสได้ Prismana Egg) และมีหีบที่อาจได้ของสะสมประจำซีซัน"
+      ]}
+    ]
+  },
+  {
+    id: "dev-console-1027", date: "2026-10-27", type: 'news', tag: 'official',
+    title: "จดหมายทีมพัฒนา: สิ่งที่แก้แล้วและแผนปรับปรุงบน PS5/Xbox",
+    lede: "สรุปการแก้เกมเด้ง โหลดช้า และการควบคุมด้วยจอย พร้อมแผนต่อไป",
+    source: "https://www.aniimo.com/newslist/detail/100252",
+    sections: [
+      { h: "ตั้งค่าใหม่", items: [
+        "ซ่อน Online ID ของแพลตฟอร์มได้ และปิดคำแนะนำการควบคุมบนคอนโซลได้",
+        "รองรับ DX12 ในเวอร์ชัน Xbox PC"
+      ]},
+      { h: "ประสิทธิภาพและจอย", items: [
+        "เปิดเมนูลื่นขึ้น เฟรมตกใน Egg Heist น้อยลง เข้า Home เร็วขึ้น ใช้หน่วยความจำน้อยลง",
+        "ปรับวงล้อสกิล เพิ่มโหมดกล้องเล็ง 2 แบบ ซูมแผนที่ตามตำแหน่งเคอร์เซอร์"
+      ]},
+      { h: "แผนต่อไป", items: [
+        "ปรับการเล็ง วงล้อสกิล และการควบคุมใน Home ต่อ",
+        "ทำระบบสั่นใหม่ และรองรับ adaptive trigger"
+      ]}
+    ]
+  },
+  {
+    id: "dev-mobile-1027", date: "2026-10-27", type: 'news', tag: 'official',
+    title: "จดหมายทีมพัฒนา: ปรับปรุงประสบการณ์บนมือถือใน Season 1 Part 2",
+    lede: "ทีมตอบคำถามเรื่องดาวน์โหลด ความเข้ากันได้ของเครื่อง และอาการค้าง",
+    source: "https://www.aniimo.com/newslist/detail/100230",
+    sections: [
+      { h: "ดาวน์โหลดและอัปเดต", items: [
+        "ดาวน์โหลดเบื้องหลังได้ทั้ง Android และ iOS ไม่ต้องเปิดเกมค้างไว้",
+        "ดาวน์โหลดเร็วขึ้น ไฟล์อัปเดตเล็กลง และตรวจไฟล์ได้แม่นขึ้น ควรเผื่อพื้นที่เครื่องไว้บ้าง"
+      ]},
+      { h: "ความเข้ากันได้", items: [
+        "เพิ่มรุ่นเครื่องที่รองรับ ลดอาการค้างบน Snapdragon 8 Gen 3",
+        "แก้จอดำใน Mistwoods บน iPad บางรุ่น และภาพผิดเพี้ยนบน Huawei และ Pixel 10",
+        "แก้สีผมต่างจาก PC และสีเลอะบน Prismana Fulmintis"
+      ]}
+    ]
+  },
+  {
+    id: "update-1015", date: "2026-10-16", type: 'update', tag: 'official',
+    title: "อัปเดต 15 ต.ค.: ชุด Batlock Holmes และบูสต์อีเวนต์ฤดูกาลของ Home",
+    lede: "อัปเดตไฟล์โดยไม่ปิดเซิร์ฟเวอร์ รีสตาร์ตเกมเพื่อโหลดไฟล์ใหม่ ชดเชย Glimmer ×100",
+    source: "https://www.aniimo.com/newslist/detail/100198",
+    sections: [
+      { h: "Home", items: [
+        "เพิ่มโอกาสกลายพันธุ์ของ Moondew Radish และ Waxing Moon Pepper และแต้ม Harvest Moon จากของที่ทำจากสองอย่างนี้",
+        "ช่วงที่ 3 Harvest Gathering เปิด 21 ต.ค. 03:00 น. เวลาไทย (เซิร์ฟ Europe)"
+      ]},
+      { h: "ชุดใหม่และแก้บั๊ก", items: [
+        "ชุด Batlock Holmes ที่ Shop > Recommended",
+        "แก้ประตูใช้กุญแจใน Egg Heist เปิดไม่ได้ และจำนวนซื้อใน Furniture Store เด้งกลับเป็น 1",
+        "คอนโซล: แก้เกมเด้งใน Holo-Battle Sim และจอยเลือก Aniimo ผิดตัวจนใช้ Sparkling Sigil ผิดเป้า"
+      ]}
+    ]
+  },
+  {
     id: "patch-3629693", date: "2026-09-30", type: 'update', tag: 'official',
     title: "แพตช์ 1.0.362: ชุด Frostburst Punk, Erlath ใน Egg Heist และแก้บั๊ก 44 รายการ",
     lede: "อัปเดตไฟล์โดยไม่ปิดเซิร์ฟเวอร์ รีสตาร์ตเกมเพื่อโหลดไฟล์ใหม่ ผู้ที่สมัครก่อนอัปเดต 1.1 ได้รับ Glimmer ×200",
