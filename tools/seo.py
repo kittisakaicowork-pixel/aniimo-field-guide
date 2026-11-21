@@ -65,11 +65,35 @@ footer{max-width:880px;margin:0 auto;padding:20px 16px;color:var(--ink2);font-si
 @media (max-width:640px){.hero{grid-template-columns:1fr}.hero img{max-width:240px}}"""
 
 
+KEEP = re.compile(r"</?(h3|h4|p|ul|ol|li|b|strong|table|tr|th|td|br|em)\b[^>]*>", re.I)
+
+
+def plain_section(src, view):
+    """The readable text of one view in index.html, with the interactive bits (buttons, inputs, scripts) removed."""
+    m = re.search(r'data-view="%s"[^>]*>(.*?)</section>' % view, src, re.S)
+    if not m:
+        return ""
+    h = re.sub(r'<div class="vhead">.*?</div>', "", m.group(1), flags=re.S)
+    h = re.sub(r"<(script|style|button|select|input|canvas|svg|nav)\b.*?</\1>|<(input|img)\b[^>]*>", "", h, flags=re.S)
+    h = re.sub(r'<span class="n">\d+</span>', "", h)
+    h = re.sub(r'<div class="gnav">.*?</div>', "", h, flags=re.S)
+    h = re.sub(r"<(?!/?(?:h3|h4|p|ul|ol|li|b|strong|table|tr|th|td|br|em)\b)[^>]+>", "", h)  # drop all other tags, keep their text
+    h = re.sub(r"<(\w+)[^>]*>", lambda mo: f"<{mo.group(1)}>", h)
+    h = re.sub(r"(<li>)\s*", r"\1", h)
+    h = re.sub(r"\n\s*\n+", "\n", h).strip()
+    return h if len(re.sub(r"<[^>]+>", " ", h).split()) > 25 else ""
+
+
+def js_list(src, name):
+    m = re.search(r"const %s=\[(.*?)\];" % name, src, re.S)
+    return re.findall(r"t:'((?:[^'\\]|\\.)*)',n:'((?:[^'\\]|\\.)*)'", m.group(1)) if m else []
+
+
 def dump():
     code = """
     global.window={};require('./data.js');require('./th.js');require('./items.js');require('./content.js');const w=window;
     process.stdout.write(JSON.stringify({A:w.ANIIMO,SK:w.SKILLS,EVO:w.EVO,CODES:w.CODES,TH:w.TH,NTH:w.NAMES_TH,NEWS:w.NEWS,
-      WW:w.WHISPERWAKE,UP:w.UPCOMING,EVENTS:w.EVENTS,ITEMS:w.ITEMS&&w.ITEMS.list,META:w.META,FAQ:w.FAQ}))"""
+      WW:w.WHISPERWAKE,UP:w.UPCOMING,EVENTS:w.EVENTS,ITEMS:w.ITEMS&&w.ITEMS.list,META:w.META,FAQ:w.FAQ,BOSSES:w.BOSSES}))"""
     return json.loads(subprocess.run(["node", "-e", code], cwd=ROOT, check=True, capture_output=True, text=True).stdout)
 
 
@@ -182,6 +206,32 @@ def main():
     g = re.search(r'data-view="howto".*?<div class="howtos">(.*?)</div>\s*</section>', page_src, re.S)
     if g:  # the guides, opened up for readers without JavaScript
         extra["howto"] = g.group(1).replace("<details ", "<section ").replace("</details>", "</section>").replace("<summary>", "<h2>").replace("</summary>", "</h2>")
+
+    for v in ("beginner", "guide", "eggs", "team", "map", "heist"):
+        txt = plain_section(page_src, v)
+        if txt and v not in extra:
+            extra[v] = txt
+    app_src = (ROOT / "app.js").read_text()
+    dl, wl = js_list(app_src, "DAILY_LIST"), js_list(app_src, "WEEKLY_LIST")
+    if dl:
+        li = lambda xs: "<ul>" + "".join(f"<li><b>{E(a.replace(chr(92) + chr(39), chr(39)))}</b><br>{E(b.replace(chr(92) + chr(39), chr(39)))}</li>" for a, b in xs) + "</ul>"
+        extra["daily"] = "<p>เกมรีเซ็ตเวลา 03:00 น. ตามเวลาไทย งานรายสัปดาห์รีเซ็ตทุกวันจันทร์</p><h2>งานรายวัน</h2>" + li(dl) + "<h2>งานรายสัปดาห์</h2>" + li(wl)
+    wk = {}
+    for a in released:
+        for k, lv in a.get("w") or []:
+            wk.setdefault(k, []).append((lv, a))
+    if wk:
+        out = ["<p>Aniimo ในบ้าน (Homeland) ทำงานได้ตามความสามารถของแต่ละตัว เรียงตามเลเวลงานจากสูงไปต่ำ</p>"]
+        for k, xs in wk.items():
+            xs.sort(key=lambda z: -int(z[0]))
+            out.append(f"<h2>{E(WORK.get(k) or 'งานธาตุ' + ELEM.get(k.lower(), k))}</h2><ul class='grid'>" + "".join(
+                f"<li><a href='../../a/{a['slug']}/'>{E(short(a))} <span class='muted'>Lv.{lv}</span></a></li>" for lv, a in xs) + "</ul>")
+        extra["homeland"] = "".join(out)
+    bs = d.get("BOSSES") or []
+    if bs:
+        extra["bosses"] = "<table><tr><th>บอส</th><th>ระดับ</th><th>ภูมิภาค</th><th>แพ้ทาง</th></tr>" + "".join(
+            f"<tr><td>{E(b['name'])}</td><td>{E(b['kind'])} Lv.{E(str(b['lv']))}</td><td>{E(b.get('region') or '')}</td>"
+            f"<td>{E(', '.join(ELEM.get(w, w) for w in b.get('weak', [])))}</td></tr>" for b in bs) + "</table>"
     m = re.search(r'data-view="privacy".*?<div class="dpanel prose">(.*?)</div>\s*</section>', page_src, re.S)
     if m:
         extra["privacy"] = re.sub(r'<p class="small muted">รหัสสุ่ม.*?</p>', "", m.group(1), flags=re.S).replace('href="#', 'href="../../#')
