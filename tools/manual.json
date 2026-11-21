@@ -1,10 +1,10 @@
 {
- "codes_checked": "2026-10-29",
+ "codes_checked": "2026-11-21",
  "codes": [
   {
    "code": "twinewithaniimo",
    "reward": "Glimmer ×10, Credit ×20,000, Growth Flower ×10, Aniipod Pro ×5",
-   "expired": false
+   "expired": true
   },
   {
    "code": "Aniimo2026",
@@ -14,7 +14,7 @@
   {
    "code": "aniimofreetoplay",
    "reward": "Glimmer ×50, Growth Flower ×5, Aniipod Pro ×5",
-   "expired": false
+   "expired": true
   },
   {
    "code": "aniimowelcome",
@@ -24,57 +24,57 @@
   {
    "code": "anyoneaniimo",
    "reward": "Glimmer ×50, Growth Flower ×5, Aniipod Pro ×5",
-   "expired": false
+   "expired": true
   },
   {
    "code": "aniimolaunch2026",
    "reward": "Glimmer ×50, Growth Flower ×5, Aniipod Pro ×5",
-   "expired": false
+   "expired": true
   },
   {
    "code": "ANIIMOGIFT",
-   "reward": "Glimmer ×50, Growth Flower ×5, Aniipod Pro ×5",
+   "reward": "Glimmer ×20",
    "expired": false
   },
   {
    "code": "anywhereaniimo",
    "reward": "Growth Flower ×3, Credit ×10,000",
-   "expired": false
+   "expired": true
   },
   {
    "code": "anythinganiimo",
    "reward": "Growth Flower ×3, Credit ×10,000",
-   "expired": false
+   "expired": true
   },
   {
    "code": "aniimonow",
    "reward": "Growth Flower ×3, Credit ×10,000",
-   "expired": false
+   "expired": true
   },
   {
    "code": "aniimotogether",
    "reward": "Growth Flower ×3, Credit ×10,000",
-   "expired": false
+   "expired": true
   },
   {
    "code": "aniimoidyll",
    "reward": "Credit ×10,000, Aniipod ×5",
-   "expired": false
+   "expired": true
   },
   {
    "code": "aniimobonus",
    "reward": "Credit ×10,000, Aniipod ×5",
-   "expired": false
+   "expired": true
   },
   {
    "code": "aniimoopenworld",
    "reward": "Credit ×10,000, Aniipod ×5",
-   "expired": false
+   "expired": true
   },
   {
    "code": "aniimazingfroyo",
    "reward": "Glimmer ×20 (เฉพาะเซิร์ฟเวอร์ US)",
-   "expired": false
+   "expired": true
   },
   {
    "code": "aniimoparty",
