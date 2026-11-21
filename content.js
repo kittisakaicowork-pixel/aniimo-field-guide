@@ -3,6 +3,21 @@
    src tags: official = from an official announcement; community = gathered from player guides. */
 window.NEWS = [
   {
+    id: "patch-3887621", date: "2026-11-06", type: 'update', tag: 'official',
+    title: "แพตช์ 1.1.388.7: แก้ DLSS Frame Generation และดีบัฟของ Hexxin",
+    lede: "แก้อาการกระตุกบนโน้ตบุ๊ก และบั๊กสกิลหลายตัว",
+    source: "https://aniidex.com/patch-notes/aniimo-version-1-1-3887621-november-6-2026/",
+    sections: [
+      { h: "แก้บั๊ก", items: [
+        "DLSS Frame Generation ใช้ไม่ได้ และกระตุกบนโน้ตบุ๊กบางรุ่น",
+        "ดีบัฟจาก Spiral Blade ของ Tromber และ Oozing Malice/Malicious Outburst ของ Hexxin หายเอง",
+        "สกิล Rapids Dewdrop ของ Dewple คำนวณผิด",
+        "บินค้างกลางอากาศใน Operation: Egg Heist",
+        "ไม่ได้สกิลเสริมหลังทำสัญญากับ Held Item ของ Hoptail (ถอดแล้วใส่ใหม่เพื่อรับ)"
+      ]}
+    ]
+  },
+  {
     id: "patch-3880756", date: "2026-11-04", type: 'update', tag: 'official',
     title: "แพตช์ 1.1.388: ยกเลิกผูกบัญชี Steam/Epic ได้ และแก้บั๊ก 19 รายการ",
     lede: "แก้บั๊ก Egg Heist, Windchaser Stamp และคอนโซล พร้อมปรับระบบบัญชีและ Home",
