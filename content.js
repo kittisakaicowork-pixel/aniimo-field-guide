@@ -3,6 +3,25 @@
    src tags: official = from an official announcement; community = gathered from player guides. */
 window.NEWS = [
   {
+    id: "patch-3880756", date: "2026-11-04", type: 'update', tag: 'official',
+    title: "แพตช์ 1.1.388: ยกเลิกผูกบัญชี Steam/Epic ได้ และแก้บั๊ก 19 รายการ",
+    lede: "แก้บั๊ก Egg Heist, Windchaser Stamp และคอนโซล พร้อมปรับระบบบัญชีและ Home",
+    source: "https://aniidex.com/patch-notes/aniimo-version-1-1-3880756-november-4-2026/",
+    sections: [
+      { h: "ปรับปรุง", items: [
+        "ผู้เล่น Steam และ Epic Games ยกเลิกผูกบัญชีแพลตฟอร์มได้ที่ Settings > Account Settings",
+        "สิ่งก่อสร้างเลเวล 1 ใช้ Season Recipe ผลิตของได้แล้ว"
+      ]},
+      { h: "แก้บั๊กที่น่าสนใจ", items: [
+        "ลมใน Operation: Egg Heist ส่งผลกับ Giga-Egg ผิดปกติ",
+        "Stamp Rush ไม่ให้ Windchaser Stamp ทั้งที่ยังไม่ถึงลิมิตรายสัปดาห์",
+        "ความสำเร็จ Holo Training Ace ไม่ปลดล็อกหลังผ่านระดับยากสุด",
+        "Hydro Roll ของ Sherro ไม่สร้างแอ่งน้ำเมื่อถูกขัด",
+        "PS5 รับคำเชิญแล้วเข้าทีมไม่ได้ และอ่านเมลยาวด้วยจอยไม่ได้"
+      ]}
+    ]
+  },
+  {
     id: "update-1112", date: "2026-11-09", type: 'update', tag: 'official',
     title: "อัปเดต 12 พ.ย.: ระบบ Affinity, Aniimo Dash และอีเวนต์ Prismana Snapshots",
     lede: "ปิดปรับปรุง 12 พ.ย. 13:00–18:00 น. (เวลาไทย, เซิร์ฟ Europe) ชดเชย Glimmer ×500 ให้ผู้ที่สมัครก่อนอัปเดต",
