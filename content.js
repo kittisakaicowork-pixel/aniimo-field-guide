@@ -3,6 +3,25 @@
    src tags: official = from an official announcement; community = gathered from player guides. */
 window.NEWS = [
   {
+    id: "patch-3973445", date: "2026-11-18", type: 'update', tag: 'official',
+    title: "แพตช์ 1.1.397: รางวัล Egg Emperor และแก้คูลดาวน์ Ultimate",
+    lede: "แก้ปัญหาที่ค้างอยู่ใน Known Issues และเพิ่มรางวัลแรงก์ Operation: Egg Heist",
+    source: "https://aniidex.com/patch-notes/aniimo-version-1-1-3973445-november-18-2026/",
+    sections: [
+      { h: "ปรับปรุง", items: [
+        "ถึง Egg Emperor 200 ดาว รับ Departure with the Wind: Collectible Gift Box เลือกของสะสมได้ 1 ชิ้น",
+        "ร้าน Egg Heist ขาย Collectible Blind Box ให้ผู้ที่ถึง Egg Emperor (จำกัดต่อสัปดาห์)",
+        "Giga-Egg กระโดดได้น้อยลง และถูกตีแล้วกระเด็นเล็กน้อย"
+      ]},
+      { h: "แก้บั๊ก", items: [
+        "คูลดาวน์ Ultimate ที่แสดงนานกว่าจริง และเอฟเฟกต์สกิลของ Lunara หาย",
+        "โมเดล Prismana Hypnyto ผิด และ Smoke Bomb ใน Aniimo Dash แสดงผิด",
+        "Lightning Needle ทำลายเกราะคนอื่นผิดปกติในโหมด Fair Arena ของ Egg Heist",
+        "คำอธิบายเควสต์ Nurture ใน Companion Handbook ไม่ตรงกับความคืบหน้าจริง"
+      ]}
+    ]
+  },
+  {
     id: "patch-3887621", date: "2026-11-06", type: 'update', tag: 'official',
     title: "แพตช์ 1.1.388.7: แก้ DLSS Frame Generation และดีบัฟของ Hexxin",
     lede: "แก้อาการกระตุกบนโน้ตบุ๊ก และบั๊กสกิลหลายตัว",
